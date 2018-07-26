@@ -1,3 +1,4 @@
+
 # Generate Access tokens
 
 ## Server-to-Server access token
@@ -62,3 +63,46 @@
     name=your_company_name
     openssl genrsa -des3 -out ${name}_rsa2048_private.pem 2048
     openssl rsa -in ${name}_rsa2048_private.pem -outform PEM -pubout -out ${name}_rsa2048_public.pem
+
+## Example
+
+    const fs = require('fs');
+    const jwt = require('jsonwebtoken');
+    
+    const privateKey = fs.readFileSync(
+      `${__dirname}/your_company_name_rsa2048_private.pem`,
+    );
+    
+    const server_to_server_access_token = jwt.sign({}, privateKey, {
+      algorithm: 'RS256',
+      keyid: '52344262-36b4-47d5-b654-d893ee6a2ed1',
+      expiresIn: '1m',
+      issuer: 'urn:your_company_name',
+      audience: 'urn:fstk:engine',
+      subject: 'urn:fstk:engine:s2s_token',
+    });
+    
+    console.info(server_to_server_access_token);
+    
+---
+
+    const fs = require('fs');
+    const jwt = require('jsonwebtoken');
+    
+    const privateKey = fs.readFileSync(
+      `${__dirname}/your_company_name_rsa2048_private.pem`,
+    );
+    
+    // this is from import user api result
+    const base64JWTId = 'C8OTMX3Cj08Rw6jCjlpvbMKAw4fCnMOj';
+    const JWTId = Buffer.from(base64JWTId, 'base64').toString('utf-8');
+    const web_to_server_access_token = jwt.sign({ uid: JWTId }, privateKey, {
+      algorithm: 'RS256',
+      keyid: '52344262-36b4-47d5-b654-d893ee6a2ed1',
+      expiresIn: '7d',
+      issuer: 'urn:your_company_name',
+      audience: 'urn:fstk:engine',
+      subject: 'urn:fstk:engine:access_token',
+    });
+    
+    console.info(web_to_server_access_token);
