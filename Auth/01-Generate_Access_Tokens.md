@@ -12,7 +12,7 @@
     - **algo**
       - `RS256`
     - **iss**
-      - `urn:qonect`
+      - `urn:your_name`
     - **aud**
       - `urn:fstk:engine`
     - **sub**
@@ -37,7 +37,7 @@
     - **algo**
       - `RS256`
     - **iss**
-      - `urn:qonect`
+      - `urn:your_name`
     - **aud**
       - `urn:fstk:engine`
     - **sub**
@@ -53,12 +53,12 @@
 
       -  FsTK provided user's id (FsTK defined db id, after the importing end user)
 
- 7. Please provide the RSA public key of Qonect in advance, for FsTK to verify the JWT if it’s from Qonect.
+ 7. Please provide the RSA public key in advance, for FsTK to verify the JWT if it’s from you.
  8. Please call to FsTK API with the access token follows the rules above.
 
 ## How to generate RSA 2048 bits key pair
 
     # rsa 2048 bits
-    name=qonect
+    name=your_name
     openssl genrsa -des3 -out ${name}_rsa2048_private.pem 2048
     openssl rsa -in ${name}_rsa2048_private.pem -outform PEM -pubout -out ${name}_rsa2048_public.pem
