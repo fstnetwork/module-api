@@ -1,3 +1,4 @@
+
 # Import user
 
 ## Definition
@@ -38,6 +39,8 @@
            base64JWTId
          }
        }
+
+    The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
 - Response (for example)
 
