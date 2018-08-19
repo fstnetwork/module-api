@@ -20,10 +20,10 @@ The APIs to fetch and interact with Smart Tokens.
 
 The APIs to create and manage Token Campaigns.
 
-### appx Me
+### Appx. Me
 
 The API to fetch the end-user related data corresponding access_token.
 
-### appx SubmitSignedTransaction
+### Appx. SubmitSignedTransaction
 
 The utility API to help broadcasting the signed transaction, but only accepts the signed transactino from the FsTK tokenisation D-Platform.
