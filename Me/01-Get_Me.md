@@ -265,3 +265,5 @@ The value of `query` in the body is a `String`
   }
 }
 ```
+
+The `campaigns` is only showed if the end-user is an issuer, and the end-user has created at least one Campaign.

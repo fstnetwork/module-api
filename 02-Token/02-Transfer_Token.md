@@ -36,6 +36,7 @@
 ```
 
 The value of `query` in the body is a `String`.  
+
 The `clientMutationId` in `variables` is the end-user's (requester) `id`.  
 The `id` in `variables` is the Token `id`.  
 The `to` in `variables` is the Token recevier's address.  
