@@ -19,3 +19,7 @@ The APIs to fetch and interact with Smart Tokens.
 ### Token Campaign
 
 The APIs to create and manage Token Campaigns.
+
+### Me
+
+The API to fetch the end-user related data corresponding access_token.
