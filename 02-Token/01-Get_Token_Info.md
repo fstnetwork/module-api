@@ -133,8 +133,8 @@
 ```
 
 The value of `query` in the body is a `String`.  
-The value of `first: 3` can be set in every request.  
-The `node(id: "VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7")` part is to assign the id of the Token.
+The number of `first: 3` can be set in every request, and it represents the number of responsed items. 
+The `node(id: "VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7")` part is for assigning the `id` of the Token.
 
 - Response (for example)
 
