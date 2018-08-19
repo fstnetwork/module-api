@@ -16,9 +16,15 @@ The APIs to fetch transaction histories in the FsTK tokenisation D-Platform.
 
 The APIs to fetch and interact with Smart Tokens.
 
-### 3. Token Campaign
+### 3. Token Campaign (doc WIP)
 
 The APIs to create and manage Token Campaigns.
+
+### 4. Voucher (doc WIP)
+
+### 5. Voucher Campaign (doc WIP)
+
+### 6. Airdrop (doc WIP)
 
 ### Appx. Me
 
