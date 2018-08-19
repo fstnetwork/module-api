@@ -3,23 +3,27 @@ This repository contains the latest APIs of FST.Network modules
 
 ## Index
 
-### Auth
+### 0. Auth
 
 The initial steps to connect to FsTK APIs.  
 **PLEASE READ THIS SECTION FIRST**.
 
-### History
+### 1. History
 
 The APIs to fetch transaction histories in the FsTK tokenisation D-Platform.
 
-### Token
+### 2. Token
 
 The APIs to fetch and interact with Smart Tokens.
 
-### Token Campaign
+### 3. Token Campaign
 
 The APIs to create and manage Token Campaigns.
 
-### Me
+### appx Me
 
 The API to fetch the end-user related data corresponding access_token.
+
+### appx SubmitSignedTransaction
+
+The utility API to help broadcasting the signed transaction, but only accepts the signed transactino from the FsTK tokenisation D-Platform.
