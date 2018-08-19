@@ -233,7 +233,7 @@ The value of `query` in the body is a `String`
                 "website": "https://www.fstk.io",
                 "logo": {
                   "ipfs": "zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default",
-                  "url": "//dev.fstk.io/file/zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default"
+                  "url": "//test.fstk.io/file/zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default"
                 }
               },
               "value": "271201000000000000000800"
