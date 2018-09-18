@@ -17,7 +17,7 @@
 
 ```
 { 
-  query: """
+  query: `
     fragment voucherInfo on Voucher {
       id
       contractAddress
@@ -128,7 +128,7 @@
         ...tokenInfo
       }
     }
-  """
+  `
 }
 ```
 

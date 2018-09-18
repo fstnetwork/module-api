@@ -17,7 +17,7 @@
 
 ```
 { 
-  query: """{
+  query: `{
     ValueTransactionHistory (accountAddress: "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed", pagingPagesize: 10, pagingPageNumber: 1) {
       txhash
       from
@@ -26,7 +26,7 @@
       symbol
       created_time
     }
-  }"""
+  }`
 }
 ```
 

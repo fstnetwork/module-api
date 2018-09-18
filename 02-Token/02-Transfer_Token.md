@@ -17,7 +17,7 @@
 
 ```
 {
-  query: """
+  query: `
     mutation erc20Transfer($input: ERC20TransferInput!) {
       erc20Transfer(input: $input) {
         pendingTransactions
@@ -25,7 +25,7 @@
         submitToken
       }
     }
-  """,
+  `,
   variables: {
     clientMutationId: "VXNlckluZm86w6bCiHPCnRPDohHDqMKCwqBje0x0w6nCsA==",
     id: "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
