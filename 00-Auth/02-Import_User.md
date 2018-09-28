@@ -58,4 +58,4 @@
           }
         }
 
-    The `id` in this `importUser` result is the `uid` required in generating access token for web access.
+    The `base64JWTId` in this `importUser` result is the `uid` required in generating access token for web access.
