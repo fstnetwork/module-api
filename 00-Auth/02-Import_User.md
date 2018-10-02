@@ -16,7 +16,7 @@
 - Body (for example)
 
        { 
-          mutation: `{
+          query: `mutation {
             importUser(input: {email: "testing@fstk.io", firstName: "James", lastName: "Bond", ethereumKey: { version: 3,
             id: "ca79c08c-5c07-437d-96a4-ee718a8be813",
             address: "a0814f93d51868198b01a81c51defd649be525fb",
