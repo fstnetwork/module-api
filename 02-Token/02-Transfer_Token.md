@@ -27,10 +27,12 @@
     }
   `,
   variables: {
-    clientMutationId: "VXNlckluZm86w6bCiHPCnRPDohHDqMKCwqBje0x0w6nCsA==",
-    id: "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
-    to: "0x829BD824B016326A401d083B33D092293333A830",
-    value: "1123456789123456789"
+    input: {
+      clientMutationId: "VXNlckluZm86w6bCiHPCnRPDohHDqMKCwqBje0x0w6nCsA==",
+      id: "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
+      to: "0x829BD824B016326A401d083B33D092293333A830",
+      value: "1123456789123456789"
+    }
   }
 }
 ```
