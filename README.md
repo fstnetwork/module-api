@@ -29,6 +29,8 @@ The APIs to create and manage Token Campaigns.
 
 ### 6. Airdrop (doc WIP)
 
+### 7. ERC-721 Voucher
+
 ### Appx. Me
 
 The API to fetch the end-user related data corresponding access_token.
