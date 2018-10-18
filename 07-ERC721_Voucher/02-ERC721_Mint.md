@@ -77,19 +77,6 @@ Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiO
          },
          "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoiZXJjNzIxTWludCIsImRhdGEiOiIwL3lZWkFBQUFBQUFBQUFBQUFBQUFNdHB1Vjl5MGJIemM5bFcyVjhoWkpLbjZpYklBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFIL1F3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFZQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWFRtOGdVR1ZwTENCT2J5QkdkVzVrWlhKelZHOXJaVzRBQUFBQUFBQUFBQUE9IiwiaWF0IjoxNTM4NzE5MTQyLCJleHAiOjE1Mzg3MTk3NDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.vQBHZpLkkiq3VvdAHVlAsfcEvuuVwgtY3cxx4iaqowrtSTPmmnAn2UL5S9ME7w7WjPta0zG95maGMcJbxZ5Vyg"
       }
-   },
-   "extensions":{  
-      "cacheControl":{  
-         "version":1,
-         "hints":[  
-            {  
-               "path":[  
-                  "erc721Mint"
-               ],
-               "maxAge":0
-            }
-         ]
-      }
    }
 }
 ```

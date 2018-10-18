@@ -1,24 +1,11 @@
 
 # Fetch transaction histories
 
-## Definition
-
- - Endpoint
-   - For development: `https://test.fstk.io/api`
-   - For production: `https://engine.fstk.io/api`
-- HTTP Method
-  - `POST`
-- Content type in header
-  - `application/json; charset=utf-8`
-- Authorization in header
-  - `Bearer [JWT Server-to-Server access token or JWT Web-to-Server access token]`
-  - (for example) `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTUzMjYwNTMxOCwiZXhwIjoxNTMyNjkxNzE4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.TBwaCVLn77M70wR2fv86ADssg8F5aqsMPklGSnerl9H0qUIAmJWQZYzBYRbXsHisoXTq4pu4n2hBMIXExOy23A`
-- Body (for example)
-
-```
-{ 
-  query: `{
-    ValueTransactionHistory (accountAddress: "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed", pagingPagesize: 10, pagingPageNumber: 1) {
+## GraphQL API
+- Query String
+  ```
+  query fetchHistory($accountAddress: String, $pagingPagesize: Int!, pagingPageNumber: Int!){
+    ValueTransactionHistory(accountAddress: $accountAddress, pagingPagesize: $pagingPagesize, pagingPageNumber: $pagingPageNumber) {
       txhash
       from
       to
@@ -26,14 +13,52 @@
       symbol
       created_time
     }
-  }`
-}
-```
+  }
+  ```
 
-The value of `query` in the body is a `String`
 
-- Response (for example)
+- Query Variables
+  ```
+  {
+    "accountAddress": "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
+    "pagingPagesize": "10",
+    "pagingPageNumber": "1"
+  }
+  ```
 
+- HTTP Headers
+  ```
+  {
+    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+  }
+  ```
+
+## HTTP Request
+- URL
+  - For development: `http://test.fstk.io/api`
+  - For production: `https://engine.fstk.io/api`
+- Method: `POST`
+- Headers
+  - accept: `application/json;`
+  - content-type: `application/json;`
+  - authorization: `Bearer [JWT Server-to-Server access token or JWT Web-to-Server access token]`
+    - (for example)
+      ```
+      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g      ```
+- Body
+  ```
+  {  
+    "variables":{  
+      "accountAddress":"0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
+      "pagingPagesize":10,
+      "pagingPageNumber":1
+    },
+    "query":"fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    url\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/\") {\n    ...tokenInfo\n  }\n}\n\nquery fetchHistory($accountAddress: String, $pagingPagesize: Int!, $pagingPageNumber: Int!) {\n  ValueTransactionHistory(accountAddress: $accountAddress, pagingPagesize: $pagingPagesize, pagingPageNumber: $pagingPageNumber) {\n    txhash\n    from\n    to\n    value\n    symbol\n    created_time\n  }\n}\n"
+  }
+  ```
+  The value of `query` in the body is a `String`
+
+## HTTP Response
 ```
 {
   "data": {
@@ -122,3 +147,6 @@ The value of `query` in the body is a `String`
   }
 }
 ```
+
+\
+

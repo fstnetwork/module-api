@@ -4,101 +4,99 @@
 ## GraphQL API
 
 - Query String
-```
-query($address: String!) {
-  voucher721Balance(address: $address) {
-    edges {
-      node {
-        voucher {
-          id
-          token {
+  ```
+  query($address: String!) {
+    voucher721Balance(address: $address) {
+      edges {
+        node {
+          voucher {
             id
+            token {
+              id
+              name
+            }
+            contractAddress
+            transactionHash
             name
-          }
-          contractAddress
-          transactionHash
-          name
-          description
-          symbol
-          decimals
-          hardCap
-          proofOfContract {
-            ipfs
-          }
-          liquid
-          approveChecking
-          price {
-            numerator
-            denominator
-          }
-          availableAmount
-          vendible
-          expiry
-          consumable
-          createdTime
-          transfers {
-            edges {
-              node {
-                to
-                from
-                voucherId
-                transaction
-                timestamp
-              }
+            description
+            symbol
+            decimals
+            hardCap
+            proofOfContract {
+              ipfs
             }
-            totalCount
-          }
-          nfts {
-            edges {
-              node {
-                id
-                nftId
-                ownerAddress
-                contractAddress
-                metadata
-              }
+            liquid
+            approveChecking
+            price {
+              numerator
+              denominator
             }
-            totalCount
-          }
-          holders {
-            edges {
-              node {
-                address
-                balance
-                nfts {
-                  edges {
-                    node {
-                      nftId
-                    }
-                  }
-                  totalCount
+            availableAmount
+            vendible
+            expiry
+            consumable
+            createdTime
+            transfers {
+              edges {
+                node {
+                  to
+                  from
+                  voucherId
+                  transaction
+                  timestamp
                 }
               }
+              totalCount
             }
-            totalCount
+            nfts {
+              edges {
+                node {
+                  id
+                  nftId
+                  ownerAddress
+                  contractAddress
+                  metadata
+                }
+              }
+              totalCount
+            }
+            holders {
+              edges {
+                node {
+                  address
+                  balance
+                  nfts {
+                    edges {
+                      node {
+                        nftId
+                      }
+                    }
+                    totalCount
+                  }
+                }
+              }
+              totalCount
+            }
           }
+          value
         }
-        value
       }
     }
   }
-}
-
-
-```
+  ```
 - Query Variables
 
-```
-{
-  "address": "0xa818e5f90ac4de5a15915266822d931050135cf3"
-}
-```
+  ```
+  {
+    "address": "0xa818e5f90ac4de5a15915266822d931050135cf3"
+  }
+  ```
 - HTTP Headers 
-```
-{
-  "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
-}
-```
+  ```
+  {
+    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+  }
+  ```
 ## HTTP Request
 
 - URL
@@ -109,19 +107,19 @@ query($address: String!) {
   - accept: `application/json`
   - content-type: `application/json` 
   - authorization
-```
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
-```
+    ```
+    Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+    ```
 
 - Body
-``` 
-{  
-   "query":"query ($address: String!) {\n  voucher721Balance(address: $address) {\n    edges {\n      node {\n        voucher {\n          id\n          token {\n            id\n            name\n          }\n          contractAddress\n          transactionHash\n          name\n          description\n          symbol\n          decimals\n          hardCap\n          proofOfContract {\n            ipfs\n          }\n          liquid\n          approveChecking\n          price {\n            numerator\n            denominator\n          }\n          availableAmount\n          vendible\n          expiry\n          consumable\n          createdTime\n          transfers {\n            edges {\n              node {\n                to\n                from\n                voucherId\n                transaction\n                timestamp\n              }\n            }\n            totalCount\n          }\n          nfts {\n            edges {\n              node {\n                id\n                nftId\n                ownerAddress\n                contractAddress\n                metadata\n              }\n            }\n            totalCount\n          }\n          holders {\n            edges {\n              node {\n                address\n                balance\n                nfts {\n                  edges {\n                    node {\n                      nftId\n                    }\n                  }\n                  totalCount\n                }\n              }\n            }\n            totalCount\n          }\n        }\n        value\n      }\n    }\n  }\n}\n",
-   "variables":{  
-      "address":"0xa818e5f90ac4de5a15915266822d931050135cf3"
-   }
-}
-```
+  ``` 
+  {  
+    "query": "query ($address: String!) {\n  voucher721Balance(address: $address) {\n    edges {\n      node {\n        voucher {\n          id\n          token {\n            id\n            name\n          }\n          contractAddress\n          transactionHash\n          name\n          description\n          symbol\n          decimals\n          hardCap\n          proofOfContract {\n            ipfs\n          }\n          liquid\n          approveChecking\n          price {\n            numerator\n            denominator\n          }\n          availableAmount\n          vendible\n          expiry\n          consumable\n          createdTime\n          transfers {\n            edges {\n              node {\n                to\n                from\n                voucherId\n                transaction\n                timestamp\n              }\n            }\n            totalCount\n          }\n          nfts {\n            edges {\n              node {\n                id\n                nftId\n                ownerAddress\n                contractAddress\n                metadata\n              }\n            }\n            totalCount\n          }\n          holders {\n            edges {\n              node {\n                address\n                balance\n                nfts {\n                  edges {\n                    node {\n                      nftId\n                    }\n                  }\n                  totalCount\n                }\n              }\n            }\n            totalCount\n          }\n        }\n        value\n      }\n    }\n  }\n}\n",
+    "variables":{  
+        "address":"0xa818e5f90ac4de5a15915266822d931050135cf3"
+    }
+  }
+  ```
 
 ## HTTP Response
 ```

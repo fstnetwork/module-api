@@ -17,18 +17,18 @@ mutation publishVoucher721($input: PublishVoucher721Input!) {
 
 ```
 {  
-   "input":{  
-      "name":"Test",
-      "symbol":"SAINT_TEST",
-      "consumable":true,
-      "totalSupply":"1000",
-      "price":{  
+   "input": {  
+      "name": "Test",
+      "symbol": "SAINT_TEST",
+      "consumable": true,
+      "totalSupply": "1000",
+      "price": {  
          "numerator":"100000000000000000000",
          "denominator":"1"
       },
-      "expiry":"1546271999000",
-      "description":"this is test voucher",
-      "proofOfContract":null
+      "expiry": "1546271999000",
+      "description": "this is test voucher",
+      "proofOfContract": null
    }
 }
 ```
@@ -91,72 +91,6 @@ Content-Type: application/pdf
          },
          "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoicHVibGlzaFZvdWNoZXIiLCJkYXRhIjoiVUdtTHRBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUZBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFZQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFENkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSEFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRndxUFA4QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUUFBQUFBQUFBQUFBQUFBQUxwNEdmaDBXd3NXUk83NnBLU1E0Mlo5ZDlwQ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFGYThkZUxXTVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFRQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUlVaWE4wQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUxVMEZKVGxReVgxUkZVMVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFZeTlwY0daekwzcENkWEpMT0VORWMxVnRVbEpOZFdwVVFWWXhZMVYyZW1KWVFURnFZall5V2tKblJtSm5ibkZLWVZjM1VVRnRaRTQxUmxaU2JWaEJNbVJ2UlhkM04wNTRkbFJITWxCNWN6RjNZelZ6VVZKTFRuaEhjVlZHTlZaSWVFWjVad0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBIiwiaW5mbyI6eyJ0b2tlbklkIjoiwoDDssO6wrLCu1x1MDAxMVx1MDAxMcOowqd8wqsqZsKewo7DvyIsIm5hbWUiOnsiZW4iOiJUZXN0In0sInN5bWJvbCI6IlNBSU5UMl9URVNUIiwidG90YWxTdXBwbHkiOiIxMDAwIiwibWV0YWRhdGEiOiJBYlVmZUJBbHkvTkxsV0N6NmFoenRROXZqZStvSE5yVHFaSHZKM0s1eTd1WE5reUd4akR3ZmFwdnFzL05CY2YyR1lkOUI3MEIwUFl4R2RLeWoyczJ4L0hrOER6biIsImxpcXVpZCI6dHJ1ZSwiYXBwcm92ZUNoZWNraW5nIjpmYWxzZSwiZXhwaXJ5IjoxNTQ2MjcxOTk5MDAwLCJjb25zdW1hYmxlIjp0cnVlLCJwcmljZSI6eyJudW1lcmF0b3IiOiIxMDAwMDAwMDAwMDAwMDAwMDAwMDAiLCJkZW5vbWluYXRvciI6IjEifSwidmVuZGlibGUiOnRydWUsImRlc2NyaXB0aW9uIjp7ImVuIjoidGhpcyBpcyB0ZXN0IHZvdWNoZXIifX0sImlhdCI6MTUzODcwOTc3NiwiZXhwIjoxNTM4NzEwMzc2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.azbN3MrIeEZWNy0jYmRmBb9KEudj8QKtg9RbY4hoX8mkfGsRn3qBIJURQLAliohchP6Xj0p7uw8mG5UE9MtQpg",
          "pendingTransactions":"0"
-      }
-   },
-   "extensions":{
-      "tracing":{
-         "version":1,
-         "startTime":"2018-10-05T03:22:55.737Z",
-         "endTime":"2018-10-05T03:22:56.578Z",
-         "duration":841886358,
-         "execution":{
-            "resolvers":[
-               {
-                  "path":[
-                     "publishVoucher721"
-                  ],
-                  "parentType":"Mutation",
-                  "fieldName":"publishVoucher721",
-                  "returnType":"publishVoucher721Payload",
-                  "startOffset":1436802,
-                  "duration":840383182
-               },
-               {
-                  "path":[
-                     "publishVoucher721",
-                     "transaction"
-                  ],
-                  "parentType":"publishVoucher721Payload",
-                  "fieldName":"transaction",
-                  "returnType":"JSON!",
-                  "startOffset":841847404,
-                  "duration":9306
-               },
-               {
-                  "path":[
-                     "publishVoucher721",
-                     "submitToken"
-                  ],
-                  "parentType":"publishVoucher721Payload",
-                  "fieldName":"submitToken",
-                  "returnType":"String!",
-                  "startOffset":841861798,
-                  "duration":1890
-               },
-               {
-                  "path":[
-                     "publishVoucher721",
-                     "pendingTransactions"
-                  ],
-                  "parentType":"publishVoucher721Payload",
-                  "fieldName":"pendingTransactions",
-                  "returnType":"String!",
-                  "startOffset":841866770,
-                  "duration":2932
-               }
-            ]
-         }
-      },
-      "cacheControl":{
-         "version":1,
-         "hints":[
-            {
-               "path":[
-                  "publishVoucher721"
-               ],
-               "maxAge":0
-            }
-         ]
       }
    }
 }

@@ -1,61 +1,120 @@
 
 # Import user
 
-## Definition
+## GraphQL API
 
- - Endpoint
-   - For development: `https://test.fstk.io/api`
-   - For production: `https://engine.fstk.io/api`
-- HTTP Method
-  - `POST`
-- Content type in header
-  - `application/json; charset=utf-8`
-- Authorization in header
-  - `Bearer [JWT Server-to-Server access token]`
-  - (for example) `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTUzMjYwNTMxOCwiZXhwIjoxNTMyNjkxNzE4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.TBwaCVLn77M70wR2fv86ADssg8F5aqsMPklGSnerl9H0qUIAmJWQZYzBYRbXsHisoXTq4pu4n2hBMIXExOy23A`
+- Query String
+  ```
+  mutation importUser($input: ImportUserInput!){
+    importUser(input: $input) {
+      id
+      JWTId
+      base64JWTId
+    }
+  }
+  ```
+- Query Variables
+  ```
+  {
+    "input": {
+      "email": "testing2@fstk.io",
+      "firstName": "Testing",
+      "lastName": "2",
+      "ethereumKey": {
+        "address": "0x12347cb0c4d400c65095c9ddefc6084bbec21e76",
+        "crypto": {
+          "kdf": "pbkdf2",
+          "kdfparams": {
+            "c": 262144,
+            "dklen": 32,
+            "prf": "hmac-sha256",
+            "salt": "710f8facc94fa7543c95951dbe0539412d766603cf0de66accb952b95825d7f1"
+          },
+          "cipher": "aes-128-ctr",
+          "ciphertext": "19432eb7fef101ad4235c73420c36295bb16bf288227036e8821b86ec0249775",
+          "cipherparams": {
+            "iv": "ab462eea30c3c80bac2d255f58ae1710"
+          },
+          "mac": "a1b1401feb3bea34bd4638d82c7dfbf0a3ae35a162756f32c7452b50d2e060c4"
+        },
+        "id": "92304227-a393-4a22-8ef8-041c3740aa01",
+        "version": 3
+      }
+    }
+  }
+  ```
+
+- HTTP Header
+  ```
+  {
+    "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjdiZWM2YWExLWE0ZTEtNGU1Zi04ZTc0LTAxZThjYmNkZDFjMSJ9.eyJpYXQiOjE1Mzk4NDU5NzEsImV4cCI6MTUzOTg0NjAzMSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmplaSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzMnNfdG9rZW4ifQ.FZ2qeOHRFA2qJaqFf7ZFl8EpJi35XAdYuBHSlQHxdbKTWr2tUW9eaT-Y7zrRbdnVMrGTxQnK8xFuPQuPX37sAxclJbvMakVqqkQOX9N-pkuB0_p8VK319kbGmd-CYV05rw-eo-T6At5T0pV0IaZHntMCTCPt1n9bipndn4eDLwW8ohGjd4WKVXothJ7HLkkH4ujOHUXTCSxvj5aiFhQCznep59k6te-uRLX2tau7unkP_ahoD7w8j838FNUaHylfiNIliDEBhLvn4CPx9GwTtEYrqx6YAmZQONOTsOnUp8sDuDecvJ8dLEqrnQeyF2CiVznDwhHX19nDibiOsFd34A"
+  }
+  ```
+
+## HTTP Request
+- URL
+  - For development: `https://test.fstk.io/api`
+  - For production: `https://engine.fstk.io/api`
+- Method: `POST`
+- Headers
+  - accept: `application/json`
+  - content-type: `application/json` 
+  - authorization (for example)
+    ```
+    Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjdiZWM2YWExLWE0ZTEtNGU1Zi04ZTc0LTAxZThjYmNkZDFjMSJ9.eyJpYXQiOjE1Mzk4NDU5NzEsImV4cCI6MTUzOTg0NjAzMSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmplaSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzMnNfdG9rZW4ifQ.FZ2qeOHRFA2qJaqFf7ZFl8EpJi35XAdYuBHSlQHxdbKTWr2tUW9eaT-Y7zrRbdnVMrGTxQnK8xFuPQuPX37sAxclJbvMakVqqkQOX9N-pkuB0_p8VK319kbGmd-CYV05rw-eo-T6At5T0pV0IaZHntMCTCPt1n9bipndn4eDLwW8ohGjd4WKVXothJ7HLkkH4ujOHUXTCSxvj5aiFhQCznep59k6te-uRLX2tau7unkP_ahoD7w8j838FNUaHylfiNIliDEBhLvn4CPx9GwTtEYrqx6YAmZQONOTsOnUp8sDuDecvJ8dLEqrnQeyF2CiVznDwhHX19nDibiOsFd34A
+    ```
 - Body (for example)
-
-       { 
-          query: `mutation {
-            importUser(input: {email: "testing@fstk.io", firstName: "James", lastName: "Bond", ethereumKey: { version: 3,
-            id: "ca79c08c-5c07-437d-96a4-ee718a8be813",
-            address: "a0814f93d51868198b01a81c51defd649be525fb",
-            crypto:
-             { ciphertext:
-                "ce5c241f741b84f090c3f54a5f7dafa0c2de345af74a147b01e9ff12d0b8b9e6",
-               cipherparams: { iv: "01a937e2c033c8540a35587b119ce4f3" },
-               cipher: "aes-128-ctr",
-               kdf: "scrypt",
-               kdfparams:
-                { dklen: 32,
-                  salt:
-                   "9b668da702536f3adfa9c6c72170baee0c35c234e356a7a571e64abdcc9cebe2",
-                  n: 8192,
-                  r: 8,
-                  p: 1 },
-               mac:
-                "bda9e55ddd3c51dc0b884c7b1fbaf05b3a84b1337be0428ef7b6e4d005e0929e" } }}) {
-              id
-              JWTId
-              base64JWTId
-            }
-          }`
+  ```
+  {
+    "variables": {
+      "input": {
+        "email": "testing2@fstk.io",
+        "firstName": "Testing",
+        "lastName": "2",
+        "ethereumKey": {
+          "address": "0x12347cb0c4d400c65095c9ddefc6084bbec21e76",
+          "crypto": {
+            "kdf": "pbkdf2",
+            "kdfparams": {
+              "c": 262144,
+              "dklen": 32,
+              "prf": "hmac-sha256",
+              "salt": "710f8facc94fa7543c95951dbe0539412d766603cf0de66accb952b95825d7f1"
+            },
+            "cipher": "aes-128-ctr",
+            "ciphertext": "19432eb7fef101ad4235c73420c36295bb16bf288227036e8821b86ec0249775",
+            "cipherparams": {
+              "iv": "ab462eea30c3c80bac2d255f58ae1710"
+            },
+            "mac": "a1b1401feb3bea34bd4638d82c7dfbf0a3ae35a162756f32c7452b50d2e060c4"
+          },
+          "id": "92304227-a393-4a22-8ef8-041c3740aa01",
+          "version": 3
         }
+      }
+    },
+    "query": "mutation importUser($input: ImportUserInput!) {\n  importUser(input: $input) {\n    id\n    JWTId\n    base64JWTId\n  }\n}\n"
+  }
+  ```
+  The value of `mutation` in the body is a `String`
+  The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
-    The value of `mutation` in the body is a `String`
 
-    The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
-- Response (for example)
+## HTTP Response
+```
+{
+  "data": {
+    "importUser": {
+      "id": "VXNlckluZm86acKOYT3DksKjEcOowqfCgMOnTMKBTMKpwrE=",
+      "JWTId": "ia=Ò£\u0011è§çLL©±",
+      "base64JWTId": "acKOYT3DksKjEcOowqfCgMOnTMKBTMKpwrE="
+    }
+  }
+}
+```
+The `base64JWTId` in this `importUser` result is the `uid` required in generating access token for web access.
 
-        {
-          "data": {
-            "importUser": {
-              "id": "VXNlckluZm86C8OTMX3Cj08Rw6jCjlpvbMKAw4fCnMOj",
-              "JWTId": "\u000bÓ1}O\u0011èZolÇã",
-              "base64JWTId": "C8OTMX3Cj08Rw6jCjlpvbMKAw4fCnMOj"
-            }
-          }
-        }
 
-    The `base64JWTId` in this `importUser` result is the `uid` required in generating access token for web access.
+
+    
