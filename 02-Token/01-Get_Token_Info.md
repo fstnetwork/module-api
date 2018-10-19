@@ -1,7 +1,7 @@
 
 # Get Token Info
 
-## GraphQL API
+## GraphQL API
 
 - Query String
   ```
@@ -146,9 +146,9 @@
       Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g      ```
 - Body
   ```
-  {  
-   "query": "fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    url\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7/\") {\n    ...tokenInfo\n  }\n}\n\nquery mytoken {\n  me {\n    token {\n      id\n    }\n  }\n}\n"
-}
+  {
+    "query": "fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    url\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7/\") {\n    ...tokenInfo\n  }\n}\n\nquery mytoken {\n  me {\n    token {\n      id\n    }\n  }\n}\n"
+  }
   ```
 
 
