@@ -43,6 +43,7 @@
     }
   }
   ```
+  The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
 - HTTP Header
   ```
@@ -97,6 +98,7 @@
   }
   ```
   The value of `mutation` in the body is a `String`
+  
   The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
 

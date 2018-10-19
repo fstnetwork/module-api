@@ -4,33 +4,33 @@
 ## GraphQL API
 
 - Query String
-```
-mutation($input: ERC721MintInput!){
-  erc721Mint(input: $input){
-    pendingTransactions
-    transaction
-    submitToken
+  ```
+  mutation($input: ERC721MintInput!){
+    erc721Mint(input: $input){
+      pendingTransactions
+      transaction
+      submitToken
+    }
   }
-}
-```
+  ```
 - Query Variables
 
-```
-{
-  "input":{
-    "contractAddress" : "0xa818e5f90ac4de5a15915266822d931050135cf3",
-    "to" : "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
-    "voucherId": "101",
-    "metadata": "this is voucher metadata"
+  ```
+  {
+    "input":{
+      "contractAddress" : "0xa818e5f90ac4de5a15915266822d931050135cf3",
+      "to" : "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+      "voucherId": "101",
+      "metadata": "this is voucher metadata"
+    }
   }
-}
-```
+  ```
 - HTTP Headers 
-```
-{
-  "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
-}
-```
+  ```
+  {
+    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+  }
+  ```
 ## HTTP Request
 
 - URL
@@ -41,24 +41,24 @@ mutation($input: ERC721MintInput!){
   - accept: `application/json`
   - content-type: `application/json` 
   - authorization
-```
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
-```
+    ```
+    Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+    ```
 
 - Body
-``` 
-{  
-   "query":"\n    mutation($input: ERC721MintInput!) {\n      erc721Mint(input: $input) {\n        pendingTransactions\n        transaction\n        submitToken\n      }\n    }\n    ",
-   "variables":{  
-      "input":{  
-         "contractAddress":"0xa818e5f90ac4de5a15915266822d931050135cf3",
-         "to":"0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
-         "voucherId":"101",
-         "metadata":"this is voucher metadata"
-      }
-   }
-}
-```
+  ``` 
+  {  
+    "query":"\n    mutation($input: ERC721MintInput!) {\n      erc721Mint(input: $input) {\n        pendingTransactions\n        transaction\n        submitToken\n      }\n    }\n    ",
+    "variables":{  
+        "input":{  
+          "contractAddress":"0xa818e5f90ac4de5a15915266822d931050135cf3",
+          "to":"0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+          "voucherId":"101",
+          "metadata":"this is voucher metadata"
+        }
+    }
+  }
+  ```
 
 ## HTTP Response
 ```

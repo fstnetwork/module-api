@@ -1,5 +1,5 @@
 
-# Fetch transaction histories
+# Fetch Transaction Histories
 
 ## GraphQL API
 - Query String

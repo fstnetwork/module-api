@@ -4,40 +4,40 @@
 ## GraphQL API
 
 - Query String
-```
-mutation publishVoucher721($input: PublishVoucher721Input!) {
-  publishVoucher721(input: $input) {
-    transaction
-    submitToken
-    pendingTransactions
+  ```
+  mutation publishVoucher721($input: PublishVoucher721Input!) {
+    publishVoucher721(input: $input) {
+      transaction
+      submitToken
+      pendingTransactions
+    }
   }
-}
-```
+  ```
 - Query Variables
 
-```
-{  
-   "input": {  
-      "name": "Test",
-      "symbol": "SAINT_TEST",
-      "consumable": true,
-      "totalSupply": "1000",
-      "price": {  
-         "numerator":"100000000000000000000",
-         "denominator":"1"
-      },
-      "expiry": "1546271999000",
-      "description": "this is test voucher",
-      "proofOfContract": null
-   }
-}
-```
+  ```
+  {  
+    "input": {  
+        "name": "Test",
+        "symbol": "SAINT_TEST",
+        "consumable": true,
+        "totalSupply": "1000",
+        "price": {  
+          "numerator":"100000000000000000000",
+          "denominator":"1"
+        },
+        "expiry": "1546271999000",
+        "description": "this is test voucher",
+        "proofOfContract": null
+    }
+  }
+  ```
 - HTTP Headers 
-```
-{
-  "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
-}
-```
+  ```
+  {
+    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+  }
+  ```
 ## HTTP Request
 
 - URL
@@ -50,30 +50,30 @@ mutation publishVoucher721($input: PublishVoucher721Input!) {
   - accept: `application/json`
   - content-type: `multipart/form-data; boundary=----WebKitFormBoundaryAf6uaPII9ots7k9B` 
   - authorization
-```
-Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
-```
+    ```
+    Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+    ```
 
 - Body
-``` 
+  ``` 
 
-------WebKitFormBoundaryAf6uaPII9ots7k9B
-Content-Disposition: form-data; name="operations"
+  ------WebKitFormBoundaryAf6uaPII9ots7k9B
+  Content-Disposition: form-data; name="operations"
 
-{"query":"mutation publishVoucher721($input: PublishVoucher721Input!) {\n             publishVoucher721(input: $input) {\n               transaction\n               submitToken\n               pendingTransactions\n             }\n           }","variables":{"input":{"name":"Test","symbol":"SAINT_TEST","consumable":true,"hardCap":"1000","price":{"numerator":"100000000000000000000","denominator":"1"},"expiry":"1546271999000","description":"this is test voucher","proofOfContract":null}}}
-------WebKitFormBoundaryAf6uaPII9ots7k9B
-Content-Disposition: form-data; name="map"
+  {"query":"mutation publishVoucher721($input: PublishVoucher721Input!) {\n             publishVoucher721(input: $input) {\n               transaction\n               submitToken\n               pendingTransactions\n             }\n           }","variables":{"input":{"name":"Test","symbol":"SAINT_TEST","consumable":true,"hardCap":"1000","price":{"numerator":"100000000000000000000","denominator":"1"},"expiry":"1546271999000","description":"this is test voucher","proofOfContract":null}}}
+  ------WebKitFormBoundaryAf6uaPII9ots7k9B
+  Content-Disposition: form-data; name="map"
 
-{"proofOfContract":["variables.input.proofOfContract"]}
-------WebKitFormBoundaryAf6uaPII9ots7k9B
-Content-Disposition: form-data; name="proofOfContract"; filename="proof_of_contract.pdf"
-Content-Type: application/pdf
-
-
-------WebKitFormBoundaryAf6uaPII9ots7k9B--
+  {"proofOfContract":["variables.input.proofOfContract"]}
+  ------WebKitFormBoundaryAf6uaPII9ots7k9B
+  Content-Disposition: form-data; name="proofOfContract"; filename="proof_of_contract.pdf"
+  Content-Type: application/pdf
 
 
-```
+  ------WebKitFormBoundaryAf6uaPII9ots7k9B--
+
+
+  ```
 
 ## HTTP Response
 ```
