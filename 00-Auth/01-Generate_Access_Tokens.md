@@ -1,7 +1,7 @@
 
-# Generate Access tokens
+# Generate Access Tokens
 
-## Server-to-Server access token
+## Server-to-Server Access Token
 
 ### Spec
 
@@ -26,7 +26,7 @@
  5. Please provide the RSA public key in advance, for FsTK to verify the JWT if it’s signed by the autority of your company.
  6. Please call to FsTK API with the access token follows the rules above.
 
-## Web-to-Server access token
+## Web-to-Server Access Token
 
 ### Spec
 
