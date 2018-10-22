@@ -113,7 +113,7 @@
       "base64JWTId": "acKOYT3DksKjEcOowqfCgMOnTMKBTMKpwrE="
     }
   }
-}
+}
 ```
 The `base64JWTId` in this `importUser` result is the `uid` required in generating access token for web access.
 
