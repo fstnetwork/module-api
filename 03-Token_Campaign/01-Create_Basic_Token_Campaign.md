@@ -87,12 +87,12 @@
   }
   ```
 
-The value of `query` in the body is a `String`. 
-
-The `id` in `variables` is the Token `id`.  
-The `startTime` and `endTime` in `variables.stages` is the sales period pair of the basic token campaign. The value of them is millisecond timestamp in UTC+0.  
-The `priceMultiplier` in `variables.stages` is the bonus rate in fractional number form. For example, if to set a bonus rate at 30%, then `numerator` : `denominator` should be `1 : 1.3`.  
-The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `123000000000000000000`, which is a **decimaled number string**.
+  The value of `query` in the body is a `String`. 
+  
+  The `id` in `variables` is the Token `id`.  
+  The `startTime` and `endTime` in `variables.stages` is the sales period of the basic token campaign. The value of them is in the form of millisecond timestamp UTC+0.  
+  The `priceMultiplier` in `variables.stages` is the bonus rate in fractional number form. For example, if to set a bonus rate at 30%, then `numerator` : `denominator` should be `1 : 1.3`.  
+  The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**.
 
 ## HTTP Response
 ```
