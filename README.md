@@ -25,7 +25,9 @@ The APIs to create and manage Token Campaigns.
 
 ### 4. Voucher (doc WIP)
 
-### 5. Voucher Campaign (doc WIP)
+### 5. Voucher Campaign
+
+The APIs to create and manage Voucher Campaigns.
 
 ### 6. Airdrop (doc WIP)
 
