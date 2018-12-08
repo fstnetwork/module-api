@@ -1,5 +1,5 @@
 
-# Create Airdrop
+# Locate
 
 ## GraphQL API
 

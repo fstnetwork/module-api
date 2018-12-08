@@ -1,5 +1,5 @@
 
-# Create Airdrop
+# Manual
 
 ## GraphQL API
 

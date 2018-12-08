@@ -1,5 +1,5 @@
 
-# Create Airdrop
+# Claim Airdrop
 
 ## GraphQL API
 
