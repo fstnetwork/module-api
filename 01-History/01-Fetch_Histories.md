@@ -1,10 +1,12 @@
 
 # Fetch Transaction Histories
 
+Get all transaction histories of the `address`.
+
 ## GraphQL API
 - Query String
   ```
-  query fetchHistory($accountAddress: String, $pagingPagesize: Int!, pagingPageNumber: Int!){
+  query fetchHistory($accountAddress: String, $pagingPagesize: Int!, $pagingPageNumber: Int!){
     ValueTransactionHistory(accountAddress: $accountAddress, pagingPagesize: $pagingPagesize, pagingPageNumber: $pagingPageNumber) {
       txhash
       from
@@ -16,13 +18,12 @@
   }
   ```
 
-
 - Query Variables
   ```
   {
     "accountAddress": "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
-    "pagingPagesize": "10",
-    "pagingPageNumber": "1"
+    "pagingPagesize": 10,
+    "pagingPageNumber": 1
   }
   ```
 
@@ -41,7 +42,7 @@
 - Headers
   - accept: `application/json;`
   - content-type: `application/json;`
-  - authorization: `Bearer [JWT Server-to-Server access token or JWT Web-to-Server access token]`
+  - authorization: `Bearer [JWT Web-to-Server access token]`
     - (for example)
       ```
       Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g      ```
