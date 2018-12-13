@@ -40,6 +40,8 @@
 - HTTP Headers 
   ```
   {
+    "accept": "application/json",
+    "content-type": "application/json",
     "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
   }
   ```
@@ -54,10 +56,11 @@
 - Headers
   - accept: `application/json`
   - content-type: `application/json` 
-  - authorization
-    ```
-    Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
-    ```
+  - authorization: `Bearer [JWT Web-to-Server access token]`
+    - (for example)
+      ```
+      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+      ```
 
 - Body
   ``` 
@@ -86,13 +89,12 @@
     }
   }
   ```
-
   The value of `query` in the body is a `String`. 
   
-  The `id` in `variables` is the Token `id`.  
+  <!-- The `id` in `variables` is the Token `id`.  
   The `startTime` and `endTime` in `variables.stages` is the sales period of the basic token campaign. The value of them is in the form of millisecond timestamp UTC+0.  
   The `priceMultiplier` in `variables.stages` is the bonus rate in fractional number form. For example, if to set a bonus rate at 30%, then `numerator` : `denominator` should be `1 : 1.3`.  
-  The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**.
+  The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**. -->
 
 ## HTTP Response
 ```
@@ -115,3 +117,24 @@
 ```
 
 This API responses a ABI-Encoded transaction for creating the basic token campaign, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/funderstoken/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+
+
+## Parameters
+### Request 
+  - `id`: ID of the token to sell. ID is a global identifier.
+  - `name`: Campaigm name.
+  - `description`: Campaign description.
+  - `stages`: **Currently only support one stage in `stages`.**
+    - `name`: The campaign stage name.
+    - `startTime`: The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
+    - `endTime`: The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
+    - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._)
+      - `numerator`: The numerator of this fraction.
+      - `denominator`: The denominator of this fraction.
+    - `cap`: Total amount of token for sale during this campaign stage.
+    - `isPrivate`: The campaign stage is private or not.
+    - `description`: The campaign stage description.
+
+### Response
+  - `transaction`: UNSIGNED raw transaction format in Ethereum.
+  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
