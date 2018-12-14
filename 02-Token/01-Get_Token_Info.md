@@ -1,10 +1,70 @@
 
 # Get Token Info
 
+Get the token Info by ID.
+
 ## GraphQL API
 
 - Query String
   ```
+  fragment tokenInfo on Token {
+    id
+    issuer {
+      id
+      ethereumAddress
+    }
+    contractAddress
+    name
+    description
+    symbol
+    decimals
+    totalSupply
+    proofOfContract {
+      ipfs
+    }
+    liquid
+    price {
+      numerator
+      denominator
+    }
+    availableAmount
+    vendible
+    website
+    logo {
+      ipfs
+    }
+    createdTime
+    transfers(first: 3) {
+      edges {
+        cursor
+        node {
+          timestamp
+          from
+          to
+          value
+          transaction
+        }
+      }
+    }
+    holders(first: 3) {
+      edges {
+        cursor
+        node {
+          address
+          balance
+        }
+      }
+    }
+    vouchers(first: 3) {
+      edges {
+        cursor
+        node {
+          ...voucherInfo
+        }
+      }
+    }
+  }
+
   fragment voucherInfo on Voucher {
     id
     contractAddress
@@ -14,7 +74,6 @@
     decimals
     totalSupply
     proofOfContract {
-      url
       ipfs
     }
     liquid
@@ -50,73 +109,12 @@
     }
   }
 
-  fragment tokenInfo on Token {
-    id
-    issuer {
-      id
-      ethereumAddress
-    }
-    contractAddress
-    name
-    description
-    symbol
-    decimals
-    totalSupply
-    proofOfContract {
-      url
-      ipfs
-    }
-    liquid
-    price {
-      numerator
-      denominator
-    }
-    availableAmount
-    vendible
-    website
-    logo {
-      url
-      ipfs
-    }
-    createdTime
-    transfers(first: 3) {
-      edges {
-        cursor
-        node {
-          timestamp
-          from
-          to
-          value
-          transaction
-        }
-      }
-    }
-    holders(first: 3) {
-      edges {
-        cursor
-        node {
-          address
-          balance
-        }
-      }
-    }
-    vouchers(first: 3) {
-      edges {
-        cursor
-        node {
-          ...voucherInfo
-        }
-      }
-    }
-  }
-
   query GetTokenInfo {
-    node(id: VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7) {
+    node(id: "VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7") {
       ...tokenInfo
     }
   }
   ```
-
   The number of `first: 3` in the graphql arguments can be set in every request, and it represents the number of responsed items.
 
   The `node(id: "VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7")` in `query GetTokenInfo` is for assigning the `id` of the Token.
@@ -126,7 +124,8 @@
 - HTTP Headers
   ```
   {
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "accept": "application/json",
+    "content-type": "application/json"
   }
   ```
 
@@ -140,14 +139,10 @@
 - Headers
   - accept: `application/json;`
   - content-type: `application/json;`
-  - authorization: `Bearer [JWT Server-to-Server access token or JWT Web-to-Server access token]`
-    - (for example)
-      ```
-      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g      ```
 - Body
   ```
   {
-    "query": "fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    url\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7/\") {\n    ...tokenInfo\n  }\n}\n\nquery mytoken {\n  me {\n    token {\n      id\n    }\n  }\n}\n"
+    "query": "fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46w5w5L07Cm8KgEcOowo5awq8gwqx6wpM7/\") {\n    ...tokenInfo\n  }\n}\n\nquery mytoken {\n  me {\n    token {\n      id\n    }\n  }\n}\n"
   }
   ```
 
@@ -170,7 +165,6 @@ For example:
          "decimals":"18",
          "totalSupply":"10000000000000000000000000",
          "proofOfContract":{  
-            "url":"//test.fstk.io/file/zBurK84ay7oabevzCMDNvYR8yrqRm8X2LZzojNMj341rLxZ52frUzg8vhE5zkK4hbtVe77vqyz7BFB8Rog8NwRvsuRw97/proofOfContract/default",
             "ipfs":"zBurK84ay7oabevzCMDNvYR8yrqRm8X2LZzojNMj341rLxZ52frUzg8vhE5zkK4hbtVe77vqyz7BFB8Rog8NwRvsuRw97/proofOfContract/default"
          },
          "liquid":true,
@@ -182,7 +176,6 @@ For example:
          "vendible":true,
          "website":"www.helloworld.com",
          "logo":{  
-            "url":"//test.fstk.io/file/zBurK84ay7oabevzCMDNvYR8yrqRm8X2LZzojNMj341rLxZ52frUzg8vhE5zkK4hbtVe77vqyz7BFB8Rog8NwRvsuRw97/image/default",
             "ipfs":"zBurK84ay7oabevzCMDNvYR8yrqRm8X2LZzojNMj341rLxZ52frUzg8vhE5zkK4hbtVe77vqyz7BFB8Rog8NwRvsuRw97/image/default"
          },
          "createdTime":"1533797592000",
@@ -258,7 +251,6 @@ For example:
                      "decimals":"0",
                      "totalSupply":"400",
                      "proofOfContract":{  
-                        "url":"//test.fstk.io/file/zBurKBkN9YbkHQC752vS481fdDAaiYZ7eoxTBSn1mFNFHMMBK1r9SsVcvg8EwXXN39Y46reSXjQKEp1uiXhhuHqNjYgZQ/proofOfContract/default",
                         "ipfs":"zBurKBkN9YbkHQC752vS481fdDAaiYZ7eoxTBSn1mFNFHMMBK1r9SsVcvg8EwXXN39Y46reSXjQKEp1uiXhhuHqNjYgZQ/proofOfContract/default"
                      },
                      "liquid":true,
@@ -309,3 +301,48 @@ For example:
 }
 ```
 
+## Parameters
+### Response
+  **Parameters of Token and Voucher**
+  - `id`: Token/Voucher ID. ID is a global identifier.
+  - `contractAddress`: Token/Voucher's contract address.
+  - `name`: Token/Voucher's name.
+  - `description`: Description of the token/voucher.
+  - `symbol`: Token/Voucher's symbol.
+  - `decimals`: Token/Voucher's decimals. 
+  - `totalSupply`: Token/Voucher's total supply.
+  - `proofOfContract`:
+    - `ipfs`: Information of the proof of contract's ipfs link.
+  - `liquid`: The token/voucher is liquid or not.
+  - `price`: Token/Voucher price. _For example, the price you get is: {numerator: 1, denominator: 100}, it means 1 ETH = 100 YourToken. (the numerator and the denominator might be reduced by fraction reduction process)_
+    - `numerator`: The numerator of this fraction.
+    - `denominator`:The denominator of this fraction.
+  - `availableAmount`: Amount of token/voucher the issuer own.
+  - `vendible`: The token/voucher is vendible or not.
+  - `createdTime`: The token/voucher created time.
+  - `transfers`: Transfer history of the token.
+    - `cursor`: _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+    - `node`: 
+      - `timestamp`: The exact transaction time on Blockchain. The format is Unix Timestamp in millisecond resolution.
+      - `from`: Address of the sender.
+      - `to `: Address of the receiver.
+      - `value`: Amount of token/voucher has been transferred. The format is Decimaled Number.
+      - `transaction`: The transaction hash of this action.
+  - `holders`: Addresses which own the token.
+    - `edges`:
+      - `cursor`: _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+      - `node`:
+        - `address`: The holders address.
+        - `balance`: Amount of the token the holder owns. The format is Decimaled Number.
+  
+  **Parameters only for Token** 
+  - `issuer`: Token issuer.
+    - `id`: Issuer's ID. ID is a global identifier.
+    - `ethereumAddress`: Issuer's ethereum address.
+  - `logo`: Token logo.
+    - `ipfs`: Information of the token logo's ipfs link.
+  - `vouchers`: Vouchers of the token.
+
+  **Parameters only for Voucher**
+  - `expiry`: The voucher's expired time. The format is Unix Timestamp in millisecond resolution.
+  - `consumable`: The voucher is consumable or not.
