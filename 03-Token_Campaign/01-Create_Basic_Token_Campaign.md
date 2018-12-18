@@ -97,6 +97,7 @@
   The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**. -->
 
 ## HTTP Response
+(for example)
 ```
 {
   "data":{
