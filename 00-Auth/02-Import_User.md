@@ -48,6 +48,8 @@
 - HTTP Header
   ```
   {
+    "accept": "application/json",
+    "content-type": "application/json",
     "authorization": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjdiZWM2YWExLWE0ZTEtNGU1Zi04ZTc0LTAxZThjYmNkZDFjMSJ9.eyJpYXQiOjE1Mzk4NDU5NzEsImV4cCI6MTUzOTg0NjAzMSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmplaSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzMnNfdG9rZW4ifQ.FZ2qeOHRFA2qJaqFf7ZFl8EpJi35XAdYuBHSlQHxdbKTWr2tUW9eaT-Y7zrRbdnVMrGTxQnK8xFuPQuPX37sAxclJbvMakVqqkQOX9N-pkuB0_p8VK319kbGmd-CYV05rw-eo-T6At5T0pV0IaZHntMCTCPt1n9bipndn4eDLwW8ohGjd4WKVXothJ7HLkkH4ujOHUXTCSxvj5aiFhQCznep59k6te-uRLX2tau7unkP_ahoD7w8j838FNUaHylfiNIliDEBhLvn4CPx9GwTtEYrqx6YAmZQONOTsOnUp8sDuDecvJ8dLEqrnQeyF2CiVznDwhHX19nDibiOsFd34A"
   }
   ```
@@ -60,10 +62,11 @@
 - Headers
   - accept: `application/json`
   - content-type: `application/json` 
-  - authorization (for example)
-    ```
-    Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjdiZWM2YWExLWE0ZTEtNGU1Zi04ZTc0LTAxZThjYmNkZDFjMSJ9.eyJpYXQiOjE1Mzk4NDU5NzEsImV4cCI6MTUzOTg0NjAzMSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmplaSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzMnNfdG9rZW4ifQ.FZ2qeOHRFA2qJaqFf7ZFl8EpJi35XAdYuBHSlQHxdbKTWr2tUW9eaT-Y7zrRbdnVMrGTxQnK8xFuPQuPX37sAxclJbvMakVqqkQOX9N-pkuB0_p8VK319kbGmd-CYV05rw-eo-T6At5T0pV0IaZHntMCTCPt1n9bipndn4eDLwW8ohGjd4WKVXothJ7HLkkH4ujOHUXTCSxvj5aiFhQCznep59k6te-uRLX2tau7unkP_ahoD7w8j838FNUaHylfiNIliDEBhLvn4CPx9GwTtEYrqx6YAmZQONOTsOnUp8sDuDecvJ8dLEqrnQeyF2CiVznDwhHX19nDibiOsFd34A
-    ```
+  - authorization: `Bearer [JWT Server-to-Server access token]`
+    - (for example)
+      ```
+      Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjdiZWM2YWExLWE0ZTEtNGU1Zi04ZTc0LTAxZThjYmNkZDFjMSJ9.eyJpYXQiOjE1Mzk4NDU5NzEsImV4cCI6MTUzOTg0NjAzMSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmplaSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzMnNfdG9rZW4ifQ.FZ2qeOHRFA2qJaqFf7ZFl8EpJi35XAdYuBHSlQHxdbKTWr2tUW9eaT-Y7zrRbdnVMrGTxQnK8xFuPQuPX37sAxclJbvMakVqqkQOX9N-pkuB0_p8VK319kbGmd-CYV05rw-eo-T6At5T0pV0IaZHntMCTCPt1n9bipndn4eDLwW8ohGjd4WKVXothJ7HLkkH4ujOHUXTCSxvj5aiFhQCznep59k6te-uRLX2tau7unkP_ahoD7w8j838FNUaHylfiNIliDEBhLvn4CPx9GwTtEYrqx6YAmZQONOTsOnUp8sDuDecvJ8dLEqrnQeyF2CiVznDwhHX19nDibiOsFd34A
+      ```
 - Body (for example)
   ```
   {
