@@ -1,23 +1,12 @@
 
 # Get me
 
-## Definition
+Get your account info.
 
- - Endpoint
-   - For development: `https://test.fstk.io/api`
-   - For production: `https://engine.fstk.io/api`
-- HTTP Method
-  - `POST`
-- Content type in header
-  - `application/json; charset=utf-8`
-- Authorization in header
-  - `Bearer [JWT Server-to-Server access token or JWT Web-to-Server access token]`
-  - (for example) `Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTUzMjYwNTMxOCwiZXhwIjoxNTMyNjkxNzE4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.TBwaCVLn77M70wR2fv86ADssg8F5aqsMPklGSnerl9H0qUIAmJWQZYzBYRbXsHisoXTq4pu4n2hBMIXExOy23A`
-- Body (for example)
-
-```
-{ 
-  query: `{
+## GraphQL API
+- Query String
+  ```
+  query {
     me {
       id
       emails {
@@ -46,7 +35,7 @@
           denominator
         }
         logo {
-          url
+          ipfs
         }
         availableAmount
         vouchers {
@@ -136,14 +125,13 @@
               website
               logo {
                 ipfs
-                url
               }
             }
             value
           }
         }
       }
-      voucherbalances {
+      voucherBalances {
         edges {
           node {
             voucher {
@@ -162,14 +150,44 @@
         }
       }
     }
-  }`
-}
-```
+  }
+  ```
 
-The value of `query` in the body is a `String`
+- HTTP Headers 
+  ```
+  {
+    "accept": "application/json",
+    "content-type": "application/json",
+    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+  }
+  ```
 
-- Response (for example)
+## HTTP Request
 
+- URL
+  - For development: `https://test.fstk.io/api`
+  - For production: `https://engine.fstk.io/api`
+
+- Method: `POST`
+
+- Headers
+  - accept: `application/json`
+  - content-type: `application/json` 
+  - authorization: `Bearer [JWT Web-to-Server access token]`
+    - (for example)
+      ```
+      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+      ```
+
+- Body
+  ``` 
+  {"query":"\n    {\n      me {\n        id\n        emails {\n          email\n          verified\n          primary\n        }\n        mobilePhones {\n          mobilePhone\n          verified\n          primary\n        }\n        concurrencyStamp\n        firstName\n        lastName\n        ethereumKey\n        token {\n          id\n          name\n          symbol\n          decimals\n          contractAddress\n          totalSupply\n          price {\n            numerator\n            denominator\n          }\n          logo {\n          ipfs\n          }\n          availableAmount\n          vouchers {\n            edges {\n              node {\n                id\n                name\n                symbol\n                decimals\n                description\n                contractAddress\n                totalSupply\n                expiry\n                consumable\n                availableAmount\n                price {\n                  numerator\n                  denominator\n                }\n              }\n            }\n          }\n        }\n        campaigns {\n          edges {\n            node {\n              id\n              name\n              isOpen\n              description\n              stages {\n                name\n                description\n                startTime\n                endTime\n                cap\n                sold\n                priceMultiplier {\n                  numerator\n                  denominator\n                }\n              }\n              contractAddress\n              transactionHash\n              type: __typename\n              ... on TokenCampaign {\n                token {\n                  id\n                  name\n                  symbol\n                  decimals\n                  totalSupply\n                  price {\n                    numerator\n                    denominator\n                  }\n                }\n              }\n              ... on VoucherCampaign {\n                voucher {\n                  id\n                  name\n                  symbol\n                  decimals\n                  totalSupply\n                  price {\n                    numerator\n                    denominator\n                  }\n                }\n              }\n            }\n          }\n        }\n        etherBalance\n        gasTankBalance\n        tokenBalances {\n          edges {\n            node {\n              token {\n                id\n                symbol\n                name\n                decimals\n                description\n                contractAddress\n                website\n                logo {\n                  ipfs\n                }\n              }\n              value\n            }\n          }\n        }\n        voucherBalances {\n          edges {\n            node {\n              voucher {\n                id\n                name\n                symbol\n                decimals\n                description\n                contractAddress\n                token {\n                  id\n                }\n              }\n              value\n            }\n          }\n        }\n      }\n    }"}
+  ```
+
+  The value of `query` in the body is a `String`. 
+
+## HTTP Response
+(for example)
 ```
 {
   "data": {
@@ -232,8 +250,7 @@ The value of `query` in the body is a `String`
                 "contractAddress": "0x3830f7af866fae79e4f6b277be17593bf96bee3b",
                 "website": "https://www.fstk.io",
                 "logo": {
-                  "ipfs": "zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default",
-                  "url": "//test.fstk.io/file/zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default"
+                  "ipfs": "zBurK9DbDfqRN9zsUHmhW91ZJbsd8KdtjynRXaPa6j1SFqnQTreytmgzkyEacGrSVVmYaZW4Ph7GuwakSYsEUkVzgHUGV/image/default"
                 }
               },
               "value": "271201000000000000000800"
