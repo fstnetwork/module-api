@@ -132,7 +132,7 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
     - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._)
       - `numerator`: The numerator of this fraction.
       - `denominator`: The denominator of this fraction.
-    - `cap`: Total amount of token for sale during this campaign stage.
+    - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
     - `isPrivate`: The campaign stage is private or not.
     - `description`: The campaign stage description.
 

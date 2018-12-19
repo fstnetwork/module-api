@@ -317,9 +317,9 @@ For example:
   - `price`: Token/Voucher price. _For example, the price you get is: {numerator: 1, denominator: 100}, it means 1 ETH = 100 YourToken. (the numerator and the denominator might be reduced by fraction reduction process)_
     - `numerator`: The numerator of this fraction.
     - `denominator`:The denominator of this fraction.
-  - `availableAmount`: Amount of token/voucher the issuer own.
+  - `availableAmount`: Amount of token/voucher the issuer own. The format is Decimaled Number.
   - `vendible`: The token/voucher is vendible or not.
-  - `createdTime`: The token/voucher created time.
+  - `createdTime`: The token/voucher created time. The format is Unix Timestamp in millisecond resolution.
   - `transfers`: Transfer history of the token.
     - `cursor`: _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - `node`: 

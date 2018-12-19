@@ -133,7 +133,7 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
     - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. 
       - `numerator`: The numerator of this fraction.
       - `denominator`: The denominator of this fraction.
-    - `cap`: Total amount of token for sale during this campaign stage.
+    - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
     - `isPrivate`: The campaign stage is private or not.
     - `description`: The campaign stage description.
 
