@@ -111,6 +111,7 @@
   
 
 ## HTTP Response
+(for example)
 ```
 {  
   "data":{  
@@ -126,7 +127,7 @@
 ```
 
 ## Parameters
-### Request 
+### Request 
   - `address`: Address to drop.
   - `amount`: Amount of item(token/voucher) to drop to the address.
 
@@ -134,4 +135,4 @@
   - `airdropManual`
     - `id`: ID of the manual list.
     - `totalAddress`: Total address to drop.
-    - `totalAirdropAmount`: Total amount of item(token/voucher) to drop. The format is Decimaled Number.
+    - `totalAirdropAmount`: Total amount of item(token/voucher) to drop. The format is Decimaled Number.
