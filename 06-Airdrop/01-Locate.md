@@ -108,8 +108,6 @@
       ```
 
 - Body
-  
-  (for example)
   ``` 
   {  
     "query":"\n    mutation createAirdropLocate($input: createAirdropLocateInput!) {\n      createAirdropLocate(input: $input) {\n        airdropLocate {\n          seqno: id\n          airdropItem {\n            ... on Token {\n              id\n              name\n              decimals\n            }\n          }\n          distinctAccount: totalAddresses\n          totalAmount: totalAirdropAmount\n          summary {\n            rule {\n              locateRule {\n                type\n                item {\n                  ... on Token {\n                    decimals\n                  }\n                  ... on Voucher {\n                    decimals\n                  }\n                }\n              }\n              item {\n                ... on Token {\n                  decimals\n                }\n                ... on Voucher {\n                  decimals\n                }\n              }\n              amount\n            }\n            giveTotalAccount: totalAddresses\n            giveAmountAll: totalAirdropAmount\n            calculateDetail: airdropDetails {\n              ownerAddress: address\n              value: balance\n              computeResult: ruleAmount\n              giveAmountResult: airdropAmount\n            }\n          }\n        }\n      }\n    }\n\n    ",
