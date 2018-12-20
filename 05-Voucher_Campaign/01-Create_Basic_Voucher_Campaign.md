@@ -98,7 +98,6 @@
   The `cap` in `variables.stages` is the target cap of the basic voucher campaign. For example, if to set a cap to `123 Voucher`, then the `cap` should be `"123"`, which is a **decimaled number string**. -->
 
 ## HTTP Response
-(for example)
 ```
 {
   "data":{
@@ -122,7 +121,7 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 
 ## Parameters
-### Request 
+### Request 
   - `id`: ID of the voucher to sell. ID is a global identifier.
   - `name`: Campaigm name.
   - `description`: Campaign description.
@@ -130,13 +129,13 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
     - `name`: The campaign stage name.
     - `startTime`: The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
     - `endTime`: The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
-    - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. 
+    - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0.
       - `numerator`: The numerator of this fraction.
       - `denominator`: The denominator of this fraction.
-    - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
+    - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
     - `isPrivate`: The campaign stage is private or not.
     - `description`: The campaign stage description.
 
 ### Response
   - `transaction`: UNSIGNED raw transaction format in Ethereum.
-  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
