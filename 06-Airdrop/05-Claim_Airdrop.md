@@ -2,6 +2,7 @@
 # Claim Airdrop
 
 ## GraphQL API
+You are able to claim the budget remaining, get the asset you sold, and close the airdrop via this API.
 
 - Query String
   ```
@@ -86,11 +87,11 @@
 This API responses a ABI-Encoded transaction for creating the basic voucher campaign, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/funderstoken/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
 
 ## Parameters
-### Request 
+### Request 
   - `missionId`: Airdrop mission ID. `missionID` is able to get by _Airdrop_History API_.
 
 ### Response
   - `claimAirdropMission`
     - `pendingTransactions`:
     - `transaction`: UNSIGNED raw transaction format in Ethereum.
-    - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+    - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
