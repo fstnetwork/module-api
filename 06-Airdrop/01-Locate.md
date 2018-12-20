@@ -274,7 +274,7 @@
 ```
 
 ## Parameters
-### Request 
+### Request 
   - `rules`:
     - `rule`: 
       - `type`: `EVERY` or `AT_LEAST`. 
@@ -283,7 +283,7 @@
       - `itemId`: Item(token/voucher) of the rule.
       - `amount`: Amount of item(token/voucher) of the rule.
     - `itemId`: Item(token/voucher) to drop.
-    - `amount`: Amount of item(token/voucher) to drop if matching the condition.
+    - `amount`: Amount of item(token/voucher) to drop if matching the condition.
 
 ### Response
   - `seqno`: ID of the locate rules.
@@ -291,8 +291,8 @@
     - `id`: ID of the item(token/voucher) which is to drop.
     - `name`: Name of the item(token/voucher) which is to drop.
     - `decimals`: Decimals of the item(token/voucher) which is to drop.
-  - `distinctAccount`: Amount of accounts which are match to the rules. 
-  - `totalAmount`: Total amount(add each rule's `amount`) of the item(token/voucher) to drop. The format is Decimaled Number.
+  - `distinctAccount`: Amount of accounts which are match to the rules. 
+  - `totalAmount`: Total amount(add each rule's `amount`) of the item(token/voucher) to drop. The format is Decimaled Number.
   - `summary`
     - `rule`
       - `locateRule`
@@ -301,11 +301,11 @@
           - `decimals`: Decimals of the item(token/voucher) of the rule.
       - `item`
         - `decimals`: Decimals of the item(token/voucher) which to drop.
-      - `amount`: Amount of item(token/voucher) to drop if match the rule. The format is Decimaled Number.
+      - `amount`: Amount of item(token/voucher) to drop if match the rule. The format is Decimaled Number.
     - `giveTotalAccount`: Total amount of account match the rule.
     - `giveAmountAll`: Total amount of the item(token/voucher) to drop.
     - `calculateDetail`
       - `ownerAddress`: Address of the owner who owns the item(token/voucher) of the rule.
-      - `value`: Amount of the item of the rule the owner has. The format is Decimaled Number.
+      - `value`: Amount of the item of the rule the owner has. The format is Decimaled Number.
       - `computeResult`: Times of the result the address match.
       - `giveAmountResult`: Total amount of the item(token/voucher) to drop to the address.
