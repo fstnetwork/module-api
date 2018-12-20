@@ -1,7 +1,7 @@
 
 # Get Token Info
 
-Get the token Info by ID.
+Get the token info by ID.
 
 ## GraphQL API
 
@@ -304,7 +304,7 @@ For example:
 ## Parameters
 ### Response
   **Parameters of Token and Voucher**
-  - `id`: Token/Voucher ID. ID is a global identifier.
+  - `id`: Token/Voucher ID. ID is a global identifier.
   - `contractAddress`: Token/Voucher's contract address.
   - `name`: Token/Voucher's name.
   - `description`: Description of the token/voucher.
@@ -317,7 +317,7 @@ For example:
   - `price`: Token/Voucher price. _For example, the price you get is: {numerator: 1, denominator: 100}, it means 1 ETH = 100 YourToken. (the numerator and the denominator might be reduced by fraction reduction process)_
     - `numerator`: The numerator of this fraction.
     - `denominator`:The denominator of this fraction.
-  - `availableAmount`: Amount of token/voucher the issuer own. The format is Decimaled Number.
+  - `availableAmount`: Amount of token/voucher the issuer own. The format is Decimaled Number.
   - `vendible`: The token/voucher is vendible or not.
   - `createdTime`: The token/voucher created time. The format is Unix Timestamp in millisecond resolution.
   - `transfers`: Transfer history of the token.
@@ -326,14 +326,14 @@ For example:
       - `timestamp`: The exact transaction time on Blockchain. The format is Unix Timestamp in millisecond resolution.
       - `from`: Address of the sender.
       - `to `: Address of the receiver.
-      - `value`: Amount of token/voucher has been transferred. The format is Decimaled Number.
+      - `value`: Amount of token/voucher has been transferred. The format is Decimaled Number.
       - `transaction`: The transaction hash of this action.
   - `holders`: Addresses which own the token.
     - `edges`:
       - `cursor`: _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
       - `node`:
         - `address`: The holders address.
-        - `balance`: Amount of the token the holder owns. The format is Decimaled Number.
+        - `balance`: Amount of the token the holder owns. The format is Decimaled Number.
   
   **Parameters only for Token** 
   - `issuer`: Token issuer.
@@ -341,7 +341,7 @@ For example:
     - `ethereumAddress`: Issuer's ethereum address.
   - `logo`: Token logo.
     - `ipfs`: Information of the token logo's ipfs link.
-  - `vouchers`: Vouchers of the token.
+  - `vouchers`: Vouchers of the token.
 
   **Parameters only for Voucher**
   - `expiry`: The voucher's expired time. The format is Unix Timestamp in millisecond resolution.
