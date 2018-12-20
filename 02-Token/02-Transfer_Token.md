@@ -93,13 +93,13 @@
 This API responses a ABI-Encoded transaction for the Token transfer, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/funderstoken/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
 
 ## Parameters
-### Request 
+### Request 
   - `id`: ID of the token which is to be transferred. ID is a global identifier.
   - `to`: Address of the receiver.
-  - `value`: Amount of token to be transferred. The format is Decimaled Number.
+  - `value`: Amount of token to be transferred. The format is Decimaled Number.
 
 ### Response
   - `transaction`: UNSIGNED raw transaction format in Ethereum.
-  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
 
 
