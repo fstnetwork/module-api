@@ -93,12 +93,12 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 
 ## Parameters
-### Request 
+### Request 
   - `listId`: ID of the airdrop list.
   - `itemId`: ID of the item(token/voucher) to drop.
-  - `budget`: Budget for the airdrop. The format is Decimaled Number.
+  - `budget`: Budget for the airdrop. The format is Decimaled Number.
   - `invokeTime`: The airdrop invoke time. The format is Unix Timestamp in millisecond resolution.
 
 ### Response
   - `transaction`: UNSIGNED raw transaction format in Ethereum.
-  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
