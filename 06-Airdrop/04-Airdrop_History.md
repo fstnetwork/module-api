@@ -34,6 +34,8 @@
 - HTTP Headers 
   ```
   {
+    "accept": "application/json",
+    "content-type": "application/json",
     "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
   }
   ```
@@ -48,10 +50,11 @@
 - Headers
   - accept: `application/json`
   - content-type: `application/json` 
-  - authorization
-    ```
-    Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
-    ```
+  - authorization: `Bearer [JWT Web-to-Server access token]`
+    - (for example)
+      ```
+      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
+      ```
 
 - Body
   ``` 
@@ -64,6 +67,8 @@
   
 
 ## HTTP Response
+
+(for example)
 ```
 {  
   "data":{  
@@ -201,3 +206,20 @@
   }
 }
 ```
+
+## Parameters
+### Response
+  - `id`: Airdrop mission ID.
+  - `method`
+    - `listType`: Type of the list. `AirdropLocate` or `AirdropManual`.
+    - `listId`: The ID of the list in each type.
+    - `targets`
+      - `filters`
+        - `giveItem`: ID of the item(token/voucher) to drop.
+        - `ruleItem`: Item(token/voucher) ID of the rule.
+        - `ruletype`: `EVERY` or `AT_LEAST`
+        - `giveAmount`: Total amount of item(token/voucher) to drop.
+        - `ruleAmount`: Amount of item(token/voucher) to drop if match the rule.
+  - `item`
+    - `id`: ID of the item(token/voucher) to drop.
+    - `name`: Name of the item(token/voucher) to drop.
