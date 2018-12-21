@@ -1,7 +1,7 @@
 
 # Fetch Transaction Histories
 
-Get all transaction histories of the `address`.
+Get all transfer histories of your address.
 
 ## GraphQL API
 - Query String
