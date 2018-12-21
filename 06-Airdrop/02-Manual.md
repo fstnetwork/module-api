@@ -1,5 +1,6 @@
 
 # Manual
+Set a list for airdrop.
 
 ## GraphQL API
 
@@ -111,7 +112,6 @@
   
 
 ## HTTP Response
-(for example)
 ```
 {  
   "data":{  
