@@ -1,6 +1,6 @@
 
 # Locate
-Get the rusult of the rule for airdrop.
+Set rule and get the rusult of the rule for airdrop.
 
 ## GraphQL API
 
