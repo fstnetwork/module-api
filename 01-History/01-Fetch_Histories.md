@@ -6,27 +6,23 @@ Get all transaction histories of the `address`.
 ## GraphQL API
 - Query String
   ```
-  query fetchHistory($accountAddress: String, $pagingPagesize: Int!, $pagingPageNumber: Int!){
-    ValueTransactionHistory(accountAddress: $accountAddress, pagingPagesize: $pagingPagesize, pagingPageNumber: $pagingPageNumber) {
-      txhash
-      from
-      to
-      value
-      symbol
-      created_time
+  query getTransferHistory {
+    transferHistory {
+      edges {
+        node {
+          transactionHash
+          from
+          to
+          value
+          symbol
+          decimals
+          type
+          time
+        }
+      }
     }
   }
   ```
-
-- Query Variables
-  ```
-  {
-    "accountAddress": "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
-    "pagingPagesize": 10,
-    "pagingPageNumber": 1
-  }
-  ```
-
 - HTTP Headers
   ```
   {
@@ -47,17 +43,12 @@ Get all transaction histories of the `address`.
   - authorization: `Bearer [JWT Web-to-Server access token]`
     - (for example)
       ```
-      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g ```
+      Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g 
+      ```
+
 - Body
   ```
-  {  
-    "query":"fragment voucherInfo on Voucher {\n  id\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  expiry\n  consumable\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n}\n\nfragment tokenInfo on Token {\n  id\n  issuer {\n    id\n    ethereumAddress\n  }\n  contractAddress\n  name\n  description\n  symbol\n  decimals\n  totalSupply\n  proofOfContract {\n    url\n    ipfs\n  }\n  liquid\n  price {\n    numerator\n    denominator\n  }\n  availableAmount\n  vendible\n  website\n  logo {\n    url\n    ipfs\n  }\n  createdTime\n  transfers(first: 3) {\n    edges {\n      cursor\n      node {\n        timestamp\n        from\n        to\n        value\n        transaction\n      }\n    }\n  }\n  holders(first: 3) {\n    edges {\n      cursor\n      node {\n        address\n        balance\n      }\n    }\n  }\n  vouchers(first: 3) {\n    edges {\n      cursor\n      node {\n        ...voucherInfo\n      }\n    }\n  }\n}\n\nquery GetTokenInfo {\n  node(id: \"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/\") {\n    ...tokenInfo\n  }\n}\n\nquery fetchHistory($accountAddress: String, $pagingPagesize: Int!, $pagingPageNumber: Int!) {\n  ValueTransactionHistory(accountAddress: $accountAddress, pagingPagesize: $pagingPagesize, pagingPageNumber: $pagingPageNumber) {\n    txhash\n    from\n    to\n    value\n    symbol\n    created_time\n  }\n}\n",
-    "variables":{  
-      "accountAddress":"0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
-      "pagingPagesize":10,
-      "pagingPageNumber":1
-    },
-  }
+  {"query":"\n    query getTransferHistory{\n      transferHistory{\n        edges {\n          node {\n            transactionHash\n            from\n            to\n            value\n            symbol\n            decimals\n            type\n            time\n          }\n        }\n      }\n    }\n    "}
   ```
   The value of `query` in the body is a `String`
 
@@ -65,89 +56,133 @@ Get all transaction histories of the `address`.
 ```
 {
   "data": {
-    "ValueTransactionHistory": [
-      {
-        "txhash": "0xb21ff4d48fab0f51cc141a912c4ad8ddbbb8913a1a2f2c93f70153b7c90eedc3",
-        "from": "0xc1cd2d775c304e8e5a28049c7ebd3d56e3723c02",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "1000000000000000800",
-        "symbol": "FST",
-        "created_time": "1534398168554"
-      },
-      {
-        "txhash": "0xb21ff4d48fab0f51cc141a912c4ad8ddbbb8913a1a2f2c93f70153b7c90eedc3",
-        "from": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "to": "0x0575445130876a2ff230430491d64201efe41559",
-        "value": "277777777777778",
-        "symbol": "ETH",
-        "created_time": "1534398168547"
-      },
-      {
-        "txhash": "0x7d989e56fc31a4ebb5a5e9a2539d4bf10a800ead1c4dbf5e0c1faf3f022ab886",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "1000000000000000000000",
-        "symbol": "FST",
-        "created_time": "1533476176480"
-      },
-      {
-        "txhash": "0x6c58b19f4c6e8019eb14692ee2d2b0fc39c903ea3e877b9a7098f93d286d4f40",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "100000000000000000000",
-        "symbol": "FST",
-        "created_time": "1533476124405"
-      },
-      {
-        "txhash": "0x2dbead84383d436513e883574512ce1329abdecde932970a333a8ebeea839497",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "100000000000000000000",
-        "symbol": "FST",
-        "created_time": "1533476052276"
-      },
-      {
-        "txhash": "0x9b49398877f6da4e634aaee7829402535ac496d4eac18fbc26e05e8aa7a0d805",
-        "from": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "to": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "value": "30000000000000000000000",
-        "symbol": "FST",
-        "created_time": "1532571408257"
-      },
-      {
-        "txhash": "0xbdb84e4de0cf93e48c0a2a713c831123526f31257cf4902cc6ecb13b3aeb8566",
-        "from": "0x004822c92365add3923ae07ea8d640639438158e",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "300000000000000000000000",
-        "symbol": "FST",
-        "created_time": "1532279112352"
-      },
-      {
-        "txhash": "0x51d24b1fa25dd6697816ab19fefdef2b27650e0e8afadc946af4aacba9c75abf",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "2300000000000000000",
-        "symbol": "ETH",
-        "created_time": "1531993376467"
-      },
-      {
-        "txhash": "0xf6006ad8709d3e145548e9b5d5eafd911316b5a9285c6352014bb360ea82cd4d",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "5540000000000000",
-        "symbol": "ETH",
-        "created_time": "1531992260618"
-      },
-      {
-        "txhash": "0x233a07b85e37eb258129403443848451e8bda711ccb5bbdf2fb3e12597b5e12d",
-        "from": "0x7bfbdd00de4fa8a4b5cf9466eb6a16d70a8dfd88",
-        "to": "0x3e7af8b8c19c404670c1470273bca449148df4ed",
-        "value": "44300000000000000",
-        "symbol": "ETH",
-        "created_time": "1531992116400"
-      }
-    ]
+    "transferHistory": {
+      "edges": [
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x4d6bb4ed029b33cf25d0810b029bd8b1a6bcab7b",
+            "transactionHash": "0x584b003830a12a6801462834c969f82d88cb829db80309d942e94f163a025f61",
+            "decimals": "18",
+            "symbol": "ETH",
+            "type": "ETH",
+            "time": "1544714588292"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0xd95448553bbdcc57260dde4e51bdf81710718e25",
+            "transactionHash": "0x50b05d3d0b2cc8ed777f5eac0ffadc79b5f676532f2eed808da146ea1894432b",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544701592356"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0xd95448553bbdcc57260dde4e51bdf81710718e25",
+            "transactionHash": "0x5f234e8174399450a8b47a8898fe55848ccbb4da77c4df498c4fc37646140bbb",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544701340440"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0x5f234e8174399450a8b47a8898fe55848ccbb4da77c4df498c4fc37646140bbb",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544701340403"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0xa175fb3406186ecfd9c763407018d2141af32df1673b3e0c6be4350a5a11eed7",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544701052376"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0x081a169d862f4b6a64bb38b42e7c1dd2a03e12f33111f701d2cacef88e0ca1af",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544700976688"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0xd95448553bbdcc57260dde4e51bdf81710718e25",
+            "transactionHash": "0x6474ce0e345550b93efcb97191a353b876799bd110241aab16917aef94a8750e",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544700888276"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0x49512e92b50ca70ebeaa4795cd28acdb5595ababe05459f2a828df7999a32801",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544700508218"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0x272019e9d0a1be4fca00f00cb3d3f190abf54ed00cf0511f107f3c91da3c3900",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544700184328"
+          }
+        },
+        {
+          "node": {
+            "to": "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8",
+            "from": "0x8d1ddd4f3d17c637a8fef1de650add5ed48dbdc5",
+            "transactionHash": "0xc2a251cf795c4477b88d1d414ffff567b7d9a95b6cd0cff7103070c556678ccd",
+            "decimals": "18",
+            "symbol": "SUMMER",
+            "type": "token",
+            "time": "1544700144466"
+          }
+        }
+      ]
+    }
   }
 }
 ```
 
+## Parameters
+### Response
+  - `transferHistory`
+    - `edge`
+      - `node`
+        - `to`:Address of the receiver.
+        - `from`: Address of the sender.
+        - `transactionHash`: Transaction hash.
+        - `decimals`: Decimals of the asset.
+        - `symbol`: Symbol of the asset.
+        - `type`: `token`, `voucher` or `ETH`.
+        - `time`: FST Network server reviced transaction's time. The format is Unix Timestamp in millisecond resolution.
