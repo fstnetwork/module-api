@@ -69,8 +69,6 @@ You are able th fetch all your airdrop history via this API.
   
 
 ## HTTP Response
-
-(for example)
 ```
 {  
   "data":{  
