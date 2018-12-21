@@ -92,6 +92,6 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 ### Response
   - `claimAirdropMission`
-    - `pendingTransactions`:
+    - `pendingTransactions`: Amount of your transactions which are still pending.
     - `transaction`: UNSIGNED raw transaction format in Ethereum.
     - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
