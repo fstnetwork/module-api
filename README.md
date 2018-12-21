@@ -29,7 +29,7 @@ The APIs to create and manage Token Campaigns.
 
 The APIs to create and manage Voucher Campaigns.
 
-### 6. Airdrop (doc WIP)
+### 6. Airdrop
 
 ### Appx. Me
 

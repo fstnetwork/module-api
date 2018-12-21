@@ -67,7 +67,6 @@
   
 
 ## HTTP Response
-(for example)
 ```
 {
   "data": {
