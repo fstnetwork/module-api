@@ -88,7 +88,7 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 ## Parameters
 ### Request 
-  - `missionId`: Airdrop mission ID. `missionID` is able to get by _Airdrop_History API_.
+  - `missionId`: Airdrop mission ID. `missionID` is able to get by [Airdrop_History API](https://github.com/fstnetwork/module-api/blob/master/06-Airdrop/05-Airdrop_History.md).
 
 ### Response
   - `claimAirdropMission`
