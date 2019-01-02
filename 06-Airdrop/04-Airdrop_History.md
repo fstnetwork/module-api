@@ -27,6 +27,15 @@ You are able th fetch all your airdrop history via this API.
               name
             }
           }
+          budget
+          status
+          totalAirdropAmount
+          totalAddresses
+          isClaimed
+          usedBudget
+          createTime
+          invokeTime
+          executeTime
         }
       }
     }
@@ -61,7 +70,7 @@ You are able th fetch all your airdrop history via this API.
 - Body
   ``` 
   {  
-    "query":"query{\n       airdropHistory{\n         edges{\n           node{\n             id\n             method{\n               listType\n               listId\n               targets\n             }\n           item{\n             ... on Token{\n               id\n               name\n             }\n              ... on Voucher{\n               id\n          name\n             }\n           }\n           }\n         }\n       }\n     }\n\n"
+    "query":"query{\n       airdropHistory{\n         edges{\n           node{\n             id\n             method{\n               listType\n               listId\n               targets\n             }\n           item{\n             ... on Token{\n               id\n               name\n             }\n              ... on Voucher{\n               id\n          name\n             }\n           }\n           budget\n           status\n           totalAirdropAmount\n           totalAddresses\n           isClaimed\n           usedBudget\n           createTime\n           invokeTime\n           executeTime\n           }\n         }\n       }\n     }\n\n"
   }
   ```
 
@@ -70,135 +79,74 @@ You are able th fetch all your airdrop history via this API.
 
 ## HTTP Response
 ```
-{  
-  "data":{  
-    "airdropHistory":{  
-      "edges":[  
-        {  
-          "node":{  
-            "id":"QWlyZHJvcE1pc3Npb246Mzc=",
-            "method":{  
-              "listType":"AirdropLocate",
-              "listId":"9",
-              "targets":{  
-                "filters":[  
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruletype":"AT_LEAST",
-                    "giveAmount":"1000000000000000000",
-                    "ruleAmount":"1000000000000000000"
+{
+  "data": {
+    "airdropHistory": {
+      "edges": [
+        {
+          "node": {
+            "id": "QWlyZHJvcE1pc3Npb246Mw==",
+            "method": {
+              "listType": "AirdropLocate",
+              "listId": "132",
+              "targets": {
+                "filters": [
+                  {
+                    "giveItem": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+                    "ruleItem": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+                    "ruletype": "AT_LEAST",
+                    "giveAmount": "10333000000000000000",
+                    "ruleAmount": "1000000000000000000"
                   }
                 ]
               }
             },
-            "item":{  
-              "id":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "name":"SAINT MKII"
-            }
+            "item": {
+              "id": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+              "name": "wood clock"
+            },
+            "budget": "1000000000000000000000",
+            "status": "FAILURE",
+            "totalAirdropAmount": "10333000000000000000",
+            "totalAddresses": "1",
+            "isClaimed": false,
+            "usedBudget": "0",
+            "createTime": "1545405455",
+            "invokeTime": "1545405483",
+            "executeTime": "1545405540"
           }
         },
-        {  
-          "node":{  
-            "id":"QWlyZHJvcE1pc3Npb246NTM=",
-            "method":{  
-              "listType":"AirdropLocate",
-              "listId":"73",
-              "targets":{  
-                "filters":[  
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"Vm91Y2hlcjoZPcOJPMK7EhHDqMKnfHsTwqI/woUA",
-                    "ruletype":"AT_LEAST",
-                    "giveAmount":"1223000000000000000",
-                    "ruleAmount":"1"
+        {
+          "node": {
+            "id": "QWlyZHJvcE1pc3Npb246NA==",
+            "method": {
+              "listType": "AirdropLocate",
+              "listId": "133",
+              "targets": {
+                "filters": [
+                  {
+                    "giveItem": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+                    "ruleItem": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+                    "ruletype": "AT_LEAST",
+                    "giveAmount": "1000000000000000000",
+                    "ruleAmount": "1000000000000000000"
                   }
                 ]
               }
             },
-            "item":{  
-              "id":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "name":"SAINT MKII"
-            }
-          }
-        },
-        {  
-          "node":{  
-            "id":"QWlyZHJvcE1pc3Npb246NjE=",
-            "method":{  
-              "listType":"AirdropLocate",
-              "listId":"89",
-              "targets":{  
-                "filters":[  
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"Vm91Y2hlcjoZPcOJPMK7EhHDqMKnfHsTwqI/woUA",
-                    "ruletype":"AT_LEAST",
-                    "giveAmount":"10000000000000000000",
-                    "ruleAmount":"1"
-                  }
-                ]
-              }
+            "item": {
+              "id": "VG9rZW46OSLCrAgFMhHDqcK6M8Ozw7RFwoXCgB0=",
+              "name": "wood clock"
             },
-            "item":{  
-              "id":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "name":"SAINT MKII"
-            }
-          }
-        },
-        {  
-          "node":{  
-            "id":"QWlyZHJvcE1pc3Npb246NjA=",
-            "method":{  
-              "listType":"AirdropLocate",
-              "listId":"88",
-              "targets":{  
-                "filters":[  
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"Vm91Y2hlcjoiwrZFw5bDhUcRw6jCp3zCu1vCnsOQw7zDrw==",
-                    "ruletype":"AT_LEAST",
-                    "giveAmount":"1230000000000000000",
-                    "ruleAmount":"1"
-                  }
-                ]
-              }
-            },
-            "item":{  
-              "id":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "name":"SAINT MKII"
-            }
-          }
-        },
-        {  
-          "node":{  
-            "id":"QWlyZHJvcE1pc3Npb246OTE=",
-            "method":{  
-              "listType":"AirdropLocate",
-              "listId":"108",
-              "targets":{  
-                "filters":[  
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruletype":"EVERY",
-                    "giveAmount":"1000000000000000000",
-                    "ruleAmount":"100000000000000000000"
-                  },
-                  {  
-                    "giveItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruleItem":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "ruletype":"AT_LEAST",
-                    "giveAmount":"5000000000000000000",
-                    "ruleAmount":"3000000000000000000"
-                  }
-                ]
-              }
-            },
-            "item":{  
-              "id":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "name":"SAINT MKII"
-            }
+            "budget": "100000000000000000000",
+            "status": "SUCCESS",
+            "totalAirdropAmount": "1000000000000000000",
+            "totalAddresses": "1",
+            "isClaimed": true,
+            "usedBudget": "1000000000000000000",
+            "createTime": "1545894652",
+            "invokeTime": "1545894681",
+            "executeTime": "1545894732"
           }
         }
       ]
@@ -223,3 +171,12 @@ You are able th fetch all your airdrop history via this API.
   - `item`
     - `id`: ID of the item(token/voucher) to drop.
     - `name`: Name of the item(token/voucher) to drop.
+  - `budget`: Budget for the airdrop. The format is Decimaled Number.
+  - `status`: `PENDING`, `PROCESSING`, `SUCCESS`, `FAILURE`, `CANCEL` or `CLAIMED`.
+  - `totalAirdropAmount`: Total amount of item(token/voucher) to drop.
+  - `totalAddresses`: Total amount of addresses to drop.
+  - `isClaimed`: The airdrop is claimed or not.
+  - `usedBudget`: Total budget the airdrop used.
+  - `createTime`: The airdrop created time. The format is Unix Timestamp.
+  - `invokeTime`: The airdrop invoked time. The format is Unix Timestamp.
+  - `executeTime`: The airdrop executed time. The format is Unix Timestamp
