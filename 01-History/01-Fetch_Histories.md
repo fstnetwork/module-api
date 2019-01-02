@@ -1,5 +1,5 @@
 
-# Fetch Transaction Histories
+# Fetch Transfer Histories
 
 Get all transfer histories of your address.
 
