@@ -129,7 +129,7 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
   - **`submitToken`** \<string>
     - The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
   - **`hash`** \<string>
-    - POR Enable: Hash of the abi encode.
-    - POR Disable: Hash of the RLP encode.
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
