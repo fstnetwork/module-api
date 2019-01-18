@@ -2,7 +2,7 @@
 # Cancel Airdrop
 
 ## GraphQL API
-You are able to claim the budget remaining, get the asset you sold, and close the airdrop via this API.
+You are able to cancel the airdrop and return the budget you put in to the airdrop mission via this API.
 
 - Query String
   ```
