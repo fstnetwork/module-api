@@ -335,7 +335,8 @@ _(sample)_
       - `computeResult`: Times of the result the address match.
       - `giveAmountResult`: Total amount of the item(token/voucher) to drop to the address. -->
 
-**`airdropLocate`** \<AirdropLocate>
+
+- **`airdropLocate`** \<AirdropLocate>
   - **`seqno`** \<string>
     - ID of the locate rules.
   - **`airdropItem`** \<AirdropItem>
