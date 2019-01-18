@@ -33,7 +33,8 @@
           "isPrivate":false,
           "description":"This is my first basic token campaign"
         }
-      ]
+      ],
+      "por":"DISABLE"
     }
   }
   ```
@@ -84,7 +85,8 @@
             "isPrivate":false,
             "description":"This is my first basic token campaign"
           }
-        ]
+        ],
+        "por":"DISABLE"
       }
     }
   }
@@ -135,7 +137,11 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
     - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
     - `isPrivate`: The campaign stage is private or not.
     - `description`: The campaign stage description.
+  - `por`: `ENABLE` or `DISABLE`.
 
 ### Response
   - `transaction`: UNSIGNED raw transaction format in Ethereum.
   - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+  - `pendingTransactions`: Amount of your transactions which are still pending.
+  - `hash`: TODO hash of `transaction`
+  - `metadata`: TODO data of `transaction`

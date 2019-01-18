@@ -1,7 +1,7 @@
 
 # Get me
 
-Get your account info.
+Get your account information.
 
 ## GraphQL API
 - Query String
