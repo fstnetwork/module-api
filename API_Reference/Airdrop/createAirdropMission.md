@@ -23,7 +23,8 @@
         "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
         "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
         "budget":"1000000000000000000000",
-        "invokeTime":"1543819592000"
+        "invokeTime":"1543819592000",
+        "por":"ENABLE"
     }
   }
   ```
@@ -56,13 +57,14 @@
 - Body
   ``` 
   {  
-    "query":"\n    mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n      createAirdropMission(input: $input) {\n        pendingTransactions,\n        transaction,\n        submitToken\n      }\n    }",
+    "query":"\n    mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n      createAirdropMission(input: $input) {\n        pendingTransactions,\n        transaction,\n        submitToken\n      hash\n      metadata\n      }\n    }",
     "variables":{  
         "mission":{  
           "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
           "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
           "budget":"1000000000000000000000",
           "invokeTime":"1543819592000"
+          "por":"ENABLE"
         }
     }
   }
@@ -88,8 +90,13 @@
             "chainId":42
          },
          "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoiY3JlYXRlQWlyZHJvcE1pc3Npb24iLCJkYXRhIjoiUUFDdW9BQUFBQUFBQUFBQUFBQUFBTU9vYjdBZ1Rjc0FnM0ozU1dCQUMyWCt3NmF5QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQTJOY210eGQ2Z0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmtLZ2FScmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVhBVFJTQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE9IiwiaW5mbyI6eyJsaXN0VHlwZSI6IkFpcmRyb3BMb2NhdGUiLCJsaXN0SWQiOiIxMDgiLCJlc2Nyb3dib3hBZGRyZXNzIjoiMHhjM2E4NmZCMDIwNGRDQjAwODM3Mjc3NDk2MDQwMEI2NUZlYzNhNmIyIiwidXNlckFkZHJlc3MiOiIweGNiNjliOTVmNzJkMWIxZjM3M2Q5NTZkOTVmMjE2NDkyYTdlYTI2YzgiLCJpdGVtSWQiOiLCgMOyw7rCssK7XHUwMDExXHUwMDExw6jCp3zCqypmwp7CjsO_IiwiaXRlbVR5cGUiOiJUb2tlbiIsIml0ZW1BZGRyZXNzIjoiMHgzNzExMzA4NWI5ZmYzZjdkMDkzMzExMDM1NzA4NDk2MWY1YmU2MDNhIiwiYnVkZ2V0IjoiMTAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImludm9rZVRpbWUiOjE1NDM4MTk1OTIwMDB9LCJpYXQiOjE1NDM4MTk1NjIsImV4cCI6MTU0MzgyMDE2MiwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.ZLiiDk-RyMG5JZtl8esl85UtSwOhw6RkKY1N45KkRp6AsL9hoBT1kYJLyoZS5uLoVkgDj8HZ9nIQEUwoPfiy9Q",
-         "hash":"",
-         "metadata":""
+         "hash":"0xab3fa519a3aefedb5ceda3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
+         "metadata":{
+          "fee": {
+            "type": "ETH",
+            "amount": "223624000000000"
+          }
+        }
       }
    }
 }
@@ -106,15 +113,23 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
   - **`itemId`** \<string>
     - ID of the item(token/voucher) to drop.
     - Required: Yes
-  - `budget` \<string>
+  - **`budget`** \<string>
     - Budget for the airdrop. The format is Decimaled Number.
     - Required: Yes
-  - `invokeTime` \<string>
+  - **`invokeTime`** \<string>
     - The airdrop invoke time. The format is Unix Timestamp in millisecond resolution.
     - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `ENABLE`.
 
 ### Response
   - **`transaction`** \<string>
     - UNSIGNED raw transaction format in Ethereum.
   - **`submitToken`** \<string>
     - The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+  - **`hash`** \<string>
+    - POR Enable: Hash of the abi encode.
+    - POR Disable: Hash of the RLP encode.
+  - **`metadata`** \<JSON>
+    - Metadata of the transaction.
