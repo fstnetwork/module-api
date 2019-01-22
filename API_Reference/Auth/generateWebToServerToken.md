@@ -42,7 +42,7 @@
     const jwt = require('jsonwebtoken');
         
     const privateKey = fs.readFileSync(
-    `${__dirname}/your_company_name_rsa2048_private.pem`,
+      `${__dirname}/your_company_name_rsa2048_private.pem`,
     );
         
     // this is from import user api result
