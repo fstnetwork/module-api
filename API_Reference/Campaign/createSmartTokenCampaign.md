@@ -9,6 +9,8 @@
     createCampaign(input: $input) {
       transaction
       submitToken
+      hash
+      metadata
     }
   }
   ```
@@ -46,7 +48,9 @@
     "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
   }
   ```
-## HTTP Request
+
+## HTTP Request and Response
+### Request
 
 - URL
   - For development: `https://test.fstk.io/api`
@@ -64,6 +68,7 @@
       ```
 
 - Body
+  _(sample)_
   ``` 
   {
     "query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n      createCampaign(input: $input) {\n        transaction\n        submitToken\n      }\n    }",
@@ -98,7 +103,7 @@
   The `priceMultiplier` in `variables.stages` is the bonus rate in fractional number form. For example, if to set a bonus rate at 30%, then `numerator` : `denominator` should be `1 : 1.3`.  
   The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**. -->
 
-## HTTP Response
+### Response
 (for example)
 ```
 {
@@ -113,7 +118,14 @@
         "data":"0x4000aea0000000000000000000000000e23d3eae3643cefc8ffe15b9635b3ef065f7a1af0000000000000000000000000000000000000000000054b40b1f852bda000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001246f40b1c9000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000009b14fc2cd40195d68cb0b40b5c64dd1fb7c929da000000000000000000000000000000000000000000000000000000005a4860c0000000000000000000000000000000000000000000000000000000005c2994400000000000000000000000000000000000000000000054b40b1f852bda00000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         "chainId":42
       },
-      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiImXHUwMDBmw54wwrHChFx1MDAxMcOowotcdTAwMTHDn8KNw4XDscKTRSIsImFjdGlvbiI6ImNyZWF0ZVRva2VuQ2FtcGFpZ24iLCJkYXRhIjoiUUFDdW9BQUFBQUFBQUFBQUFBQUFBT0k5UHE0MlE4NzhqLzRWdVdOYlB2Qmw5Nkd2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFGUzBDeCtGSzlvQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRWtiMEN4eVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQ2JGUHdzMUFHVjFveXd0QXRjWk4wZnQ4a3AyZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJhU0dEQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFGd3BsRUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVZMUUxINFVyMmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBPSIsImluZm8iOnsidG9rZW5JZCI6ImzCjMK7XHUwMDA0wrHCplx1MDAxMcOowotcdTAwMTFzw6zDucO7wqddIiwibmFtZSI6eyJlbiI6Ik9NRzEifSwiZGVzY3JpcHRpb24iOnsiZW4iOiJPTUcgMSAhISEhISJ9LCJzdGFnZXMiOlt7Im5hbWUiOnsiZW4iOiJPTUcxIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiT01HIDEgISEhISEifSwiaXNQcml2YXRlIjpmYWxzZSwic3RhcnRUaW1lIjoiMTUxNDY5MjgwMDAwMCIsImVuZFRpbWUiOiIxNTQ2MjI4ODAwMDAwIiwiY2FwIjoiNDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwicHJpY2VNdWx0aXBsaWVyIjp7Im51bWVyYXRvciI6IjEiLCJkZW5vbWluYXRvciI6IjIifX1dfSwiaWF0IjoxNTQwMjAyMzM2LCJleHAiOjE1NDAyMDI5MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ._XOTHBjgtZZdagmg0z8-k73az2c1VZ7Dq7Fv2NylzG9cFlFsdXjpD4vMrzJx3oifT2xcymf29ftxg2-4oNZzUg"
+      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiImXHUwMDBmw54wwrHChFx1MDAxMcOowotcdTAwMTHDn8KNw4XDscKTRSIsImFjdGlvbiI6ImNyZWF0ZVRva2VuQ2FtcGFpZ24iLCJkYXRhIjoiUUFDdW9BQUFBQUFBQUFBQUFBQUFBT0k5UHE0MlE4NzhqLzRWdVdOYlB2Qmw5Nkd2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFGUzBDeCtGSzlvQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRWtiMEN4eVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQ2JGUHdzMUFHVjFveXd0QXRjWk4wZnQ4a3AyZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJhU0dEQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFGd3BsRUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVZMUUxINFVyMmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBPSIsImluZm8iOnsidG9rZW5JZCI6ImzCjMK7XHUwMDA0wrHCplx1MDAxMcOowotcdTAwMTFzw6zDucO7wqddIiwibmFtZSI6eyJlbiI6Ik9NRzEifSwiZGVzY3JpcHRpb24iOnsiZW4iOiJPTUcgMSAhISEhISJ9LCJzdGFnZXMiOlt7Im5hbWUiOnsiZW4iOiJPTUcxIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiT01HIDEgISEhISEifSwiaXNQcml2YXRlIjpmYWxzZSwic3RhcnRUaW1lIjoiMTUxNDY5MjgwMDAwMCIsImVuZFRpbWUiOiIxNTQ2MjI4ODAwMDAwIiwiY2FwIjoiNDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwicHJpY2VNdWx0aXBsaWVyIjp7Im51bWVyYXRvciI6IjEiLCJkZW5vbWluYXRvciI6IjIifX1dfSwiaWF0IjoxNTQwMjAyMzM2LCJleHAiOjE1NDAyMDI5MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ._XOTHBjgtZZdagmg0z8-k73az2c1VZ7Dq7Fv2NylzG9cFlFsdXjpD4vMrzJx3oifT2xcymf29ftxg2-4oNZzUg",
+      "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
+      "metadata":{
+        "fee": {
+          "type": "ETH",
+          "amount": "223624000000000"
+        }
+      }
     }
   }
 }
@@ -124,24 +136,56 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
 
 ## Parameters
 ### Request 
-  - `id`: ID of the token to sell. ID is a global identifier.
-  - `name`: Campaigm name.
-  - `description`: Campaign description.
-  - `stages`: **Currently only support one stage in `stages`.**
-    - `name`: The campaign stage name.
-    - `startTime`: The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
-    - `endTime`: The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
-    - `priceMultiplier`: The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._)
-      - `numerator`: The numerator of this fraction.
-      - `denominator`: The denominator of this fraction.
-    - `cap`: Total amount of token for sale during this campaign stage. The format is Decimaled Number.
-    - `isPrivate`: The campaign stage is private or not.
-    - `description`: The campaign stage description.
-  - `por`: `ENABLE` or `DISABLE`.
+  - **`id`** \<string>
+    - ID of the token to sell. ID is a global identifier.
+    - Required: Yes
+  - **`name`** \<string>
+    - Campaigm name.
+    - Required: Yes
+  - **`description`** \<string>
+    - Campaign description.
+    - Required: Yes
+  - **`stages`** **(Currently only support one stage in `stages`.)** \<CampaignStageInput>
+    - **`name`** \<string>
+      - The campaign stage name.
+      - Required: Yes
+    - **`startTime`** \<string>
+      - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
+      - Required: Yes
+    - **`endTime`** \<string>
+      - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
+      - Required: Yes
+    - **`priceMultiplier`** \<string>
+      - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._)
+      - **`numerator`** \<string>
+        - The numerator of this fraction.
+        - Required: Yes
+      - **`denominator`** \<string>
+        - The denominator of this fraction.
+        - Required: Yes
+    - **`cap`** \<string>
+      - Total amount of token for sale during this campaign stage. The format is Decimaled Number.
+      - Required: Yes
+    - **`isPrivate`** \<boolean>
+      - The campaign stage is private or not.
+      - Required: Yes
+    - **`description`** \<string>
+      - The campaign stage description.
+      - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
-  - `transaction`: UNSIGNED raw transaction format in Ethereum.
-  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
-  - `pendingTransactions`: Amount of your transactions which are still pending.
-  - `hash`: TODO hash of `transaction`
-  - `metadata`: TODO data of `transaction`
+  - **`createCampaign`** \<CreateCampaignPayload>
+    - **`transaction`** \<JSON>
+      - UNSIGNED raw transaction format in Ethereum.
+    - **`submitToken`** \<string>
+      - The value for [SubmitSignedTransaction API]().
+    - **`pendingTransactions`** \<string>
+      - Amount of your transactions which are still pending.
+    - **`hash`** \<string>
+      - PORMode `ENABLE`: Hash of the abi encode.
+      - PORMode `DISABLE`: Hash of the RLP encode.
+    - **`metadata`** \<JSON>
+      - Metadata of the transaction.
