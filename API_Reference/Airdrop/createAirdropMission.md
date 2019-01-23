@@ -121,7 +121,7 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
     - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `ENABLE`.
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`transaction`** \<string>

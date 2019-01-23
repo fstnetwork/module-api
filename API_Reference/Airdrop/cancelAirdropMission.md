@@ -21,7 +21,8 @@ You are able to cancel the airdrop and return the budget you put in to the airdr
   ```
   {
     "input":{
-      "missionId":"QWlyZHJvcE1pc3Npb246OTE="
+      "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+      "por":"DISABLE"
     }
   }
   ```
@@ -57,7 +58,8 @@ You are able to cancel the airdrop and return the budget you put in to the airdr
     "query":"\n      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {\n        claimAirdropMission(input: $input){\n          pendingTransactions\n          transaction\n          submitToken\n      hash\n      metadata\n        }\n      }\n    ",
     "variables":{
         "input":{
-          "missionId":"QWlyZHJvcE1pc3Npb246OTE="
+          "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+          "por":"DISABLE"
         }
     }
   }
@@ -81,7 +83,7 @@ You are able to cancel the airdrop and return the budget you put in to the airdr
         "data":"0x4677866f000000000000000000000000000000000000000000000000000000000000005b",
         "chainId":42
          },
-      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ"
+      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ",
       "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
       "metadata":{
         "fee": {
@@ -98,9 +100,12 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 ## Parameters
 ### Request
-  - **`missionId`**
+  - **`missionId`** \<string>
     - Airdrop mission ID. `missionID` is able to get by [getAirdropMissionInfo API]().
     - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`claimAirdropMission`** \<claimAirdropMissionPayload>

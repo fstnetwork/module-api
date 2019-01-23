@@ -21,7 +21,8 @@ You are able to claim the budget remaining, get the asset you sold, and close th
   ```
   {
     "input":{
-      "missionId":"QWlyZHJvcE1pc3Npb246OTE="
+      "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+      "por":"DISABLE"
     }
   }
   ```
@@ -57,7 +58,8 @@ You are able to claim the budget remaining, get the asset you sold, and close th
     "query":"\n      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {\n        claimAirdropMission(input: $input){\n          pendingTransactions\n          transaction\n          submitToken\n      hash\n      metadata\n        }\n      }\n    ",
     "variables":{
         "input":{
-          "missionId":"QWlyZHJvcE1pc3Npb246OTE="
+          "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+          "por":"DISABLE"
         }
     }
   }
@@ -81,7 +83,7 @@ You are able to claim the budget remaining, get the asset you sold, and close th
         "data":"0x4677866f000000000000000000000000000000000000000000000000000000000000005b",
         "chainId":42
          },
-      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ"
+      "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ",
       "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
       "metadata":{
         "fee": {
@@ -94,13 +96,16 @@ You are able to claim the budget remaining, get the asset you sold, and close th
 }
 ```
 
-This API responses a ABI-Encoded transaction for creating the basic voucher campaign, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/fstnetwork/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API](https://github.com/fstnetwork/module-api/tree/master/SubmitSignedTransaction).
+This API responses a ABI-Encoded transaction for creating the basic voucher campaign, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/fstnetwork/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API]().
 
 ## Parameters
 ### Request
-  - **`missionId`**
+  - **`missionId`** \<string>
     - Airdrop mission ID. `missionID` is able to get by [getAirdropMissionInfo API]().
     - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`claimAirdropMission`** \<claimAirdropMissionPayload>
@@ -109,9 +114,9 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
     - **`transaction`** \<JSON>
       - UNSIGNED raw transaction format in Ethereum.
     - **`submitToken`** \<string>
-      - The value for [SubmitSignedTransaction API](https://github.com/fstnetwork/module-api/tree/master/SubmitSignedTransaction).
+      - The value for [SubmitSignedTransaction API]().
     - **`hash`** \<string>
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
     - **`metadata`** \<JSON>
-      - - Metadata of the transaction.
+      - Metadata of the transaction.
