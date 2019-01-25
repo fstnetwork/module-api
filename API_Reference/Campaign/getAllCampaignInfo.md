@@ -48,7 +48,6 @@
 
 
 ### Response
-(for example)
 ```
 
 ```

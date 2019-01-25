@@ -1,5 +1,5 @@
 
-# Create Basic Token Campaign
+# Create Smart Token Campaign
 
 ## GraphQL API
 
@@ -104,7 +104,6 @@
   The `cap` in `variables.stages` is the target cap of the basic token campaign. For example, if to set a cap to `123 Token`, then the `cap` should be `"123000000000000000000"`, which is a **decimaled number string**. -->
 
 ### Response
-(for example)
 ```
 {
   "data":{
@@ -156,7 +155,8 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
       - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
       - Required: Yes
     - **`priceMultiplier`** \<string>
-      - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._)
+      - 
+      <!-- - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._) -->
       - **`numerator`** \<string>
         - The numerator of this fraction.
         - Required: Yes
