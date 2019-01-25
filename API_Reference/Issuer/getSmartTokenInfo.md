@@ -65,31 +65,7 @@
 - Body
   ``` 
   {
-    "query":"query getSmartTokenInfo {\n  me {\n  token {\n id\n
-        issuer {\n
-          firstName\n
-          lastName\n
-          ethereumAddress\n
-        }\n
-        contractAddress\n
-        name\n
-        symbol\n
-        totalSupply\n
-        decimals\n
-        price {\n
-          numerator\n
-          denominator\n
-        }\n
-        website\n
-        proofOfContract {\n
-          ipfs\n
-        }\n
-        logo {\n
-          ipfs\n
-        }\n
-      }\n
-    }\n
-  }\n"
+    "query":"query getSmartTokenInfo {\n  me {\n  token {\n  id\n  issuer  {\n  firstName\n lastName\n  ethereumAddress\n  }\n  contractAddress\n  name\n  symbol\n  totalSupply\n  decimals\n  price {\n  numerator\n  denominator\n  }\n  website\n  proofOfContract {\n  ipfs\n  }\n  logo {\n  ipfs\n  }\n  }\n  }\n  }\n"
   }
   ```
   The value of `query` in the body is a `String`. 
@@ -133,4 +109,38 @@
 
 ## Parameters
 ### Response
+- **`token`** \<Token>
+  - **`id`** \<string>
+    - Smart Token ID. ID is a global identifier.
+  - **`issuer`** \<UserInfo>
+    - **`firstName`** \<string>
+      - Issuer first name.
+    - **`lastName`** \<string>
+      - Issuer last name.
+    - **`ethereumAddress`** \<string>
+      - Issuer's ethereum address.
+  - **`contractAddress`** \<string>
+    - The Smart Token contract address.
+  - **`name`** \<string>
+    - Smart Token name.
+  - **`symbol`** \<string>
+    - Smart Token symbol.
+  - **`totalSupply`** \<string>
+    - Total supply of the Smart Token.
+  - **`decimals`** \<string>
+    - Smart Token decimals.
+  - **`price`** \<Fraction>
+    - Smart Token price.
+    - **`numerator`** \<string>
+      - The numerator of this fraction.
+    - **`denominator`** \<string>
+      - The denominator of this fraction.
+  - **`website`** \<string>
+    - Smart Token related website.
+  - **`proofOfContract`** \<File>
+    - **`ipfs`** \<string>
+      - Information of the proof of contract ipfs link.
+  - **`logo`** \<File>
+    - **`ipfs`** \<string>
+      - Information of the Smart Token logo's ipfs link.
 
