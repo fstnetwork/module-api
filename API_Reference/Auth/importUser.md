@@ -46,7 +46,7 @@ You can import your end user via this API.
   ```
   The `ethereumKey` in this `importUser` args can be generated via https://github.com/funderstoken/eth-key-lib-js
 
-- HTTP Header
+- HTTP Headers
   ```
   {
     "accept": "application/json",
