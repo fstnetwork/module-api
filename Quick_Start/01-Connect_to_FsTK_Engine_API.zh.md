@@ -11,15 +11,15 @@
  1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
     > (此兩個平台之帳戶資料沒有互通)
 
-    - `test.fstk.io` 是我們在 **Kovan Testnet** 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
+    - `test.fstk.io` 是在 **Kovan Testnet** 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
     - `engine.fstk.io` 則在 **Mainnet**，是於以太坊主公開鏈建立的 Tokeneden 平台
 
  2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
     > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
 
     - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，是用於發行 Token 之授權，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
+    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
+    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
     - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
 
  3. 請準備好您的 API 測試工具
