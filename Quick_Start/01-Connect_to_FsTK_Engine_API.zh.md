@@ -76,12 +76,12 @@
     }
     ```
 
- 2. 記錄剛取得之 `access_token`
+ 2. 記錄並使用剛取得之 `access_token`
     > `access_token` 的格式為 `JSON Web Token` ，請見 [jwt.io](https://jwt.io)
 
     > `access_token` 有效期間為 24 hr
 
-    以便用於接下來的任一 API 請求，此 `access_token` 需要被帶在 http request header 中的 `authorization` header，例如:
+    接下來，除了登入的任一 API 請求，此 `access_token` 需要被夾帶在 http request header 中的 `authorization` header，例如:
 
     ```
     authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w
