@@ -77,7 +77,7 @@
     ```
 
  2. 記錄剛取得之 `access_token`
-    > `access_token` 的格式為 `JSON Web Token` [jwt.io](https://jwt.io)
+    > `access_token` 的格式為 `JSON Web Token` ，請見 [jwt.io](https://jwt.io)
 
     > `access_token` 有效期間為 24 hr
 
