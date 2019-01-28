@@ -5,7 +5,26 @@
 
 - Query String
   ```
-  
+  {
+    me {
+      token {
+        vouchers {
+         edges {
+           node {
+             holders {
+                edges {
+                  node {
+                    address
+                   balance
+                 }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   ```
 - Query Variables
 
@@ -42,7 +61,9 @@
 - Body
   _(sample)_
   ``` 
-  
+  {  
+   "query":"{\n  me {\n    token {\n      vouchers {\n        edges {\n          node {\n            holders {\n              edges {\n                node {\n                  address\n                  balance\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
+  }
   ```
   The value of `query` in the body is a `String`. 
 
@@ -50,7 +71,38 @@
 ### Response
 (for example)
 ```
-
+{
+  "data": {
+    "me": {
+      "token": {
+        "vouchers": {
+          "edges": [
+            {
+              "node": {
+                "holders": {
+                  "edges": [
+                    {
+                      "node": {
+                        "address": "0xb0236f9a6a1cd8cf17251a130651e0be8fb00e27",
+                        "balance": "9467"
+                      }
+                    },
+                    {
+                      "node": {
+                        "address": "0x7bdfada0608449e36f812c861ab19670286e1b1f",
+                        "balance": "20"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
 ```
 
 
