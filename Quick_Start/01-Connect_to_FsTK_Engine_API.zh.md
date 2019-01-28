@@ -40,10 +40,8 @@
       https://test.fstk.io/signin \
       -H 'Content-Type: application/json' \
       -H 'cache-control: no-cache' \
-      -d '{
-        "identity": "your@email.com",
-        "password": "yourpassword"
-    }'
+      -d '{ "identity": "your@email.com",
+            "password": "yourpassword" }'
     ```
 
     - Send a request in JavaScript
