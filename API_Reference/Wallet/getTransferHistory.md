@@ -232,12 +232,18 @@ _(sample)_
 ```
 
 ## Parameters
+### Request 
+- **`first`** \<Int>
+  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+- **`after`** \<string>
+  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+
 ### Response
 - **`transferHistory`** \<TransferHistoryConnection!>
   - **`totalCount`** \<Int>
     - TotalCount of all data
   - **`pageInfo`** \<PageInfo>
-    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)
+    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`hasNextPage`** \<boolean>
     - **`hasPreviousPage`** \<boolean>
     - **`startCursor`** \<string>
