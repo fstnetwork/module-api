@@ -5,7 +5,37 @@
 
 - Query String
   ```
-  
+{
+  me {
+    id
+    campaigns {
+      edges {
+        node {
+          id
+          name
+          description
+          contractAddress
+          isOpen
+          stages {
+            name
+            description
+            startTime
+            endTime
+            priceMultiplier {
+              numerator
+              denominator
+            }
+            cap
+            isPrivate
+            sold
+          }
+          transactionHash
+          createdTime
+        }
+      }
+    }
+  }
+}
   ```
 - Query Variables
 
@@ -42,14 +72,78 @@
 - Body
   _(sample)_
   ``` 
-  
+  {  
+   "query":"{\n  me {\n    id\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          description\n          contractAddress\n          isOpen\n          stages {\n            name\n            description\n            startTime\n            endTime\n            priceMultiplier {\n              numerator\n              denominator\n            }\n            cap\n            isPrivate\n            sold\n          }\n          transactionHash\n          createdTime\n        }\n      }\n    }\n  }\n}\n"
+}
   ```
   The value of `query` in the body is a `String`. 
 
 
 ### Response
 ```
-
+{
+  "data": {
+    "me": {
+      "id": "VXNlckluZm86ZMKySsOYGioRw6nCujvCqyRfw65wAw==",
+      "campaigns": {
+        "edges": [
+          {
+            "node": {
+              "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+              "name": "This is my first bas",
+              "description": "My first basic token campaign",
+              "contractAddress": "0xc1149f52f0f1b690e2f20fddc897b015de878e38",
+              "isOpen": false,
+              "stages": [
+                {
+                  "name": "This is my first bas",
+                  "description": "My first basic token campaign",
+                  "startTime": "1548734400000",
+                  "endTime": "1548907200000",
+                  "priceMultiplier": {
+                    "numerator": "1",
+                    "denominator": "1"
+                  },
+                  "cap": "131452000000000000000000000",
+                  "isPrivate": false,
+                  "sold": "0"
+                }
+              ],
+              "transactionHash": "0x547e1bfa9b4dfb98db141da0afe5aa980ff3c344de0fb6ead4081204694a284d",
+              "createdTime": "1548657592000"
+            }
+          },
+          {
+            "node": {
+              "id": "VG9rZW5DYW1wYWlnbjpwwq/DlRQiw4oRw6nCujtXw4xow4Nnwp0=",
+              "name": "My first basic token",
+              "description": "This is my first basic token campaign",
+              "contractAddress": "0x62bfa3cb1d38d8739a042d2386b94cea12e2da6a",
+              "isOpen": true,
+              "stages": [
+                {
+                  "name": "My first basic token",
+                  "description": "This is my first basic token campaign",
+                  "startTime": "1548734400000",
+                  "endTime": "1548907200000",
+                  "priceMultiplier": {
+                    "numerator": "1",
+                    "denominator": "1"
+                  },
+                  "cap": "13145200000000000000000000",
+                  "isPrivate": false,
+                  "sold": "0"
+                }
+              ],
+              "transactionHash": "0xa52beaf9b2f4666a4308ecf89fc3933c5dbb78a3edc05c0439871f1d1053f1ea",
+              "createdTime": "1548658852000"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
 ```
 
 
