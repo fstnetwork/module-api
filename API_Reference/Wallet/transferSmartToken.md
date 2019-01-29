@@ -1,107 +1,131 @@
 
-# Transfer Smart Token
+# Get Smart Token Holders
 
-This API is
+You are able to transfer FIL via this API.
 
 ## GraphQL API
-- Query String
+
+  - Query String
   ```
-  mutation erc20Transfer($input: ERC20TransferInput) {
-    erc20Transfer(input: $input) {
-      pendingTransactions
+  mutation transferFIL ($input: ERC20TransferInput!) {
+    erc20Transfer(input:$input) {
       transaction
+      hash
+      metadata
       submitToken
     }
   }
   ```
+  - Query Variables
 
-- Query Variables
   ```
-  {  
-    "input":{  
-        id: "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
-        to: "0x829BD824B016326A401d083B33D092293333A830",
-        value: "1123456789123456789"
+  {
+    "input": {
+      "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+      "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+      "value": "100000000000000000000",
+      "por": "DISABLE"
     }
   }
   ```
-  
-- HTTP Headers
+- HTTP Headers 
   ```
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
+## HTTP Request and Response
+### Request
 
-## HTTP Request
 - URL
-  - For development: `http://test.fstk.io/api`
+  - For development: `https://test.fstk.io/api`
   - For production: `https://engine.fstk.io/api`
+
 - Method: `POST`
+
 - Headers
-  - accept: `application/json;`
-  - content-type: `application/json;`
+  - accept: `application/json`
+  - content-type: `application/json` 
   - authorization: `Bearer [JWT Web-to-Server access token]`
     - (for example)
       ```
       Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NzA5MDM2LCJleHAiOjE1Mzg3OTU0MzYsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.msJZ61FHIkKtjUpDs4sx1Kk1rb9vdhus3ntUDj6rHNmsygiHTgOEMQFJMtVqtWqkNgrtRgGpngq8Rf47xTT53g
       ```
-
-- Body:
-  ```
-  {  
-    "query": "\n    mutation($input: ERC20TransferInput!) {\n      erc20Transfer(input: $input) {\n        pendingTransactions\n        transaction\n        submitToken\n      }\n    }\n    ",
-    "variables": {  
-      "input": {  
-         "id": "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
-         "to": "0x829BD824B016326A401d083B33D092293333A830",
-         "value": "1123456789123456789"
+- Body
+  ``` 
+  { 
+    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash metadata submitToken } }",
+    "variables": {
+      "input": {
+        "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+        "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+        "value": "100000000000000000000",
+        "por": "DISABLE"
       }
     }
   }
   ```
-  The value of `query` in the body is a `String`. 
-
-
-  <!-- The `id` in `variables` is the Token `id`.  
-  The `to` in `variables` is the Token recevier's address.  
-  The `value` in `variables` is the Token value to be transferred.  -->
   
-  <!-- **This string in Token transfer represents the decimaled number string**. For example, because the Tokens have the decimals of 18, the value `"1123456789123456789"` means `1.123456789123456789` for human (**human number string**). -->
-
-
-## HTTP Response
+  The value of `query` in the body is a `String`. 
+  
+## Response
+_(sample)_
 ```
 {
   "data": {
     "erc20Transfer": {
-      "pendingTransactions": "0",
       "transaction": {
-        "nonce": "0xfb",
+        "nonce": "0x9ff",
         "gasPrice": "0x3b9aca00",
-        "gas": "0xf526",
-        "to": "0x3830f7Af866FAe79E4f6B277Be17593Bf96beE3b",
+        "gas": "0xac72",
+        "to": "0x4711e92Ad968A6488500bC5dDe2A48eE17743AB1",
         "value": "0x0",
-        "data": "0xa9059cbb000000000000000000000000829bd824b016326a401d083b33d092293333a8300000000000000000000000000000000000000000000000000f9751ff54345f15",
+        "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d0000000000000000000000000000000000000000000000056bc75e2d63100000",
         "chainId": 42
       },
-      "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJkYXRhIjoicVFXY3V3QUFBQUFBQUFBQUFBQUFBSUtiMkNTd0ZqSnFRQjBJT3pQUWtpa3pNNmd3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFENWRSLzFRMFh4VT0iLCJpYXQiOjE1MzQ2OTMwNzIsImV4cCI6MTUzNDY5MzY3MiwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.nGItBL3I7HLifsa3HZUIyPnX7NiH9YTgx2OcaZtfTV5xEUbJDpDQ0DJIWKgKl5M7f29guC7428iFPkyDTKFVXQ"
+      "hash": "0xa3f076b85ab4677f815b733c9d9fd583638d2ad241b62ac798e72eff01b2f20a",
+      "metadata": {
+        "fee": {
+          "type": "ETH",
+          "amount": "44146000000000"
+        }
+      },
+      "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJlcmMyMFRyYW5zZmVyIiwidHgiOiIrR3FDQ2YrRU81cktBSUtzY3BSSEVla3EyV2ltU0lVQXZGM2VLa2p1RjNRNnNZQzRSS2tGbkxzQUFBQUFBQUFBQUFBQUFBQk05QTJrbjUyQ2daRmh4ZHVHL0xTVzN2NnpYUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJXdkhYaTFqRUFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTQ4NzQ3MDA3LCJleHAiOjE1NDg3NDc2MDcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.D3F6pzHSCfHiEe7vx6KkmdI6vZ3S8jl5McQrdbHR5xLQQm6sTYekomApIM4tJgu1XQ-DH-n-Yp9zvaklCILWMA"
     }
   }
 }
-``` 
-This API responses a ABI-Encoded transaction for the Token transfer, and the end-user (the sender, the requester) has to sign the `transaction` object in the response via [ETH Key lib JS](https://github.com/funderstoken/eth-key-lib-js), then send the signed transaction and the `submitToken` to [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
+```
 
 ## Parameters
 ### Request 
-  - `id`: ID of the token which is to be transferred. ID is a global identifier.
-  - `to`: Address of the receiver.
-  - `value`: Amount of token to be transferred. The format is Decimaled Number.
+- **`id`** \<string>
+  - ID of the target token which is to be transferred. ID is a global identifier.
+- **`to`** \<string>
+  - Address of the receiver.
+- **`value`** \<string>
+  - Amount of target token to be transferred. The format is Decimaled Number.
+- **`por`** \<PORMode>
+  - If using por mode
 
 ### Response
-  - `transaction`: UNSIGNED raw transaction format in Ethereum.
-  - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
-
-
+- **`erc20Transfer`** \<ERC20TransferPayload!>
+  - **`transaction`** \<JSON>
+    - **`nonce`** \<string>
+    - **`gasPrice`** \<string>
+    - **`gas`** \<string>
+    - **`to`** \<string>
+    - **`value`** \<string>
+    - **`data`** \<string>
+    - **`chainId`** \<Int>
+  - **`hash`** \<string>
+    - hash of the transaction (rlp encode and sha3)
+  - **`metadata`** \<JSON>
+    - infomation of the transaction
+    - **`fee`** \<JSON>
+      - **`type`** \<string>
+        - type of the fee
+      - **`amount`** \<string>
+        - amount of the fee
+  - **`submitToken`** \<string>
