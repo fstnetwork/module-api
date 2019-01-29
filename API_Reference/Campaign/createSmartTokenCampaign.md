@@ -45,7 +45,7 @@
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
 
@@ -68,7 +68,6 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {
     "query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n      createCampaign(input: $input) {\n        transaction\n        submitToken\n      }\n    }",
@@ -136,7 +135,7 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
 ## Parameters
 ### Request 
   - **`id`** \<string>
-    - ID of the token to sell. ID is a global identifier.
+    - ID of the Smart Token to sell. ID is a global identifier.
     - Required: Yes
   - **`name`** \<string>
     - Campaigm name.
@@ -155,8 +154,7 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
       - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
       - Required: Yes
     - **`priceMultiplier`** \<string>
-      - 
-      <!-- - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the token price is allowed to be 1 ETH = 120 YourToken._) -->
+      - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the Smart Token price is allowed to be 1 ETH = 120 YourToken._) 
       - **`numerator`** \<string>
         - The numerator of this fraction.
         - Required: Yes
@@ -164,7 +162,7 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
         - The denominator of this fraction.
         - Required: Yes
     - **`cap`** \<string>
-      - Total amount of token for sale during this campaign stage. The format is Decimaled Number.
+      - Total amount of Smart Token for sale during this campaign stage. The format is Decimaled Number.
       - Required: Yes
     - **`isPrivate`** \<boolean>
       - The campaign stage is private or not.
