@@ -101,14 +101,14 @@ _(sample)_
 
 ## Parameters
 ### Request 
-- **`to`** \<string>
-  - to address 
-- **`value`** \<string>
-  - value of transfer amount
 - **`id`** \<string>
-  - id of the FST Token 
+  - ID of the FST Token which is to be transferred. ID is a global identifier.
+- **`to`** \<string>
+  - Address of the receiver.
+- **`value`** \<string>
+  - Amount of FST token to be transferred. The format is Decimaled Number.
 - **`por`** \<PORMode>
-  - if using por mode
+  - If using por mode
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>

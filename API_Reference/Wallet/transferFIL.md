@@ -102,13 +102,13 @@ _(sample)_
 ## Parameters
 ### Request 
 - **`id`** \<string>
-  - id of the FIL Token 
+  - ID of the FIL Token which is to be transferred. ID is a global identifier.
 - **`to`** \<string>
-  - to address 
+  - Address of the receiver.
 - **`value`** \<string>
-  - value of transfer amount
+  - Amount of FIL token to be transferred. The format is Decimaled Number.
 - **`por`** \<PORMode>
-  - if using por mode
+  - If using por mode
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>
