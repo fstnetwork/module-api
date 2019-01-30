@@ -1,53 +1,48 @@
 
-# 
-
+# Get All Campaigns' Information
+Get all of your campaigns' information.
 ## GraphQL API
 
 - Query String
   ```
-{
-  me {
-    id
-    campaigns {
-      edges {
-        node {
-          id
-          name
-          description
-          contractAddress
-          isOpen
-          stages {
+  {
+    me {
+      id
+      campaigns {
+        edges {
+          node {
+            id
             name
             description
-            startTime
-            endTime
-            priceMultiplier {
-              numerator
-              denominator
+            contractAddress
+            isOpen
+            stages {
+              name
+              description
+              startTime
+              endTime
+              priceMultiplier {
+                numerator
+                denominator
+              }
+              cap
+              isPrivate
+              sold
             }
-            cap
-            isPrivate
-            sold
+            transactionHash
+            createdTime
           }
-          transactionHash
-          createdTime
         }
       }
     }
   }
-}
-  ```
-- Query Variables
-
-  ```
-  
   ```
 - HTTP Headers 
   ```
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
 
@@ -70,11 +65,10 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
-   "query":"{\n  me {\n    id\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          description\n          contractAddress\n          isOpen\n          stages {\n            name\n            description\n            startTime\n            endTime\n            priceMultiplier {\n              numerator\n              denominator\n            }\n            cap\n            isPrivate\n            sold\n          }\n          transactionHash\n          createdTime\n        }\n      }\n    }\n  }\n}\n"
-}
+    "query":"{\n  me {\n    id\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          description\n          contractAddress\n          isOpen\n          stages {\n            name\n            description\n            startTime\n            endTime\n            priceMultiplier {\n              numerator\n              denominator\n            }\n            cap\n            isPrivate\n            sold\n          }\n          transactionHash\n          createdTime\n        }\n      }\n    }\n  }\n \n"
+  }
   ```
   The value of `query` in the body is a `String`. 
 

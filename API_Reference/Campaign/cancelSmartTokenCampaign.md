@@ -1,5 +1,5 @@
 
-# 
+# Cancel Smart Token Campaign
 
 ## GraphQL API
 
@@ -7,6 +7,7 @@
   ```
   mutation CloseCampaign($input: CloseCampaignInput!) {
     closeCampaign(input: $input) {
+      transaction
       metadata          
       hash          
       submitToken        
@@ -14,7 +15,6 @@
   }
   ```
 - Query Variables
-
   ```
   {  
       "input":{  
@@ -51,14 +51,13 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
    "query":"\n      mutation CloseCampaign($input: CloseCampaignInput!) {\n        closeCampaign(input: $input) {\n          metadata\n          hash          submitToken        }      }",
    "variables":{  
       "input":{  
          "id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-         "por":"ENABLE"
+         "por":"DISABLE"
       }
    }
   }
@@ -93,10 +92,22 @@
 }
 ```
 
-
-
 ## Parameters
 ### Request 
-
+  - **`id`** \<string>
+    - Smart Token campaign ID.
+    - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
+  - **`transaction`** \<string>
+    - UNSIGNED raw transaction format in Ethereum.
+  - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API](https://github.com/fstnetwork/module-api/tree/master/SubmitSignedTransaction).
+  - **`hash`** \<string>
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
+  - **`metadata`** \<JSON>
+    - Metadata of the transaction.
