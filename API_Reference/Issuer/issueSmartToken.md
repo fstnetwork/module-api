@@ -151,15 +151,15 @@
 - **`proofOfContract`** \<string>
 
 ### Response
-  - **`issueToken`** \<IssueTokenPayload>
-    - **`transaction`** \<JSON>
-      - UNSIGNED raw transaction format in Ethereum.
-    - **`submitToken`** \<string>
-      - The value for [SubmitSignedTransaction API]().
-    - **`pendingTransactions`** \<string>
-      - Amount of your transactions which are still pending.
-    - **`hash`** \<string>
-      - PORMode `ENABLE`: Hash of the abi encode.
-      - PORMode `DISABLE`: Hash of the RLP encode.
-    - **`metadata`** \<JSON>
-      - Metadata of the transaction.
+- **`issueToken`** \<IssueTokenPayload>
+  - **`transaction`** \<JSON>
+    - UNSIGNED raw transaction format in Ethereum.
+  - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API]().
+  - **`pendingTransactions`** \<string>
+    - Amount of your transactions which are still pending.
+  - **`hash`** \<string>
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
+  - **`metadata`** \<JSON>
+    - Metadata of the transaction.
