@@ -1,5 +1,5 @@
 
-# Get Smart Token Holders
+# Transfer FST
 
 You are able to transfer FST via this API.
 

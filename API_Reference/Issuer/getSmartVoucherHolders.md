@@ -36,7 +36,7 @@
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
 
@@ -59,7 +59,6 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
    "query":"{\n  me {\n    token {\n      vouchers {\n        edges {\n          node {\n            holders {\n              edges {\n                node {\n                  address\n                  balance\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n"
@@ -69,7 +68,6 @@
 
 
 ### Response
-(for example)
 ```
 {
   "data": {
@@ -106,9 +104,36 @@
 ```
 
 
-
 ## Parameters
-### Request 
-
-
 ### Response
+  - **`vouchers`** \<Voucher>
+    - **`edges`**
+
+
+
+      - **`id`** \<string>
+        - Token ID. ID is a global identifier.
+      - **`contractAddress`** \<string>
+        - Token contract address.
+      - **`name`** \<string>
+        - Token name.
+      - **`symbol`** \<string>
+        - Token symbol.
+      - **`decimals`** \<string>
+        - Token decimals.
+      - **`holders`** \<TokenHolderConnection>
+        - **`totalCount`** \<int>
+          - Total amount of holders.
+        - **`pageInfo`** \<PageInfo>
+          - **`endCursor`** \<string>
+          - **`startCursor`** \<string>
+          - **`hasNextPage`** \<boolean>
+          - **`hasPreviousPage`** \<boolean>
+        - **`edges`** \<TokenHolderEdge>
+          - **`cursor`** \<string>
+            - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+          - **`node`** \<Holder>
+            - **`address`** \<string>
+              - The holder's address.
+            - **`balance`** \<string>
+              - Amount of the token the holder owns. The format is Decimaled Number.
