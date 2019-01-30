@@ -73,9 +73,7 @@ You are able to fetch all your Smart Token holders via this API.
   
 
 ## Response
-_(sample)_
 ```
-
 {
   "data": {
     "me": {

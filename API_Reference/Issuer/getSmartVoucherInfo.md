@@ -5,55 +5,54 @@
 
 - Query String
   ```
+<<<<<<< HEAD
   {
-  me {
-    token {
-      vouchers {
-        edges {
-          node {
-            id
-            token {
+=======
+  query getSmartVoucherInfo {
+>>>>>>> 5ecff4e838c55154ca68e36749d79f8e2511fc16
+    me {
+      token {
+        vouchers {
+          edges {
+            node {
               id
+              token {
+                id
+              }
+              contractAddress
+              transactionHash
+              name
+              description
+              symbol
+              decimals
+              totalSupply
+              proofOfContract {
+                ipfs
+              }
+              liquid
+              approveChecking
+              price {
+                numerator
+                denominator
+              }
+              availableAmount
+              vendible
+              expiry
+              consumable
+              createdTime
             }
-            contractAddress
-            transactionHash
-            name
-            description
-            symbol
-            decimals
-            totalSupply
-            proofOfContract {
-              ipfs
-            }
-            liquid
-            approveChecking
-            price {
-              numerator
-              denominator
-            }
-            availableAmount
-            vendible
-            expiry
-            consumable
-            createdTime
           }
         }
       }
     }
   }
-  }
-  ```
-- Query Variables
-
-  ```
-  
   ```
 - HTTP Headers 
   ```
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
 
@@ -76,7 +75,6 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
    "query":"{\n  me {\n    token {\n      vouchers {\n        edges {\n          node {\n            id\n            token {\n              id\n            }\n            contractAddress\n            transactionHash\n            name\n            description\n            symbol\n            decimals\n            totalSupply\n            proofOfContract {\n              ipfs\n            }\n            liquid\n            approveChecking\n            price {\n              numerator\n              denominator\n            }\n            availableAmount\n            vendible\n            expiry\n            consumable\n            createdTime\n          }\n        }\n      }\n    }\n  }\n}\n"
@@ -86,7 +84,6 @@
 
 
 ### Response
-(for example)
 ```
 {
   "data": {
@@ -134,7 +131,13 @@
 
 
 ## Parameters
-### Request 
-
-
 ### Response
+  - **`vouchers`**
+    - **`edges`**
+      - **`node`**
+        - **`id`**
+        - **`token`**
+          - **`id`**
+        - **`contractAddress`**
+        - **`transactionHash`**
+        - **`name`**

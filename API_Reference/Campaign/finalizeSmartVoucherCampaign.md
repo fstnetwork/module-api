@@ -1,5 +1,6 @@
 
-# 
+# Finalize Smart Voucher Campaign
+
 
 ## GraphQL API
 
@@ -28,7 +29,7 @@
   {
     "accept": "application/json",
     "content-type": "application/json",
-    "authorization": "bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiaWF0IjoxNTM4NTYyODAyLCJleHAiOjE1Mzg2NDkyMDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.sGfxYe16aRx_vmvzlRps_gcyTeQD-zsR5HCtjXQ3hYpQYjN1lOFkdpF0m4Yrrh8uHyWBYifqYUVHmkRej4-9gA"
+    "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
 
@@ -51,16 +52,15 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
-   "query":"\n      mutation CloseCampaign($input: CloseCampaignInput!) {\n        closeCampaign(input: $input) {\n          metadata\n          hash          submitToken        }      }",
-   "variables":{  
+    "query":"\n      mutation CloseCampaign($input: CloseCampaignInput!) {\n        closeCampaign(input: $input) {\n          metadata\n          hash          submitToken        }      }",
+    "variables":{  
       "input":{  
          "id":"Vm91Y2hlckNhbXBhaWduOsOaK8OWw64iw4wRw6nCujsfw6rDlR/Cu8Of",
          "por":"ENABLE"
       }
-   }
+    }
   }
   ```
   The value of `query` in the body is a `String`. 
@@ -93,10 +93,22 @@
 }
 ```
 
-
-
 ## Parameters
 ### Request 
-
+  - **`id`** \<string>
+    - Smart Voucher campaign ID.
+    - Required: Yes
+  - **`por`** \<PORMode>
+    - `ENABLE` or `DISABLE` \<enum>
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
+  - **`transaction`** \<string>
+    - UNSIGNED raw transaction format in Ethereum.
+  - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API](https://github.com/fstnetwork/module-api/tree/master/SubmitSignedTransaction).
+  - **`hash`** \<string>
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
+  - **`metadata`** \<JSON>
+    - Metadata of the transaction.
