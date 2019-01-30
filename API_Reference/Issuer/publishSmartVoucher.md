@@ -5,12 +5,34 @@
 
 - Query String
   ```
-  
+  mutation publishVoucher($input: PublishVoucherInput!) {
+    publishVoucher(input: $input) {
+      transaction
+      hash
+      metadata
+      submitToken
+    }
+  }
+
   ```
 - Query Variables
 
   ```
-  
+  {
+    "input":{
+      "name":"Glass",
+      "symbol":"GALIFE_GLASS",
+      "consumable":true,
+      "totalSupply":"5000",
+      "price": {
+        "numerator":"2000000000000000000000",
+        "denominator":"1"
+      },
+      "expiry":"1577807999000",
+      "description":"this is description",
+      "proofOfContract":null
+    }
+  }
   ```
 - HTTP Headers 
   ```
@@ -41,7 +63,39 @@
 
 - Body
   ``` 
-  
+  ------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
+  Content-Disposition: form-data; name="operations"
+
+  {
+    "query":"mutation publishVoucher($input: PublishVoucherInput!) { publishVoucher(input: $input) { transaction hash metadata submitToken } }",
+    "variables": {
+      "input":{
+        "name":"Glass",
+        "symbol":"GALIFE_GLASS",
+        "consumable":true,
+        "totalSupply":"5000",
+        "price": {
+          "numerator":"2000000000000000000000",
+          "denominator":"1"
+        },
+        "expiry":"1577807999000",
+        "description":"this is description",
+        "proofOfContract":null
+      }
+    }
+  }
+  ------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
+  Content-Disposition: form-data; name="map"
+
+  {"proofOfContract":["variables.input.proofOfContract"]}
+  ------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
+  Content-Disposition: form-data; name="proofOfContract"; filename="test.pdf"
+  Content-Type: application/pdf
+
+  proofOfContract file content
+
+  ------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj--
+
   ```
   The value of `query` in the body is a `String`. 
 
@@ -71,49 +125,35 @@
 }
 ```
 
-
-
 ## Parameters
 ### Request 
-
-Request URL: https://dev.fstk.io/api
-Request Method: POST
-Status Code: 200 
-Remote Address: 52.34.150.19:443
-Referrer Policy: no-referrer-when-downgrade
-access-control-allow-origin: *
-content-encoding: gzip
-content-type: application/json
-date: Mon, 28 Jan 2019 09:21:49 GMT
-server: FsTK Web Server
-status: 200
-strict-transport-security: max-age=15768000; includeSubDomains; preload
-vary: X-HTTP-Method-Overrid, Accept-Encoding
-x-content-type-options: nosniff, nosniff
-x-dns-prefetch-control: off, off
-x-download-options: noopen, noopen
-x-frame-options: SAMEORIGIN, SAMEORIGIN
-x-xss-protection: 1; mode=block, 1; mode=block
-Provisional headers are shown
-Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDvsOcw6UqXCLDmVx1MDAxMcOpwro7fzfClX_Cqk0iLCJpYXQiOjE1NDg2NjcwOTEsImV4cCI6MTU0ODc1MzQ5MSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOmFjY2Vzc190b2tlbiJ9.ej6hCJmocFKghLWYHA0YZwHwXbyS3Gef0zchl_rXlApPVGY7oSyu55DS_ebzsgogq4d0NQ5N7Io_aUwu0sZwtQ
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
-Origin: http://localhost:8080
-Referer: http://localhost:8080/crm/vouchers
-User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
-------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
-Content-Disposition: form-data; name="operations"
-
-{"query":"\n        mutation publishVoucher($input: PublishVoucherInput!) {\n          publishVoucher(input: $input) {\n            transaction\n            hash\n            metadata\n            submitToken\n          }\n        }","variables":{"input":{"name":"Glass","symbol":"GALIFE_GLASS","consumable":true,"totalSupply":"5000","price":{"numerator":"2000000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"this is description","proofOfContract":null}}}
-------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
-Content-Disposition: form-data; name="map"
-
-{"proofOfContract":["variables.input.proofOfContract"]}
-------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj
-Content-Disposition: form-data; name="proofOfContract"; filename="test.pdf"
-Content-Type: application/pdf
-
-
-------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj--
+- **`name`** \<string>
+  - name of the token
+- **`consumable`** \<boolean>
+- **`symbol`** \<string>
+  - symbol of the token.
+- **`totalSupply`** \<string>
+  - totalSupply of the token (decimal)
+- **`price`** \<string>
+ - price
+  - **`numerator`** \<string>
+  - numerator
+  - **`denominator`** \<string>
+  - denominator
+- **`expiry`** \<string>
+- **`description`** \<string>
+- **`proofOfContract`** \<string>
 
 ### Response
+- **`publishVoucher`** \<PublishVoucherPayload>
+  - **`transaction`** \<JSON>
+    - UNSIGNED raw transaction format in Ethereum.
+  - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API]().
+  - **`pendingTransactions`** \<string>
+    - Amount of your transactions which are still pending.
+  - **`hash`** \<string>
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
+  - **`metadata`** \<JSON>
+    - Metadata of the transaction.
