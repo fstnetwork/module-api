@@ -5,7 +5,11 @@
 
 - Query String
   ```
+<<<<<<< HEAD
   {
+=======
+  query getSmartVoucherInfo {
+>>>>>>> 5ecff4e838c55154ca68e36749d79f8e2511fc16
     me {
       token {
         vouchers {
