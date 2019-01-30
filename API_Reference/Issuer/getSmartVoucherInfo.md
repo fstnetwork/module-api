@@ -5,42 +5,42 @@
 
 - Query String
   ```
-  {
-  me {
-    token {
-      vouchers {
-        edges {
-          node {
-            id
-            token {
+  query getSmartVoucherInfo {
+    me {
+      token {
+        vouchers {
+          edges {
+            node {
               id
+              token {
+                id
+              }
+              contractAddress
+              transactionHash
+              name
+              description
+              symbol
+              decimals
+              totalSupply
+              proofOfContract {
+                ipfs
+              }
+              liquid
+              approveChecking
+              price {
+                numerator
+                denominator
+              }
+              availableAmount
+              vendible
+              expiry
+              consumable
+              createdTime
             }
-            contractAddress
-            transactionHash
-            name
-            description
-            symbol
-            decimals
-            totalSupply
-            proofOfContract {
-              ipfs
-            }
-            liquid
-            approveChecking
-            price {
-              numerator
-              denominator
-            }
-            availableAmount
-            vendible
-            expiry
-            consumable
-            createdTime
           }
         }
       }
     }
-  }
   }
   ```
 - Query Variables
