@@ -56,8 +56,6 @@ Set the rule and get the rusult of the rule for airdrop.
   }
   ```
 - Query Variables
-  
-  _(Sample)_
   ```
   {  
     "input":{  
@@ -112,9 +110,6 @@ Set the rule and get the rusult of the rule for airdrop.
       ```
 
 - Body
-
-  _(for example)_
-
   ``` 
   {  
     "query":"\n    mutation createAirdropLocate($input: createAirdropLocateInput!) {\n      createAirdropLocate(input: $input) {\n        airdropLocate {\n          seqno: id\n          airdropItem {\n            ... on Token {\n              id\n              name\n              decimals\n            }\n          }\n          distinctAccount: totalAddresses\n          totalAmount: totalAirdropAmount\n          summary {\n            rule {\n              locateRule {\n                type\n                item {\n                  ... on Token {\n                    decimals\n                  }\n                  ... on Voucher {\n                    decimals\n                  }\n                }\n              }\n              item {\n                ... on Token {\n                  decimals\n                }\n                ... on Voucher {\n                  decimals\n                }\n              }\n              amount\n            }\n            giveTotalAccount: totalAddresses\n            giveAmountAll: totalAirdropAmount\n            calculateDetail: airdropDetails {\n              ownerAddress: address\n              value: balance\n              computeResult: ruleAmount\n              giveAmountResult: airdropAmount\n            }\n          }\n        }\n      }\n    }\n\n    ",
@@ -149,8 +144,6 @@ Set the rule and get the rusult of the rule for airdrop.
   
 
 ### Response
-
-_(sample)_
 ```
 {
   "data": {
@@ -282,74 +275,38 @@ _(sample)_
 
 ## Parameters
 ### Request 
-  <!-- - `rules`:
-    - `rule`: 
-      - `type`: `EVERY` or `AT_LEAST`. 
-        - `EVERY` means every condition will be counted for giveaway item calculation. _e.g. If qualification is set to be 'every' 1 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 10 FVoucher through this airdrop event._ 
-        - `AT_LEAST` means only the condition is greater than or equal to (&gt;=) the qualification will be counted for giveaway item calculation. _e.g. If qualification is set to be 'at least' 5 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 1 FVoucher through this airdrop event._
-      - `itemId`: Item(token/voucher) of the rule.
-      - `amount`: Amount of item(token/voucher) of the rule.
-    - `itemId`: Item(token/voucher) to drop.
-    - `amount`: Amount of item(token/voucher) to drop if matching the condition. -->
-
-
 - **`rule`** \<airdropLocateRule>
   - **`type`** \<enum>
     - `EVERY` or `AT_LEAST`. `EVERY` means every condition will be counted for giveaway item calculation. _e.g. If qualification is set to be 'every' 1 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 10 FVoucher through this airdrop event._ `AT_LEAST` means only the condition is greater than or equal to (&gt;=) the qualification will be counted for giveaway item calculation. _e.g. If qualification is set to be 'at least' 5 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 1 FVoucher through this airdrop event._
     - Required: Yes
   - **`itemId`** \<string>
-    - Item(token/voucher) of the rule.
+    - Item(Smart Token/Voucher) of the rule.
     - Required: Yes
   - **`amount`** \<string>
-    - Amount of item(token/voucher) of the rule.
+    - Amount of item(Smart Token/Voucher) of the rule.
     - Required: Yes
 - **`itemID`** \<string>
-  - Item(token/voucher) to drop.
+  - Item(Smart Token/Voucher) to drop.
   - Required: Yes
 - **`amount`** \<string>
-  - Amount of item(token/voucher) to drop if matching the condition.
+  - Amount of item(Smart Token/Voucher) to drop if matching the condition.
   - Required: Yes
 
 ### Response
-  <!-- - `seqno`: ID of the locate rules.
-  - `airdropItem`: 
-    - `id`: ID of the item(token/voucher) which is to drop.
-    - `name`: Name of the item(token/voucher) which is to drop.
-    - `decimals`: Decimals of the item(token/voucher) which is to drop.
-  - `distinctAccount`: Amount of accounts which are match to the rules. 
-  - `totalAmount`: Total amount(add each rule's `amount`) of the item(token/voucher) to drop. The format is Decimaled Number.
-  - `summary`
-    - `rule`
-      - `locateRule`
-        - `type`: `EVERY` or `AT_LEAST`.
-        - `item`:
-          - `decimals`: Decimals of the item(token/voucher) of the rule.
-      - `item`
-        - `decimals`: Decimals of the item(token/voucher) which to drop.
-      - `amount`: Amount of item(token/voucher) to drop if match the rule. The format is Decimaled Number.
-    - `giveTotalAccount`: Total amount of account match the rule.
-    - `giveAmountAll`: Total amount of the item(token/voucher) to drop.
-    - `calculateDetail`
-      - `ownerAddress`: Address of the owner who owns the item(token/voucher) of the rule.
-      - `value`: Amount of the item of the rule the owner has. The format is Decimaled Number.
-      - `computeResult`: Times of the result the address match.
-      - `giveAmountResult`: Total amount of the item(token/voucher) to drop to the address. -->
-
-
 - **`airdropLocate`** \<AirdropLocate>
   - **`seqno`** \<string>
     - ID of the locate rules.
   - **`airdropItem`** \<AirdropItem>
     - **`id`** \<string>
-      - ID of the item(token/voucher) which is to drop.
+      - ID of the item(Smart Token/Voucher) which is to drop.
     - **`name`** \<string>
-      - Name of the item(token/voucher) which is to drop.
+      - Name of the item(Smart Token/Voucher) which is to drop.
     - **`decimals`** \<string>
-      - Decimals of the item(token/voucher) which is to drop.
+      - Decimals of the item(Smart Token/Voucher) which is to drop.
   - **`distinctAccount`** \<string>
     - Amount of accounts which are match to the rules. 
   - **`totalAmount`** \<string>
-    - Total amount(add each rule's `amount`) of the item(token/voucher) to drop. The format is Decimaled Number.
+    - Total amount(add each rule's `amount`) of the item(Smart Token/Voucher) to drop. The format is Decimaled Number.
   - **`summery`** \<AirdropLocateResult>
     - **`rule`** \<AirdropLocateRule>
       - **`locateRule`** \<LocateRule>
@@ -357,20 +314,20 @@ _(sample)_
           - `EVERY` or `AT_LEAST`. \<enum>
         - **`item`** \<Token> or \<Voucher>
           - **`decimals`** \<string>
-            - Decimals of the item(token/voucher) of the rule.
+            - Decimals of the item(Smart Token/Voucher) of the rule.
       - **`item`** \<Token> or \<Voucher>
         - **`decimals`** \<string>
-          - Decimals of the item(token/voucher) which to drop.
+          - Decimals of the item(Smart Token/Voucher) which to drop.
     - **`giveTotalAccount`** \<string>
       - Total amount of account match the rule. The format is Decimaled Number.
     - **`giveAmountAll`** \<string>
-      - Total amount of the item(token/voucher) to drop. The format is Decimaled Number.
+      - Total amount of the item(Smart Token/Voucher) to drop. The format is Decimaled Number.
     - **`calculateDetail`** \<AirdropLocateResult Array>
       - **`ownerAddress`** \<string>
-        - Address of the owner who owns the item(token/voucher) of the rule.
+        - Address of the owner who owns the item(Smart Token/Voucher) of the rule.
       - **`value`** \<string>
         - `value`: Amount of the item of the rule the owner has. The format is Decimaled Number.
       - **`computeResult`** \<string>
         - Times of the result the address match.
       - **`giveAmountResult`** \<string>
-        - Total amount of the item(token/voucher) to drop to the address.
+        - Total amount of the item(Smart Token/Voucher) to drop to the address.
