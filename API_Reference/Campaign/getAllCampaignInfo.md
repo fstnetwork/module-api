@@ -143,7 +143,44 @@ Get all of your campaigns' information.
 
 
 ## Parameters
-### Request 
-
-
 ### Response
+  - **`id`** \<string>
+    - Your user ID of FsTK Engine. ID is a global identifier.
+  - **`campaigns`** \<CampaignConnection>
+    - **`edges`** \<CampaignEdge>
+      - **`node`** \<Campaign>
+        - **`id`** \<string
+          - Campaign ID. ID is a global identifier.
+        - **`name`** \<stirng>
+          - Campaign name.
+        - **`description`** \<stirng>
+          - Campaign description.
+        - **`contractAddress`** \<stirng>
+          - The campaign contract address.
+        - **`isOpen`** \<boolean>
+          - The campaign is open or not.
+        - **`stages`** \<CampaignStage> **(Currently only support one stage in `stages`.)** 
+          - **`name`** \<stirng>
+            - The campaign stage name.
+          - **`description`** \<stirng>
+          - The campaign stage description.
+          - **`startTime`** \<stirng>
+            - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
+          - **`endTime`** \<stirng>
+            - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
+          - **`priceMultiplier`** \<Fraction>
+            - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the Smart Token price is allowed to be 1 ETH = 120 YourToken._) 
+            - **`numerator`** \<string>
+              - The numerator of this fraction.
+            - **`denominator`** \<string>
+              - The denominator of this fraction.
+          - **`cap`** \<stirng>
+            - Total amount of Smart Token/Voucher for sale during this campaign stage. The format is Decimaled Number.
+          - **`isPrivate`** \<boolean>
+            - The campaign stage is private or not.
+          - **`sold`** \<stirng>
+            - Amount of Smart Token/Voucher have sold.
+        - **`transactionHash`** \<stirng>
+          - Transaction hash of the campaign.
+        - **`createdTime`** \<stirng>
+          - The campaign created time.
