@@ -79,7 +79,6 @@ You are able to fetch all your airdrop history via this API.
   
 
 ## Response
-_(sample)_
 ```
 {
   "data": {
@@ -169,26 +168,26 @@ _(sample)_
     - **`targets`** \<JSON>
       - **`filters`** \<JSON Array>
         - **`giveItem`** \<string>
-          - ID of the item(token/voucher) to drop.
+          - ID of the item(Smart Token/Voucher) to drop.
         - **`ruleItem`** \<string>
-          - Item(token/voucher) ID of the rule.
+          - Item(Smart Token/Voucher) ID of the rule.
         - **`ruletype`** \<string>
           - `EVERY` or `AT_LEAST`
         - **`giveAmount`** \<string>
-          - Total amount of item(token/voucher) to drop. The format is Decimaled Number.
+          - Total amount of item(Smart Token/Voucher) to drop. The format is Decimaled Number.
         - **`ruleAmount`** \<string>
-          - Amount of item(token/voucher) to drop if match the rule. The format is Decimaled Number.
+          - Amount of item(Smart Token/Voucher) to drop if match the rule. The format is Decimaled Number.
   - **`item`** \<Token> or \<Voucher>
     - **`id`** \<string>
-      - ID of the item(token/voucher) to drop.
+      - ID of the item(Smart Token/Voucher) to drop.
     - **`name`** \<string>
-      - Name of the item(token/voucher) to drop.
+      - Name of the item(Smart Token/Voucher) to drop.
   - **`budget`** \<string>
     - Budget for the airdrop. The format is Decimaled Number.
   - **`status`** \<AirdropMissionStatus>
     - `PENDING`, `PROCESSING`, `SUCCESS`, `FAILURE`, `CANCEL` or `CLAIMED`. \<enum>
   - **`totalAirdropAmount`** \<string>
-    - Total amount of item(token/voucher) to drop. The format is Decimaled Number.
+    - Total amount of item(Smart Token/Voucher) to drop. The format is Decimaled Number.
   - **`totalAddresses`** \<string>
     - Total amount of addresses to drop.
   - **`isClaimed`** \<Boolean>
