@@ -119,4 +119,4 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
     - **`metadata`** \<JSON>
-      - - Metadata of the transaction.
+      - Metadata of the transaction.
