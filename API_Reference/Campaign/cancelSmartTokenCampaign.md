@@ -99,7 +99,7 @@
     - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`transaction`** \<string>
