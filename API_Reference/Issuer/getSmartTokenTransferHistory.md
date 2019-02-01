@@ -66,7 +66,9 @@
 
 - Body
   ``` 
-  
+  {  
+    "query":"query getTokenTransferHistory {  me {  token { id  contractAddress name  symbol  decimals  transfers { pageInfo {  endCursor startCursor  hasPreviousPage  hasNextPage  }  totalCount  edges {  cursor  node {  from  to  value  transaction  timestamp  }  }  }  }  }  }"
+  }
   ```
   The value of `query` in the body is a `String`. 
 
@@ -112,26 +114,6 @@
               }
             },
             {
-              "cursor": "YXJyYXljb25uZWN0aW9uOjI=",
-              "node": {
-                "from": "0xc01926f281f51ace3291a8dd680b968888f13b40",
-                "to": "0x16498871332bb5804c059fde5d474ca6c46360a8",
-                "value": "1220000000000000000",
-                "transaction": "0x04860d9aa59d45d82e13d50ca5aa00c5725817fc4d2fec49dd73b2b5596fb6bf",
-                "timestamp": "1547803456000"
-              }
-            },
-            {
-              "cursor": "YXJyYXljb25uZWN0aW9uOjM=",
-              "node": {
-                "from": "0xc01926f281f51ace3291a8dd680b968888f13b40",
-                "to": "0x89398d2bb53ff795e0d000aacc616bdc1710ce52",
-                "value": "1220000000000000000",
-                "transaction": "0x04860d9aa59d45d82e13d50ca5aa00c5725817fc4d2fec49dd73b2b5596fb6bf",
-                "timestamp": "1547803456000"
-              }
-            },
-            {
               "cursor": "YXJyYXljb25uZWN0aW9uOjQ=",
               "node": {
                 "from": "0xc01926f281f51ace3291a8dd680b968888f13b40",
@@ -148,10 +130,35 @@
 }
 ```
 
-
-
 ## Parameters
-### Request 
-
-
 ### Response
+- **`Token`** \<Token>
+  - **`id`** \<string>
+    - Smart Token ID.
+  - **`contractAddress`** \<string>
+    - Smart Token contract address.
+  - **`name`** \<string>
+    - Smart Token name.
+  - **`symbol`** \<string>
+    - Smart Token symbol.
+  - **`decimals`** \<string>
+    - Smart Token decimals
+  - **`transfers`** \<TokenTransferConnection>
+    - **`pageInfo`** \<PageInfo>
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+    - **`totalCount`** \<int>
+      - Total amount of the token transfer.
+    - **`edges`** \<TokenTransferEdge Array>
+      - **`cursor`** \<string>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+      - **`node`** \<Transfer>
+        - **`from`** \<string>
+          - Sender address.
+        - **`to`** \<string>
+          - Receiver address.
+        - **`value`** \<string>
+          - Amount of Smart Token the sender sent.
+        - **`transaction`** \<string>
+          - Transaction hash.
+        - **`timestamp`** \<string>
+          - FST Network server reviced transaction's time. The format is Unix Timestamp in millisecond resolution.
