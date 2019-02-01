@@ -1,7 +1,7 @@
 
 # Get Smart Token Holders
 
-You are able to fetch all your Smart Token holders via this API.
+You are able to fetch your Smart Token holders via this API.
 
 ## GraphQL API
 
@@ -156,4 +156,4 @@ You are able to fetch all your Smart Token holders via this API.
           - **`address`** \<string>
             - The holder's address.
           - **`balance`** \<string>
-            - Amount of the token the holder owns. The format is Decimaled Number.
+            - Amount of the Smart Token the holder owns. The format is Decimaled Number.
