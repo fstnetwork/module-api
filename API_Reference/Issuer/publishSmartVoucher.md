@@ -128,12 +128,12 @@
 ## Parameters
 ### Request 
 - **`name`** \<string>
-  - name of the token
+  - name of the voucher
 - **`consumable`** \<boolean>
 - **`symbol`** \<string>
-  - symbol of the token.
+  - symbol of the voucher.
 - **`totalSupply`** \<string>
-  - totalSupply of the token (decimal)
+  - totalSupply of the voucher (decimal)
 - **`price`** \<string>
  - price
   - **`numerator`** \<string>
