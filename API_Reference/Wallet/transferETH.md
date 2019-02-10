@@ -106,13 +106,6 @@ _(sample)_
 ### Response
 - **`ethTransfer`** \<EthTransferPayload!>
   - **`transaction`** \<JSON>
-    - **`nonce`** \<string>
-    - **`gasPrice`** \<string>
-    - **`gas`** \<string>
-    - **`to`** \<string>
-    - **`value`** \<string>
-    - **`data`** \<string>
-    - **`chainId`** \<Int>
   - **`hash`** \<string>
   - **`metadata`** \<JSON>
     - **`fee`** \<JSON>
