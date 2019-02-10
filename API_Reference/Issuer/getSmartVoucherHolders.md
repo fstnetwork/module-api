@@ -1,5 +1,5 @@
 
-# 
+# Get Smart Voucher Holders
 
 ## GraphQL API
 
@@ -487,32 +487,27 @@
 ### Response
   - **`vouchers`** \<Voucher>
     - **`edges`**
-
-
-
-      - **`id`** \<string>
-        - Token ID. ID is a global identifier.
-      - **`contractAddress`** \<string>
-        - Token contract address.
-      - **`name`** \<string>
-        - Token name.
-      - **`symbol`** \<string>
-        - Token symbol.
-      - **`decimals`** \<string>
-        - Token decimals.
-      - **`holders`** \<TokenHolderConnection>
-        - **`totalCount`** \<int>
-          - Total amount of holders.
-        - **`pageInfo`** \<PageInfo>
-          - **`endCursor`** \<string>
-          - **`startCursor`** \<string>
-          - **`hasNextPage`** \<boolean>
-          - **`hasPreviousPage`** \<boolean>
-        - **`edges`** \<TokenHolderEdge>
-          - **`cursor`** \<string>
+      - **`node`**
+        - **`id`** \<string>
+          - Token ID. ID is a global identifier.
+        - **`contractAddress`** \<string>
+          - Token contract address.
+        - **`name`** \<string>
+          - Token name.
+        - **`symbol`** \<string>
+          - Token symbol.
+        - **`decimals`** \<string>
+          - Token decimals.
+        - **`holders`** \<TokenHolderConnection>
+          - **`totalCount`** \<int>
+            - Total amount of holders.
+          - **`pageInfo`** \<PageInfo>
             - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-          - **`node`** \<Holder>
-            - **`address`** \<string>
-              - The holder's address.
-            - **`balance`** \<string>
-              - Amount of the token the holder owns. The format is Decimaled Number.
+          - **`edges`** \<TokenHolderEdge>
+            - **`cursor`** \<string>
+              - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+            - **`node`** \<Holder>
+              - **`address`** \<string>
+                - The holder's address.
+              - **`balance`** \<string>
+                - Amount of the token the holder owns. The format is Decimaled Number.
