@@ -8,6 +8,7 @@
   ```
   mutation CloseCampaign($input: CloseCampaignInput!) {
     closeCampaign(input: $input) {
+      transaction
       metadata          
       hash          
       submitToken        
@@ -100,13 +101,13 @@
     - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`transaction`** \<string>
     - UNSIGNED raw transaction format in Ethereum.
   - **`submitToken`** \<string>
-    - The value for [SubmitSignedTransaction API](https://github.com/fstnetwork/module-api/tree/master/SubmitSignedTransaction).
+    - The value for [SubmitSignedTransaction API]().
   - **`hash`** \<string>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.

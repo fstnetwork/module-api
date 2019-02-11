@@ -53,7 +53,6 @@
       ```
 
 - Body
-  _(sample)_
   ``` 
   {  
     "query":"\n      mutation fillGasTank($input: FillGasTankInput!) {\n        fillGasTank(input: $input) {\n          transaction\n          hash\n          metadata\n          submitToken\n        }\n      }\n    ",

@@ -171,7 +171,7 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
       - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Required: Optional. Default is `DISABLE`.
 
 ### Response
   - **`createCampaign`** \<CreateCampaignPayload>

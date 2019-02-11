@@ -124,16 +124,49 @@
 }
 ```
 
-
-
 ## Parameters
 ### Response
-  - **`vouchers`**
-    - **`edges`**
-      - **`node`**
-        - **`id`**
-        - **`token`**
-          - **`id`**
-        - **`contractAddress`**
-        - **`transactionHash`**
-        - **`name`**
+  - **`vouchers`** \<VoucherConnection>
+    - **`edges`** \<VoucherEdge>
+      - **`node`** \<Voucher>
+        - **`id`** \<string>
+          - Smart Voucher ID.
+        - **`token`**\<Token>
+          - **`id`** \<string>
+            - Smart Token ID.
+        - **`contractAddress`** \<string>
+          - Smart Voucher contract address.
+        - **`transactionHash`** \<string>
+          - Transaction hash of the Smart Voucher.
+        - **`name`** \<string>
+          - Smart Voucher name.
+        - **`description`** \<string>
+          - Description of the Smart Voucher.
+        - **`symbol`** \<string>
+          - Smart Voucher symbol.
+        - **`decimals`** \<string>
+          - Smart Voucher decimals
+        - **`totalSupply`** \<string>
+          - Total supply of the Smart Voucher.
+        - **`proofOfContract`** \<File>
+          - **`ipfs`** \<string>
+            - Information of the proof of contract ipfs link.
+        - **`liquid`** \<boolean>
+          - The Smart Voucher is liquid or not.
+        - **`approveChecking`** \<boolean>
+        - **`price`** \<Fraction>
+          - Smart Voucher price.
+          - **`numerator`** \<string>
+            - The numerator of this fraction.
+          - **`denominator`** \<string>
+            - The denominator of this fraction.
+        - **`availableAmount`** \<string>
+          - Remaining amount of the Smart Voucher.
+        - **`vendible`** \<boolean>
+          - The Smart Voucher is vendible or not.
+        - **`expiry`** \<string>
+          - Expiry date of the Smart Voucher. The format is Unix Timestamp in millisecond resolution.
+        - **`consumable`** \<boolean>
+          - The Smart Voucher is consumalbe or not.
+        - **`createdTime`** \<string>
+          - The Smart Voucher created time. The format is Unix Timestamp in millisecond resolution.
