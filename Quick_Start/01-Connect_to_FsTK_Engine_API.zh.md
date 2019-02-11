@@ -33,7 +33,7 @@
   
     > 以下皆以 `https://test.fstk.io` 做為端點進行示範
     
-    - Send a request via cURL
+    - Using cURL
 
     ```sh
     curl -X POST \
@@ -44,7 +44,7 @@
             "password": "yourpassword" }'
     ```
 
-    - Send a request in JavaScript
+    - Using JavaScript
 
     ```javascript
     var request = require("request");
