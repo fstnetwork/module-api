@@ -1,15 +1,15 @@
-# Quick Start
+# Connect to FsTK Engine API
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Connect to API
+ 2. Authentication / Authorization
  3. Next step
 
 ## Prerequisite
 
  1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > (此兩個平台之帳戶資料沒有互通)
+    > 請注意此兩個平台之帳戶資料沒有互通
 
     - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
     - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
@@ -26,7 +26,7 @@
     - [Insomnia](https://insomnia.rest) (推薦)
     - [Postman](https://www.getpostman.com)
 
-## Connect to API
+## Authentication / Authorization
 
  1. 取得 Access Web Token (JWT)
     > 請使用帳號與密碼，也請注意是連線至 `https://test.fstk.io` 或 `https://engine.fstk.io`，並且僅用 `https` 而請勿使用 `http`
@@ -86,6 +86,8 @@
     ```
     authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w
     ```
+
+    > 請注意 `Bearer ` 這段小字串要貼在 access_token 前面，才能使 authorization header 正常運作
 
 ## Next step
 
