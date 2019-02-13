@@ -79,7 +79,7 @@
       "token": {
         "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
         "issuer": {
-          "firstName": "Rita",
+          "firstName": "Alice",
           "lastName": "Chen",
           "ethereumAddress": "0x57696b6d8a801bb571c3ef51ff0d9e135623b1cb"
         },
@@ -136,10 +136,10 @@
     - **`denominator`** \<string>
       - The denominator of this fraction.
   - **`website`** \<string>
-    - Smart Token related website.
+    - The Smart Token related website.
   - **`proofOfContract`** \<File>
     - **`ipfs`** \<string>
-      - Information of the proof of contract ipfs link.
+      - Information of the contract's ipfs link.
   - **`logo`** \<File>
     - **`ipfs`** \<string>
       - Information of the Smart Token logo's ipfs link.

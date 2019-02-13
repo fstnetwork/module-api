@@ -130,14 +130,14 @@
     - **`edges`** \<VoucherEdge>
       - **`node`** \<Voucher>
         - **`id`** \<string>
-          - Smart Voucher ID.
+          - Smart Voucher ID. ID is a global identifier.
         - **`token`**\<Token>
           - **`id`** \<string>
-            - Smart Token ID.
+            - Smart Voucher ID.
         - **`contractAddress`** \<string>
-          - Smart Voucher contract address.
+          - The Smart Voucher contract address.
         - **`transactionHash`** \<string>
-          - Transaction hash of the Smart Voucher.
+          - Transaction hash of the Smart Voucher publishment.
         - **`name`** \<string>
           - Smart Voucher name.
         - **`description`** \<string>
@@ -149,8 +149,9 @@
         - **`totalSupply`** \<string>
           - Total supply of the Smart Voucher.
         - **`proofOfContract`** \<File>
+          - The PDF file of the Smart Voucher contract.
           - **`ipfs`** \<string>
-            - Information of the proof of contract ipfs link.
+            - Information of the contract's ipfs link.
         - **`liquid`** \<boolean>
           - The Smart Voucher is liquid or not.
         - **`approveChecking`** \<boolean>

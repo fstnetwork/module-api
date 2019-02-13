@@ -91,7 +91,7 @@
             "hasPreviousPage": false,
             "hasNextPage": false
           },
-          "totalCount": 413,
+          "totalCount": 3,
           "edges": [
             {
               "cursor": "YXJyYXljb25uZWN0aW9uOjA=",
@@ -132,9 +132,9 @@
 
 ## Parameters
 ### Response
-- **`Token`** \<Token>
+- **`token`** \<Token>
   - **`id`** \<string>
-    - Smart Token ID.
+    - Smart Token ID. ID is a global identifier.
   - **`contractAddress`** \<string>
     - Smart Token contract address.
   - **`name`** \<string>
@@ -147,7 +147,7 @@
     - **`pageInfo`** \<PageInfo>
       - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`totalCount`** \<int>
-      - Total amount of the token transfer.
+      - Total amount of the Smart Token transfer.
     - **`edges`** \<TokenTransferEdge Array>
       - **`cursor`** \<string>
         - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
@@ -157,8 +157,8 @@
         - **`to`** \<string>
           - Receiver address.
         - **`value`** \<string>
-          - Amount of Smart Token the sender sent.
+          - Amount of the Smart Token the sender sent.
         - **`transaction`** \<string>
-          - Transaction hash.
+          - The transaction hash of this action.
         - **`timestamp`** \<string>
-          - FST Network server reviced transaction's time. The format is Unix Timestamp in millisecond resolution.
+          - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

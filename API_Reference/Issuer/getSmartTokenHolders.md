@@ -1,7 +1,7 @@
 
 # Get Smart Token Holders
 
-You are able to fetch your Smart Token holders via this API.
+You are able to fetch your Smart Token holders and amount of Smart Token the holder owns via this API.
 
 ## GraphQL API
 
@@ -132,23 +132,20 @@ You are able to fetch your Smart Token holders via this API.
 ### Response
   - **`token`** \<Token>
     - **`id`** \<string>
-      - Token ID. ID is a global identifier.
+      - Smart Token ID. ID is a global identifier.
     - **`contractAddress`** \<string>
-      - Token contract address.
+      - Smart Token contract address.
     - **`name`** \<string>
-      - Token name.
+      - Smart Token name.
     - **`symbol`** \<string>
-      - Token symbol.
+      - Smart Token symbol.
     - **`decimals`** \<string>
-      - Token decimals.
+      - Smart Token decimals.
     - **`holders`** \<TokenHolderConnection>
       - **`totalCount`** \<int>
-        - Total amount of holders.
+        - Total amount of the holders.
       - **`pageInfo`** \<PageInfo>
-        - **`endCursor`** \<string>
-        - **`startCursor`** \<string>
-        - **`hasNextPage`** \<boolean>
-        - **`hasPreviousPage`** \<boolean>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
       - **`edges`** \<TokenHolderEdge>
         - **`cursor`** \<string>
           - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_

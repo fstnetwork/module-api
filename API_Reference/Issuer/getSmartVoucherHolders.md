@@ -489,25 +489,25 @@
     - **`edges`**
       - **`node`**
         - **`id`** \<string>
-          - Token ID. ID is a global identifier.
+          - Smart Voucher ID. ID is a global identifier.
         - **`contractAddress`** \<string>
-          - Token contract address.
+          - Smart Voucher contract address.
         - **`name`** \<string>
-          - Token name.
+          - Smart Voucher name.
         - **`symbol`** \<string>
-          - Token symbol.
+          - Smart Voucher symbol.
         - **`decimals`** \<string>
-          - Token decimals.
-        - **`holders`** \<TokenHolderConnection>
+          - Smart Voucher decimals.
+        - **`holders`** \<VoucherHolderConnection>
           - **`totalCount`** \<int>
-            - Total amount of holders.
+            - Total amount of the holders.
           - **`pageInfo`** \<PageInfo>
             - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-          - **`edges`** \<TokenHolderEdge>
+          - **`edges`** \<VoucherHolderEdge>
             - **`cursor`** \<string>
               - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
             - **`node`** \<Holder>
               - **`address`** \<string>
                 - The holder's address.
               - **`balance`** \<string>
-                - Amount of the token the holder owns. The format is Decimaled Number.
+                - Amount of the Smart Voucher the holder owns. The format is Decimaled Number.
