@@ -97,7 +97,7 @@
   ------WebKitFormBoundaryZ8JmbMyPiS7ZuVmj--
 
   ```
-  The value of `query` in the body is a `String`. 
+  The value of `query` in the body is a `String`. Please refer to [GraphQL multipart request specification](https://github.com/jaydenseric/graphql-multipart-request-spec) for files upload.
 
 
 ### Response
@@ -128,21 +128,34 @@
 ## Parameters
 ### Request 
 - **`name`** \<string>
-  - name of the voucher
+  - Smart Voucher name.
+  - Reuqired: Yes
 - **`consumable`** \<boolean>
+  - The Smart Voucher is consumable or not.
+  - Reuqired: Yes
 - **`symbol`** \<string>
-  - symbol of the voucher.
+  - Smart Voucher symbol.
+  - Reuqired: Yes
 - **`totalSupply`** \<string>
-  - totalSupply of the voucher (decimal)
+  - Total supply of the Smart Voucher. The format is Decimaled Number.
+  - Reuqired: Yes
 - **`price`** \<string>
- - price
+ - Smart Voucher price.
   - **`numerator`** \<string>
-  - numerator
+    - The numerator of this fraction.
+    - Reuqired: Yes
   - **`denominator`** \<string>
-  - denominator
+    - The denominator of this fraction.
+    - Reuqired: Yes
 - **`expiry`** \<string>
+  - Expiry date of the Smart Voucher. The format is Unix Timestamp in millisecond resolution.
+  - Reuqired: Yes
 - **`description`** \<string>
+  - Description of the Smart Voucher.
+  - Reuqired: Yes
 - **`proofOfContract`** \<string>
+  - The PDF file of the Smart Voucher contract.
+  - Reuqired: Yes
 
 ### Response
 - **`publishVoucher`** \<PublishVoucherPayload>

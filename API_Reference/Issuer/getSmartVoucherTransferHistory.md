@@ -83,9 +83,21 @@
             {
               "node": {
                 "id": "Vm91Y2hlcjrDq30Kw7Qaw7ERw6nCujvCh2sfw5NbNg==",
+                "contractAddress": "0x4711e92ad968a6488500bc5dde2a48ee17743ab1",
+                "name": "Test Voucher",
+                "symbol": "TTV",
+                "decimals": "0",
                 "transfers": {
+                  "pageInfo": {
+                    "endCursor": "YXJyYXljb25uZWN0aW9uOjk=",
+                    "startCursor": "YXJyYXljb25uZWN0aW9uOjA=",
+                    "hasPreviousPage": false,
+                    "hasNextPage": false
+                  },
+                  "totalCount": 3,
                   "edges": [
                     {
+                      "cursor": "YXJyYXljb25uZWN0a8J9RGy=",
                       "node": {
                         "from": "0xb0236f9a6a1cd8cf17251a130651e0be8fb00e27",
                         "to": "0x802bc18573bfa1322c829f24fe171ba44fd97a4c",
@@ -95,6 +107,7 @@
                       }
                     },
                     {
+                      "cursor": "YXJyYXljb25uZWN0aW9uIFd=",
                       "node": {
                         "from": "0x802bc18573bfa1322c829f24fe171ba44fd97a4c",
                         "to": "0x7bdfada0608449e36f812c861ab19670286e1b1f",
@@ -104,21 +117,13 @@
                       }
                     },
                     {
+                      "cursor": "YXJyYXljb25uZWN0aW9uOjE=",
                       "node": {
                         "from": "0xb0236f9a6a1cd8cf17251a130651e0be8fb00e27",
                         "to": "0xb0236f9a6a1cd8cf17251a130651e0be8fb00e27",
                         "value": "600",
                         "transaction": "0xc564d2a9965a0cf0521e727ea4e924aa4bc212861351183eb480907d611f7240",
                         "timestamp": "1548052256000"
-                      }
-                    },
-                    {
-                      "node": {
-                        "from": "0x0000000000000000000000000000000000000000",
-                        "to": "0xb0236f9a6a1cd8cf17251a130651e0be8fb00e27",
-                        "value": "9487",
-                        "transaction": "0xe0cf672420248b3af5ff34cfb80763c50689f82e50783ce7a186fd9dc73bd4d8",
-                        "timestamp": "1547796216000"
                       }
                     }
                   ]
@@ -136,7 +141,36 @@
 
 
 ## Parameters
-### Request 
-
-
 ### Response
+- **`vouchers`** \<VoucherConnection>
+  - **`edges`** \<VoucherEdge>
+  - **`node`** \<Voucher>
+    - **`id`** \<string>
+      - Smart Voucher ID. ID is a global identifier.
+    - **`contractAddress`** \<string>
+      - Smart Voucher contract address.
+    - **`name`** \<string>
+      - Smart Voucher name.
+    - **`symbol`** \<string>
+      - Smart Voucher symbol.
+    - **`decimals`** \<string>
+      - Smart Voucher decimals
+    - **`transfers`** \<VoucherTransferConnection>
+      - **`pageInfo`** \<PageInfo>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+      - **`totalCount`** \<int>
+        - Total amount of the Smart Voucher transfer.
+      - **`edge`** \<VouhcerTransferEdge>
+        - **`cursor`** \<string>
+          - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+        - **`node`** \<Transfer>
+          - **`from`** \<string>
+            - Sender address.
+          - **`to`** \<string>
+            - Receiver address.
+          - **`value`** \<string>
+            - Amount of the Smart Voucher the sender sent.
+          - **`transaction`** \<string>
+            - The transaction hash of this action.
+          - **`timestamp`** \<string>
+            - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

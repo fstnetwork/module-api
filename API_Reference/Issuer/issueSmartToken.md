@@ -102,10 +102,9 @@
   ------WebKitFormBoundarya1KBKIx6Q3mGrSEU--
   ```
 
-  The value of `query` in the body is a `String`. 
+  The value of `query` in the body is a `String`. Please refer to [GraphQL multipart request specification](https://github.com/jaydenseric/graphql-multipart-request-spec) for files upload.
 
 ### Response
-(for example)
 ```
 {
   "issueToken": {
@@ -134,21 +133,35 @@
 ## Parameters
 ### Request 
 - **`name`** \<string>
-  - name of the token
+  - Smart Token name.
+  - Reuqired: Yes
 - **`symbol`** \<string>
-  - symbol of the token.
+  - Smart Token symbol.
+  - Reuqired: Yes
 - **`totalSupply`** \<string>
-  - totalSupply of the token (decimal)
+  - Total supply of the Smart Token. The format is Decimaled Number.
+  - Reuqired: Yes
 - **`price`** \<string>
- - price
+  - Smart Token price.
+  - Reuqired: Yes
   - **`numerator`** \<string>
-  - numerator
+    - The numerator of this fraction.
+    - Reuqired: Yes
   - **`denominator`** \<string>
-  - denominator
+    - The denominator of this fraction.
+    - Reuqired: Yes
 - **`description`** \<string>
+  - Description of the Smart Token.
+  - Reuqired: Yes
 - **`website`** \<string>
+  - The Smart Token related website.
+  - Reuqired: Yes
 - **`logo`** \<string>
+  - The image file of the Smart Token logo.
+  - Reuqired: Yes
 - **`proofOfContract`** \<string>
+  - The PDF file of the Smart Token contract.
+  - Reuqired: Yes
 
 ### Response
 - **`issueToken`** \<IssueTokenPayload>
