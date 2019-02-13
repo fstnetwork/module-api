@@ -72,7 +72,7 @@ You are able to fetch your Smart Token holders and amount of Smart Token the hol
   The value of `query` in the body is a `String`. 
   
 
-## Response
+### Response
 ```
 {
   "data": {
