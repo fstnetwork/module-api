@@ -1,5 +1,7 @@
 
 # Get Smart Voucher Holders
+You are able to fetch amount of Smart Voucher each holder owns via this API.
+
 
 ## GraphQL API
 
