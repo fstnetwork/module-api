@@ -1,5 +1,6 @@
 
-# Get Smart Token(which you issued) Transfer History
+# Get Smart Token Transfer History
+You are able to fetch all transfer history of the Smart Token(which you issued) via this API.
 
 ## GraphQL API
 
