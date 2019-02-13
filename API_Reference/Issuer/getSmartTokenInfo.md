@@ -1,6 +1,6 @@
 
 # Get Smart Token Information
-Your are able to fetch the Smart Token information which you issued via this API.
+Your are able to fetch the information of the Smart Token which you issued via this API.
 
 ## GraphQL API
 
