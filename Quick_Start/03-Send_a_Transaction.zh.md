@@ -20,7 +20,32 @@
  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia)
 
     ```graphql
+    mutation erc20Transfer($input: ERC20TransferInput!) {
+      erc20Transfer(input: $input) {
+        pendingTransactions
+        transaction
+        submitToken
+      }
+    }
     ```
+
+    Variables:
+
+    ```json
+    {  
+      "input":{  
+        "id":"VG9rZW46wqIQOcOWHsOjEcOpwp4aD0oqw4DCtQM=",
+        "to":"0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+        "value":"123456789123456789"
+      }
+    }
+    ```
+
+    > `id` 為那個 token 的 `id`，在 `get me` 中可以看得到自己擁有的 token 們的 id
+
+    > `to` 為 token 傳送的目的地，為 Ethereum 地址
+
+    > `value` 為想要傳送的數量，切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` token，則 `value` 就要為 `"1000000000000000000"`
 
  - Using cURL
 
