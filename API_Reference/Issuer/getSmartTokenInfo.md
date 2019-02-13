@@ -1,5 +1,6 @@
 
-# 
+# Get Smart Token Information
+Your are able to fetch the Smart Token information which you issued via this API.
 
 ## GraphQL API
 
@@ -139,8 +140,8 @@
     - The Smart Token related website.
   - **`proofOfContract`** \<File>
     - **`ipfs`** \<string>
-      - Information of the contract's ipfs link.
+      - Information of the contract's IPFS link.
   - **`logo`** \<File>
     - **`ipfs`** \<string>
-      - Information of the Smart Token logo's ipfs link.
+      - Information of the Smart Token logo's IPFS link.
 
