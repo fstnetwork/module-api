@@ -133,11 +133,11 @@
           - Smart Voucher ID. ID is a global identifier.
         - **`token`**\<Token>
           - **`id`** \<string>
-            - Smart Voucher ID.
+            - Smart Token ID. ID is a global identifier.
         - **`contractAddress`** \<string>
           - The Smart Voucher contract address.
         - **`transactionHash`** \<string>
-          - Transaction hash of the Smart Voucher publishment.
+          - Transaction hash of the Smart Voucher publishment.
         - **`name`** \<string>
           - Smart Voucher name.
         - **`description`** \<string>
