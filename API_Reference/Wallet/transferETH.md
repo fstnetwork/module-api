@@ -1,7 +1,6 @@
 
-# Get Smart Token Holders
-
-You are able to transfer eth via this API.
+# Transfer ETH
+You are able to transfer ether via this API.
 
 ## GraphQL API
 
@@ -68,8 +67,7 @@ You are able to transfer eth via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
 {
   "data": {
@@ -99,16 +97,19 @@ _(sample)_
 ## Parameters
 ### Request 
 - **`to`** \<string>
-  - to address 
+  - Receiver address.
+  - Required: Yes
 - **`value`** \<string>
-  - value of 
+  - Amount of ether to transfer. The format is Decimaled Number.
+  - Required: Yes
 
 ### Response
-- **`ethTransfer`** \<EthTransferPayload!>
+- **`ethTransfer`** \<EthTransferPayload>
   - **`transaction`** \<JSON>
+    - UNSIGNED raw transaction format in Ethereum.
   - **`hash`** \<string>
+    - Hash of the RLP encode.
   - **`metadata`** \<JSON>
-    - **`fee`** \<JSON>
-      - **`type`** \<string>
-      - **`amount`** \<string>
+    - Metadata of the transaction.
   - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API]().
