@@ -134,7 +134,7 @@ You are able to fetch your Smart Voucher Information via this API.
           - Smart Voucher ID. ID is a global identifier.
         - **`token`**\<Token>
           - **`id`** \<string>
-            - Smart Token ID. ID is a global identifier.
+            - ID of the Smart Token which the Smart Voucher . ID is a global identifier.
         - **`contractAddress`** \<string>
           - The Smart Voucher contract address.
         - **`transactionHash`** \<string>

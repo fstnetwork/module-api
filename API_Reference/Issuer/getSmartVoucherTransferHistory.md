@@ -31,11 +31,7 @@ You are able to fetch all transfer history of the Smart Voucher(which you publis
     }
   }
   ```
-- Query Variables
 
-  ```
-  
-  ```
 - HTTP Headers 
   ```
   {
@@ -73,7 +69,6 @@ You are able to fetch all transfer history of the Smart Voucher(which you publis
 
 
 ### Response
-(for example)
 ```
 {
   "data": {
@@ -145,33 +140,33 @@ You are able to fetch all transfer history of the Smart Voucher(which you publis
 ### Response
 - **`vouchers`** \<VoucherConnection>
   - **`edges`** \<VoucherEdge>
-  - **`node`** \<Voucher>
-    - **`id`** \<string>
-      - Smart Voucher ID. ID is a global identifier.
-    - **`contractAddress`** \<string>
-      - Smart Voucher contract address.
-    - **`name`** \<string>
-      - Smart Voucher name.
-    - **`symbol`** \<string>
-      - Smart Voucher symbol.
-    - **`decimals`** \<string>
-      - Smart Voucher decimals.
-    - **`transfers`** \<VoucherTransferConnection>
-      - **`pageInfo`** \<PageInfo>
-        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-      - **`totalCount`** \<int>
-        - Total amount of the Smart Voucher transfer.
-      - **`edge`** \<VouhcerTransferEdge>
-        - **`cursor`** \<string>
+    - **`node`** \<Voucher>
+      - **`id`** \<string>
+        - Smart Voucher ID. ID is a global identifier.
+      - **`contractAddress`** \<string>
+        - Smart Voucher contract address.
+      - **`name`** \<string>
+        - Smart Voucher name.
+      - **`symbol`** \<string>
+        - Smart Voucher symbol.
+      - **`decimals`** \<string>
+        - Smart Voucher decimals.
+      - **`transfers`** \<VoucherTransferConnection>
+        - **`pageInfo`** \<PageInfo>
           - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-        - **`node`** \<Transfer>
-          - **`from`** \<string>
-            - Sender address.
-          - **`to`** \<string>
-            - Receiver address.
-          - **`value`** \<string>
-            - Amount of the Smart Voucher the sender sent. The format is Decimaled Number.
-          - **`transaction`** \<string>
-            - The transaction hash of this action.
-          - **`timestamp`** \<string>
-            - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.
+        - **`totalCount`** \<int>
+          - Total amount of the Smart Voucher transfer.
+        - **`edge`** \<VouhcerTransferEdge>
+          - **`cursor`** \<string>
+            - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+          - **`node`** \<Transfer>
+            - **`from`** \<string>
+              - Sender address.
+            - **`to`** \<string>
+              - Receiver address.
+            - **`value`** \<string>
+              - Amount of the Smart Voucher the sender sent. The format is Decimaled Number.
+            - **`transaction`** \<string>
+              - The transaction hash of this action.
+            - **`timestamp`** \<string>
+              - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

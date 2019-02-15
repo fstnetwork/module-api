@@ -103,7 +103,9 @@ You are able to issue Smart Token via this API.
   ------WebKitFormBoundarya1KBKIx6Q3mGrSEU--
   ```
 
-  The value of `query` in the body is a `String`. Please refer to [GraphQL multipart request specification](https://github.com/jaydenseric/graphql-multipart-request-spec) for files upload.
+  The value of `query` in the body is a `String`. 
+  
+  Please refer to [GraphQL multipart request specification](https://github.com/jaydenseric/graphql-multipart-request-spec) for files upload.
 
 ### Response
 ```
@@ -144,7 +146,6 @@ You are able to issue Smart Token via this API.
   - Reuqired: Yes
 - **`price`** \<string>
   - Smart Token price.
-  - Reuqired: Yes
   - **`numerator`** \<string>
     - The numerator of this fraction.
     - Reuqired: Yes
@@ -170,8 +171,6 @@ You are able to issue Smart Token via this API.
     - UNSIGNED raw transaction format in Ethereum.
   - **`submitToken`** \<string>
     - The value for [SubmitSignedTransaction API]().
-  - **`pendingTransactions`** \<string>
-    - Amount of your transactions which are still pending.
   - **`hash`** \<string>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.

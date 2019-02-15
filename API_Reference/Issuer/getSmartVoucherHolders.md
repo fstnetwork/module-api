@@ -40,9 +40,7 @@ You are able to fetch all Smart Voucher holders and amount of Smart Voucher each
       }
     }
   }
-  ```
-  
-  ```
+
 - HTTP Headers 
   ```
   {
