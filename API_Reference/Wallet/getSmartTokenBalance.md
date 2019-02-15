@@ -71,10 +71,8 @@ You are able to fetch all your Smart Token Balance via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
-
 {
   "data": {
     "me": {
@@ -123,29 +121,25 @@ _(sample)_
 
 ## Parameters
 ### Response
-- **`tokenBalances`** \<TokenBalanceByAddressConnection>
-  - **`totalCount`** \<Int>
-    - TotalCount of all data
+- **`tokenBalances`** \<TokenBalanceConnection>
+  - **`totalCount`** \<int>
+    - Total amount of Smart Tokens you own.
   - **`pageInfo`** \<PageInfo>
-    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)
-    - **`hasNextPage`** \<boolean>
-    - **`hasPreviousPage`** \<boolean>
-    - **`startCursor`** \<string>
-    - **`endCursor`** \<string>
-  - **`edges`** \<TokenBalanceByAddressEdge>
-    - **`cursor`** \<String>
+    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - **`edges`** \<TokenBalanceEdge>
+    - **`cursor`** \<string>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<TokenBalance>
       - **`token`** \<Token>
-        - **`id`** \<ID>
-        - id of the token
+        - **`id`** \<string>
+          - Smart Token ID. ID is a global identifier.
         - **`contractAddress`** \<string>
-        - contractAddress of the token
+          - Contract address of the Smart Token.
         - **`name`** \<string>
-        - name of the token
+          - Smart Token name.
         - **`symbol`** \<string>
-        - symbol of the token
+          - Smart Token symbol.
         - **`decimals`** \<int>
-        - decimals of the token
+          - Smart Token decimals.
       - **`value`** \<string>
-        - token balance of query user
+        - Amount of the Smart Token you own. The format is Decimaled Number.
