@@ -1,7 +1,7 @@
 
-# Get Smart Token Holders
+# Get Smart Token Balance
 
-You are able to fetch all your Smart Token Balance via this API.
+You are able to fetch all your Smart Tokens balance via this API.
 
 ## GraphQL API
 

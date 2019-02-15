@@ -1,7 +1,7 @@
 
-# Get Smart Token Holders
+# Get Smart Voucher Balance
 
-You are able to fetch all your Smart Voucher Balance via this API.
+You are able to fetch all your Smart Vouchers balance via this API.
 
 ## GraphQL API
 
@@ -160,7 +160,7 @@ You are able to fetch all your Smart Voucher Balance via this API.
 
 ## Parameters
 ### Response
-- **`voucherBalance`** \<VoucherBalance1Connection>
+- **`voucherBalance`** \<VoucherBalanceConnection>
   - **`totalCount`** \<int>
     - Amount of Smart Tokens you own.
   - **`pageInfo`** \<PageInfo>

@@ -4,7 +4,7 @@ You are able to transfer ether via this API.
 
 ## GraphQL API
 
-  - Query String
+- Query String
   ```
   mutation transferETH ($input: EthTransferInput!) {
     ethTransfer(input: $input) {
@@ -15,7 +15,7 @@ You are able to transfer ether via this API.
     }
   }    
   ```
-  - Query Variables
+- Query Variables
 
   ```
   {

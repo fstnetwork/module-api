@@ -5,7 +5,7 @@ You are able to transfer FST via this API.
 
 ## GraphQL API
 
-  - Query String
+- Query String
   ```
   mutation transferFST ($input: ERC20TransferInput!) {
     erc20Transfer(input:$input) {
@@ -16,7 +16,7 @@ You are able to transfer FST via this API.
     }
   }
   ```
-  - Query Variables
+- Query Variables
 
   ```
   {

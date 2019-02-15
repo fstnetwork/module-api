@@ -1,6 +1,5 @@
 
-# Get Smart Token Holders
-
+# Get ETH Balance
 You are able to fetch your ether Balance via this API.
 
 ## GraphQL API
@@ -22,6 +21,7 @@ You are able to fetch your ether Balance via this API.
     "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
+
 ## HTTP Request and Response
 ### Request
 

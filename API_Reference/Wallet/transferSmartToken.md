@@ -4,7 +4,7 @@ You are able to transfer Smart Token via this API.
 
 ## GraphQL API
 
-  - Query String
+- Query String
   ```
   mutation transferFIL ($input: ERC20TransferInput!) {
     erc20Transfer(input:$input) {
@@ -15,8 +15,7 @@ You are able to transfer Smart Token via this API.
     }
   }
   ```
-  - Query Variables
-
+- Query Variables
   ```
   {
     "input": {

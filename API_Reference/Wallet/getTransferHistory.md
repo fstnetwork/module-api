@@ -1,6 +1,6 @@
 
-# Get Smart Token Holders
-You are able to fetch all your Smart Voucher balance via this API.
+# Get Transfer History
+You are able to fetch all your transfer history via this API.
 
 ## GraphQL API
 
@@ -31,7 +31,7 @@ You are able to fetch all your Smart Voucher balance via this API.
     }
   }              
   ```
-  - Query Variables
+- Query Variables
   ```
   {
     "first": 10,
@@ -232,16 +232,16 @@ You are able to fetch all your Smart Voucher balance via this API.
 ### Request 
 - **`first`** \<int>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional.
+  - Required: Optional
 - **`after`** \<string>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional.
+  - Required: Optional
 - **`last`** \<int>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional.
+  - Required: Optional
 - **`before`** \<string>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional.
+  - Required: Optional
 
 ### Response
 - **`transferHistory`** \<TransferHistoryConnection>
@@ -255,7 +255,7 @@ You are able to fetch all your Smart Voucher balance via this API.
     - **`endCursor`** \<string>
   - **`edges`** \<TransferHistoryEdge>
     - **`cursor`** \<String>
-    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<TransferHistory!>
       - **`from`** \<string>
         - Sender address.
@@ -264,7 +264,7 @@ You are able to fetch all your Smart Voucher balance via this API.
       - **`symbol`** \<string>
         - Asset symbol.
       - **`value`** \<string>
-        - Amount of asset has been transferred.
+        - Amount of asset has been transferred. The format is Decimaled Number.
       - **`decimals`** \<string>
         - Asset decimals.
       - **`transactionHash`** \<string>

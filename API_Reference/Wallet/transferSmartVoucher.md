@@ -17,7 +17,6 @@ You are able to transfer Smart Voucher via this API.
   }
   ```
 - Query Variables
-
   ```
   {
     "input": {
@@ -36,6 +35,7 @@ You are able to transfer Smart Voucher via this API.
     "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
+  
 ## HTTP Request and Response
 ### Request
 

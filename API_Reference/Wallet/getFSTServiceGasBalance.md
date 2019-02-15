@@ -1,7 +1,7 @@
 
-# Get Smart Token Holders
+# Get FST Service Gas Balance
 
-You are able to fetch your FST Service Gas Balance via this API.
+You are able to fetch your FST Service Gas balance via this API.
 
 ## GraphQL API
 
@@ -22,6 +22,7 @@ You are able to fetch your FST Service Gas Balance via this API.
     "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
+
 ## HTTP Request and Response
 ### Request
 
