@@ -71,10 +71,8 @@ You are able to fetch all your Smart Voucher Balance via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
-
 {
   "data": {
     "me": {
@@ -163,28 +161,24 @@ _(sample)_
 ## Parameters
 ### Response
 - **`voucherBalance`** \<VoucherBalance1Connection>
-  - **`totalCount`** \<Int>
-    - TotalCount of all data
+  - **`totalCount`** \<int>
+    - Amount of Smart Tokens you own.
   - **`pageInfo`** \<PageInfo>
-    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)
-    - **`hasNextPage`** \<boolean>
-    - **`hasPreviousPage`** \<boolean>
-    - **`startCursor`** \<string>
-    - **`endCursor`** \<string>
-  - **`edges`** \<VoucherBalance1Edge>
-    - **`cursor`** \<String>
+    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - **`edges`** \<VoucherBalanceEdge>
+    - **`cursor`** \<string>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<VoucherBalance>
       - **`voucher`** \<Voucher>
         - **`id`** \<ID>
-        - id of the voucher
+          - Smart Voucher ID. ID is a global identifier.
         - **`contractAddress`** \<string>
-        - contractAddress of the voucher
+          - Contract address of the Smart Voucher.
         - **`name`** \<string>
-        - name of the voucher
+          - Smart Voucher name.
         - **`symbol`** \<string>
-        - symbol of the voucher
+          - Smart Voucher symbol.
         - **`decimals`** \<int>
-        - decimals of the voucher
+          - Smart Voucher decimals.
       - **`value`** \<string>
-        - voucher balance of query user
+        - Amount of the Smart Token you own. The format is Decimaled Number.
