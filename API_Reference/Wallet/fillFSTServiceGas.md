@@ -1,5 +1,6 @@
 
-# 
+# Fill FST Service Gas
+You are able to fill your FST Service Gas via this API.
 
 ## GraphQL API
 
@@ -68,7 +69,6 @@
 
 
 ### Response
-(for example)
 ```
 {  
   "data":{  
