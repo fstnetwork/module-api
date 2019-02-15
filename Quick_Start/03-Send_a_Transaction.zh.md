@@ -83,7 +83,10 @@
 
 ## Decrypt the Ethereum Key JSON
 
- > 從 `get me` 中取得 `ethereumKey` 欄位的資料，例如:
+ > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的  
+ > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
+
+ > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
 
  ```
  {
@@ -109,21 +112,39 @@
  }
  ```
 
- - Using JavaScript
+ > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開  
+ > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
+ > **也請注意，假如遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**
+
+ - Using JavaScript (Node.js)
+
+    > 安裝 [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
+
+    ```sh
+    npm i --save "https://github.com/fstnetwork/eth-key-lib-js"
+    # or yarn add "https://github.com/fstnetwork/eth-key-lib-js"
+    ```
 
     ```javascript
-    
     ```
 
  - Using Java
 
-    ```java
-    ```
+   > 請參考 [Web3j](https://web3j.io)  
+   > 請注意 `WalletUtils` 中的 `loadCredentials` 方法，必須使用此多載  
+
+   ```Java
+   public static Credentials loadCredentials(String password, File source)
+   ```
+   > 也就是說，因為 web3j 只提供從 `File` 載入，請注意檔案系統的空間，或者也可以使用 in-memory-fs in Java
+
+   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
 
  - Using C#
 
-   ```csharp
-   ```
+   > 請參考 [Nethereum](https://nethereum.com)  
+   > 也請參考 [Nethereum 的簡易範例](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)  
+   > 從 `Account` 取得私鑰請使用 `Account.PrivateKey`
 
 ## Sign the Ethereum Transaction
 
@@ -134,12 +155,22 @@
 
  - Using Java
 
-    ```java
-    ```
+   > 請參考 [Web3j](https://web3j.io)  
+   > 請注意 `TransactionEncoder` 中的 `signMessage` 方法，必須使用此多載，因為要簽署到 `chainId`
+
+   ```Java
+   public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
+   ```
+
+   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#signing-transactions)
 
  - Using C#
 
+   > 請參考 [Nethereum](https://nethereum.com)  
+   > 請注意 `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+
    ```csharp
+   public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
 ## Broadcast the Ethereum Transaction
