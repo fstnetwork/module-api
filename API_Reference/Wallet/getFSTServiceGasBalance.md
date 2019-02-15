@@ -50,8 +50,7 @@ You are able to fetch your FST Service Gas Balance via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
 {
   "data": {
@@ -66,3 +65,4 @@ _(sample)_
 ## Parameters
 ### Response
   - **`gasTankBalance`** \<string>
+    - Your FST Service Gas balance. The format is Decimaled Number.
