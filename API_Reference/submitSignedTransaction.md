@@ -1,7 +1,6 @@
 
-# Get Smart Token Holders
-
-You are able to submit SignedTransaction via this API.
+# Submit the Signed Transaction
+You are able to submit the SIGNED transaction via this API and FST Network will broadcast your transaction to the Ethereum Network.
 
 ## GraphQL API
 
@@ -65,8 +64,7 @@ You are able to submit SignedTransaction via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
 {
   "data": {
