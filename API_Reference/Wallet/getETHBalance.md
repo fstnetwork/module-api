@@ -50,10 +50,8 @@ You are able to fetch your ether Balance via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
-
 {
   "data": {
     "me": {
@@ -66,3 +64,4 @@ _(sample)_
 ## Parameters
 ### Response
   - **`etherBalance`** \<string>
+    - Your ether balance. The format is Decimaled Number.
