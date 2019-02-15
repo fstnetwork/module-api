@@ -1,7 +1,6 @@
 
-# Get Smart Token Holders
-
-You are able to transfer FIL via this API.
+# Transfer Smart Token
+You are able to transfer Smart Token via this API.
 
 ## GraphQL API
 
@@ -70,8 +69,7 @@ You are able to transfer FIL via this API.
   
   The value of `query` in the body is a `String`. 
   
-## Response
-_(sample)_
+### Response
 ```
 {
   "data": {
@@ -101,31 +99,22 @@ _(sample)_
 ## Parameters
 ### Request 
 - **`id`** \<string>
-  - ID of the target token which is to be transferred. ID is a global identifier.
+  - ID of the Smart Token which is to be transferred. ID is a global identifier.
 - **`to`** \<string>
   - Address of the receiver.
 - **`value`** \<string>
-  - Amount of target token to be transferred. The format is Decimaled Number.
+  - Amount of Smart Token to be transferred. The format is Decimaled Number.
 - **`por`** \<PORMode>
   - If using por mode
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>
   - **`transaction`** \<JSON>
-    - **`nonce`** \<string>
-    - **`gasPrice`** \<string>
-    - **`gas`** \<string>
-    - **`to`** \<string>
-    - **`value`** \<string>
-    - **`data`** \<string>
-    - **`chainId`** \<Int>
+    - UNSIGNED raw transaction format in Ethereum.
   - **`hash`** \<string>
-    - hash of the transaction (rlp encode and sha3)
+    - PORMode `ENABLE`: Hash of the abi encode.
+    - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
-    - infomation of the transaction
-    - **`fee`** \<JSON>
-      - **`type`** \<string>
-        - type of the fee
-      - **`amount`** \<string>
-        - amount of the fee
+    - Metadata of the transaction.
   - **`submitToken`** \<string>
+    - The value for [SubmitSignedTransaction API]().
