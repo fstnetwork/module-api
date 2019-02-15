@@ -1,5 +1,6 @@
 
-# 
+# Issue Token
+You are able to issue Smart Token via this API.
 
 ## GraphQL API
 

@@ -1,5 +1,6 @@
 
-# 
+# Publish Smart Voucher
+You are able to publish Smart Voucher via this API.
 
 ## GraphQL API
 

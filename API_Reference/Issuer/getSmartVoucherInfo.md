@@ -1,5 +1,6 @@
 
-# 
+# Get Smart Voucher Information
+You are able to fetch your Smart Voucher Information via this API.
 
 ## GraphQL API
 

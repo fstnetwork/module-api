@@ -1,5 +1,6 @@
 
 # Get Smart Token Holders
+You are able to fetch all Smart Token holders and amount of Smart Token each holder owns via this API.
 
 You are able to fetch your Smart Token holders and amount of Smart Token the holder owns via this API.
 

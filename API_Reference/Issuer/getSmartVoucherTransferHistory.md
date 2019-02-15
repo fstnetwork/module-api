@@ -1,5 +1,6 @@
 
-# Get Smart Voucher(which you published) Transfer History
+# Get Smart Voucher Transfer History
+You are able to fetch all transfer history of the Smart Voucher(which you published) via this API.
 
 ## GraphQL API
 
