@@ -4,9 +4,10 @@
 
  1. Prerequisite
  2. Encode a Ethereum Transaction (Token transfer)
- 3. Sign the Ethereum Transaction
- 4. Broadcast the Ethereum Transaction
- 5. Next step
+ 3. Decrypt the Ethereum Key JSON
+ 4. Sign the Ethereum Transaction
+ 5. Broadcast the Ethereum Transaction
+ 6. Next step
 
 ## Prerequisite
 
@@ -50,7 +51,79 @@
  - Using cURL
 
     ```sh
+    curl --request POST \
+         --url https://test.fstk.io/api \
+         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDAyOTQxMSwiZXhwIjoxNTUwMTE1ODExLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.N44Ga-96NPZhBD82tLm2od9RVRIn67YIJXa-Pl9-y1UB-xfPrHpeQhq8yVDw21E6W1AQCAVgLwfOmgQn8zzxtQ' \
+         --header 'content-type: application/json' \
+         --cookie locale=en \
+         --data '{"query":"mutation erc20Transfer($input: ERC20TransferInput!) {\n  erc20Transfer(input: $input) {\n    pendingTransactions\n    transaction\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW46wqIQOcOWHsOjEcOpwp4aD0oqw4DCtQM=","to":"0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f","value":"123456789123456789"}},"operationName":"erc20Transfer"}'
     ```
+
+ - Response
+
+    ```
+    {
+      "data": {
+        "erc20Transfer": {
+          "pendingTransactions": "0",
+          "transaction": {
+            "nonce": "0x10d",
+            "gasPrice": "0x3b9aca00",
+            "gas": "0xf30f",
+            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
+            "value": "0x0",
+            "data": "0xa9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f15",
+            "chainId": 42
+          },
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTAwNDA3MjIsImV4cCI6MTU1MDA0MTMyMiwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.BPDyUdI8PviroRM8jX1YqKTkJqEZlK51zrNLdAPRH7_ZU2xWjk8DGm3tX2xgi52RK0GymLCTpBKQlJtKAKzZ3Q"
+        }
+      }
+    }
+    ```
+
+## Decrypt the Ethereum Key JSON
+
+ > 從 `get me` 中取得 `ethereumKey` 欄位的資料，例如:
+
+ ```
+ {
+   "id": "64031d31-53a4-11e8-b00a-2b7a29c9f6b9",
+   "address": "0x3a7af8b8c19c404670c1470273bca449148df4ed",
+   "crypto": {
+     "kdf": "scrypt",
+     "mac": "0913dca5ed0b0a792a004acc0740fb739676334734220266e155400d61ae3dab",
+     "cipher": "aes-128-ctr",
+     "kdfparams": {
+       "n": 262144,
+       "p": 1,
+       "r": 8,
+       "salt": "16b3885904ba626fa5bfaab6d6b368eff1ff0ba2ab739adbec3a8fb063c43aba",
+       "dklen": 32
+     },
+     "ciphertext": "dc1bf4ab51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
+     "cipherparams": {
+       "iv": "b343d847b8a72ad68c6bf10866757421"
+     }
+   },
+   "version": 3
+ }
+ ```
+
+ - Using JavaScript
+
+    ```javascript
+    
+    ```
+
+ - Using Java
+
+    ```java
+    ```
+
+ - Using C#
+
+   ```csharp
+   ```
 
 ## Sign the Ethereum Transaction
 

@@ -69,10 +69,10 @@
 
     ```json
     {
-        "status": "success",
-        "result": {
-            "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w"
-        }
+      "status": "success",
+      "result": {
+        "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w"
+      }
     }
     ```
 
