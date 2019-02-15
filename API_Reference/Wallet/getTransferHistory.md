@@ -1,7 +1,6 @@
 
 # Get Smart Token Holders
-
-You are able to fetch all your Smart Voucher Balance via this API.
+You are able to fetch all your Smart Voucher balance via this API.
 
 ## GraphQL API
 
@@ -33,7 +32,6 @@ You are able to fetch all your Smart Voucher Balance via this API.
   }              
   ```
   - Query Variables
-
   ```
   {
     "first": 10,
@@ -80,8 +78,7 @@ You are able to fetch all your Smart Voucher Balance via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
-_(sample)_
+### Response
 ```
 {
   "data": {
@@ -233,13 +230,21 @@ _(sample)_
 
 ## Parameters
 ### Request 
-- **`first`** \<Int>
+- **`first`** \<int>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - Required: Optional.
 - **`after`** \<string>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - Required: Optional.
+- **`last`** \<int>
+  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - Required: Optional.
+- **`before`** \<string>
+  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - Required: Optional.
 
 ### Response
-- **`transferHistory`** \<TransferHistoryConnection!>
+- **`transferHistory`** \<TransferHistoryConnection>
   - **`totalCount`** \<Int>
     - TotalCount of all data
   - **`pageInfo`** \<PageInfo>
@@ -253,18 +258,18 @@ _(sample)_
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<TransferHistory!>
       - **`from`** \<string>
-        - from address of the transfer
+        - Sender address.
       - **`to`** \<string>
-        - to address of the transfer
+        - Receiver address.
       - **`symbol`** \<string>
-        - symbol of the transfer target
+        - Asset symbol.
       - **`value`** \<string>
-        - value of the transfer amount
+        - Amount of asset has been transferred.
       - **`decimals`** \<string>
-        - decimals of the transfer target
+        - Asset decimals.
       - **`transactionHash`** \<string>
-        - transactionHash of the transfer
+        - Transaction hash of the asset transfer.
       - **`type`** \<string>
-        - type of the transfer target
+        - Type of the asset.
       - **`time`** \<string>
-        - time of the transfer
+        - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.
