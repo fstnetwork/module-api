@@ -127,7 +127,7 @@ Your are able to fetch the information of the Smart Token which you issued via t
   - **`symbol`** \<string>
     - Smart Token symbol.
   - **`totalSupply`** \<string>
-    - Total supply of the Smart Token.
+    - Total supply of the Smart Token. The format is Decimaled Number.
   - **`decimals`** \<string>
     - Smart Token decimals.
   - **`price`** \<Fraction>

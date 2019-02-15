@@ -147,7 +147,7 @@
         - **`decimals`** \<string>
           - Smart Voucher decimals
         - **`totalSupply`** \<string>
-          - Total supply of the Smart Voucher.
+          - Total supply of the Smart Voucher. The format is Decimaled Number.
         - **`proofOfContract`** \<File>
           - The PDF file of the Smart Voucher contract.
           - **`ipfs`** \<string>
@@ -162,7 +162,7 @@
           - **`denominator`** \<string>
             - The denominator of this fraction.
         - **`availableAmount`** \<string>
-          - Remaining amount of the Smart Voucher.
+          - Remaining amount of the Smart Voucher. The format is Decimaled Number.
         - **`vendible`** \<boolean>
           - The Smart Voucher is vendible or not.
         - **`expiry`** \<string>

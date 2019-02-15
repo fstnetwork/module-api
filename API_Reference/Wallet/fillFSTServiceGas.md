@@ -104,7 +104,7 @@
   - `Enable` or `Disable` \<enum>
   - Reuqired: Optional. Default is `DISABLE`.
 - **`amount`** \<string>
-  - Amount of FST to refill.
+  - Amount of FST to refill. The format is Decimaled Number.
   - Required: Yes.
 
 ### Response

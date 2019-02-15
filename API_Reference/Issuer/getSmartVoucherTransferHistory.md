@@ -154,7 +154,7 @@
     - **`symbol`** \<string>
       - Smart Voucher symbol.
     - **`decimals`** \<string>
-      - Smart Voucher decimals
+      - Smart Voucher decimals.
     - **`transfers`** \<VoucherTransferConnection>
       - **`pageInfo`** \<PageInfo>
         - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
@@ -169,7 +169,7 @@
           - **`to`** \<string>
             - Receiver address.
           - **`value`** \<string>
-            - Amount of the Smart Voucher the sender sent.
+            - Amount of the Smart Voucher the sender sent. The format is Decimaled Number.
           - **`transaction`** \<string>
             - The transaction hash of this action.
           - **`timestamp`** \<string>

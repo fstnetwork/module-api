@@ -143,7 +143,7 @@ You are able to fetch all transfer history of the Smart Token(which you issued) 
   - **`symbol`** \<string>
     - Smart Token symbol.
   - **`decimals`** \<string>
-    - Smart Token decimals
+    - Smart Token decimals.
   - **`transfers`** \<TokenTransferConnection>
     - **`pageInfo`** \<PageInfo>
       - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
@@ -158,7 +158,7 @@ You are able to fetch all transfer history of the Smart Token(which you issued) 
         - **`to`** \<string>
           - Receiver address.
         - **`value`** \<string>
-          - Amount of the Smart Token the sender sent.
+          - Amount of the Smart Token the sender sent. The format is Decimaled Number.
         - **`transaction`** \<string>
           - The transaction hash of this action.
         - **`timestamp`** \<string>
