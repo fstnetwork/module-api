@@ -108,6 +108,7 @@ You are able to transfer FST via this API.
   - Requried: Yes
 - **`value`** \<string>
   - Amount of FST token to be transferred. The format is Decimaled Number.
+  - Requried: Yes
 - **`por`** \<PORMode>
   - `ENABLE` or `DISABLE` \<enum>
   - Required: Optional. Default is `DISABLE`.

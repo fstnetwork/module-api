@@ -5,7 +5,7 @@ You are able to transfer Smart Voucher via this API.
 
 ## GraphQL API
 
-  - Query String
+- Query String
   ```
   mutation transferFIL ($input: ERC20TransferInput!) {
     erc20Transfer(input:$input) {
@@ -16,7 +16,7 @@ You are able to transfer Smart Voucher via this API.
     }
   }
   ```
-  - Query Variables
+- Query Variables
 
   ```
   {
@@ -106,7 +106,8 @@ You are able to transfer Smart Voucher via this API.
 - **`value`** \<string>
   - Amount of target token to be transferred. The format is Decimaled Number.
 - **`por`** \<PORMode>
-  - If using por mode
+  - `ENABLE` or `DISABLE` \<enum>
+  - Required: Optional. Default is `DISABLE`.
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>

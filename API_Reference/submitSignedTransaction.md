@@ -4,7 +4,7 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
 
 ## GraphQL API
 
-  - Query String
+- Query String
   ```
   mutation submitSignedTransaction($input: SubmitTransactionInput!) {
     submitTransaction(input: $input) {
@@ -12,16 +12,16 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
     }
   } 
   ```
-  - Query Variables
-
-  ```
-  {
-    "input": {
-      "data": "0x00",
-      "submitToken": "0x00"
+- Query Variables
+    ```
+    {
+      "input": {
+        "data": "0x00",
+        "submitToken": "0x00"
+      }
     }
-  }
-  ```
+    ```
+
 - HTTP Headers 
   ```
   {
@@ -30,6 +30,7 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
     "authorization": "bearer [JWT Web-to-Server access token]"
   }
   ```
+
 ## HTTP Request and Response
 ### Request
 
@@ -69,7 +70,7 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
 {
   "data": {
     "submitTransaction": {
-      "transactionHash": ""
+      "transactionHash": "0xa93f56fe55b4f7b011ef66f3ca3fed6d611bf5a780e0b8310cf56c1114cb8cc0"
     }
   }
 }
@@ -78,11 +79,11 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
 ## Parameters
 ### Request 
 - **`data`** \<string>
-  - data after signed 
+  - Data after signed.
 - **`submitToken`** \<string>
-  - submitToken from the previous api
+  - `submitToken` from the previous API.
 
 ### Response
 - **`submitTransaction`** \<SubmitTransactionPayload!>
   - **`transactionHash`** \<string>
-    - transaction hash of the submit transaction
+    - Transaction hash of the transaction. `transactionHash` can be checked and verified in any Ethereum explorer such as [etherscan.io](https://etherscan.io).

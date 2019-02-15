@@ -100,12 +100,16 @@ You are able to transfer Smart Token via this API.
 ### Request 
 - **`id`** \<string>
   - ID of the Smart Token which is to be transferred. ID is a global identifier.
+  - Requried: Yes
 - **`to`** \<string>
   - Address of the receiver.
+  - Requried: Yes
 - **`value`** \<string>
   - Amount of Smart Token to be transferred. The format is Decimaled Number.
+  - Requried: Yes
 - **`por`** \<PORMode>
-  - If using por mode
+  - `ENABLE` or `DISABLE` \<enum>
+  - Required: Optional. Default is `DISABLE`.
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>
