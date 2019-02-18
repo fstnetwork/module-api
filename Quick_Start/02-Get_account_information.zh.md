@@ -1,5 +1,7 @@
 # Get account information
 
+> 在此章節中，您將學習到如何得到當前使用者之完整個人資料
+
 ## Table of Contents
 
  1. Prerequisite
@@ -17,7 +19,7 @@
 
  > 此操作可以得到當前使用者之所有資訊，包含身分、加密過的 Ethereum Key JSON、各虛擬財產餘額
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia)
+ - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
    ```graphql
    {

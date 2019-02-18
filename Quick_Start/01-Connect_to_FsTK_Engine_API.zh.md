@@ -1,5 +1,7 @@
 # Connect to FsTK Engine API
 
+> 在此章節中，您將學習到如何通過 FsTK API 連接所需的基本驗證
+
 ## Table of Contents
 
  1. Prerequisite
@@ -83,7 +85,7 @@
 
     接下來，除了登入的任一 API 請求，此 `access_token` 需要被夾帶在 http request header 中的 `authorization` header，例如:
 
-    ```
+    ```http
     authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w
     ```
 
