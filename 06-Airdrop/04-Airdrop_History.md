@@ -1,7 +1,7 @@
 
 # Airdrop History
 
-You are able th fetch all your airdrop history via this API.
+You are able to fetch all your airdrop history via this API.
 
 ## GraphQL API
 
