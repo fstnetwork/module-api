@@ -5,7 +5,7 @@
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode a Ethereum Transaction (Token transfer)
+ 2. Encode a Ethereum Transaction (以 token transfer 為例)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
@@ -18,7 +18,7 @@
  2. 已經確認帳戶中 (當前使用者) 擁有的資產足夠 (from `tokenBalances` in `get me`)
  3. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
 
-## Encode a Ethereum Transaction (Token transfer)
+## Encode a Ethereum Transaction (以 token transfer 為例)
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
@@ -46,11 +46,12 @@
     }
     ```
 
-    > `id` 為那個 token 的 `id`，在 `get me` 中可以看得到當前使用者擁有的 token 們的 id
+    > `id` 為欲傳送之 token 的 `id`，在 `get me` 中可以看得到當前使用者擁有的 token 們的 id，請注意在 `tokenBalances`
 
     > `to` 為 token 傳送的目的地，為 Ethereum 地址
 
-    > `value` 為想要傳送的數量，切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` token，則 `value` 就要為 `"1000000000000000000"`  
+    > `value` 為想要傳送的數量  
+    > 請切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` token，則 `value` 就要為 `"1000000000000000000"`  
     > 如 `"123456789123456789"` 為 `0.123456789123456789` Token 的意思
  - Using cURL
 
@@ -87,9 +88,7 @@
 
     > 請注意 `erc20Transfer` 之所以存在在此 response 中是因為我們使用了 `mutation erc20Transfer`，不同的 encode 請求會有不同的字串，但結構是一樣的
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload
-
-    > `submitToken` 也請保留，等一下將簽署後的結果送出時將需要
+    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
 
     > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
 
@@ -106,7 +105,8 @@
 
 ## Decrypt the Ethereum Key JSON
 
- > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的  
+ > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的
+
  > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
 
  > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
@@ -135,7 +135,8 @@
  }
  ```
 
- > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開  
+ > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開
+ 
  > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
 
  > **也請注意，如果遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**

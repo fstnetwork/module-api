@@ -51,20 +51,19 @@
     ```javascript
     var request = require("request");
     
-    var options = { method: 'POST',
-      url: 'https://test.fstk.io/signin',
-      headers: 
-       { 'cache-control': 'no-cache',
-         'Content-Type': 'application/json' },
-      body: { identity: 'your@email.com', password: 'yourpassword' },
-      json: true };
+    var options = {
+      method: "POST",
+      url: "https://test.fstk.io/signin",
+      headers: { "cache-control": "no-cache", "Content-Type": "application/json" },
+      body: { identity: "your@email.com", password: "yourpassword" },
+      json: true
+    };
     
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
       if (error) throw new Error(error);
     
       console.log(body);
-    });
-    
+    }); 
     ```
 
     - Response
