@@ -5,7 +5,7 @@
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode a Ethereum Transaction (以 token transfer 為例)
+ 2. Encode an Ethereum Transaction (以 token transfer 為例)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
@@ -18,7 +18,7 @@
  2. 已經確認帳戶中 (當前使用者) 擁有的資產足夠 (from `tokenBalances` in `get me`)
  3. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
 
-## Encode a Ethereum Transaction (以 token transfer 為例)
+## Encode an Ethereum Transaction (以 token transfer 為例)
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
