@@ -218,7 +218,7 @@
                "salt": "16b3885904ba626fa5bfaab6d6b368eff1ff0ba2ab739adbec3a8fb063c43aba",
                "dklen": 32
              },
-             "ciphertext": "dc1bf4ab51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
+             "ciphertext": "dc1bfefb51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
              "cipherparams": {
                "iv": "b343d847b8a72ad68c6bf10866757421"
              }
