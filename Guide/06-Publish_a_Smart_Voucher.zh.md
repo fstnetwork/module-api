@@ -46,7 +46,7 @@
 
  8. 已經成為 Issuer (Token 發行者)，請至 `get me` 中的 `token` 確認
 
-## Encode the Transaction (filling up FST Service Gas tank)
+## Encode the Transaction (publishing smart voucher)
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
@@ -150,7 +150,7 @@
     }
     ```
 
-    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，欲查詢可透過 之型式
+    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，欲查詢可透過 `Smart Voucher 發行量 * 有效天數 * 0.00003 FST Service Gas` 的方式計算，未達 600 則算為 600 FST Service Gas
   
     > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
 
@@ -490,6 +490,6 @@
 
     > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
 
-## Confirm the FST Service Gas amount in the tank
+## Confirm the Smart Voucher
 
  > 請查看 `get me` 中的 `token.vouchers` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
