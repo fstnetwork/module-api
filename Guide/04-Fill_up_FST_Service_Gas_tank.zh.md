@@ -63,10 +63,10 @@
 
     ```json
     {
-    	"input": {
-    		"por": "DISABLE",
-    		"amount": "100000000000000000000"
-    	}
+      "input": {
+        "por": "DISABLE",
+        "amount": "100000000000000000000"
+      }
     }
     ```
 
