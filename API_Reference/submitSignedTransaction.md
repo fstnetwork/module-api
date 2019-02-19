@@ -78,12 +78,12 @@ You are able to submit the SIGNED transaction via this API and FST Network will 
 
 ## Parameters
 ### Request 
-- **`data`** \<string>
+- **`data`** \<String!>
   - Data after signed.
-- **`submitToken`** \<string>
+- **`submitToken`** \<String!>
   - `submitToken` from the previous API.
 
 ### Response
 - **`submitTransaction`** \<SubmitTransactionPayload!>
-  - **`transactionHash`** \<string>
+  - **`transactionHash`** \<String!>
     - Transaction hash of the transaction. `transactionHash` can be checked and verified in any Ethereum explorer such as [etherscan.io](https://etherscan.io).

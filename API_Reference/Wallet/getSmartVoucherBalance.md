@@ -161,24 +161,24 @@ You are able to fetch all your Smart Vouchers balance via this API.
 ## Parameters
 ### Response
 - **`voucherBalance`** \<VoucherBalanceConnection>
-  - **`totalCount`** \<int>
+  - **`totalCount`** \<Int!>
     - Amount of Smart Tokens you own.
   - **`pageInfo`** \<PageInfo>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - **`edges`** \<VoucherBalanceEdge>
-    - **`cursor`** \<string>
+  - **`edges`** \<[VoucherBalanceEdge]>
+    - **`cursor`** \<String!>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<VoucherBalance>
       - **`voucher`** \<Voucher>
-        - **`id`** \<ID>
+        - **`id`** \<ID!>
           - Smart Voucher ID. ID is a global identifier.
-        - **`contractAddress`** \<string>
+        - **`contractAddress`** \<String!>
           - Contract address of the Smart Voucher.
-        - **`name`** \<string>
+        - **`name`** \<String!>
           - Smart Voucher name.
-        - **`symbol`** \<string>
+        - **`symbol`** \<String!>
           - Smart Voucher symbol.
-        - **`decimals`** \<int>
+        - **`decimals`** \<String!>
           - Smart Voucher decimals.
-      - **`value`** \<string>
+      - **`value`** \<String!>
         - Amount of the Smart Token you own. The format is Decimaled Number.

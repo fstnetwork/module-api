@@ -230,46 +230,34 @@ You are able to fetch all your transfer history via this API.
 
 ## Parameters
 ### Request 
-- **`first`** \<int>
+- **`first`** \<Int>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional
-- **`after`** \<string>
+- **`after`** \<String>
   - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional
-- **`last`** \<int>
-  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional
-- **`before`** \<string>
-  - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - Required: Optional
 
 ### Response
 - **`transferHistory`** \<TransferHistoryConnection>
-  - **`totalCount`** \<Int>
+  - **`totalCount`** \<Int!>
     - TotalCount of all data
-  - **`pageInfo`** \<PageInfo>
+  - **`pageInfo`** \<PageInfo!>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-    - **`hasNextPage`** \<boolean>
-    - **`hasPreviousPage`** \<boolean>
-    - **`startCursor`** \<string>
-    - **`endCursor`** \<string>
-  - **`edges`** \<TransferHistoryEdge>
-    - **`cursor`** \<String>
+  - **`edges`** \<[TransferHistoryEdge]>
+    - **`cursor`** \<String!>
       - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<TransferHistory!>
-      - **`from`** \<string>
+      - **`from`** \<String!>
         - Sender address.
-      - **`to`** \<string>
+      - **`to`** \<String!>
         - Receiver address.
-      - **`symbol`** \<string>
+      - **`symbol`** \<String!>
         - Asset symbol.
-      - **`value`** \<string>
+      - **`value`** \<String!>
         - Amount of asset has been transferred. The format is Decimaled Number.
-      - **`decimals`** \<string>
+      - **`decimals`** \<String!>
         - Asset decimals.
-      - **`transactionHash`** \<string>
+      - **`transactionHash`** \<String>
         - Transaction hash of the asset transfer.
-      - **`type`** \<string>
+      - **`type`** \<String!>
         - Type of the asset.
-      - **`time`** \<string>
+      - **`time`** \<String!>
         - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

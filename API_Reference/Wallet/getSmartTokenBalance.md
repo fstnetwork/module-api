@@ -122,24 +122,24 @@ You are able to fetch all your Smart Tokens balance via this API.
 ## Parameters
 ### Response
 - **`tokenBalances`** \<TokenBalanceConnection>
-  - **`totalCount`** \<int>
+  - **`totalCount`** \<Int!>
     - Total amount of Smart Tokens you own.
-  - **`pageInfo`** \<PageInfo>
+  - **`pageInfo`** \<PageInfo!>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-  - **`edges`** \<TokenBalanceEdge>
-    - **`cursor`** \<string>
+  - **`edges`** \<[TokenBalanceEdge]>
+    - **`cursor`** \<String!>
     - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<TokenBalance>
       - **`token`** \<Token>
-        - **`id`** \<string>
+        - **`id`** \<ID!>
           - Smart Token ID. ID is a global identifier.
-        - **`contractAddress`** \<string>
+        - **`contractAddress`** \<String!>
           - Contract address of the Smart Token.
-        - **`name`** \<string>
+        - **`name`** \<String!>
           - Smart Token name.
-        - **`symbol`** \<string>
+        - **`symbol`** \<String!>
           - Smart Token symbol.
-        - **`decimals`** \<int>
+        - **`decimals`** \<String!>
           - Smart Token decimals.
-      - **`value`** \<string>
+      - **`value`** \<String!>
         - Amount of the Smart Token you own. The format is Decimaled Number.

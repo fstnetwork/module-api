@@ -199,31 +199,35 @@ You are able to fetch all Smart Voucher holders and amount of Smart Voucher each
 
 ## Parameters
 ### Response
-  - **`vouchers`** \<Voucher>
-    - **`totalCount`** \<int>
+  - **`vouchers`** \<VoucherConnection!>
+    - **`totalCount`** \<Int!>
       - Amount of Smart Vouchers.
-    - **`edges`**
-      - **`node`**
-        - **`id`** \<string>
+    - **`pageInfo`** \<PageInfo!>
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+    - **`edges`** \<[VoucherEdge]>
+      - **`cursor`** \<String!>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+      - **`node`**  \<Voucher>
+        - **`id`** \<ID!>
           - Smart Voucher ID. ID is a global identifier.
-        - **`contractAddress`** \<string>
+        - **`contractAddress`** \<String!>
           - Smart Voucher contract address.
-        - **`name`** \<string>
+        - **`name`** \<String!>
           - Smart Voucher name.
-        - **`symbol`** \<string>
+        - **`symbol`** \<String!>
           - Smart Voucher symbol.
-        - **`decimals`** \<string>
+        - **`decimals`** \<String!>
           - Smart Voucher decimals.
         - **`holders`** \<VoucherHolderConnection>
-          - **`totalCount`** \<int>
+          - **`totalCount`** \<Int!>
             - Total amount of the holders.
-          - **`pageInfo`** \<PageInfo>
+          - **`pageInfo`** \<PageInfo!>
             - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-          - **`edges`** \<VoucherHolderEdge>
-            - **`cursor`** \<string>
+          - **`edges`** \<[VoucherHolderEdge]>
+            - **`cursor`** \<String!>
               - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
             - **`node`** \<Holder>
-              - **`address`** \<string>
+              - **`address`** \<String!>
                 - The holder's address.
-              - **`balance`** \<string>
+              - **`balance`** \<String!>
                 - Amount of the Smart Voucher the holder owns. The format is Decimaled Number.

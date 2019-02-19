@@ -133,55 +133,44 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
 
 ## Parameters
 ### Request 
-  - **`id`** \<string>
+  - **`id`** \<ID!>
     - ID of the Smart Voucher to sell. ID is a global identifier.
-    - Required: Yes
-  - **`name`** \<string>
+  - **`name`** \<String!>
     - Campaigm name.
-    - Required: Yes
-  - **`description`** \<string>
+  - **`description`** \<String!>
     - Campaign description.
-    - Required: Yes
-  - **`stages`** **(Currently only support one stage in `stages`.)** \<CampaignStageInput>
-    - **`name`** \<string>
+  - **`stages`** **(Currently only support one stage in `stages`.)** \<[CampaignStageInput]!>
+    - **`name`** \<String!>
       - The campaign stage name.
-      - Required: Yes
-    - **`startTime`** \<string>
+    - **`startTime`** \<String!>
       - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
-      - Required: Yes
-    - **`endTime`** \<string>
+    - **`endTime`** \<String!>
       - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
-      - Required: Yes
-    - **`priceMultiplier`** \<string>
+    - **`priceMultiplier`** \<Fraction!>
       - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Voucher price is 1 YourVoucher = 100 YourToken, if you have created a 20% discount stage, the priceMultiplier you get is: {numerator: 80, denominator: 100}. So the token price is allowed to be 1 YourVoucher = 80 YourToken._) 
-      - **`numerator`** \<string>
+      - **`numerator`** \<String!>
         - The numerator of this fraction.
-        - Required: Yes
-      - **`denominator`** \<string>
+      - **`denominator`** \<String!>
         - The denominator of this fraction.
-        - Required: Yes
-    - **`cap`** \<string>
+    - **`cap`** \<String!>
       - Total amount of token for sale during this campaign stage. The format is Decimaled Number.
-      - Required: Yes
-    - **`isPrivate`** \<boolean>
+    - **`isPrivate`** \<Boolean!>
       - The campaign stage is private or not.
-      - Required: Yes
-    - **`description`** \<string>
+    - **`description`** \<String!>
       - The campaign stage description.
-      - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Default is `DISABLE`.
 
 ### Response
   - **`createCampaign`** \<CreateCampaignPayload>
     - **`transaction`** \<JSON>
       - UNSIGNED raw transaction format in Ethereum.
-    - **`submitToken`** \<string>
+    - **`submitToken`** \<String>
       - The value for [SubmitSignedTransaction API]().
-    - **`pendingTransactions`** \<string>
+    - **`pendingTransactions`** \<String>
       - Amount of your transactions which are still pending.
-    - **`hash`** \<string>
+    - **`hash`** \<String>
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
     - **`metadata`** \<JSON>

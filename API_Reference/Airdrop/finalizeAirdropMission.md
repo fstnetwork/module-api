@@ -100,22 +100,19 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 ## Parameters
 ### Request
-  - **`missionId`** \<string>
+  - **`missionId`** \<ID!>
     - Airdrop mission ID. `missionID` is able to get by [getAirdropMissionInfo API]().
-    - Required: Yes
-  - **`por`** \<PORMode>
+  - **`por`** \<enum PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Default is `DISABLE`.
 
 ### Response
   - **`claimAirdropMission`** \<claimAirdropMissionPayload>
-    - **`pendingTransactions`** \<string>
-      - Amount of your transactions which are still pending.
     - **`transaction`** \<JSON>
       - UNSIGNED raw transaction format in Ethereum.
-    - **`submitToken`** \<string>
+    - **`submitToken`** \<String!>
       - The value for [SubmitSignedTransaction API]().
-    - **`hash`** \<string>
+    - **`hash`** \<String>
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
     - **`metadata`** \<JSON>

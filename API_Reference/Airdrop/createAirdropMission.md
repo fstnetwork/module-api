@@ -107,28 +107,24 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
 
 ## Parameters
 ### Request 
-  - **`listId`** \<string>
+  - **`listId`** \<ID!>
     - ID of the airdrop list.
-    - Required: Yes
-  - **`itemId`** \<string>
+  - **`itemId`** \<ID!>
     - ID of the item(token/voucher) to drop.
-    - Required: Yes
-  - **`budget`** \<string>
+  - **`budget`** \<String!>
     - Budget for the airdrop. The format is Decimaled Number.
-    - Required: Yes
-  - **`invokeTime`** \<string>
+  - **`invokeTime`** \<String!>
     - The airdrop invoke time. The format is Unix Timestamp in millisecond resolution.
-    - Required: Yes
-  - **`por`** \<PORMode>
+  - **`por`** \<enum PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Default is `DISABLE`.
 
 ### Response
-  - **`transaction`** \<string>
+  - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String!>
     - The value for [SubmitSignedTransaction API]().
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>

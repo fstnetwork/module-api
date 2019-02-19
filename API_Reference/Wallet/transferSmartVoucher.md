@@ -99,24 +99,24 @@ You are able to transfer Smart Voucher via this API.
 
 ## Parameters
 ### Request 
-- **`id`** \<string>
+- **`id`** \<ID!>
   - ID of the target token which is to be transferred. ID is a global identifier.
-- **`to`** \<string>
+- **`to`** \<String!>
   - Address of the receiver.
-- **`value`** \<string>
+- **`value`** \<String!>
   - Amount of target token to be transferred. The format is Decimaled Number.
 - **`por`** \<PORMode>
   - `ENABLE` or `DISABLE` \<enum>
-  - Required: Optional. Default is `DISABLE`.
+  - Default is `DISABLE`.
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

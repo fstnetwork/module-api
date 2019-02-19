@@ -130,26 +130,26 @@ You are able to fetch all holders of the Smart Token and amount of the Smart Tok
 ## Parameters
 ### Response
   - **`token`** \<Token>
-    - **`id`** \<string>
+    - **`id`** \<ID!>
       - Smart Token ID. ID is a global identifier.
-    - **`contractAddress`** \<string>
+    - **`contractAddress`** \<String!>
       - Smart Token contract address.
-    - **`name`** \<string>
+    - **`name`** \<String!>
       - Smart Token name.
-    - **`symbol`** \<string>
+    - **`symbol`** \<String!>
       - Smart Token symbol.
-    - **`decimals`** \<string>
+    - **`decimals`** \<String!>
       - Smart Token decimals.
     - **`holders`** \<TokenHolderConnection>
-      - **`totalCount`** \<int>
+      - **`totalCount`** \<Int!>
         - Total amount of the holders.
       - **`pageInfo`** \<PageInfo>
         - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-      - **`edges`** \<TokenHolderEdge>
-        - **`cursor`** \<string>
+      - **`edges`** \<[TokenHolderEdge]>
+        - **`cursor`** \<String!>
           - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
         - **`node`** \<Holder>
-          - **`address`** \<string>
+          - **`address`** \<String!>
             - The holder's address.
-          - **`balance`** \<string>
+          - **`balance`** \<String!>
             - Amount of the Smart Token the holder owns. The format is Decimaled Number.

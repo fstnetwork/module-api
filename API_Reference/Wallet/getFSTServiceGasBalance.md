@@ -65,5 +65,5 @@ You are able to fetch your FST Service Gas balance via this API.
 
 ## Parameters
 ### Response
-  - **`gasTankBalance`** \<string>
+  - **`gasTankBalance`** \<String!>
     - Your FST Service Gas balance. The format is Decimaled Number.

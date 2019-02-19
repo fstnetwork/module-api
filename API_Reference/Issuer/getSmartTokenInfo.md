@@ -111,37 +111,37 @@ Your are able to fetch the information of the Smart Token which you issued via t
 ## Parameters
 ### Response
 - **`token`** \<Token>
-  - **`id`** \<string>
+  - **`id`** \<ID!>
     - Smart Token ID. ID is a global identifier.
-  - **`issuer`** \<UserInfo>
-    - **`firstName`** \<string>
+  - **`issuer`** \<UserInfo!>
+    - **`firstName`** \<String>
       - Issuer first name.
-    - **`lastName`** \<string>
+    - **`lastName`** \<String>
       - Issuer last name.
-    - **`ethereumAddress`** \<string>
+    - **`ethereumAddress`** \<String>
       - Issuer's ethereum address.
-  - **`contractAddress`** \<string>
+  - **`contractAddress`** \<String!>
     - The Smart Token contract address.
-  - **`name`** \<string>
+  - **`name`** \<String!>
     - Smart Token name.
-  - **`symbol`** \<string>
+  - **`symbol`** \<String!>
     - Smart Token symbol.
-  - **`totalSupply`** \<string>
+  - **`totalSupply`** \<String!>
     - Total supply of the Smart Token. The format is Decimaled Number.
-  - **`decimals`** \<string>
+  - **`decimals`** \<String>
     - Smart Token decimals.
-  - **`price`** \<Fraction>
+  - **`price`** \<Fraction!>
     - Smart Token price.
-    - **`numerator`** \<string>
+    - **`numerator`** \<String!>
       - The numerator of this fraction.
-    - **`denominator`** \<string>
+    - **`denominator`** \<String!>
       - The denominator of this fraction.
-  - **`website`** \<string>
+  - **`website`** \<String!>
     - The Smart Token related website.
-  - **`proofOfContract`** \<File>
-    - **`ipfs`** \<string>
+  - **`proofOfContract`** \<File!>
+    - **`ipfs`** \<String!>
       - Information of the contract's IPFS link.
-  - **`logo`** \<File>
-    - **`ipfs`** \<string>
+  - **`logo`** \<File!>
+    - **`ipfs`** \<String!>
       - Information of the Smart Token logo's IPFS link.
 

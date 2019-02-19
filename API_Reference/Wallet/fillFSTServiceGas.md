@@ -100,23 +100,22 @@ You are able to fill your FST Service Gas via this API.
 
 ## Parameters
 ### Request 
+- **`amount`** \<String!>
+  - Amount of FST to refill. The format is Decimaled Number.
 - **`por`** \<PORMode>
   - `Enable` or `Disable` \<enum>
-  - Reuqired: Optional. Default is `DISABLE`.
-- **`amount`** \<string>
-  - Amount of FST to refill. The format is Decimaled Number.
-  - Required: Yes.
+  - Default is `DISABLE`.
 
 ### Response
 - **`fillGasTank`** \<FillGasTankPayload>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().
-  - **`pendingTransactions`** \<string>
+  - **`pendingTransactions`** \<String>
     - Amount of your transactions which are still pending.

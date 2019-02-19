@@ -14,6 +14,16 @@ Get all of your campaigns' information.
             id
             name
             description
+            ... on TokenCampaign{
+              token{
+                id
+              }
+            }
+            ... on VoucherCampaign{
+              voucher{
+                id
+              }
+            }
             contractAddress
             isOpen
             stages {
@@ -144,43 +154,49 @@ Get all of your campaigns' information.
 
 ## Parameters
 ### Response
-  - **`id`** \<string>
+  - **`id`** \<String!>
     - Your user ID of FsTK Engine. ID is a global identifier.
   - **`campaigns`** \<CampaignConnection>
-    - **`edges`** \<CampaignEdge>
+     - **`totalCount`** \<Int!>
+        - Total amount of the vouchers.
+    - **`pageInfo`** \<PageInfo>
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+    - **`edges`** \<[CampaignEdge]>
+      - **`cursor`** \<String!>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
       - **`node`** \<Campaign>
-        - **`id`** \<string
+        - **`id`** \<ID!>
           - Campaign ID. ID is a global identifier.
-        - **`name`** \<stirng>
+        - **`name`** \<String!>
           - Campaign name.
-        - **`description`** \<stirng>
+        - **`description`** \<String!>
           - Campaign description.
-        - **`contractAddress`** \<stirng>
+        - **`contractAddress`** \<String!>
           - The campaign contract address.
-        - **`isOpen`** \<boolean>
+        - **`isOpen`** \<Boolean!>
           - The campaign is open or not.
-        - **`stages`** \<CampaignStage> **(Currently only support one stage in `stages`.)** 
-          - **`name`** \<stirng>
+        - **`stages`** \<[CampaignStage]!> **(Currently only support one stage in `stages`.)** 
+          - **`name`** \<String!>
             - The campaign stage name.
-          - **`description`** \<stirng>
-          - The campaign stage description.
-          - **`startTime`** \<stirng>
+          - **`startTime`** \<String!>
             - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
-          - **`endTime`** \<stirng>
+          - **`endTime`** \<String!>
             - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
-          - **`priceMultiplier`** \<Fraction>
-            - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the Smart Token price is allowed to be 1 ETH = 120 YourToken._) 
-            - **`numerator`** \<string>
+          - **`priceMultiplier`** \<Fraction!>
+            - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Voucher price is 1 YourVoucher = 100 YourToken, if you have created a 20% discount stage, the priceMultiplier you get is: {numerator: 80, denominator: 100}. So the token price is allowed to be 1 YourVoucher = 80 YourToken._) 
+            - **`numerator`** \<String!>
               - The numerator of this fraction.
-            - **`denominator`** \<string>
+            - **`denominator`** \<String!>
               - The denominator of this fraction.
-          - **`cap`** \<stirng>
-            - Total amount of Smart Token/Voucher for sale during this campaign stage. The format is Decimaled Number.
-          - **`isPrivate`** \<boolean>
+          - **`cap`** \<String!>
+            - Total amount of token for sale during this campaign stage. The format is Decimaled Number.
+          - **`isPrivate`** \<Boolean!>
             - The campaign stage is private or not.
-          - **`sold`** \<stirng>
+          - **`description`** \<String!>
+            - The campaign stage description.
+          - **`sold`** \<String>
             - Amount of Smart Token/Voucher have sold.
-        - **`transactionHash`** \<stirng>
+        - **`transactionHash`** \<String!>
           - Transaction hash of the campaign.
-        - **`createdTime`** \<stirng>
+        - **`createdTime`** \<String!>
           - The campaign created time.

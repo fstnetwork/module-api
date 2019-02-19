@@ -63,5 +63,5 @@ You are able to fetch your ether Balance via this API.
 
 ## Parameters
 ### Response
-  - **`etherBalance`** \<string>
+  - **`etherBalance`** \<String!>
     - Your ether balance. The format is Decimaled Number.

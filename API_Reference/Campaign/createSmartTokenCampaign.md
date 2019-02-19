@@ -134,55 +134,44 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
 
 ## Parameters
 ### Request 
-  - **`id`** \<string>
+  - **`id`** \<ID!>
     - ID of the Smart Token to sell. ID is a global identifier.
-    - Required: Yes
-  - **`name`** \<string>
+  - **`name`** \<String!>
     - Campaigm name.
-    - Required: Yes
-  - **`description`** \<string>
+  - **`description`** \<String!>
     - Campaign description.
-    - Required: Yes
-  - **`stages`** **(Currently only support one stage in `stages`.)** \<CampaignStageInput>
-    - **`name`** \<string>
+  - **`stages`** **(Currently only support one stage in `stages`.)** \<[CampaignStageInput]!>
+    - **`name`** \<String!>
       - The campaign stage name.
-      - Required: Yes
-    - **`startTime`** \<string>
-      - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
-      - Required: Yes
-    - **`endTime`** \<string>
-      - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
-      - Required: Yes
-    - **`priceMultiplier`** \<string>
-      - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the Smart Token price is allowed to be 1 ETH = 120 YourToken._) 
-      - **`numerator`** \<string>
-        - The numerator of this fraction.
-        - Required: Yes
-      - **`denominator`** \<string>
-        - The denominator of this fraction.
-        - Required: Yes
-    - **`cap`** \<string>
-      - Total amount of Smart Token for sale during this campaign stage. The format is Decimaled Number.
-      - Required: Yes
-    - **`isPrivate`** \<boolean>
-      - The campaign stage is private or not.
-      - Required: Yes
-    - **`description`** \<string>
+    - **`description`** \<String!>
       - The campaign stage description.
-      - Required: Yes
+    - **`startTime`** \<String!>
+      - The campaign stage start time. The format is Unix Timestamp in millisecond resolution.
+    - **`endTime`** \<String!>
+      - The campaign stage end time. The format is Unix Timestamp in millisecond resolution.
+    - **`priceMultiplier`** \<Fraction!>
+      - The multiplier to the price for this campaign stage. Must be less than or equal to 1. Must be greater than 0. (_For example, assume the original Smart Token price is 1 ETH = 100 YourToken, if you have created a 20% bonus stage, the priceMultiplier you get is: {numerator: 100, denominator: 120} ( 1/(100/120) = 1.2, 1.2-1 = 0.2 = 20% ) So the Smart Token price is allowed to be 1 ETH = 120 YourToken._) 
+      - **`numerator`** \<String!>
+        - The numerator of this fraction.
+      - **`denominator`** \<String!>
+        - The denominator of this fraction.
+    - **`cap`** \<String!>
+      - Total amount of Smart Token for sale during this campaign stage. The format is Decimaled Number.
+    - **`isPrivate`** \<Boolean!>
+      - The campaign stage is private or not.
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Default is `DISABLE`.
 
 ### Response
   - **`createCampaign`** \<CreateCampaignPayload>
     - **`transaction`** \<JSON>
       - UNSIGNED raw transaction format in Ethereum.
-    - **`submitToken`** \<string>
+    - **`submitToken`** \<String>
       - The value for [SubmitSignedTransaction API]().
-    - **`pendingTransactions`** \<string>
+    - **`pendingTransactions`** \<String>
       - Amount of your transactions which are still pending.
-    - **`hash`** \<string>
+    - **`hash`** \<String>
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
     - **`metadata`** \<JSON>

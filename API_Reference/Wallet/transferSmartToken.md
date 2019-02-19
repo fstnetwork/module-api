@@ -97,27 +97,24 @@ You are able to transfer Smart Token via this API.
 
 ## Parameters
 ### Request 
-- **`id`** \<string>
+- **`id`** \<ID!>
   - ID of the Smart Token which is to be transferred. ID is a global identifier.
-  - Requried: Yes
-- **`to`** \<string>
+- **`to`** \<String!>
   - Address of the receiver.
-  - Requried: Yes
-- **`value`** \<string>
+- **`value`** \<String!>
   - Amount of Smart Token to be transferred. The format is Decimaled Number.
-  - Requried: Yes
 - **`por`** \<PORMode>
   - `ENABLE` or `DISABLE` \<enum>
-  - Required: Optional. Default is `DISABLE`.
+  - Default is `DISABLE`.
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload!>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

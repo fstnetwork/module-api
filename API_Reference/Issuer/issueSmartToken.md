@@ -135,41 +135,35 @@ You are able to issue Smart Token via this API.
 
 ## Parameters
 ### Request 
-- **`name`** \<string>
+- **`name`** \<string!>
   - Smart Token name.
-  - Reuqired: Yes
-- **`symbol`** \<string>
+- **`symbol`** \<string!>
   - Smart Token symbol.
-  - Reuqired: Yes
-- **`totalSupply`** \<string>
+- **`totalSupply`** \<string!>
   - Total supply of the Smart Token. The format is Decimaled Number.
-  - Reuqired: Yes
-- **`price`** \<string>
+- **`price`** \<Fraction!>
   - Smart Token price.
-  - **`numerator`** \<string>
+  - **`numerator`** \<string!>
     - The numerator of this fraction.
-    - Reuqired: Yes
-  - **`denominator`** \<string>
+  - **`denominator`** \<string!>
     - The denominator of this fraction.
-    - Reuqired: Yes
-- **`description`** \<string>
+- **`description`** \<string!>
   - Description of the Smart Token.
-  - Reuqired: Yes
-- **`website`** \<string>
+- **`website`** \<string!>
   - The Smart Token related website.
-  - Reuqired: Yes
-- **`logo`** \<string>
+- **`logo`** \<Upload!>
   - The image file of the Smart Token logo.
-  - Reuqired: Yes
-- **`proofOfContract`** \<string>
+- **`proofOfContract`** \<Upload!>
   - The PDF file of the Smart Token contract.
-  - Reuqired: Yes
+- **`por`** \<enum PORMode>
+  - `ENABLE` or `DISABLE` \<enum>
+  - Default is `DISABLE`.
 
 ### Response
 - **`issueToken`** \<IssueTokenPayload>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<string!>
     - The value for [SubmitSignedTransaction API]().
   - **`hash`** \<string>
     - PORMode `ENABLE`: Hash of the abi encode.

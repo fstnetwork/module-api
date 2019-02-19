@@ -94,19 +94,18 @@
 
 ## Parameters
 ### Request 
-  - **`id`** \<string>
+  - **`id`** \<ID!>
     - Smart Token campaign ID.
-    - Required: Yes
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
-    - Required: Optional. Default is `DISABLE`.
+    - Default is `DISABLE`.
 
 ### Response
-  - **`transaction`** \<string>
+  - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String!>
     - The value for [SubmitSignedTransaction API]().
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>

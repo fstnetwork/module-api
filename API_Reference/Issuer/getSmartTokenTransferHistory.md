@@ -134,32 +134,32 @@ You are able to fetch all transfer history of the Smart Token(which you issued) 
 ## Parameters
 ### Response
 - **`token`** \<Token>
-  - **`id`** \<string>
+  - **`id`** \<String!>
     - Smart Token ID. ID is a global identifier.
-  - **`contractAddress`** \<string>
+  - **`contractAddress`** \<String!>
     - Smart Token contract address.
-  - **`name`** \<string>
+  - **`name`** \<String!>
     - Smart Token name.
-  - **`symbol`** \<string>
+  - **`symbol`** \<String!>
     - Smart Token symbol.
-  - **`decimals`** \<string>
+  - **`decimals`** \<String!>
     - Smart Token decimals.
   - **`transfers`** \<TokenTransferConnection>
-    - **`pageInfo`** \<PageInfo>
+    - **`pageInfo`** \<PageInfo!>
       - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-    - **`totalCount`** \<int>
+    - **`totalCount`** \<Int!>
       - Total amount of the Smart Token transfer.
-    - **`edges`** \<TokenTransferEdge Array>
-      - **`cursor`** \<string>
+    - **`edges`** \<[TokenTransferEdge]>
+      - **`cursor`** \<String!>
         - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
       - **`node`** \<Transfer>
-        - **`from`** \<string>
+        - **`from`** \<String!>
           - Sender address.
-        - **`to`** \<string>
+        - **`to`** \<String>
           - Receiver address.
-        - **`value`** \<string>
+        - **`value`** \<String!>
           - Amount of the Smart Token the sender sent. The format is Decimaled Number.
-        - **`transaction`** \<string>
+        - **`transaction`** \<String!>
           - The transaction hash of this action.
-        - **`timestamp`** \<string>
+        - **`timestamp`** \<String!>
           - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

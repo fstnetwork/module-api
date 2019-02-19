@@ -128,43 +128,35 @@ You are able to publish Smart Voucher via this API.
 
 ## Parameters
 ### Request 
-- **`name`** \<string>
+- **`name`** \<String!>
   - Smart Voucher name.
-  - Reuqired: Yes
-- **`consumable`** \<boolean>
-  - The Smart Voucher is consumable or not.
-  - Reuqired: Yes
-- **`symbol`** \<string>
+- **`symbol`** \<String!>
   - Smart Voucher symbol.
-  - Reuqired: Yes
-- **`totalSupply`** \<string>
+- **`totalSupply`** \<String!>
   - Total supply of the Smart Voucher. The format is Decimaled Number.
-  - Reuqired: Yes
-- **`price`** \<string>
+- **`price`** \<Fraction!>
  - Smart Voucher price.
-  - **`numerator`** \<string>
+  - **`numerator`** \<String!>
     - The numerator of this fraction.
-    - Reuqired: Yes
-  - **`denominator`** \<string>
+  - **`denominator`** \<String!>
     - The denominator of this fraction.
-    - Reuqired: Yes
-- **`expiry`** \<string>
+- **`consumable`** \<Boolean!>
+  - The Smart Voucher is consumable or not.
+- **`expiry`** \<String!>
   - Expiry date of the Smart Voucher. The format is Unix Timestamp in millisecond resolution.
-  - Reuqired: Yes
-- **`description`** \<string>
+- **`description`** \<Upload!>
   - Description of the Smart Voucher.
-  - Reuqired: Yes
-- **`proofOfContract`** \<string>
-  - The PDF file of the Smart Voucher contract.
-  - Reuqired: Yes
+- **`por`** \<enum PORMode>
+  - `ENABLE` or `DISABLE` \<enum>
+  - Default is `DISABLE`.
 
 ### Response
 - **`publishVoucher`** \<PublishVoucherPayload>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String!>
     - The value for [SubmitSignedTransaction API]().
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>

@@ -158,45 +158,45 @@ You are able to fetch all your airdrop history via this API.
 
 ## Parameters
 ### Response
-  - **`id`** \<string>
+  - **`id`** \<ID!>
     - Airdrop mission ID.
-  - **`method`** \<AirdropMethod>
-    - **`listType`** \<string>
+  - **`method`** \<AirdropMethod!>
+    - **`listType`** \<String>
       - Type of the list. `AirdropLocate` or `AirdropManual`.
-    - **`listId`** \<string>
+    - **`listId`** \<String!>
       - The ID of the list in each type.
     - **`targets`** \<JSON>
-      - **`filters`** \<JSON Array>
-        - **`giveItem`** \<string>
+      - **`filters`** \<[JSON]!>
+        - **`giveItem`** \<ID!>
           - ID of the item(Smart Token/Voucher) to drop.
-        - **`ruleItem`** \<string>
+        - **`ruleItem`** \<ID!>
           - Item(Smart Token/Voucher) ID of the rule.
-        - **`ruletype`** \<string>
-          - `EVERY` or `AT_LEAST`
-        - **`giveAmount`** \<string>
+        - **`ruletype`** \<enum RuleType!>
+          - `EVERY` or `AT_LEAST`.  \<enum>
+        - **`giveAmount`** \<String!>
           - Total amount of item(Smart Token/Voucher) to drop. The format is Decimaled Number.
-        - **`ruleAmount`** \<string>
+        - **`ruleAmount`** \<String!>
           - Amount of item(Smart Token/Voucher) to drop if match the rule. The format is Decimaled Number.
-  - **`item`** \<Token> or \<Voucher>
-    - **`id`** \<string>
+  - **`item`** \<Token!> or \<Voucher!>
+    - **`id`** \<ID!>
       - ID of the item(Smart Token/Voucher) to drop.
-    - **`name`** \<string>
+    - **`name`** \<String!>
       - Name of the item(Smart Token/Voucher) to drop.
-  - **`budget`** \<string>
+  - **`budget`** \<String!>
     - Budget for the airdrop. The format is Decimaled Number.
-  - **`status`** \<AirdropMissionStatus>
+  - **`status`** \<enum AirdropMissionStatus!>
     - `PENDING`, `PROCESSING`, `SUCCESS`, `FAILURE`, `CANCEL` or `CLAIMED`. \<enum>
-  - **`totalAirdropAmount`** \<string>
+  - **`totalAirdropAmount`** \<String>
     - Total amount of item(Smart Token/Voucher) to drop. The format is Decimaled Number.
-  - **`totalAddresses`** \<string>
+  - **`totalAddresses`** \<String>
     - Total amount of addresses to drop.
   - **`isClaimed`** \<Boolean>
     - The airdrop is claimed or not.
-  - **`usedBudget`** \<string>
+  - **`usedBudget`** \<String>
     - Total budget the airdrop used. The format is Decimaled Number.
-  - **`createTime`** \<string>
+  - **`createTime`** \<String!>
     - The airdrop created time. The format is Unix Timestamp.
-  - **`invokeTime`** \<string>
+  - **`invokeTime`** \<String!>
     - The airdrop invoked time. The format is Unix Timestamp.
-  - **`executeTime`** \<string>
+  - **`executeTime`** \<String>
     - The airdrop executed time. The format is Unix Timestamp

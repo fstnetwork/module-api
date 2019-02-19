@@ -96,20 +96,18 @@ You are able to transfer ether via this API.
 
 ## Parameters
 ### Request 
-- **`to`** \<string>
+- **`to`** \<String!>
   - Receiver address.
-  - Required: Yes
-- **`value`** \<string>
+- **`value`** \<String!>
   - Amount of ether to transfer. The format is Decimaled Number.
-  - Required: Yes
 
 ### Response
 - **`ethTransfer`** \<EthTransferPayload>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String!>
     - The value for [SubmitSignedTransaction API]().

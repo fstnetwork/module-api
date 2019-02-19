@@ -128,47 +128,52 @@ You are able to fetch your Smart Voucher Information via this API.
 ## Parameters
 ### Response
   - **`vouchers`** \<VoucherConnection>
-    - **`edges`** \<VoucherEdge>
+    - **`totalCount`** \<Int!>
+        - Total amount of the vouchers.
+    - **`pageInfo`** \<PageInfo>
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+    - **`edges`** \<[VoucherEdge]>
+      - **`cursor`** \<String!>
+        - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
       - **`node`** \<Voucher>
-        - **`id`** \<string>
+        - **`id`** \<ID!>
           - Smart Voucher ID. ID is a global identifier.
         - **`token`**\<Token>
-          - **`id`** \<string>
+          - **`id`** \<ID!>
             - ID of the Smart Token which the Smart Voucher . ID is a global identifier.
-        - **`contractAddress`** \<string>
+        - **`contractAddress`** \<String!>
           - The Smart Voucher contract address.
-        - **`transactionHash`** \<string>
+        - **`transactionHash`** \<String!>
           - Transaction hash of the Smart Voucher publishment.
-        - **`name`** \<string>
+        - **`name`** \<String!>
           - Smart Voucher name.
-        - **`description`** \<string>
+        - **`description`** \<String!>
           - Description of the Smart Voucher.
-        - **`symbol`** \<string>
+        - **`symbol`** \<String!>
           - Smart Voucher symbol.
-        - **`decimals`** \<string>
+        - **`decimals`** \<String!>
           - Smart Voucher decimals
-        - **`totalSupply`** \<string>
+        - **`totalSupply`** \<String!>
           - Total supply of the Smart Voucher. The format is Decimaled Number.
-        - **`proofOfContract`** \<File>
+        - **`proofOfContract`** \<File!>
           - The PDF file of the Smart Voucher contract.
-          - **`ipfs`** \<string>
+          - **`ipfs`** \<String!>
             - Information of the contract's ipfs link.
-        - **`liquid`** \<boolean>
+        - **`liquid`** \<Boolean!>
           - The Smart Voucher is liquid or not.
-        - **`approveChecking`** \<boolean>
-        - **`price`** \<Fraction>
+        - **`price`** \<Fraction!>
           - Smart Voucher price.
-          - **`numerator`** \<string>
+          - **`numerator`** \<String!>
             - The numerator of this fraction.
-          - **`denominator`** \<string>
+          - **`denominator`** \<String!>
             - The denominator of this fraction.
-        - **`availableAmount`** \<string>
+        - **`availableAmount`** \<String!>
           - Remaining amount of the Smart Voucher. The format is Decimaled Number.
-        - **`vendible`** \<boolean>
+        - **`vendible`** \<Boolean!>
           - The Smart Voucher is vendible or not.
-        - **`expiry`** \<string>
+        - **`expiry`** \<String>
           - Expiry date of the Smart Voucher. The format is Unix Timestamp in millisecond resolution.
-        - **`consumable`** \<boolean>
+        - **`consumable`** \<Boolean!>
           - The Smart Voucher is consumalbe or not.
-        - **`createdTime`** \<string>
+        - **`createdTime`** \<String!>
           - The Smart Voucher created time. The format is Unix Timestamp in millisecond resolution.

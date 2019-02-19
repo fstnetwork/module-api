@@ -139,34 +139,40 @@ You are able to fetch all transfer history of the Smart Voucher(which you publis
 ## Parameters
 ### Response
 - **`vouchers`** \<VoucherConnection>
+  - **`pageInfo`** \<PageInfo!>
+    - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
+  - **`totalCount`** \<Int!>
+    - Total amount of the Smart Voucher.
   - **`edges`** \<VoucherEdge>
+    - **`cursor`** \<String!>
+      - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`node`** \<Voucher>
-      - **`id`** \<string>
+      - **`id`** \<String!>
         - Smart Voucher ID. ID is a global identifier.
-      - **`contractAddress`** \<string>
+      - **`contractAddress`** \<String!>
         - Smart Voucher contract address.
-      - **`name`** \<string>
+      - **`name`** \<String!>
         - Smart Voucher name.
-      - **`symbol`** \<string>
+      - **`symbol`** \<String!>
         - Smart Voucher symbol.
-      - **`decimals`** \<string>
+      - **`decimals`** \<String!>
         - Smart Voucher decimals.
       - **`transfers`** \<VoucherTransferConnection>
-        - **`pageInfo`** \<PageInfo>
+        - **`pageInfo`** \<PageInfo!>
           - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
-        - **`totalCount`** \<int>
+        - **`totalCount`** \<Int!>
           - Total amount of the Smart Voucher transfer.
         - **`edge`** \<VouhcerTransferEdge>
-          - **`cursor`** \<string>
+          - **`cursor`** \<String>
             - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
           - **`node`** \<Transfer>
-            - **`from`** \<string>
+            - **`from`** \<String!>
               - Sender address.
-            - **`to`** \<string>
+            - **`to`** \<String>
               - Receiver address.
-            - **`value`** \<string>
+            - **`value`** \<String!>
               - Amount of the Smart Voucher the sender sent. The format is Decimaled Number.
-            - **`transaction`** \<string>
+            - **`transaction`** \<String!>
               - The transaction hash of this action.
-            - **`timestamp`** \<string>
+            - **`timestamp`** \<String!>
               - The time that FST Network server reviced transaction. The format is Unix Timestamp in millisecond resolution.

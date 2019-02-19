@@ -100,27 +100,24 @@ You are able to transfer FST via this API.
 
 ## Parameters
 ### Request 
-- **`id`** \<string>
+- **`id`** \<ID!>
   - ID of the FST Token which is to be transferred. ID is a global identifier.
-  - Required: Yes
-- **`to`** \<string>
+- **`to`** \<String!>
   - Receiver address.
-  - Requried: Yes
-- **`value`** \<string>
+- **`value`** \<String!>
   - Amount of FST token to be transferred. The format is Decimaled Number.
-  - Requried: Yes
 - **`por`** \<PORMode>
   - `ENABLE` or `DISABLE` \<enum>
-  - Required: Optional. Default is `DISABLE`.
+  - Default is `DISABLE`.
 
 ### Response
 - **`erc20Transfer`** \<ERC20TransferPayload>
   - **`transaction`** \<JSON>
     - UNSIGNED raw transaction format in Ethereum.
-  - **`hash`** \<string>
+  - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
   - **`metadata`** \<JSON>
     - Metadata of the transaction.
-  - **`submitToken`** \<string>
+  - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().
