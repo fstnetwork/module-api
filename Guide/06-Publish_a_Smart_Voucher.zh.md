@@ -78,7 +78,7 @@
      }
      ```
 
-     - `name` 為新發布之 Smart Voucher 的名稱
+     - `name` 為新發布之 Smart Voucher 的名稱，最多為 20 個字元
 
      - `symbol` 為新發布之 Smart Voucher 的符號，前綴必須是母帳本之符號 (symbol)，如 Smart Token 之 symbol 為 `ABC` 則 Smart Voucher 之 symbol 可取為 `ABC_TEST11`，前綴以外最多可有六個字元
 
