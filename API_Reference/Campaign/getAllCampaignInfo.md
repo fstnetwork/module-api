@@ -171,6 +171,10 @@ Get all of your campaigns' information.
           - Campaign name.
         - **`description`** \<String!>
           - Campaign description.
+        - **`token`**/**`voucher`** \<Token> or \<Voucher>
+          - Type of asset the campaign sale.
+          - **`id`** \<ID!>
+            - Smart Token/Voucher ID. ID is a global identifier.
         - **`contractAddress`** \<String!>
           - The campaign contract address.
         - **`isOpen`** \<Boolean!>
