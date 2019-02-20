@@ -108,28 +108,28 @@ Set the rule and get the rusult of the rule for airdrop.
   {  
     "query":"\n    mutation createAirdropLocate($input: createAirdropLocateInput!) {\n      createAirdropLocate(input: $input) {\n        airdropLocate {\n          seqno: id\n          airdropItem {\n            ... on Token {\n              id\n              name\n              decimals\n            }\n          }\n          totalAddresses\n          totalAirdropAmount\n          summary {\n            rule {\n              locateRule {\n                type\n                item {\n                  ... on Token {\n                    decimals\n                  }\n                  ... on Voucher {\n                    decimals\n                  }\n                }\n              }\n              item {\n                ... on Token {\n                  decimals\n                }\n                ... on Voucher {\n                  decimals\n                }\n              }\n              amount\n            }\n            totalAddresses\n            totalAirdropAmount\n            \n          }\n        }\n      }\n    }\n\n    ",
     "variables":{  
-        "input":{  
-          "rules":[  
-              {  
-                "rule":{  
-                    "type":"EVERY",
-                    "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "amount":"100000000000000000000"
-                },
+      "input":{  
+        "rules":[  
+          {  
+            "rule":{  
+              "type":"EVERY",
+              "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+              "amount":"100000000000000000000"
+            },
+            "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+            "amount":"1000000000000000000"
+          },
+          {  
+            "rule":{  
+              "type":"AT_LEAST",
                 "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                "amount":"1000000000000000000"
-              },
-              {  
-                "rule":{  
-                    "type":"AT_LEAST",
-                    "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                    "amount":"3000000000000000000"
-                },
-                "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                "amount":"5000000000000000000"
-              }
-          ]
-        }
+                "amount":"3000000000000000000"
+            },
+            "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+            "amount":"5000000000000000000"
+          }
+        ]
+      }
     }
   }
   ```
