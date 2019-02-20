@@ -57,10 +57,10 @@ You are able to cancel the airdrop and return the budget you put in to the airdr
   {
     "query":"\n      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {\n        claimAirdropMission(input: $input){\n          pendingTransactions\n          transaction\n          submitToken\n      hash\n      metadata\n        }\n      }\n    ",
     "variables":{
-        "input":{
-          "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
-          "por":"DISABLE"
-        }
+      "input":{
+        "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+        "por":"DISABLE"
+      }
     }
   }
   ```
