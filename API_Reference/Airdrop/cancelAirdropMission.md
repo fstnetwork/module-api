@@ -68,7 +68,7 @@ You are able to cancel the airdrop and return the budget you put in to the airdr
   The value of `query` in the body is a `String`.
 
 
-## Response
+### Response
 ```
 {
   "data":{

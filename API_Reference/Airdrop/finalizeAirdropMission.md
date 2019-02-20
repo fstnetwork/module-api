@@ -68,7 +68,7 @@ You are able to claim the budget remaining, get the asset you sold, and close th
   The value of `query` in the body is a `String`.
 
 
-## Response
+### Response
 ```
 {
   "data":{

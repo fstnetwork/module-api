@@ -78,7 +78,7 @@ You are able to fetch all your airdrop history via this API.
   The value of `query` in the body is a `String`. 
   
 
-## Response
+### Response
 ```
 {
   "data": {

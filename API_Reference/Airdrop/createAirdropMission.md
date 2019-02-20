@@ -73,7 +73,6 @@
   The value of `query` in the body is a `String`. 
   
 
-## HTTP Request and Response
 ### Response
 ```
 {  
