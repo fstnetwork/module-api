@@ -59,13 +59,13 @@
   {  
     "query":"\n    mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n      createAirdropMission(input: $input) {\n        pendingTransactions,\n        transaction,\n        submitToken\n      hash\n      metadata\n      }\n    }",
     "variables":{  
-        "mission":{  
-          "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
-          "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-          "budget":"1000000000000000000000",
-          "invokeTime":"1543819592000"
-          "por":"ENABLE"
-        }
+      "mission":{  
+        "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
+        "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+        "budget":"1000000000000000000000",
+        "invokeTime":"1543819592000"
+        "por":"ENABLE"
+      }
     }
   }
   ```

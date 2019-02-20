@@ -53,26 +53,26 @@ Set the rule and get the rusult of the rule for airdrop.
   ```
   {  
     "input":{  
-        "rules":[  
-          {  
-              "rule":{  
-                "type":"EVERY",
-                "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                "amount":"100000000000000000000"
-              },
-              "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "amount":"1000000000000000000"
+      "rules":[
+        {  
+          "rule":{
+            "type":"EVERY",
+            "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+            "amount":"100000000000000000000"
           },
-          {  
-              "rule":{  
-                "type":"AT_LEAST",
-                "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-                "amount":"3000000000000000000"
-              },
-              "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "amount":"5000000000000000000"
-          }
-        ]
+          "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+          "amount":"1000000000000000000"
+        },
+        {
+          "rule":{
+            "type":"AT_LEAST",
+            "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+            "amount":"3000000000000000000"
+          },
+          "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+          "amount":"5000000000000000000"
+        }
+      ]
     }
   }
   ```
