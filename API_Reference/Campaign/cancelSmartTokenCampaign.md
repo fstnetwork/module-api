@@ -55,8 +55,8 @@
     "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          hash          submitToken        }      }",
     "variables":{  
       "input":{  
-         "id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-         "por":"DISABLE"
+        "id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+        "por":"DISABLE"
       }
     }
   }

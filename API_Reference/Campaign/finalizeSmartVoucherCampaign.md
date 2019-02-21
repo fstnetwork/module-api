@@ -89,16 +89,8 @@
 
 ## Parameters
 ### Request 
-  - **`id`** \<string>
-    - Smart Voucher campaign ID.
-  - **`por`** \<PORMode>
-    - `ENABLE` or `DISABLE` \<enum>
-    - Default is `DISABLE`.
-
-## Parameters
-### Request 
   - **`id`** \<ID!>
-    - Smart Token campaign ID.
+    - Smart Voucher campaign ID.
   - **`por`** \<PORMode>
     - `ENABLE` or `DISABLE` \<enum>
     - Default is `DISABLE`.
