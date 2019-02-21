@@ -48,7 +48,7 @@ Get all transfer histories of your address.
 
 - Body
   ```
-  {"query":"\n    query getTransferHistory{\n      transferHistory{\n        edges {\n          node {\n            transactionHash\n            from\n            to\n            value\n            symbol\n            decimals\n            type\n            time\n          }\n        }\n      }\n    }\n    "}
+  {"query":"    query getTransferHistory{      transferHistory{        edges {          node {            transactionHash            from            to            value            symbol            decimals            type            time          }        }      }    }    "}
   ```
   The value of `query` in the body is a `String`
 

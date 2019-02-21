@@ -66,7 +66,7 @@ Your are able to fetch the information of the Smart Token which you issued via t
 - Body
   ``` 
   {
-    "query":"query getSmartTokenInfo {\n  me {\n  token {\n  id\n  issuer  {\n  firstName\n lastName\n  ethereumAddress\n  }\n  contractAddress\n  name\n  symbol\n  totalSupply\n  decimals\n  price {\n  numerator\n  denominator\n  }\n  website\n  proofOfContract {\n  ipfs\n  }\n  logo {\n  ipfs\n  }\n  }\n  }\n  }\n"
+    "query":"query getSmartTokenInfo {  me {  token {  id  issuer  {  firstName lastName  ethereumAddress  }  contractAddress  name  symbol  totalSupply  decimals  price {  numerator  denominator  }  website  proofOfContract {  ipfs  }  logo {  ipfs  }  }  }  }"
   }
   ```
   The value of `query` in the body is a `String`. 

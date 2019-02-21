@@ -76,7 +76,7 @@ Set a list for airdrop.
 - Body
   ``` 
   {  
-   "query":"mutation {\name     createAirdropManual(input: $input) {\n     airdropManual {\n     id\n     totalAddresses\n     totalAirdropAmount\n     }\n     }\n     }\n\n",
+   "query":"mutation {ame     createAirdropManual(input: $input) {     airdropManual {     id     totalAddresses     totalAirdropAmount     }     }     }",
    "variables":{  
       "input":[  
         {  

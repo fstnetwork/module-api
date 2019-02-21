@@ -43,7 +43,7 @@ You are able to fetch your ether Balance via this API.
 - Body
   ``` 
   {  
-    "query":"query getETHBalance {\n     me {\n     etherBalance\n     }\n     }\n"
+    "query":"query getETHBalance {     me {     etherBalance     }     }"
   }
   ```
   

@@ -77,7 +77,7 @@ Get all of your campaigns' information.
 - Body
   ``` 
   {  
-    "query":"{\n  me {\n    id\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          description\n          contractAddress\n          isOpen\n          stages {\n            name\n            description\n            startTime\n            endTime\n            priceMultiplier {\n              numerator\n              denominator\n            }\n            cap\n            isPrivate\n            sold\n          }\n          transactionHash\n          createdTime\n        }\n      }\n    }\n  }\n \n"
+    "query":"{  me {    id    campaigns {      edges {        node {          id          name          description          contractAddress          isOpen          stages {            name            description            startTime            endTime            priceMultiplier {              numerator              denominator            }            cap            isPrivate            sold          }          transactionHash          createdTime        }      }    }  } "
   }
   ```
   The value of `query` in the body is a `String`. 
@@ -94,8 +94,11 @@ Get all of your campaigns' information.
           {
             "node": {
               "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-              "name": "This is my first bas",
+              "name": "This is my first basic token",
               "description": "My first basic token campaign",
+              "token": {
+                "id": "VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10="
+              },
               "contractAddress": "0xc1149f52f0f1b690e2f20fddc897b015de878e38",
               "isOpen": false,
               "stages": [
@@ -120,8 +123,11 @@ Get all of your campaigns' information.
           {
             "node": {
               "id": "VG9rZW5DYW1wYWlnbjpwwq/DlRQiw4oRw6nCujtXw4xow4Nnwp0=",
-              "name": "My first basic token",
-              "description": "This is my first basic token campaign",
+              "name": "My first basic voucher",
+              "description": "This is my first basic voucher campaign",
+              "voucher": {
+                "id": "VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10="
+              },
               "contractAddress": "0x62bfa3cb1d38d8739a042d2386b94cea12e2da6a",
               "isOpen": true,
               "stages": [

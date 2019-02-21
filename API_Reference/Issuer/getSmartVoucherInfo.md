@@ -74,7 +74,7 @@ You are able to fetch your Smart Voucher Information via this API.
 - Body
   ``` 
   {  
-   "query":"{\n  me {\n    token {\n      vouchers {\n        edges {\n          node {\n            id\n            token {\n              id\n            }\n            contractAddress\n            transactionHash\n            name\n            description\n            symbol\n            decimals\n            totalSupply\n            proofOfContract {\n              ipfs\n            }\n            liquid\n            approveChecking\n            price {\n              numerator\n              denominator\n            }\n            availableAmount\n            vendible\n            expiry\n            consumable\n            createdTime\n          }\n        }\n      }\n    }\n  }\n}\n"
+   "query":"{  me {    token {      vouchers {        edges {          node {            id            token {              id            }            contractAddress            transactionHash            name            description            symbol            decimals            totalSupply            proofOfContract {              ipfs            }            liquid            approveChecking            price {              numerator              denominator            }            availableAmount            vendible            expiry            consumable            createdTime          }        }      }    }  }}"
   }
   ```
   The value of `query` in the body is a `String`. 

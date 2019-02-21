@@ -44,7 +44,7 @@ You are able to fetch your FST Service Gas balance via this API.
 - Body
   ``` 
   {  
-    "query":"query getFSTServiceGasBalance {\n     me {\n     gasTankBalance\n     }\n     }\n"
+    "query":"query getFSTServiceGasBalance {     me {     gasTankBalance     }     }"
   }
   ```
   

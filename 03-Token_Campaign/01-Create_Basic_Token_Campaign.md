@@ -66,7 +66,7 @@
 - Body
   ``` 
   {
-    "query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n      createCampaign(input: $input) {\n        transaction\n        submitToken\n      }\n    }",
+    "query":"mutation CreateCampaign($input: CreateCampaignInput!) {      createCampaign(input: $input) {        transaction        submitToken      }    }",
     "variables":{
       "input":{
         "id":"VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10=",

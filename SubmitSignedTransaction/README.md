@@ -52,7 +52,7 @@
   (for example)
   ``` 
   {  
-    "query":"mutation SubmitTransaction($input: SubmitTransactionInput!) {\n      submitTransaction(input: $input) {\n        transactionHash\n        }\n    }",
+    "query":"mutation SubmitTransaction($input: SubmitTransactionInput!) {      submitTransaction(input: $input) {        transactionHash        }    }",
     "variables":{
       "input":{
         "data":"0xf8a981fb843b9aca0082f526943830f7af866fae79e4f6b277be17593bf96bee3b80b844a9059cbb000000000000000000000000829bd824b016326a401d083b33d092293333a8300000000000000000000000000000000000000000000000000f9751ff54345f1577a0a97d10f0b8aaf216482f9e0131f9da7ba508ed644f2b1b2a8f414e1f55fb1c47a03ec08d1592e6d86afe7def1a00f20ae3c8642ea5543cfed9cbd4a322ff22b987",

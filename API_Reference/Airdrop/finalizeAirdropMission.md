@@ -55,7 +55,7 @@ You are able to claim the budget remaining, get the asset you sold, and close th
 - Body
   ```
   {
-    "query":"\n      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {\n        claimAirdropMission(input: $input){\n          pendingTransactions\n          transaction\n          submitToken\n      hash\n      metadata\n        }\n      }\n    ",
+    "query":"      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {        claimAirdropMission(input: $input){          pendingTransactions          transaction          submitToken      hash      metadata        }      }    ",
     "variables":{
         "input":{
           "missionId":"QWlyZHJvcE1pc3Npb246OTE=",

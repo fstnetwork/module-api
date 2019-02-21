@@ -50,7 +50,7 @@
 - Body:
   ```
   {  
-    "query": "\n    mutation($input: ERC20TransferInput!) {\n      erc20Transfer(input: $input) {\n        pendingTransactions\n        transaction\n        submitToken\n      }\n    }\n    ",
+    "query": "    mutation($input: ERC20TransferInput!) {      erc20Transfer(input: $input) {        pendingTransactions        transaction        submitToken      }    }    ",
     "variables": {  
       "input": {  
          "id": "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",

@@ -70,7 +70,7 @@ You are able to fetch all your airdrop history via this API.
 - Body
   ``` 
   {  
-    "query":"query{\n       airdropHistory{\n         edges{\n           node{\n             id\n             method{\n               listType\n               listId\n               targets\n             }\n           item{\n             ... on Token{\n               id\n               name\n             }\n              ... on Voucher{\n               id\n          name\n             }\n           }\n           budget\n           status\n           totalAirdropAmount\n           totalAddresses\n           isClaimed\n           usedBudget\n           createTime\n           invokeTime\n           executeTime\n           }\n         }\n       }\n     }\n\n"
+    "query":"query{       airdropHistory{         edges{           node{             id             method{               listType               listId               targets             }           item{             ... on Token{               id               name             }              ... on Voucher{               id          name             }           }           budget           status           totalAirdropAmount           totalAddresses           isClaimed           usedBudget           createTime           invokeTime           executeTime           }         }       }     }"
   }
   ```
 

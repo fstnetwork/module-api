@@ -57,7 +57,7 @@
 - Body
   ``` 
   {  
-    "query":"\n    mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n      createAirdropMission(input: $input) {\n        pendingTransactions,\n        transaction,\n        submitToken\n      hash\n      metadata\n      }\n    }",
+    "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      metadata      }    }",
     "variables":{  
       "mission":{  
         "listId":"QWlyZHJvcExvY2F0ZToxMDg=",

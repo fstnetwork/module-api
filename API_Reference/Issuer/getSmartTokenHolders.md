@@ -64,7 +64,7 @@ You are able to fetch all holders of the Smart Token and amount of the Smart Tok
 - Body
   ``` 
   {  
-    "query":"query getSmartTokenHolders {\n     me {\n     token {\n     id\n     contractAddress\n     name\n     symbol\n     decimals\n     holders {\n     totalCount\n     pageInfo {\n     endCursor\n     startCursor\n     hasNextPage\n     hasPreviousPage\n     \n}     edges {\n     cursor\n     node {\n     address\n     balance\n     }\n     }\n     }\n     }\n     }\n     }\n"
+    "query":"query getSmartTokenHolders {     me {     token {     id     contractAddress     name     symbol     decimals     holders {     totalCount     pageInfo {     endCursor     startCursor     hasNextPage     hasPreviousPage     }     edges {     cursor     node {     address     balance     }     }     }     }     }     }"
   }
   ```
   

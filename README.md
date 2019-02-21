@@ -2,7 +2,7 @@
 This repository contains the latest APIs of FST.Network modules
 
 <!-- > To improve readability, multiple-line string in the body JSON will wrapped in `` ` `` rather then ` " ` or  ` """ `.   
-> But please don't forget to change that into ` " ` before calling the API, in other words, to make the string of the key's value like `` query: "name: \"hello world\"\n......\n.....\n....." ``. -->
+> But please don't forget to change that into ` " ` before calling the API, in other words, to make the string of the key's value like `` query: "name: \"hello world\"................" ``. -->
 
 ## Index
 

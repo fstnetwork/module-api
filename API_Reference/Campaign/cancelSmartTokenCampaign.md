@@ -53,7 +53,7 @@
 - Body
   ``` 
   {  
-   "query":"\n      mutation CloseCampaign($input: CloseCampaignInput!) {\n        closeCampaign(input: $input) {\n          metadata\n          hash          submitToken        }      }",
+   "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          metadata          hash          submitToken        }      }",
    "variables":{  
       "input":{  
          "id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",

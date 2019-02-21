@@ -100,7 +100,7 @@ You can import your end user via this API.
         }
       }
     },
-    "query": "mutation importUser($input: ImportUserInput!) {\n  importUser(input: $input) {\n    id\n    JWTId\n    base64JWTId\n  }\n}\n"
+    "query": "mutation importUser($input: ImportUserInput!) {  importUser(input: $input) {    id    JWTId    base64JWTId  }}"
   }
   ```
   The value of `mutation` in the body is a `String`
