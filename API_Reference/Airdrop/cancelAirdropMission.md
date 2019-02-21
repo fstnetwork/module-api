@@ -1,8 +1,9 @@
 
 # Cancel Airdrop
+You are able to cancel the airdrop and return the budget you put in to the airdrop mission via this API.
+
 
 ## GraphQL API
-You are able to cancel the airdrop and return the budget you put in to the airdrop mission via this API.
 
 - Query String
   ```

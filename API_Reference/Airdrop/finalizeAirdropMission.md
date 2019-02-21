@@ -1,8 +1,9 @@
 
 # Finalize Airdrop
+You are able to claim the remaining budget, get the asset you sold, and close the airdrop via this API.
 
 ## GraphQL API
-You are able to claim the budget remaining, get the asset you sold, and close the airdrop via this API.
+
 
 - Query String
   ```
