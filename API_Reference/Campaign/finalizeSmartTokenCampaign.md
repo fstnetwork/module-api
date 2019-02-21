@@ -16,10 +16,10 @@
 - Query Variables
   ```
   {  
-      "input":{  
-         "id":"VG9rZW5DYW1wYWlnbjpwwq/DlRQiw4oRw6nCujtXw4xow4Nnwp0=",
-         "por":"DISABLE"
-      }
+    "input":{  
+      "id":"VG9rZW5DYW1wYWlnbjpwwq/DlRQiw4oRw6nCujtXw4xow4Nnwp0=",
+      "por":"DISABLE"
+    }
    }
   ```
 - HTTP Headers 
@@ -52,13 +52,13 @@
 - Body
   ``` 
   {  
-   "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          hash          submitToken        }      }",
-   "variables":{  
+    "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          hash          submitToken        }      }",
+    "variables":{  
       "input":{  
          "id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
          "por":"DISABLE"
       }
-   }
+    }
   }
   ```
   The value of `query` in the body is a `String`. 
