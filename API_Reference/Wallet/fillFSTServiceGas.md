@@ -57,10 +57,10 @@ You are able to fill your FST Service Gas via this API.
   {  
     "query":"      mutation fillGasTank($input: FillGasTankInput!) {        fillGasTank(input: $input) {          transaction          hash          submitToken        }      }    ",
     "variables":{  
-        "input":{  
-          "por":"DISABLE",
-          "amount":"100000000000000000000"
-        }
+      "input":{  
+        "por":"DISABLE",
+        "amount":"100000000000000000000"
+      }
     }
   }
   ```

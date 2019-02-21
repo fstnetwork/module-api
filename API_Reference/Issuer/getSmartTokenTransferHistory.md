@@ -124,6 +124,7 @@ You are able to fetch all transfer history of the Smart Token(which you issued) 
                 "timestamp": "1547803456000"
               }
             }
+          ]
         }
       }
     }
