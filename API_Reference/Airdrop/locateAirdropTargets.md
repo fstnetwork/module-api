@@ -219,7 +219,7 @@ Set the rule and get the rusult of the rule for airdrop.
   - **`totalAddresses`** \<String>
     - Amount of accounts which are match to the rules. 
   - **`totalAirdropAmount`** \<String>
-    - Total amount(add each rule's `amount`) of the item(Smart Token/Voucher) to drop. The format is Decimaled Number.
+    - Total amount(addition of each rule's `amount`) of the item(Smart Token/Voucher) to drop. The format is Decimaled Number.
   - **`summery`** \<[AirdropLocateResult]!>
     - **`rule`** \<AirdropLocateRule!>
       - **`locateRule`** \<LocateRule>
