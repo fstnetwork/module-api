@@ -11,7 +11,6 @@ You are able to transfer FST via this API.
     erc20Transfer(input:$input) {
       transaction
       hash
-      metadata
       submitToken
     }
   }
@@ -57,7 +56,7 @@ You are able to transfer FST via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFST ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash metadata submitToken } }",
+    "query": "mutation transferFST ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "VG9rZW46wpAkwq7CgMKfBxHDp8KAAQAAAAAAAA==",
@@ -86,12 +85,6 @@ You are able to transfer FST via this API.
         "chainId": 42
       },
       "hash": "0x6b6c263ce5591207eceea589e25120232f030f1c05d90f66d09596bb26d89e19",
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "44605000000000"
-        }
-      },
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJlcmMyMFRyYW5zZmVyIiwidHgiOiIrR3FDQ2YrRU81cktBSUt1UFpRNE1QZXZobSt1ZWVUMnNuZStGMWs3K1d2dU80QzRSS2tGbkxzQUFBQUFBQUFBQUFBQUFBQk05QTJrbjUyQ2daRmh4ZHVHL0xTVzN2NnpYUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFJckhJd1NKNkFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTQ4NzQ2MTQwLCJleHAiOjE1NDg3NDY3NDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.lGDF3QUEz9waIydZ5ZW0b8tWsGrjfNADfxXp4z5lQ94aVeAHm973NW0_QBeDvJEKxqFJG-5CwEfmGQRJqgSPKg"
     }
   }
@@ -117,7 +110,5 @@ You are able to transfer FST via this API.
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

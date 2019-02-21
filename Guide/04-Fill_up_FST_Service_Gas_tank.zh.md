@@ -52,7 +52,6 @@
       fillGasTank(input: $input) {
         transaction
         hash
-        metadata
         submitToken
         pendingTransactions
       }
@@ -83,7 +82,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1NDYwNiwiZXhwIjoxNTUwNjQxMDA2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.VRkWKX5zsru9R6xqw-sI8NCBTYDTNs0VXMPx7oact-wm4Znf37O5ywi7CCL41KzOzCnjic31Q5jwcGMNCBbx1A' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"mutation fillGasTank($input: FillGasTankInput!) {  fillGasTank(input: $input) {    transaction    hash    metadata    submitToken    pendingTransactions  }}","variables":{"input":{"por":"DISABLE","amount":"100000000000000000000"}},"operationName":"fillGasTank"}'
+         --data '{"query":"mutation fillGasTank($input: FillGasTankInput!) {  fillGasTank(input: $input) {    transaction    hash    submitToken    pendingTransactions  }}","variables":{"input":{"por":"DISABLE","amount":"100000000000000000000"}},"operationName":"fillGasTank"}'
     ```
 
  - Response
@@ -102,12 +101,6 @@
             "chainId": 42
           },
           "hash": "0x8dfb883dc3b40f319f3960448ffe96a0aad69ff58a7800b191e04d58efdea12c",
-          "metadata": {
-            "fee": {
-              "type": "ETH",
-              "amount": "96067000000000"
-            }
-          },
           "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImZpbGxHYXNUYW5rIiwidHgiOiIrUUVMZ2dFT2hEdWF5Z0NEQVhkRGxEZ3c5NitHYjY1NTVQYXlkNzRYV1R2NWErNDdnTGprUUFDdW9BQUFBQUFBQUFBQUFBQUFBRlpUT3pCUzNTdkpMUzBSTnlRbnVhZnpKVzZxQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUZhOGRlTFdNUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkVSOVh3dmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTUwNTU0NzQ1LCJleHAiOjE1NTA1NTUzNDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.Sb3SbSUK_1GtQl3FEmt2S-2_oAi9lcTmYY9g0GyK_z9BD2yKJLxArTlO7--Lvp-qdN6LroSoUzaEaVWcmzDv7g",
           "pendingTransactions": "0"
         }

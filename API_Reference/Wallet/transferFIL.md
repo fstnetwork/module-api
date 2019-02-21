@@ -11,7 +11,6 @@ You are able to transfer FIL via this API.
     erc20Transfer(input:$input) {
       transaction
       hash
-      metadata
       submitToken
     }
   }
@@ -57,7 +56,7 @@ You are able to transfer FIL via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash metadata submitToken } }",
+    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "Vm91Y2hlcjrCkCTCrsKAwp8HEcOnwoACAAAAAAAA",
@@ -86,12 +85,6 @@ You are able to transfer FIL via this API.
         "chainId": 42
       },
       "hash": "0x1991e1c0331df5f30313132c7d4cff7835fce123d7984659a180642c250a6a5d",
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "62326000000000"
-        }
-      },
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJlcmMyMFRyYW5zZmVyIiwidHgiOiIrR3FDQ2YrRU81cktBSUx6ZHBSNjdNbkgzR1hSV3V2eDRzOStzUHUvT1BTVUZJQzRSS2tGbkxzQUFBQUFBQUFBQUFBQUFBQk05QTJrbjUyQ2daRmh4ZHVHL0xTVzN2NnpYUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQktvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTQ4NzQ2MzEyLCJleHAiOjE1NDg3NDY5MTIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.wwdWE00GJ1fyCYzBEFrgSy0xKvK8BWSO7-YAXV2HuX9Q0aU2Xoywo7dzClYfBPPyrZYWiARgmmtd5FGiz9LaGQ"
     }
   }
@@ -117,7 +110,5 @@ You are able to transfer FIL via this API.
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

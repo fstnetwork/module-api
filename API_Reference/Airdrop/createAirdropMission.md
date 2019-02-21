@@ -10,8 +10,7 @@
       pendingTransactions
       transaction
       submitToken
-      hash
-      metadata
+      hash 
     }
   }
   ```
@@ -57,7 +56,7 @@
 - Body
   ``` 
   {  
-    "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      metadata      }    }",
+    "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }",
     "variables":{  
       "mission":{  
         "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
@@ -90,12 +89,6 @@
       },
       "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoiY3JlYXRlQWlyZHJvcE1pc3Npb24iLCJkYXRhIjoiUUFDdW9BQUFBQUFBQUFBQUFBQUFBTU9vYjdBZ1Rjc0FnM0ozU1dCQUMyWCt3NmF5QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQTJOY210eGQ2Z0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmtLZ2FScmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVhBVFJTQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUE9IiwiaW5mbyI6eyJsaXN0VHlwZSI6IkFpcmRyb3BMb2NhdGUiLCJsaXN0SWQiOiIxMDgiLCJlc2Nyb3dib3hBZGRyZXNzIjoiMHhjM2E4NmZCMDIwNGRDQjAwODM3Mjc3NDk2MDQwMEI2NUZlYzNhNmIyIiwidXNlckFkZHJlc3MiOiIweGNiNjliOTVmNzJkMWIxZjM3M2Q5NTZkOTVmMjE2NDkyYTdlYTI2YzgiLCJpdGVtSWQiOiLCgMOyw7rCssK7XHUwMDExXHUwMDExw6jCp3zCqypmwp7CjsO_IiwiaXRlbVR5cGUiOiJUb2tlbiIsIml0ZW1BZGRyZXNzIjoiMHgzNzExMzA4NWI5ZmYzZjdkMDkzMzExMDM1NzA4NDk2MWY1YmU2MDNhIiwiYnVkZ2V0IjoiMTAwMDAwMDAwMDAwMDAwMDAwMDAwMCIsImludm9rZVRpbWUiOjE1NDM4MTk1OTIwMDB9LCJpYXQiOjE1NDM4MTk1NjIsImV4cCI6MTU0MzgyMDE2MiwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.ZLiiDk-RyMG5JZtl8esl85UtSwOhw6RkKY1N45KkRp6AsL9hoBT1kYJLyoZS5uLoVkgDj8HZ9nIQEUwoPfiy9Q",
       "hash":"0xab3fa519a3aefedb5ceda3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
-      "metadata":{
-        "fee": {
-          "type": "ETH",
-          "amount": "223624000000000"
-        }
-      }
     }
   }
 }
@@ -126,5 +119,3 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.

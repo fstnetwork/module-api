@@ -11,7 +11,6 @@ You are able to transfer Smart Voucher via this API.
     erc20Transfer(input:$input) {
       transaction
       hash
-      metadata
       submitToken
     }
   }
@@ -56,7 +55,7 @@ You are able to transfer Smart Voucher via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash metadata submitToken } }",
+    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "Vm91Y2hlcjoBdRLCmBsBEcOpwro7w7PCiMOZEQjCqw==",
@@ -85,12 +84,6 @@ You are able to transfer Smart Voucher via this API.
         "chainId": 42
       },
       "hash": "0xd9144ec9a87ff43ce0cd80437049c80560d9acb7077d916058cda3b96c3d9248",
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "61982000000000"
-        }
-      },
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJlcmMyMFRyYW5zZmVyIiwidHgiOiIrR3FDQ2YrRU81cktBSUx5SHBSeTYzRk5lZC9oMTJ3WFhKTjI1SjI0NW9QamhZQzRSS2tGbkxzQUFBQUFBQUFBQUFBQUFBQk05QTJrbjUyQ2daRmh4ZHVHL0xTVzN2NnpYUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRktvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTQ4NzQ2OTQ1LCJleHAiOjE1NDg3NDc1NDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.RLz0x15IBAXyEvhlJtOVYghBAfyzxzRtPkcLSEzSrry8ItJasFFpWwYZe9M4yKD0knNyxvqH1MGWdJHKFwKKkw"
     }
   }
@@ -116,7 +109,5 @@ You are able to transfer Smart Voucher via this API.
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

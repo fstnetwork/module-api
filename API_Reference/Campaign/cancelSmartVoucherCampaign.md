@@ -7,8 +7,7 @@
   ```
   mutation CloseCampaign($input: CloseCampaignInput!) {
     closeCampaign(input: $input) {
-      transaction
-      metadata          
+      transaction 
       hash          
       submitToken        
     }      
@@ -54,7 +53,7 @@
 - Body
   ``` 
   {  
-   "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          metadata          hash          submitToken        }      }",
+   "query":"      mutation CloseCampaign($input: CloseCampaignInput!) {        closeCampaign(input: $input) {          hash          submitToken        }      }",
    "variables":{  
       "input":{  
          "id":"Vm91Y2hlckNhbXBhaWduOsOaK8OWw64iw4wRw6nCujsfw6rDlR/Cu8Of",
@@ -80,12 +79,6 @@
         "data": "0x4000aea00000000000000000000000007bdfada0608449e36f812c861ab19670286e1b1f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000044d3d202fd0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         "chainId": 42
       },
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "73128000000000"
-        }
-      },
       "hash": "0x6109a523400ceb436c0072365d8f5bdf5fe89be50aedf9d84702b3e302ab71d6",
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY2xvc2VWb3VjaGVyQ2FtcGFpZ24iLCJ0eCI6IitRRUpCWVE3bXNvQWd3RWRxSlRKbGhkMjNFekhKQ0tsVWQxaGIxdFQvUnZkZUlDNDVFQUFycUFBQUFBQUFBQUFBQUFBQUFCNzM2MmdZSVJKNDIrQkxJWWFzWlp3S0c0Ykh3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUk5QU0F2MEFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQ3FBZ0E9PSIsImluZm8iOnt9LCJpYXQiOjE1NDg2NjAwMjksImV4cCI6MTU0ODY2MDYyOSwiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.q9qbUpFYPXWHxcxvv0EYAOdd95FXJsGp3wa4uxFnjZGH5JrYSkL6AeZLb1n4dwZF98iVX5FTWXP-RHpJ5PPL2Q"
     }
@@ -109,6 +102,4 @@
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
 

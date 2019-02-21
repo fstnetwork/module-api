@@ -10,7 +10,6 @@ You are able to transfer Smart Token via this API.
     erc20Transfer(input:$input) {
       transaction
       hash
-      metadata
       submitToken
     }
   }
@@ -54,7 +53,7 @@ You are able to transfer Smart Token via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash metadata submitToken } }",
+    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
@@ -83,12 +82,6 @@ You are able to transfer Smart Token via this API.
         "chainId": 42
       },
       "hash": "0xa3f076b85ab4677f815b733c9d9fd583638d2ad241b62ac798e72eff01b2f20a",
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "44146000000000"
-        }
-      },
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJlcmMyMFRyYW5zZmVyIiwidHgiOiIrR3FDQ2YrRU81cktBSUtzY3BSSEVla3EyV2ltU0lVQXZGM2VLa2p1RjNRNnNZQzRSS2tGbkxzQUFBQUFBQUFBQUFBQUFBQk05QTJrbjUyQ2daRmh4ZHVHL0xTVzN2NnpYUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJXdkhYaTFqRUFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTQ4NzQ3MDA3LCJleHAiOjE1NDg3NDc2MDcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.D3F6pzHSCfHiEe7vx6KkmdI6vZ3S8jl5McQrdbHR5xLQQm6sTYekomApIM4tJgu1XQ-DH-n-Yp9zvaklCILWMA"
     }
   }
@@ -114,7 +107,5 @@ You are able to transfer Smart Token via this API.
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().

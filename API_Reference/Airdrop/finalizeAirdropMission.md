@@ -12,7 +12,6 @@ You are able to claim the budget remaining, get the asset you sold, and close th
       transaction
       submitToken
       hash
-      metadata
     }
   }
   ```
@@ -55,7 +54,7 @@ You are able to claim the budget remaining, get the asset you sold, and close th
 - Body
   ```
   {
-    "query":"      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {        claimAirdropMission(input: $input){          pendingTransactions          transaction          submitToken      hash      metadata        }      }    ",
+    "query":"      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {        claimAirdropMission(input: $input){          pendingTransactions          transaction          submitToken      hash        }      }    ",
     "variables":{
         "input":{
           "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
@@ -84,13 +83,7 @@ You are able to claim the budget remaining, get the asset you sold, and close th
         "chainId":42
          },
       "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ",
-      "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69",
-      "metadata":{
-        "fee": {
-          "type": "ETH",
-          "amount": "223624000000000"
-        }
-      }
+      "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69"
     }
   }
 }
@@ -115,5 +108,3 @@ This API responses a ABI-Encoded transaction for creating the basic voucher camp
     - **`hash`** \<String>
       - PORMode `ENABLE`: Hash of the abi encode.
       - PORMode `DISABLE`: Hash of the RLP encode.
-    - **`metadata`** \<JSON>
-      - Metadata of the transaction.

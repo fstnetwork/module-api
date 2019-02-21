@@ -10,7 +10,6 @@ You are able to fill your FST Service Gas via this API.
     fillGasTank(input: $input) {
       transaction
       hash
-      metadata
       submitToken
       pendingTransactions
     }
@@ -56,7 +55,7 @@ You are able to fill your FST Service Gas via this API.
 - Body
   ``` 
   {  
-    "query":"      mutation fillGasTank($input: FillGasTankInput!) {        fillGasTank(input: $input) {          transaction          hash          metadata          submitToken        }      }    ",
+    "query":"      mutation fillGasTank($input: FillGasTankInput!) {        fillGasTank(input: $input) {          transaction          hash          submitToken        }      }    ",
     "variables":{  
         "input":{  
           "por":"DISABLE",
@@ -83,12 +82,6 @@ You are able to fill your FST Service Gas via this API.
         "chainId": 42
       },
       "hash":"0xb101bfd9560ded2c5f403aeb4b1a21ac4e86864608a666ca36c8144dec44c11e",
-      "metadata":{  
-        "fee":{  
-          "type":"0x3830f7Af866FAe79E4f6B277Be17593Bf96beE3b",
-          "amount":"0x0"
-        }
-      },
       "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjoxLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZmlsbEdhc1RhbmsiLCJ0eCI6eyJ0b2tlbiI6IjB4MzgzMGY3QWY4NjZGQWU3OUU0ZjZCMjc3QmUxNzU5M0JmOTZiZUUzYiIsIm5vbmNlIjoiMHgwIiwiZmVlIjoiMHgwIiwiZ2FzQW1vdW50IjoiMHgxNjg4MSIsInRvIjoiMHg1NjUzM2IzMDUyZEQyQmM5MkQyRDExMzcyNDI3QjlhN0YzMjU2ZWFhIiwidmFsdWUiOiIweDU2YmM3NWUyZDYzMTAwMDAwIiwiZGF0YSI6IjB4NDdkNWYwYmUwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDU2YmM3NWUyZDYzMTAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwYjAyMzZmOWE2YTFjZDhjZjE3MjUxYTEzMDY1MWUwYmU4ZmIwMGUyNyIsIm1vZGUiOiIweDAiLCJyZWxheWVyIjoiMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0sImluZm8iOnt9LCJpYXQiOjE1NDc3OTY4NDMsImV4cCI6MTU0Nzc5NzQ0MywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.xh3Xf49LdBgywBdNPX0xVmQcSVDARUHHgc0V9vMtFjnEWMXL0jOrAR0Cab-r2mpo0OKCKCtsYLbyN-WrymUETA",
       "pendingTransactions": "0"
     }
@@ -113,8 +106,6 @@ You are able to fill your FST Service Gas via this API.
   - **`hash`** \<String>
     - PORMode `ENABLE`: Hash of the abi encode.
     - PORMode `DISABLE`: Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String>
     - The value for [SubmitSignedTransaction API]().
   - **`pendingTransactions`** \<String>

@@ -144,4 +144,3 @@ This API responses a ABI-Encoded transaction for creating the basic token campai
   - `submitToken`: The value for [SubmitSignedTransaction API](https://github.com/funderstoken/module-api/tree/master/SubmitSignedTransaction).
   - `pendingTransactions`: Amount of your transactions which are still pending.
   - `hash`: TODO hash of `transaction`
-  - `metadata`: TODO data of `transaction`

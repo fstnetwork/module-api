@@ -10,7 +10,6 @@ You are able to transfer ether via this API.
     ethTransfer(input: $input) {
       transaction
       hash
-      metadata
       submitToken
     }
   }    
@@ -54,7 +53,7 @@ You are able to transfer ether via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferETH ($input: EthTransferInput!) { ethTransfer(input: $input) { transaction hash metadata submitToken } }",
+    "query": "mutation transferETH ($input: EthTransferInput!) { ethTransfer(input: $input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
@@ -82,12 +81,6 @@ You are able to transfer ether via this API.
         "chainId": 42
       },
       "hash": "0x531b4800a2ed670dbc95519a6caa17c16d151617984ea9d6acf31d0efc2bc219",
-      "metadata": {
-        "fee": {
-          "type": "ETH",
-          "amount": "21000000000000"
-        }
-      },
       "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJZw4_ChiZcdTAwMWHDrVx1MDAxMcOpwro7XHUwMDFmNlx1MDAwNVx1MDAxMMKawpoiLCJhY3Rpb24iOiJldGhUcmFuc2ZlciIsInR4IjoiN0lJSi80UTdtc29BZ2xJSWxFejBEYVNmbllLQmtXSEYyNGI4dEpiZS9yTmRod09OZnFUR2dBQ0FLb0NBIiwiaW5mbyI6e30sImlhdCI6MTU0ODc0NDQ5NywiZXhwIjoxNTQ4NzQ1MDk3LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.dhk8B1xYmNs-qt14p2aYLbwlJVjrG8n_aA0vVQmzo6qT2BaoSdnQsyrbiMOkuxxqCUW1LsPdNVz-_AUHKdOotA"
     }
   }
@@ -107,7 +100,5 @@ You are able to transfer ether via this API.
     - UNSIGNED raw transaction format in Ethereum.
   - **`hash`** \<String>
     - Hash of the RLP encode.
-  - **`metadata`** \<JSON>
-    - Metadata of the transaction.
   - **`submitToken`** \<String!>
     - The value for [SubmitSignedTransaction API]().
