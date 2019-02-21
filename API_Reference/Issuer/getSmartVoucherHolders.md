@@ -71,7 +71,7 @@ You are able to fetch all Smart Voucher holders and amount of Smart Voucher each
 - Body
   ``` 
   {  
-   "query":"query getSmartVoucherHolders { me { token { vouchers {totalCountedges {  node { id    contractAddress  name symbol decimals holders { totalCount pageInfo { endCursor  startCursor        hasNextPage  hasPreviousPage } edges { cursor node {  address balance } } } } } } } }"
+    "query":"query getSmartVoucherHolders { me { token { vouchers {totalCountedges {  node { id    contractAddress  name symbol decimals holders { totalCount pageInfo { endCursor  startCursor        hasNextPage  hasPreviousPage } edges { cursor node {  address balance } } } } } } } }"
   }
   ```
   The value of `query` in the body is a `String`. 

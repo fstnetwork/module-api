@@ -77,7 +77,7 @@ You are able to fetch all transfer history of the Smart Token(which you issued) 
 ### Response
 ```
 {
- "data": {
+  "data": {
     "me": {
       "token": {
         "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",

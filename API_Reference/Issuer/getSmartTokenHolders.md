@@ -1,6 +1,6 @@
 
 # Get Smart Token Holders
-You are able to fetch all holders of the Smart Token and amount of the Smart Token each holder owns via this API.
+You are able to fetch all holders of your Smart Token and amount of the Smart Token each holder owns via this API.
 
 ## GraphQL API
 

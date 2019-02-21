@@ -62,7 +62,7 @@ You are able to fetch all transfer history of the Smart Voucher(which you publis
 - Body
   ``` 
   {  
-   "query":"{  me {    token {      vouchers {        edges {          node {            id            transfers {              edges {                node {                  from                  to                  value                  transaction                  timestamp                }              }            }          }        }      }    }  }}"
+    "query":"{  me {    token {      vouchers {        edges {          node {            id            transfers {              edges {                node {                  from                  to                  value                  transaction                  timestamp                }              }            }          }        }      }    }  }}"
   }
   ```
   The value of `query` in the body is a `String`. 
