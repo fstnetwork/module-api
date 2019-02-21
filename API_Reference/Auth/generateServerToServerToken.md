@@ -1,7 +1,5 @@
 
-# Generate Access Tokens
-
-## Server-to-Server Access Token
+## Generate Server-to-Server Access Token
 
 ### Spec
 

@@ -1,4 +1,4 @@
-## Web-to-Server Access Token
+## Generate Web-to-Server Access Token
 
 ### Spec
 
