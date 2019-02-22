@@ -1,6 +1,6 @@
 # Connect to FsTK Engine API
 
-> In this chapter, you will learn how to pass Authentication on connecting FsTK APIs.
+> In this chapter, you will understand how to connect FsTK APIs with right authentication.
 
 ## Table of Contents
 

@@ -15,11 +15,15 @@
  3. Understand usage of `authorization` header within http request
 
 ## Get current user information via `get me`
- > In any of following API calls, please remember to direct to `authorization` in http request header. More details are covered in last chapter
+ > In any of following API calls, please remember to assign the access token to `authorization` in http request header. More details are covered in last chapter.
 
- > This operation will get all info of current user, including identiy, encrpyted EThereum Key Json and balances of owned crypto assets.
+ > This operation will fetch current user's info, including 
+  1. personal info
+  2. encrypted Ethereum Key JSON
+  3. balances of owned crypto assets
+  4. other info included in GraphQL sample code below
 
- - Using [GraphQL](https://graphql.org/learn/) (Recommended Insomnia)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    ```graphql
    {
@@ -218,7 +222,7 @@
                "salt": "16b3885904ba626fa5bfaab6d6b368eff1ff0ba2ab739adbec3a8fb063c43aba",
                "dklen": 32
              },
-             "ciphertext": "dc1bfefb51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
+             "ciphertext": "dc1bf4ab51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
              "cipherparams": {
                "iv": "b343d847b8a72ad68c6bf10866757421"
              }
