@@ -1,28 +1,19 @@
 # Get account information
 
+> In this chapter, you will learn how to retrieve current user's information.
+
 ## Table of Contents
 
  1. Prerequisite
  2. Get current user information via `get me`
  3. Next step
 
-<!-- ## Prerequisite
-
- 1. 已經完成 Connect to FsTK Engine API 的流程 (上一篇)
- 2. 已經安裝完成 Insomnia 或 Postman 以幫助學習與測試
- 3. 已經知道如何在 http request 中指定 `authorization` header -->
 ## Prerequisite
 
  1. Complete `Connect to FsTK Engine API` (last chapter)
  2. Complete installing Insomnia or Postman for testing
  3. Understand usage of `authorization` header within http request
 
-<!-- ## Get current user information via `get me`
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`，詳情請見上一步
-
- > 此操作可以得到當前使用者之所有資訊，包含身分、加密過的 Ethereum Key JSON、各虛擬財產餘額
-
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia) -->
 ## Get current user information via `get me`
  > In any of following API calls, please remember to direct to `authorization` in http request header. More details are covered in last chapter
 
@@ -227,7 +218,7 @@
                "salt": "16b3885904ba626fa5bfaab6d6b368eff1ff0ba2ab739adbec3a8fb063c43aba",
                "dklen": 32
              },
-             "ciphertext": "dc1bf4ab51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
+             "ciphertext": "dc1bfefb51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
              "cipherparams": {
                "iv": "b343d847b8a72ad68c6bf10866757421"
              }

@@ -1,5 +1,7 @@
 # Connect to FsTK Engine API
 
+> In this chapter, you will learn how to pass Authentication on connecting FsTK APIs.
+
 ## Table of Contents
 
  1. Prerequisite
@@ -8,25 +10,12 @@
 
 ## Prerequisite
 
-
- <!-- 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > 請注意此兩個平台之帳戶資料沒有互通
-
-    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
-    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台 -->
  1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
     >  Notice account data are NOT shared across both platform 
 
     - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
     - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
- <!-- 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
-    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
-
-    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
-    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額 -->
  2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
     > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
 
@@ -35,16 +24,13 @@
     - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
     - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- <!-- 3. 請準備好您的 API 測試工具
-    - [Insomnia](https://insomnia.rest) (推薦)
-    - [Postman](https://www.getpostman.com) -->
  3. Please prepare your API testing tools
     - [Insomnia](https://insomnia.rest) (Recommended)
     - [Postman](https://www.getpostman.com)
 
 ## Authentication / Authorization
 
- <!-- 1. 取得 Access Web Token (JWT)
+ 1. 取得 Access Web Token (JWT)
     > 請使用帳號與密碼，也請注意是連線至 `https://test.fstk.io` 或 `https://engine.fstk.io`，並且僅用 `https` 而請勿使用 `http`
   
     > 以下皆以 `https://test.fstk.io` 做為端點進行示範
@@ -65,67 +51,19 @@
     ```javascript
     var request = require("request");
     
-    var options = { method: 'POST',
-      url: 'https://test.fstk.io/signin',
-      headers: 
-       { 'cache-control': 'no-cache',
-         'Content-Type': 'application/json' },
-      body: { identity: 'your@email.com', password: 'yourpassword' },
-      json: true };
+    var options = {
+      method: "POST",
+      url: "https://test.fstk.io/signin",
+      headers: { "cache-control": "no-cache", "Content-Type": "application/json" },
+      body: { identity: "your@email.com", password: "yourpassword" },
+      json: true
+    };
     
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
       if (error) throw new Error(error);
     
       console.log(body);
     });
-    
-    ```
-
-    - Response
-
-    ```json
-    {
-        "status": "success",
-        "result": {
-            "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w"
-        }
-    }
-    ``` -->
- 1. Generate Access Web Token (JWT)
-    > Please use accounts & passwords on `https://test.fstk.io` or `https://engine.fstk.io`, notice that it is `https`, not `http`.
-  
-    > Hereinafter we will use `https://test.fstk.io` as endpoints.
-    
-    - Using cURL
-
-    ```sh
-    curl -X POST \
-      https://test.fstk.io/signin \
-      -H 'Content-Type: application/json' \
-      -H 'cache-control: no-cache' \
-      -d '{ "identity": "your@email.com",
-            "password": "yourpassword" }'
-    ```
-
-    - Using JavaScript
-
-    ```javascript
-    var request = require("request");
-    
-    var options = { method: 'POST',
-      url: 'https://test.fstk.io/signin',
-      headers: 
-       { 'cache-control': 'no-cache',
-         'Content-Type': 'application/json' },
-      body: { identity: 'your@email.com', password: 'yourpassword' },
-      json: true };
-    
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-    
-      console.log(body);
-    });
-    
     ```
 
     - Response
@@ -139,27 +77,14 @@
     }
     ```
 
- <!-- 2. 記錄並使用剛取得之 `access_token`
-    > `access_token` 的格式為 `JSON Web Token` ，請見 [jwt.io](https://jwt.io)
-
-    > `access_token` 有效期間為 24 hr
-
-    接下來，除了登入的任一 API 請求，此 `access_token` 需要被夾帶在 http request header 中的 `authorization` header，例如:
-
-    ```
-    authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w
-    ```
-
-    > 請注意 `Bearer ` 這段小字串要貼在 access_token 前面，才能使 authorization header 正常運作 -->
  2. Store and use `access_token` from Response
     > Format of `access_token` is `JSON Web Token`, please refer to [jwt.io](https://jwt.io)
 
     > `access_token` will expire after 24 hours.
 
     In the future, except API request of any log-ins, please paste `access_token` into http request header as `authorization` header. 
-    For example:
 
-    ```
+    ```http
     authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0ODY0OTM4NiwiZXhwIjoxNTQ4NzM1Nzg2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.gEKFuVuz4LOtGg_dughy7i2uzgNeKb1iS0LjM8IfyHkLFpsczTo9Wd4QQwiUfltErsFxf3k1UtdyLWX2z9QQ8w
     ```
 
