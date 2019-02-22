@@ -1,6 +1,6 @@
 # Get account information
 
-> In this chapter, you will learn how to retrieve current user's information.
+> In this chapter, you will understand how to retrieve current user's information.
 
 ## Table of Contents
 
