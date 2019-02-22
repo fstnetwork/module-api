@@ -183,7 +183,7 @@
 
     > This is the module import of ES6. If your node.js does not support it, please refer to [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) and the followings:
 
-    > 最小可用之 `webpack.config.js`
+    > Minimal `webpack.config.js`
 
     ```javascript
     const path = require("path");
@@ -205,7 +205,7 @@
     };
     ```
 
-    > 最小可用之 `package.json`
+    > Minimal `package.json`
 
     ```json
     {
@@ -224,7 +224,7 @@
     }
     ```
 
-    > Install command line (請將程式進入點放置在 `index.js`)
+    > Install command line (please let `index.js` be the program entry point)
 
     ```sh
     npm i && npm start
@@ -237,7 +237,7 @@
  - Using Java
 
    > Please refer to [Web3j](https://web3j.io)  
-   > Notice that `loadCredentials` in `WalletUtils`. 方法，必須使用此多載  
+   > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
@@ -282,7 +282,7 @@
  - Using Java
 
    > Please refer to [Web3j](https://web3j.io)  
-   > Notice that `signMessage` in `TransactionEncoder` require ...? 必須使用此多載，因為要簽署到 `chainId`
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
@@ -293,7 +293,7 @@
  - Using C#
 
    > Please refer to [Nethereum](https://nethereum.com)  
-   > Please refer to  `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
@@ -351,7 +351,7 @@
     }
     ```
 
-    > `transactionHash` can be used to confirm whether transaction succeeds in the next steps.
+    > `transactionHash` can be used to check whether transaction is confirmed in the next steps.
 
 ## Confirm the Ethereum Transaction
 
@@ -373,7 +373,7 @@
 
     > `txHash` is the transaction hash.
     
-    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on differet chain. 
+    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on different chain. 
 
  - Using cURL
 
@@ -424,9 +424,9 @@
     }
     ```
 
-    > When `remain` in `confirmations`  becomes `0`, the transaction is complete.
+    > When `remain` in `confirmations`  becomes `0`, the transaction is confirmed.
 
-    > Notice that a complete transaction may not succeed. As on blockchain, failed transaction is also a result of consensus algorithm. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
+    > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
 ## Next step
 
