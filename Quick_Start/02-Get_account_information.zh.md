@@ -1,5 +1,7 @@
 # Get account information
 
+> 在此章節中，您將學習到如何得到當前使用者之完整個人資料
+
 ## Table of Contents
 
  1. Prerequisite
@@ -17,7 +19,7 @@
 
  > 此操作可以得到當前使用者之所有資訊，包含身分、加密過的 Ethereum Key JSON、各虛擬財產餘額
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia)
+ - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
    ```graphql
    {
@@ -171,11 +173,11 @@
 
    ```sh
    curl --request POST \
-     --url https://test.fstk.io/api \
-     --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0OTg1OTExNCwiZXhwIjoxNTQ5OTQ1NTE0LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.pseazhbfsFLRV2KqaBlO_tgZHzm3OlGhXpNlVziVEx-MiITJRF-fYzE_UEenPNY6I287Umv5p98I_9MvTE92Ug' \
-     --header 'content-type: application/json' \
-     --cookie locale=en \
-     --data '{"query":"{\n  me {\n    id\n    emails {\n      email\n      verified\n      primary\n    }\n    mobilePhones {\n      mobilePhone\n      verified\n      primary\n    }\n    concurrencyStamp\n    firstName\n    lastName\n    ethereumKey\n    token {\n      id\n      name\n      symbol\n      decimals\n      contractAddress\n      totalSupply\n      price {\n        numerator\n        denominator\n      }\n      logo {\n        ipfs\n      }\n      availableAmount\n      vouchers {\n        edges {\n          node {\n            id\n            name\n            symbol\n            decimals\n            description\n            contractAddress\n            totalSupply\n            expiry\n            consumable\n            availableAmount\n            price {\n              numerator\n              denominator\n            }\n          }\n        }\n      }\n    }\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          isOpen\n          description\n          stages {\n            name\n            description\n            startTime\n            endTime\n            cap\n            sold\n            priceMultiplier {\n              numerator\n              denominator\n            }\n          }\n          contractAddress\n          transactionHash\n          type: __typename\n          ... on TokenCampaign {\n            token {\n              id\n              name\n              symbol\n              decimals\n              totalSupply\n              price {\n                numerator\n                denominator\n              }\n            }\n          }\n          ... on VoucherCampaign {\n            voucher {\n              id\n              name\n              symbol\n              decimals\n              totalSupply\n              price {\n                numerator\n                denominator\n              }\n            }\n          }\n        }\n      }\n    }\n    etherBalance\n    gasTankBalance\n    tokenBalances {\n      edges {\n        node {\n          token {\n            id\n            symbol\n            name\n            decimals\n            description\n            contractAddress\n            website\n            logo {\n              ipfs\n            }\n          }\n          value\n        }\n      }\n    }\n    voucherBalances {\n      edges {\n        node {\n          voucher {\n            id\n            name\n            symbol\n            decimals\n            description\n            contractAddress\n            token {\n              id\n            }\n          }\n          value\n        }\n      }\n    }\n  }\n}\n"}'
+        --url https://test.fstk.io/api \
+        --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU0OTg1OTExNCwiZXhwIjoxNTQ5OTQ1NTE0LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.pseazhbfsFLRV2KqaBlO_tgZHzm3OlGhXpNlVziVEx-MiITJRF-fYzE_UEenPNY6I287Umv5p98I_9MvTE92Ug' \
+        --header 'content-type: application/json' \
+        --cookie locale=en \
+        --data '{"query":"{\n  me {\n    id\n    emails {\n      email\n      verified\n      primary\n    }\n    mobilePhones {\n      mobilePhone\n      verified\n      primary\n    }\n    concurrencyStamp\n    firstName\n    lastName\n    ethereumKey\n    token {\n      id\n      name\n      symbol\n      decimals\n      contractAddress\n      totalSupply\n      price {\n        numerator\n        denominator\n      }\n      logo {\n        ipfs\n      }\n      availableAmount\n      vouchers {\n        edges {\n          node {\n            id\n            name\n            symbol\n            decimals\n            description\n            contractAddress\n            totalSupply\n            expiry\n            consumable\n            availableAmount\n            price {\n              numerator\n              denominator\n            }\n          }\n        }\n      }\n    }\n    campaigns {\n      edges {\n        node {\n          id\n          name\n          isOpen\n          description\n          stages {\n            name\n            description\n            startTime\n            endTime\n            cap\n            sold\n            priceMultiplier {\n              numerator\n              denominator\n            }\n          }\n          contractAddress\n          transactionHash\n          type: __typename\n          ... on TokenCampaign {\n            token {\n              id\n              name\n              symbol\n              decimals\n              totalSupply\n              price {\n                numerator\n                denominator\n              }\n            }\n          }\n          ... on VoucherCampaign {\n            voucher {\n              id\n              name\n              symbol\n              decimals\n              totalSupply\n              price {\n                numerator\n                denominator\n              }\n            }\n          }\n        }\n      }\n    }\n    etherBalance\n    gasTankBalance\n    tokenBalances {\n      edges {\n        node {\n          token {\n            id\n            symbol\n            name\n            decimals\n            description\n            contractAddress\n            website\n            logo {\n              ipfs\n            }\n          }\n          value\n        }\n      }\n    }\n    voucherBalances {\n      edges {\n        node {\n          voucher {\n            id\n            name\n            symbol\n            decimals\n            description\n            contractAddress\n            token {\n              id\n            }\n          }\n          value\n        }\n      }\n    }\n  }\n}\n"}'
    ```
 
  - Response
@@ -216,7 +218,7 @@
                "salt": "16b3885904ba626fa5bfaab6d6b368eff1ff0ba2ab739adbec3a8fb063c43aba",
                "dklen": 32
              },
-             "ciphertext": "dc1bf4ab51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
+             "ciphertext": "dc1bfefb51e55f4d063f835a44f5c172008fea7eeb4b0da7fb7e50f3a18cf9ef",
              "cipherparams": {
                "iv": "b343d847b8a72ad68c6bf10866757421"
              }

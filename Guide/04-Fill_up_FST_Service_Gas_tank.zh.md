@@ -1,35 +1,60 @@
-# Send a Transaction
+# Fill up FST Service Gas tank
 
-> 在此章節中，您將學習到如何走過一次完整的 Transaction 相關 API 之基本流程
+> 在此章節中，您將學習到如何通過 FsTK API 進行 FST Service Gas 之充值
+
+> FST Service Gas 為使用 FsTK 相關服務時所需要支付的手續費，而每個使用者都會有自己各自的 Gas tank 可以進行充值，手續費會將從 Gas tank 裡扣除
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode an Ethereum Transaction (以 token transfer 為例)
+ 2. Encode the Transaction (filling up FST Service Gas tank)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
  6. Confirm the Ethereum Transaction
- 7. Next step
+ 7. Confirm the FST Service Gas amount in the tank
 
 ## Prerequisite
 
- 1. 已經完成學習 Connect to FsTK Engine API 與 Get account information 兩步驟
- 2. 已經確認帳戶中 (當前使用者) 擁有的資產足夠 (from `tokenBalances` in `get me`)
- 3. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+ 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
+    > 請注意此兩個平台之帳戶資料沒有互通
 
-## Encode an Ethereum Transaction (以 token transfer 為例)
+    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
+    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
+
+ 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
+    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
+
+    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
+    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
+    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
+    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
+
+ 3. 請準備好您的 API 測試工具
+    - [Insomnia](https://insomnia.rest) (推薦)
+    - [Postman](https://www.getpostman.com)
+
+ 4. 已知如何取得 Access Web Token (JWT)
+    > 詳情請參考 Quick start [第一篇章](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+
+ 5. 已完成 Quick start 之學習
+
+ 6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+
+## Encode the Transaction (filling up FST Service Gas tank)
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
     ```graphql
-    mutation erc20Transfer($input: ERC20TransferInput!) {
-      erc20Transfer(input: $input) {
-        pendingTransactions
+    mutation fillGasTank($input: FillGasTankInput!) {
+      fillGasTank(input: $input) {
         transaction
+        hash
+        metadata
         submitToken
+        pendingTransactions
       }
     }
     ```
@@ -37,31 +62,28 @@
     Variables:
 
     ```json
-    {  
-      "input":{  
-        "id": "VG9rZW46wqIQOcOWHsOjEcOpwp4aD0oqw4DCtQM=",
-        "to": "0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
-        "value": "123456789123456789"
+    {
+      "input": {
+        "por": "DISABLE",
+        "amount": "100000000000000000000"
       }
     }
     ```
 
-    > `id` 為欲傳送之 token 的 `id`，在 `get me` 中可以看得到當前使用者擁有的 token 們的 id，請注意在 `tokenBalances`
+    > `por` 為是否開啟 PoR 模式，然而因為啟用 PoR 模式需要為使用者進行安裝設定，如欲啟用請聯絡我們 (tech-support@fstk.io)
 
-    > `to` 為 token 傳送的目的地，為 Ethereum 地址
-
-    > `value` 為想要傳送的數量  
-    > 請切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` token，則 `value` 就要為 `"1000000000000000000"`  
-    > 如 `"123456789123456789"` 為 `0.123456789123456789` Token 的意思
+    > `amount` 為想要傳送的數量，FST : FST Service Gas 的價格比為 1 : 1    
+    > 請切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` FST，則 `value` 就要為 `"1000000000000000000"`  
+    > 如 `"100000000000000000000"` 為支付 `100` FST 的意思
  - Using cURL
 
     ```sh
     curl --request POST \
          --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDAyOTQxMSwiZXhwIjoxNTUwMTE1ODExLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.N44Ga-96NPZhBD82tLm2od9RVRIn67YIJXa-Pl9-y1UB-xfPrHpeQhq8yVDw21E6W1AQCAVgLwfOmgQn8zzxtQ' \
+         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1NDYwNiwiZXhwIjoxNTUwNjQxMDA2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.VRkWKX5zsru9R6xqw-sI8NCBTYDTNs0VXMPx7oact-wm4Znf37O5ywi7CCL41KzOzCnjic31Q5jwcGMNCBbx1A' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"mutation erc20Transfer($input: ERC20TransferInput!) {\n  erc20Transfer(input: $input) {\n    pendingTransactions\n    transaction\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW46wqIQOcOWHsOjEcOpwp4aD0oqw4DCtQM=","to":"0x0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f","value":"123456789123456789"}},"operationName":"erc20Transfer"}'
+         --data '{"query":"mutation fillGasTank($input: FillGasTankInput!) {\n  fillGasTank(input: $input) {\n    transaction\n    hash\n    metadata\n    submitToken\n    pendingTransactions\n  }\n}\n","variables":{"input":{"por":"DISABLE","amount":"100000000000000000000"}},"operationName":"fillGasTank"}'
     ```
 
  - Response
@@ -69,24 +91,29 @@
     ```json
     {
       "data": {
-        "erc20Transfer": {
-          "pendingTransactions": "0",
+        "fillGasTank": {
           "transaction": {
-            "nonce": "0x10d",
+            "nonce": "0x10e",
             "gasPrice": "0x3b9aca00",
-            "gas": "0xf30f",
-            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
+            "gas": "0x17743",
+            "to": "0x3830f7Af866FAe79E4f6B277Be17593Bf96beE3b",
             "value": "0x0",
-            "data": "0xa9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f15",
+            "data": "0x4000aea000000000000000000000000056533b3052dd2bc92d2d11372427b9a7f3256eaa0000000000000000000000000000000000000000000000056bc75e2d631000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000004447d5f0be0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "chainId": 42
           },
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTA0NzgyNzcsImV4cCI6MTU1MDQ3ODg3NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.Qv8mA7mqsQ5RBkMcXvJ2qZOed14Vx-DJPQc3k-U1beb1mFx3Ok-MlZoYivOC-Z1IP0YmS3NJTfrJpOUxOUuVaw"
+          "hash": "0x8dfb883dc3b40f319f3960448ffe96a0aad69ff58a7800b191e04d58efdea12c",
+          "metadata": {
+            "fee": {
+              "type": "ETH",
+              "amount": "96067000000000"
+            }
+          },
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImZpbGxHYXNUYW5rIiwidHgiOiIrUUVMZ2dFT2hEdWF5Z0NEQVhkRGxEZ3c5NitHYjY1NTVQYXlkNzRYV1R2NWErNDdnTGprUUFDdW9BQUFBQUFBQUFBQUFBQUFBRlpUT3pCUzNTdkpMUzBSTnlRbnVhZnpKVzZxQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUZhOGRlTFdNUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkVSOVh3dmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTUwNTU0NzQ1LCJleHAiOjE1NTA1NTUzNDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.Sb3SbSUK_1GtQl3FEmt2S-2_oAi9lcTmYY9g0GyK_z9BD2yKJLxArTlO7--Lvp-qdN6LroSoUzaEaVWcmzDv7g",
+          "pendingTransactions": "0"
         }
       }
     }
     ```
-
-    > 請注意 `erc20Transfer` 之所以存在在此 response 中是因為我們使用了 `mutation erc20Transfer`，不同的 encode 請求會有不同的字串，但結構是一樣的
   
     > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
 
@@ -96,7 +123,7 @@
     ```json   
     { 
       "data": {
-        "erc20Transfer": null
+        "fillGasTank": null
       },
       "errors": [....]
     }
@@ -343,7 +370,7 @@
     {
       "data": {
         "submitTransaction": {
-          "transactionHash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"
+          "transactionHash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"
         }
       }
     }
@@ -365,7 +392,7 @@
 
     ```json
     {
-      "txHash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"
+      "txHash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"
     }
     ```
 
@@ -381,7 +408,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"query getTransactionReceipt($txHash: String!) {\n  getTransactionReceipt(txHash: $txHash)\n}\n","variables":{"txHash":"0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"},"operationName":"getTransactionReceipt"}'
+         --data '{"query":"query getTransactionReceipt($txHash: String!) {\n  getTransactionReceipt(txHash: $txHash)\n}\n","variables":{"txHash":"0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"},"operationName":"getTransactionReceipt"}'
     ```
 
  - Response
@@ -391,24 +418,24 @@
       "data": {
         "getTransactionReceipt": {
           "tx": {
-            "blockHash": "0x820ea831f44d2cacdb19c10ead2a3eb691c43db8a3466b1cdb11f0f384bbee77",
-            "blockNumber": 10386928,
+            "blockHash": "0x340c8c703d9b3305c86f6d4435b5d6418d6dfb55dd21678823e94f56cb4fdc64",
+            "blockNumber": 10393193,
             "chainId": "0x2a",
             "condition": null,
             "creates": null,
             "from": "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
-            "gas": 62223,
+            "gas": 96067,
             "gasPrice": "1000000000",
-            "hash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961",
-            "input": "0xa9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f15",
-            "nonce": 269,
+            "hash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534",
+            "input": "0x4000aea000000000000000000000000056533b3052dd2bc92d2d11372427b9a7f3256eaa0000000000000000000000000000000000000000000000056bc75e2d631000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000004447d5f0be0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": 270,
             "publicKey": "0x430bf21a98b0dd75d08fd4d8780cdf818f885b9c8e540fd3148123114ed987a6e226dbca1de163404cbb01f2040c4737410a6b7eacfcd8b9f3ee7a02b0eb24f0",
-            "r": "0xb8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1",
-            "raw": "0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082",
-            "s": "0x28dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082",
+            "r": "0x93422b6cac9b3d26a47c49427a759a4cc1a75e4e531276d83a6e02d03afb2751",
+            "raw": "0xf9014b82010e843b9aca0083017743943830f7af866fae79e4f6b277be17593bf96bee3b80b8e44000aea000000000000000000000000056533b3052dd2bc92d2d11372427b9a7f3256eaa0000000000000000000000000000000000000000000000056bc75e2d631000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000004447d5f0be000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000078a093422b6cac9b3d26a47c49427a759a4cc1a75e4e531276d83a6e02d03afb2751a03337c15811bb1a505fa1ceefaa10df6e6e725096a69b3c051d78e709aaea2944",
+            "s": "0x3337c15811bb1a505fa1ceefaa10df6e6e725096a69b3c051d78e709aaea2944",
             "standardV": "0x1",
-            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
-            "transactionIndex": 24,
+            "to": "0x3830f7Af866FAe79E4f6B277Be17593Bf96beE3b",
+            "transactionIndex": 26,
             "v": "0x78",
             "value": "0"
           },
@@ -426,8 +453,6 @@
 
     > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
 
-## Next step
+## Confirm the FST Service Gas amount in the tank
 
-恭喜您，您已經完成 Quick start，已經完成學習連結 FsTK API 最困難的核心部分
-
-如想要知道更多細節，請繼續從 [Guide](../Guide/01-A_short_introduction_to_Ethereum.zh.md) 開始閱讀，或者請到 [FST.Network 的 Github](https://github.com/fstnetwork) 瀏覽
+ > 請查看 `get me` 中的 `gasTankBalance` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
