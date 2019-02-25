@@ -20,7 +20,7 @@
 
 ## Encode a Ethereum Transaction (e.g. token transfer)
 
- > In any of following API calls, please remember to direct to `authorization` in http request header.
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 

@@ -48,7 +48,7 @@
 
 ## Encode the Transaction (publishing smart voucher)
 
- > In any of following API calls, please remember to direct to `authorization` in http request header.
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
  - Using multipart/form-data
 
@@ -80,7 +80,7 @@
 
      - `name` is the name of publishing Smart Voucher, at most 20 characters
 
-     - `symbol` is the symbol of publishing Smart Voucher, at most 6 characters excluding prefix. The prefix must be the symbol of Smart Token, e.g. if symbol of Smart Token is `ABC`, then symbol of  Smart Voucher can be `ABC_TEST11`.
+     - `symbol` is the symbol of publishing Smart Voucher, at most 6 capital characters excluding prefix. The prefix must be the symbol of Smart Token, e.g. if symbol of Smart Token is `ABC`, then symbol of  Smart Voucher can be `ABC_TEST11`.
 
      - `consumable` determines whether Smart Voucher is consumable. If `true`, then Consume is activated (still able to be transferred); if `false`, then Consume is de-activated (still able to be transferred).
 

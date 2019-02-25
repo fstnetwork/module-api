@@ -43,7 +43,7 @@
 
 ## Encode the Transaction (filling up FST Service Gas tank)
 
- > In any of following API calls, please remember to direct to `authorization` in http request header.
+ > In any of following API calls, please remember to assign the access token to `authorization` in http request header.
 
  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
