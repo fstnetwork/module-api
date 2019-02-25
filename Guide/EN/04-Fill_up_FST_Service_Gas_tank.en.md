@@ -1,8 +1,8 @@
 # Fill up FST Service Gas tank
 
-> 在此章節中，您將學習到如何通過 FsTK API 進行 FST Service Gas 之充值
+> In this chapter, you will understand how to top up FST Service Gas via FsTK API.
 
-> FST Service Gas 為使用 FsTK 相關服務時所需要支付的手續費，而每個使用者都會有自己各自的 Gas tank 可以進行充值，手續費會將從 Gas tank 裡扣除
+> FST Service Gas is the service charge of FsTK modules. Each user has one Gas tank for top-up and service fee will be deducted directly from it.
 
 ## Table of Contents
 
@@ -16,42 +16,43 @@
 
 ## Prerequisite
 
- 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > 請注意此兩個平台之帳戶資料沒有互通
+ 1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
+    >  Notice account data are NOT shared across both platform 
 
-    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
-    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
+    - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
+    - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
- 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
-    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
+ 2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
 
-    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
-    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
+    - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
+    - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
+    - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
+    - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. 請準備好您的 API 測試工具
-    - [Insomnia](https://insomnia.rest) (推薦)
+ 3. Please prepare your API testing tools
+    - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 
- 4. 已知如何取得 Access Web Token (JWT)
-    > 詳情請參考 Quick start [第一篇章](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+ 4. Understand how to retrieve Access Web Token (JWT)
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md)
 
- 5. 已完成 Quick start 之學習
+ 5. Complete Quick start
 
- 6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+ 6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
 ## Encode the Transaction (filling up FST Service Gas tank)
 
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign the access token to `authorization` in http request header.
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     mutation fillGasTank($input: FillGasTankInput!) {
       fillGasTank(input: $input) {
         transaction
         hash
+        metadata
         submitToken
         pendingTransactions
       }
@@ -69,11 +70,12 @@
     }
     ```
 
-    > `por` 為是否開啟 PoR 模式，然而因為啟用 PoR 模式需要為使用者進行安裝設定，如欲啟用請聯絡我們 (tech-support@fstk.io)
+    > `por` is the switch of PoR mode. PoR mode requires users for further installation . Please contact us for more info: tech-support@fstk.io.
 
-    > `amount` 為想要傳送的數量，FST : FST Service Gas 的價格比為 1 : 1    
-    > 請切記，這裡的數字單位為 [`wei`](https://etherconverter.online)，也就是說假如想要傳送 `1` FST，則 `amount` 就要為 `"1000000000000000000"`  
-    > 如 `"100000000000000000000"` 為支付 `100` FST 的意思
+    > `amount` is the top-up amount of FST. FST : FST Service Gas is 1:1.
+    > Please remember the unit is [`wei`](https://etherconverter.online).
+    > e.g. In order to transfer `1` token, `amount` should be `"1000000000000000000"`.
+    > In another words, `amount` of `"100000000000000000000"` means topping up `100` FST.
  - Using cURL
 
     ```sh
@@ -82,7 +84,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1NDYwNiwiZXhwIjoxNTUwNjQxMDA2LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.VRkWKX5zsru9R6xqw-sI8NCBTYDTNs0VXMPx7oact-wm4Znf37O5ywi7CCL41KzOzCnjic31Q5jwcGMNCBbx1A' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"mutation fillGasTank($input: FillGasTankInput!) {  fillGasTank(input: $input) {    transaction    hash    submitToken    pendingTransactions  }}","variables":{"input":{"por":"DISABLE","amount":"100000000000000000000"}},"operationName":"fillGasTank"}'
+         --data '{"query":"mutation fillGasTank($input: FillGasTankInput!) {\n  fillGasTank(input: $input) {\n    transaction\n    hash\n    metadata\n    submitToken\n    pendingTransactions\n  }\n}\n","variables":{"input":{"por":"DISABLE","amount":"100000000000000000000"}},"operationName":"fillGasTank"}'
     ```
 
  - Response
@@ -101,6 +103,12 @@
             "chainId": 42
           },
           "hash": "0x8dfb883dc3b40f319f3960448ffe96a0aad69ff58a7800b191e04d58efdea12c",
+          "metadata": {
+            "fee": {
+              "type": "ETH",
+              "amount": "96067000000000"
+            }
+          },
           "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImZpbGxHYXNUYW5rIiwidHgiOiIrUUVMZ2dFT2hEdWF5Z0NEQVhkRGxEZ3c5NitHYjY1NTVQYXlkNzRYV1R2NWErNDdnTGprUUFDdW9BQUFBQUFBQUFBQUFBQUFBRlpUT3pCUzNTdkpMUzBSTnlRbnVhZnpKVzZxQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUZhOGRlTFdNUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkVSOVh3dmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUtvQ0EiLCJpbmZvIjp7fSwiaWF0IjoxNTUwNTU0NzQ1LCJleHAiOjE1NTA1NTUzNDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.Sb3SbSUK_1GtQl3FEmt2S-2_oAi9lcTmYY9g0GyK_z9BD2yKJLxArTlO7--Lvp-qdN6LroSoUzaEaVWcmzDv7g",
           "pendingTransactions": "0"
         }
@@ -108,11 +116,11 @@
     }
     ```
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
+    > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
+    > Please remember that  response will vary after each call, please use the latest response for next steps.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -121,15 +129,16 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
 
 ## Decrypt the Ethereum Key JSON
 
- > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的
+ > Please notice the difference between `password` and `passphrase` in FsTK system. `password` is required to sign in Tokeneden;  `passphrase` is required to decrypt Ethereum key JSON and sign the transaction. 
 
- > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
+ > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
- > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
+ > To start with, use `get me` to fetch `ethereumKey` like the following:
 
  ```json
  {
@@ -155,15 +164,15 @@
  }
  ```
 
- > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開
+ > This is current user's Ethereum key JSON, which includes encrypted private key (by passphrase). This can be safely stored but remain private unless necessary.
  
- > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
+ > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **也請注意，如果遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase**
 
  - Using JavaScript (Node.js)
 
-    > 安裝 [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
+    > Install [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
 
     ```sh
     npm i --save "https://github.com/fstnetwork/eth-key-lib-js"
@@ -199,9 +208,9 @@
     console.log(walletObj) // walletObj.privateKeyBuffer is the private key for signing
     ```
 
-    > 此語法為 ES6 之 module import，假如您的 node.js 不支援此語法，請參考 [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) 及以下範例
+    > This is the module import of ES6. If your node.js does not support it, please refer to [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) and the followings:
 
-    > 最小可用之 `webpack.config.js`
+    > Minimal `webpack.config.js`
 
     ```javascript
     const path = require("path");
@@ -223,7 +232,7 @@
     };
     ```
 
-    > 最小可用之 `package.json`
+    > Minimal `package.json`
 
     ```json
     {
@@ -242,7 +251,7 @@
     }
     ```
 
-    > 建置命令 (請將程式進入點放置在 `index.js`)
+    > Install command line (please let `index.js` be the program entry point)
 
     ```sh
     npm i && npm start
@@ -250,30 +259,30 @@
     # yarn && yarn start
     ```
 
-    > 如您在 windows 平台上開發，請參照 [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows)
+    > If working on windows, please refer to [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows).
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `WalletUtils` 中的 `loadCredentials` 方法，必須使用此多載  
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > 也就是說，因為 web3j 只提供從 `File` 載入，請注意檔案系統的空間，或者也可以使用 in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 也請參考 [Nethereum 的簡易範例](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
    ```
 
-   > 從 `Account` 取得私鑰請使用 `Account.PrivateKey`
+   > Please use `Account.PrivateKey` to fetch private key from `Account`.
 
 ## Sign the Ethereum Transaction
 
@@ -299,29 +308,29 @@
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `TransactionEncoder` 中的 `signMessage` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
    ```
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#signing-transactions)
+   > Please refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#signing-transactions)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 請注意 `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > 也請參考 `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
 
-## Broadcast the Ethereum Transaction
-
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ ## Broadcast the Ethereum Transaction
+ 
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     mutation submitSignedTransaction($input: SubmitTransactionInput!) {
@@ -342,19 +351,19 @@
     }
     ```
 
-    > `data` 為上面以當前使用者的私鑰簽署 `transaction` 物件過後的產物，也就是 `signedTransaction`，為 hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string
 
-    > `submitToken` 為 Encode Ethereum Transaction 小章節中得到的 `submitToken`
+    > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 
  - Using cURL
 
     ```sh
-    curl --request POST \
+        curl --request POST \
          --url https://test.fstk.io/api \
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"mutation submitSignedTransaction($input: SubmitTransactionInput!) {  submitTransaction(input: $input) {    transactionHash  }}","variables":{"input":{"data":"0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082","submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTA0NzgyNzcsImV4cCI6MTU1MDQ3ODg3NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.Qv8mA7mqsQ5RBkMcXvJ2qZOed14Vx-DJPQc3k-U1beb1mFx3Ok-MlZoYivOC-Z1IP0YmS3NJTfrJpOUxOUuVaw"}},"operationName":"submitSignedTransaction"}'
+         --data '{"query":"mutation submitSignedTransaction($input: SubmitTransactionInput!) {\n  submitTransaction(input: $input) {\n    transactionHash\n  }\n}\n","variables":{"input":{"data":"0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082","submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTA0NzgyNzcsImV4cCI6MTU1MDQ3ODg3NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.Qv8mA7mqsQ5RBkMcXvJ2qZOed14Vx-DJPQc3k-U1beb1mFx3Ok-MlZoYivOC-Z1IP0YmS3NJTfrJpOUxOUuVaw"}},"operationName":"submitSignedTransaction"}'
     ```
 
  - Response
@@ -363,17 +372,17 @@
     {
       "data": {
         "submitTransaction": {
-          "transactionHash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"
+          "transactionHash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"
         }
       }
     }
     ```
 
-    > 此 `transactionHash` 為下一步拿來確認有沒有交易驗證通過之交易代號
+    > `transactionHash` can be used to check whether transaction is confirmed in the next steps.
 
 ## Confirm the Ethereum Transaction
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     query getTransactionReceipt($txHash: String!) {
@@ -385,13 +394,13 @@
 
     ```json
     {
-      "txHash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"
+      "txHash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"
     }
     ```
 
-    > `txHash` 為想要確認之交易代號
+    > `txHash` is the transaction hash.
     
-    > 請注意不同鏈上的交易代號可能會重疊，但代表不同的交易
+    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on different chain. 
 
  - Using cURL
 
@@ -401,7 +410,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"query getTransactionReceipt($txHash: String!) {  getTransactionReceipt(txHash: $txHash)}","variables":{"txHash":"0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534"},"operationName":"getTransactionReceipt"}'
+         --data '{"query":"query getTransactionReceipt($txHash: String!) {\n  getTransactionReceipt(txHash: $txHash)\n}\n","variables":{"txHash":"0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961"},"operationName":"getTransactionReceipt"}'
     ```
 
  - Response
@@ -411,24 +420,24 @@
       "data": {
         "getTransactionReceipt": {
           "tx": {
-            "blockHash": "0x340c8c703d9b3305c86f6d4435b5d6418d6dfb55dd21678823e94f56cb4fdc64",
-            "blockNumber": 10393193,
+            "blockHash": "0x820ea831f44d2cacdb19c10ead2a3eb691c43db8a3466b1cdb11f0f384bbee77",
+            "blockNumber": 10386928,
             "chainId": "0x2a",
             "condition": null,
             "creates": null,
             "from": "0x3e7aF8b8C19C404670C1470273bca449148Df4Ed",
-            "gas": 96067,
+            "gas": 62223,
             "gasPrice": "1000000000",
-            "hash": "0xd04cb7946d7b14426f7b2c46916674c22dd2d93ff5d8b84dc5147a554413e534",
-            "input": "0x4000aea000000000000000000000000056533b3052dd2bc92d2d11372427b9a7f3256eaa0000000000000000000000000000000000000000000000056bc75e2d631000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000004447d5f0be0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-            "nonce": 270,
+            "hash": "0xde943e19f69e43b9a6fd889c94a1dde9b017484c8b8b489e14dbb37a48ee1961",
+            "input": "0xa9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f15",
+            "nonce": 269,
             "publicKey": "0x430bf21a98b0dd75d08fd4d8780cdf818f885b9c8e540fd3148123114ed987a6e226dbca1de163404cbb01f2040c4737410a6b7eacfcd8b9f3ee7a02b0eb24f0",
-            "r": "0x93422b6cac9b3d26a47c49427a759a4cc1a75e4e531276d83a6e02d03afb2751",
-            "raw": "0xf9014b82010e843b9aca0083017743943830f7af866fae79e4f6b277be17593bf96bee3b80b8e44000aea000000000000000000000000056533b3052dd2bc92d2d11372427b9a7f3256eaa0000000000000000000000000000000000000000000000056bc75e2d631000000000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000000004447d5f0be000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000078a093422b6cac9b3d26a47c49427a759a4cc1a75e4e531276d83a6e02d03afb2751a03337c15811bb1a505fa1ceefaa10df6e6e725096a69b3c051d78e709aaea2944",
-            "s": "0x3337c15811bb1a505fa1ceefaa10df6e6e725096a69b3c051d78e709aaea2944",
+            "r": "0xb8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1",
+            "raw": "0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082",
+            "s": "0x28dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082",
             "standardV": "0x1",
-            "to": "0x3830f7Af866FAe79E4f6B277Be17593Bf96beE3b",
-            "transactionIndex": 26,
+            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
+            "transactionIndex": 24,
             "v": "0x78",
             "value": "0"
           },
@@ -442,10 +451,10 @@
     }
     ```
 
-    > 請看 `confirmations` 中的 `remain` 成為 `0` 時，表示交易已經驗證完成
+    > When `remain` in `confirmations`  becomes `0`, the transaction is confirmed.
 
-    > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
+    > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
 ## Confirm the FST Service Gas amount in the tank
 
- > 請查看 `get me` 中的 `gasTankBalance` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
+ > Please refer to `gasTankBalance` in `get me`. (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md))
