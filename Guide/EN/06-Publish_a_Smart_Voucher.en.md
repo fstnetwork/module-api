@@ -36,7 +36,7 @@
     - [Postman](https://www.getpostman.com)
 
  4. Understand how to retrieve Access Web Token (JWT)
-    > Please refer to Quick start [Chapter 1](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md)
 
  5. Complete Quick start
 
@@ -493,4 +493,4 @@
 
 ## Confirm the Smart Voucher
 
- > Please refer to `token.vouchers` in `get me` (More details in Quick start [Chapter 2](../Quick_Start/02-Get_account_information.zh.md))
+ > Please refer to `token.vouchers` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md))

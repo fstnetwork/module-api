@@ -432,4 +432,4 @@
 
 Congratulation, you have completed `Quick start`.  
 
-For more detailed info, please refer to [Guide](../Guide/01-A_short_introduction_to_Ethereum.zh.md), or please redirect to [FST Network Github](https://github.com/fstnetwork).
+For more detailed info, please refer to [Guide](../../Guide/EN/01-A_short_introduction_to_Ethereum.en.md), or please redirect to [FST Network Github](https://github.com/fstnetwork).
