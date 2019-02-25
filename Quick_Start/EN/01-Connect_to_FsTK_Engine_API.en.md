@@ -92,4 +92,4 @@
 
 ## Next step
 
-[Next step](./02-Get_account_information.zh.md)
+[Next step](./02-Get_account_information.en.md)

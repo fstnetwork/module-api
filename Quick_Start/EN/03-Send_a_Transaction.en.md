@@ -20,7 +20,7 @@
 
 ## Encode a Ethereum Transaction (e.g. token transfer)
 
- > In any of following API calls, please remember to direct to `authorization` in http request header.
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
@@ -432,4 +432,4 @@
 
 Congratulation, you have completed `Quick start`.  
 
-For more detailed info, please refer to [Guide](../Guide/01-A_short_introduction_to_Ethereum.zh.md), or please redirect to [FST Network Github](https://github.com/fstnetwork).
+For more detailed info, please refer to [Guide](../../Guide/EN/01-A_short_introduction_to_Ethereum.en.md), or please redirect to [FST Network Github](https://github.com/fstnetwork).
