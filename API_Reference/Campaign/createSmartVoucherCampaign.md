@@ -80,10 +80,10 @@
             "startTime":"1514692800000",
             "endTime":"1546228800000",
             "priceMultiplier":{
-              "numerator":"1000000000000",
-              "denominator":"2000000000000"
+              "numerator":"9",
+              "denominator":"4"
             },
-            "cap":"400000000000000000000000",
+            "cap":"1000",
             "isPrivate":false,
             "description":"This is my first basic voucher campaign"
           }
