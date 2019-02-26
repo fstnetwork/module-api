@@ -80,7 +80,7 @@
 
      - `name` 為新發布之 Smart Voucher 的名稱，最多為 20 個字元
 
-     - `symbol` 為新發布之 Smart Voucher 的符號，前綴必須是母帳本之符號 (symbol)，如 Smart Token 之 symbol 為 `ABC` 則 Smart Voucher 之 symbol 可取為 `ABC_TEST11`，前綴以外最多可有六個字元
+     - `symbol` 為新發布之 Smart Voucher 的符號，前綴必須是母帳本之符號 (symbol)，如 Smart Token 之 symbol 為 `ABC` 則 Smart Voucher 之 symbol 可取為 `ABC_TEST11`，前綴以外最多可有 6 個字元、至少 2 字元，且需大寫
 
      - `consumable` 為決定此 Smart Voucher 是否可被消耗，假如為 `true` 則可以使用 Consume 功能 (亦可傳送 Voucher)，`false` 則無法消耗，但仍可與 Token 一樣傳送
 
