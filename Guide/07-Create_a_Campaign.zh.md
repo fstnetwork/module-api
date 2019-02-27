@@ -112,6 +112,20 @@
         }
     }
     ```
+    **buy Smart Token/Voucher**
+    ```json
+    {
+        "query": "mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }",
+        "variables": {
+            "input": {
+                "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+                "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+                "value": "100000000000000000000",
+                "por": "DISABLE"
+            }
+        }
+    }
+    ```
 
      - `id` 為欲販售之 Smart Token 於 FsTK 所記錄之 ID
   
@@ -136,6 +150,11 @@
    ```
    operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"input":{"id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}
    ```
+
+   **buy Smart Token/Voucher**
+   ```
+   operations: {"query":"mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"100000000000000000000","por":"DISABLE"}}}
+   ```
    
 
  - Using cURL
@@ -156,6 +175,15 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
          --cookie locale=en \
          --form 'operations={"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"input":{"id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}'
+    ```
+
+    **buy Smart Token/Voucher**
+    ```sh
+    curl --request POST \
+         --url https://test.fstk.io/api \
+         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
+         --cookie locale=en \
+         --form 'operations={"query":"mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"100000000000000000000","por":"DISABLE"}}}'
     ```
 
  - Response
