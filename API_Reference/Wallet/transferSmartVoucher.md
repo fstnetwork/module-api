@@ -7,7 +7,7 @@ You are able to transfer Smart Voucher via this API.
 
 - Query String
   ```
-  mutation transferFIL ($input: ERC20TransferInput!) {
+  mutation transferSmartVoucher ($input: ERC20TransferInput!) {
     erc20Transfer(input:$input) {
       transaction
       hash
@@ -55,7 +55,7 @@ You are able to transfer Smart Voucher via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
+    "query": "mutation transferSmartVoucher ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "Vm91Y2hlcjoBdRLCmBsBEcOpwro7w7PCiMOZEQjCqw==",

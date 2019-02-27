@@ -53,7 +53,7 @@ You are able to transfer Smart Token via this API.
 - Body
   ``` 
   { 
-    "query": "mutation transferFIL ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
+    "query": "mutation transferSmartToken ($input: ERC20TransferInput!) { erc20Transfer(input:$input) { transaction hash submitToken } }",
     "variables": {
       "input": {
         "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
