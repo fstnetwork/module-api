@@ -6,7 +6,7 @@ You are able to transfer Smart Token via this API.
 
 - Query String
   ```
-  mutation transferFIL ($input: ERC20TransferInput!) {
+  mutation transferSmartToken ($input: ERC20TransferInput!) {
     erc20Transfer(input:$input) {
       transaction
       hash
