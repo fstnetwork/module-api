@@ -52,7 +52,7 @@
 
  - Using multipart/form-data
 
-   > operations 裡放入 GraphQL query 以及 GraphQL variables ??
+   > Assign `operations` with GraphQL query and variables
 
    - operations detail
 
@@ -96,7 +96,7 @@
 
      - `description` is the description of Smart Voucher.
 
-     - `proofOfContract` is not required in operations, instead in ???, is `null` here.
+     - `proofOfContract` is not required in operations, instead in form-data as another entry, is `null` here.
 
    > proofOfContract is in pdf format to describe related legal agreements or rights of Smart Voucher, then stored and protected in IPFS.
 

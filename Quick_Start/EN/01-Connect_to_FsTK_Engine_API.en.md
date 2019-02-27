@@ -30,10 +30,10 @@
 
 ## Authentication / Authorization
 
- 1. 取得 Access Web Token (JWT)
-    > 請使用帳號與密碼，也請注意是連線至 `https://test.fstk.io` 或 `https://engine.fstk.io`，並且僅用 `https` 而請勿使用 `http`
+ 1. Retrieve Access Web Token (JWT)
+    > Please use accounts & passwords on `https://test.fstk.io` or `https://engine.fstk.io`. Notice that it is `https`, not `http`.
   
-    > 以下皆以 `https://test.fstk.io` 做為端點進行示範
+    > Hereinafter we will use `https://test.fstk.io` as endpoints.
     
     - Using cURL
 
