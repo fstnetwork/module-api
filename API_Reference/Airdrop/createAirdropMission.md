@@ -58,7 +58,7 @@
   {  
     "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }",
     "variables":{  
-      "mission":{  
+      "input":{  
         "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
         "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
         "budget":"1000000000000000000000",
