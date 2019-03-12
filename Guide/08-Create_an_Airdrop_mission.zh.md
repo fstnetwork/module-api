@@ -56,70 +56,86 @@
 
    - operations detail
 
+    **locate airdrop target**
      ```json
      {
-       "query": "mutation publishVoucher(input: PublishVoucherInput!) {          publishVoucher(input: input) {            hash         transaction             submitToken          }        }",
+       "query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id         airdropItem {         ... on Token {          id          name          decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {          locateRule {                type         item {                  ... on Token {                    decimals           }            ... on Voucher {         decimals         }        }        }         item {         ... on Token {            decimals        }        ... on Voucher {          decimals        }          }          amount         }            totalAddresses         totalAirdropAmount       }       }      }     }",
        "variables": {
-         "input": {
-           "name": "TEST11",
-           "symbol": "ABC_TEST11",
-           "consumable": false,
-           "totalSupply": "1234",
-           "price": {
-             "numerator": "123000000000000000000",
-             "denominator": "1"
-           },
-           "expiry": "1577807999000",
-           "description": "for the test",
-           "proofOfContract": null,
-           "por": "DISABLE"
+         "input":{  
+          "rules":[
+            {  
+              "rule":{
+                "type":"EVERY",
+                "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+                "amount":"10000000000000000000"
+              },
+              "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+              "amount":"100000000000000000"
+            }
+          ]
          }
        }
      }
      ```
 
-     - `name` 為新發布之 Smart Voucher 的名稱，最多為 20 個字元
+     - `rules` 為本次活動的所有空投規則，可有多個，每個空投規則之間無關聯。
 
-     - `symbol` 為新發布之 Smart Voucher 的符號，前綴必須是母帳本之符號 (symbol)，如 Smart Token 之 symbol 為 `ABC` 則 Smart Voucher 之 symbol 可取為 `ABC_TEST11`，前綴以外最多可有六個字元
+       - `rule` 空投規則
 
-     - `consumable` 為決定此 Smart Voucher 是否可被消耗，假如為 `true` 則可以使用 Consume 功能 (亦可傳送 Voucher)，`false` 則無法消耗，但仍可與 Token 一樣傳送
+         - `type` 有 `EVERY` 及 `AT_LEAST` 兩種，EVERY means every condition will be counted for giveaway item calculation. e.g. If qualification is set to be 'every' 1 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 10 FVoucher through this airdrop event. AT_LEAST means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. e.g. If qualification is set to be 'at least' 5 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 1 FVoucher through this airdrop event.
 
-     - `totalSupply` 為此 Smart Voucher 總發布量，請注意這個數字是人類數，不像 Token 相關的數字系統一樣有放大 10^18 倍
+         - `itemId` 所訂定之規則的資產ID
 
-     - `price` 為一個物件，表示此 Smart Voucher 一個為多少 Smart Token (也就是與母帳本之間的單價比)，也是 Smart Voucher 的初始設定價，Smart Voucher 只能以 Smart Token 購買
+         - `amount` 所訂定之規則的資產數量。The format is Decimaled Number.
      
-       - `numerator` 為代表一個 Smart Voucher 是多少 wei 的 Smart Token，例如一個 Smart Voucher 的價格為 123 Smart Token，則此可為 `"123000000000000000000"`
+       - `itemId` 符合規則所能獲得的資產之ID
 
-       - `denominator` 通常設為 `"1"` 即可，但事實上也可以設定成 `numerator = "1000000000000000000"` 以及 `denominator = "3"`，來表示 3 個 Smart Voucher 價值 1 Smart Token，也就是數字系統上會精確地以分數進行運算
+       - `amount` 符合規則所能獲得的資產之數量。The format is Decimaled Number.
 
-     - `expiry` 為此 Smart Voucher 之有效日期時間，單位為 Unix time millisecond (毫秒)，例如 UTC+8 之 2019/12/31 為 `"1577807999000"`，請注意 Unix time 沒有時區，記得對應您所在的時區進行調整
+    **create airdrop mission**
+    ```json
+     {
+       "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }",
+       "variables":{  
+        "input":{  
+          "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
+          "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+          "budget":"100000000000000000000000",
+          "invokeTime":"1569888000000",
+          "por":"DISABLE"
+        }
+      }
+    }
+    ```
 
-     - `description` 此 Smart Voucher 之相關描述
+   > form-data 之總結為
 
-     - `proofOfContract` 在 operations 裡面將不放置，會放置在檔案區，故為 `null`
-
-   > proofOfContract 裡為 pdf 檔案，用於向客戶說明此 Smart Voucher 相關的合約及權益，並會存放在 IPFS 進行保護
-
-   > multipart/form-data 之總結為
-
+  **locate airdrop target**
    ```
-   operations: {"query":"mutation publishVoucher(input: PublishVoucherInput!) {          publishVoucher(input: input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"TEST11","symbol":"ABC_TEST11","consumable":false,"totalSupply":"1234","price":{"numerator":"123000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"for the test","proofOfContract":null,"por":"DISABLE"}}}
-   map: {"proofOfContract":["variables.input.proofOfContract"]}
-   proofOfContract: (binary)
+   operations: {"query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id          airdropItem {            ... on Token {              id              name              decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {              locateRule {                type                item {                  ... on Token {                    decimals                  }                  ... on Voucher {                    decimals                  }                }              }              item {                ... on Token {                  decimals                }                ... on Voucher {                  decimals                }              }              amount            }            totalAddresses            totalAirdropAmount                      }        }      }    }","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"10000000000000000000"},"itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"100000000000000000"}]}}}
    ```
 
-   
+  **create airdrop mission**
+    ```
+   operations: {"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxMDg=","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}
+   ```
 
  - Using cURL
-
+    **locate airdrop target**
     ```sh
     curl --request POST \
          --url https://test.fstk.io/api \
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
          --cookie locale=en \
-         --form 'operations={"query":"mutation publishVoucher(input: PublishVoucherInput!) {          publishVoucher(input: input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"TEST11","symbol":"STIC_TEST11","consumable":false,"totalSupply":"1234","price":{"numerator":"123000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"for the test","proofOfContract":null,"por":"DISABLE"}}}' \
-         --form 'map={"proofOfContract":["variables.input.proofOfContract"]}' \
-         --form proofOfContract='@/path/to/the/pdf'
+         --form 'operations={"query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id          airdropItem {            ... on Token {              id              name              decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {              locateRule {                type                item {                  ... on Token {                    decimals                  }                  ... on Voucher {                    decimals                  }                }              }              item {                ... on Token {            decimals             }           ... on Voucher {                  decimals                }              }              amount            }            totalAddresses            totalAirdropAmount                      }        }      }    }","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"10000000000000000000"},"itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"100000000000000000"}]}}}' \
+    ```
+    **create airdrop mission**
+    ```sh
+    curl --request POST \
+         --url https://test.fstk.io/api \
+         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
+         --cookie locale=en \
+         --form 'operations={"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxMDg=","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}' \
     ```
 
  - Response
