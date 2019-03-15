@@ -66,7 +66,7 @@
            "consumable": false,
            "totalSupply": "1000",
            "price": {
-             "numerator": "1000000000000000000",
+             "numerator": "2000000000000000000000",
              "denominator": "1"
            },
            "expiry": "1577807999000",
@@ -103,7 +103,7 @@
    > multipart/form-data 之總結為
 
    ```
-   operations: {"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"1000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}
+   operations: {"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"2000000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}
    map: {"proofOfContract":["variables.input.proofOfContract"]}
    proofOfContract: (binary)
    ```
@@ -117,7 +117,7 @@
          --url https://test.fstk.io/api \
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
          --cookie locale=en \
-         --form 'operations={"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"1000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}' \
+         --form 'operations={"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"2000000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}' \
          --form 'map={"proofOfContract":["variables.input.proofOfContract"]}' \
          --form proofOfContract='@/path/to/the/pdf'
     ```
