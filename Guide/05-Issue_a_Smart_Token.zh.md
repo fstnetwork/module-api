@@ -157,7 +157,7 @@
     ```json   
     { 
       "data": {
-        "publishVoucher": null
+        "issueToken": null
       },
       "errors": [....]
     }
