@@ -1,19 +1,24 @@
 # Create a Campaign
 
-[> Will be released soon !](> 在此章節中，您將學習到如何通過 FsTK API 發布一個智能使用券 (子帳本)
+> 在此章節中，您將學習到如何通過 FsTK API 建立 Smart Voucher Campaign 及讓消費者快速購入 Smart Voucher
 
-> Smart Voucher (智能使用券) 為開啟母帳本 (Smart Token) 之子應用所需的子帳本，  
-> 也就是說，每個服務或產品，或甚至是身分認證都各可以發布出各自的 Smart Voucher
+> Campaign 為販售 Smart Token/Voucher 的販賣機，您可以設定欲販售之 Smart Token/Voucher、販售期間、販售量、以及本次販售期間的價格，讓消費者透過此管道購買 Smart Token/Voucher。
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode the Transaction (create Smart Token/Voucher campaign)
+ 2. Encode the Transaction (creating smart voucher campaign)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
  6. Confirm the Ethereum Transaction
- 7. Confirm the Smart Voucher
+ 7. Confirm the Campaign
+ 8. Transfer SMart Token to the Campaign to obtain Smart Voucher
+    1. Encode the Transaction (transferring smart token to voucher campaign)
+ 9.  Check the progress of the Campaign
+ 10. Finalize the Campaign
+     1.  Prerequisite
+     2.  Encode the Transaction (finalizing campaign)
 
 ## Prerequisite
 
@@ -42,7 +47,7 @@
 
  6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
 
- 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (最少 600 FST Service Gas)
+ 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (建立 campaign 需 500 FST Service Gas)，建立後若取消則不退回 FST Service Gas
 
  8. 已經成為 Issuer (Token 發行者)，請至 `get me` 中的 `token` 確認
 
@@ -50,47 +55,25 @@
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
+ > 以下繼續以 FST Sport Shop 作為範例
+   
+    聖誕節即將來臨，FST Sport Shop 為了讓常客能得到更多的優惠，將推出一款聖誕節特賣福袋 Smart Voucher (FSST_19FXSV)，消費者可使用所持有的 FST Sport Shop Token 購買此聖誕活動所推出的 FSST_19FXSV，此 FSST_19FXSV 將限量發行 1000 張，售價為此 FSST_19FXSV 的定價。而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。
+
  - Using multipart/form-data
 
    > operations 裡放入 GraphQL query 以及 GraphQL variables
 
+
+
    - operations detail
 
-    **create a Smart Token Campaign**
-    ```json
-    {
-        "query": "mutation CreateCampaign($input: CreateCampaignInput!) {    createCampaign(input: $input) {     transaction     submitToken        hash        }       }",
-        "variables": {
-            "input":{
-                "id":"VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10=",
-                "name":"2019 First Token Sale.",
-                "description":"This the first Token sale of FSST in 2019.",
-                "stages":[
-                    {
-                        "name":"2019 First Token Sale.",
-                        "startTime":"1546300800000",
-                        "endTime":"1553990400000",
-                        "priceMultiplier":{
-                            "numerator":"9",
-                            "denominator":"10"
-                        },
-                        "cap":"9999999000000000000000000",
-                        "isPrivate":false,
-                        "description":"This the first Token sale of FSST in 2019."
-                    }
-                ],
-                "por":"DISABLE"
-            }
-        }
-    }
-    ```
     **create a Smart Voucher Campaign**
     ```json
     {
         "query": "mutation CreateCampaign($input: CreateCampaignInput!) {    createCampaign(input: $input) {     transaction     submitToken        hash        }       }",
         "variables": {
             "input":{
-                "id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=",
+                "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
                 "name":"2019 Christmas Voucher Sale.",
                 "description":"This is the 2019 Christmas Voucher Sale.",
                 "stages":[
@@ -112,78 +95,50 @@
         }
     }
     ```
-    **buy Smart Token/Voucher**
-    ```json
-    {
-        "query": "mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }",
-        "variables": {
-            "input": {
-                "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
-                "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
-                "value": "100000000000000000000",
-                "por": "DISABLE"
-            }
-        }
-    }
-    ```
+     - `id` 為所欲販賣之 Smart Token/Voucher 於 FsTK 系統所記錄之 ID。可於 `get me` 中的 `token` 取得
 
-     - `id` 為欲販售之 Smart Token 於 FsTK 所記錄之 ID
+     - `name` 此 Campaign 的名稱，至少 1 字元，至多 20 字元
   
-     - `name` 為此 Smart Token Campaign 的名稱
+     - `description` 此 Campaign 的描述或說明
+
+     - `stages` 此 Camapaign 的階段，目前一個 Campaign 僅有一個 stage
   
-     - `description` 為此 Smart Token Camapign 之相關描述
+       - `name` 此 Stage 的名稱，至少 1 字元，至多 20 字元
+
+       - `startTime` 此 Stage 的開始時間，需為 Unix Timestamp in Milliseconds 格式
+    
+       - `endTime` 此 Stage 的結束時間，需為 Unix Timestamp in Milliseconds 格式
+
+       - `priceMultiplier` 此 Stage 中欲販售 Smart Token/Voucher 的價格之乘數，若
   
-     - `stages`
+         - `numerator`
+
+         - `denominator`
   
-       - `name`
+       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，為 Decimaled Number
+
+       - `isPrivate` 此 Stage 是否為私密販售
   
-       - `startTime`
+       -  `description` 此 Stage 的描述或說明
+
+
 
    > multipart/form-data 之總結為
-
-   **Smart Token Campaign**
-   ```
-   operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"id":"VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10=","name":"2019 First Token Sale.","description":"This the first Token sale of FSST in 2019.","stages":[{"name":"2019 First Token Sale.","startTime":"1546300800000","endTime":"1553990400000","priceMultiplier":{"numerator":"9","denominator":"10"},"cap":"9999999000000000000000000","isPrivate":false,"description":"This the first Token sale of FSST in 2019."}],"por":"DISABLE"}}}
-   ```
    
-   **Smart Voucher Campaign**
    ```
    operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"input":{"id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}
-   ```
-
-   **buy Smart Token/Voucher**
-   ```
-   operations: {"query":"mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"100000000000000000000","por":"DISABLE"}}}
    ```
    
 
  - Using cURL
 
-    **Smart Token Campaign**
     ```sh
     curl --request POST \
-         --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
-         --cookie locale=en \
-         --form 'operations={"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"id":"VG9rZW46bMKMwrsEwrHCphHDqMKLEXPDrMO5w7vCp10=","name":"2019 First Token Sale.","description":"This the first Token sale of FSST in 2019.","stages":[{"name":"2019 First Token Sale.","startTime":"1546300800000","endTime":"1553990400000","priceMultiplier":{"numerator":"9","denominator":"10"},"cap":"9999999000000000000000000","isPrivate":false,"description":"This the first Token sale of FSST in 2019."}],"por":"DISABLE"}}}'
-    ```
-
-    **Smart Voucher Campaign**
-    ```sh
-    curl --request POST \
-         --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
-         --cookie locale=en \
-         --form 'operations={"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"input":{"id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}'
-    ```
-
-    **buy Smart Token/Voucher**
-    ```sh
-    curl --request POST \
-         --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
-         --cookie locale=en \
-         --form 'operations={"query":"mutation transferFIL ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"100000000000000000000","por":"DISABLE"}}}'
+        --url https://dev.fstk.io/api \
+        --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+        --header 'content-type: application/json' \
+        --cookie locale=en \
+        --data '{"query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n  createCampaign(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}'
     ```
 
  - Response
@@ -191,26 +146,26 @@
     ```json
     {
       "data": {
-        "publishVoucher": {
-          "hash": "0x23401ea4495b56555440e95a3faf1c07209753896bc305f05806b8d8b3fe2e5b",
+        "createCampaign": {
           "transaction": {
-            "nonce": "0x10f",
+            "nonce": "0x5",
             "gasPrice": "0x3b9aca00",
-            "gas": "0x480eb3",
-            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
+            "gas": "0x165b83",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
             "value": "0x0",
-            "data": "0x4000aea0000000000000000000000000d6aebbbd0af65107a8d3dfe362f322bf4c8e1bcf0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002a4459ee93a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000004d20000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000005e0b707f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c25821bf51fafd2d16801a2837d87af840446129000000000000000000000000000000000000000000000006aaf7c8516d0c00000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000065445535431310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b535449435f54455354313100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000632f697066732f7a4275724b384865537174365a656f634d50726363435654366d4357447152595535615137785453377a787645574841354746764e4752656f7564336263444675475755354c39716932533672417061526d6650314a68416333736633000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "data": "0x4000aea00000000000000000000000003a6ca60e8f13492e64e6ff1a536a77f9786c049d00000000000000000000000000000000000000000000000000000000000003e8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001246f40b1c90000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000082e82d99a274625c3ec061393b6c43a932d0a274000000000000000000000000000000000000000000000000000000005d929700000000000000000000000000000000000000000000000000000000005de1b10000000000000000000000000000000000000000000000000000000000000003e800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "chainId": 42
           },
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6InB1Ymxpc2hWb3VjaGVyIiwidHgiOiIrUU5zZ2dFUGhEdWF5Z0NEU0E2emxBRGk5REtaOVJSWGsxTXpydmJKVnJJMCtrZUJnTGtEUkVBQXJxQUFBQUFBQUFBQUFBQUFBQURXcnJ1OUN2WlJCNmpUMytOaTh5Sy9USTRiendBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUNwRVdlNlRvQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQndBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVRTQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFnQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFYZ3R3ZndBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBd2xnaHYxSDYvUzBXZ0Jvb045aDYrRUJFWVNrQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQWFxOThoUmJRd0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUVBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJsUkZVMVF4TVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBdFRWRWxEWDFSRlUxUXhNUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmpMMmx3Wm5NdmVrSjFja3M0U0dWVGNYUTJXbVZ2WTAxUWNtTmpRMVpVTm0xRFYwUnhVbGxWTldGUk4zaFVVemQ2ZUhaRlYwaEJOVWRHZGs1SFVtVnZkV1F6WW1ORVJuVkhWMVUxVERseGFUSlRObkpCY0dGU2JXWlFNVXBvUVdNemMyWXpBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBS29DQSIsImluZm8iOnsidG9rZW5JZCI6IsKiXHUwMDEwOcOWXHUwMDFlw6NcdTAwMTHDqcKeXHUwMDFhXHUwMDBmSirDgMK1XHUwMDAzIiwibmFtZSI6eyJlbiI6IlRFU1QxMSJ9LCJzeW1ib2wiOiJTVElDX1RFU1QxMSIsInRvdGFsU3VwcGx5IjoiMTIzNCIsIm1ldGFkYXRhIjoiQWJVZmVCQXFlVkJ4RTY2Z0E5VG1uRHBqQzVIQ2dFS0ZRWk9BazN0UHpJMUJoTUZRTFZDZHdQc252R3BKUTdMNmVsUkRDSlFvRVROR3hIT1Via04wbWhNNFhIcEciLCJsaXF1aWQiOnRydWUsImFwcHJvdmVDaGVja2luZyI6ZmFsc2UsImV4cGlyeSI6MTU3NzgwNzk5OTAwMCwiY29uc3VtYWJsZSI6ZmFsc2UsInByaWNlIjp7Im51bWVyYXRvciI6IjEyMzAwMDAwMDAwMDAwMDAwMDAwMCIsImRlbm9taW5hdG9yIjoiMSJ9LCJ2ZW5kaWJsZSI6dHJ1ZSwiZGVzY3JpcHRpb24iOnsiZW4iOiJmb3IgdGhlIHRlc3QifX0sImlhdCI6MTU1MDU2MjQ5NywiZXhwIjoxNTUwNTYzMDk3LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.lPsuWvPyTNcZaa_kXrLzlDKb50j7LOOtSKuvjsXWH8Bfg2YmGNEXaLclFIeBBySXIXfScTrCinbtdd7C9Y4fnQ"
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY3JlYXRlVG9rZW5DYW1wYWlnbiIsInR4IjoiK1FIcUJZUTdtc29BZ3haYmc1UVZYZW9JU3RGUTJBNVd0M1J0MVZBL3pWMzZkNEM1QWNSQUFLNmdBQUFBQUFBQUFBQUFBQUFBT215bURvOFRTUzVrNXY4YVUycDMrWGhzQkowQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUQ2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBU1J2UUxISkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSUxvTFptaWRHSmNQc0JoT1R0c1E2a3kwS0owQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUYyU2x3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFYZUd4QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUG9BQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJ0b2tlbklkIjoiw4vDnGzCilx1MDAxYS5cdTAwMTHDqcK6O8OHa0PCoCDDpyIsIm5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJzdGFnZXMiOlt7Im5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJpc1ByaXZhdGUiOmZhbHNlLCJzdGFydFRpbWUiOiIxNTY5ODg4MDAwMDAwIiwiZW5kVGltZSI6IjE1NzUwNzIwMDAwMDAiLCJjYXAiOiIxMDAwIiwicHJpY2VNdWx0aXBsaWVyIjp7Im51bWVyYXRvciI6IjEiLCJkZW5vbWluYXRvciI6IjEifX1dfSwiaWF0IjoxNTUyNTUwNDQyLCJleHAiOjE1NTI1NTEwNDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.q4trW2Xi1lWus2Liip-Uqe9oWj5yLc-bKFOFypU0gc5Bz1Hzy7Etk7IA_AmaPxdMBAvdoqz9FQSFL5aIkavXtg",
+          "hash": "0x61ae5ed106e85eead3a328cb6e287310e5e93ed939d1fade70c37e126dad9576"
         }
-      },
+      }
     }
     ```
 
-    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，create a campaign 需要花費 500 FST Service Gas，
+    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，create a campaign 需要花費 500 FST Service Gas
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
+    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下送出簽署後的結果時需用到
 
     > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
 
@@ -218,7 +173,7 @@
     ```json   
     { 
       "data": {
-        "publishVoucher": null
+        "createCampaign": null
       },
       "errors": [....]
     }
@@ -548,7 +503,161 @@
 
     > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
 
-## Confirm the Smart Voucher
+## Confirm the Campaign
 
- > 請查看 `get me` 中的 `token.vouchers` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
+ > 請查看 `get me` 中的 `campaigns` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
 )
+
+## Transfer Smart Token to the Campaign to obtain Smart Voucher
+### Encode the Transaction (transferring smart token to voucher campaign)
+
+  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+  > 使用者購買 Smart Voucher 時，issuer 需支付 0.15 FST Service Gas / per Smart Voucher 作為手續費
+  
+  > 以下繼續以 FST Sport Shop 作為範例：
+
+    FST Sport Shop 開始透過 Campaign 販售 FSST_19FXSV 後，消費者可透過傳送 Smart Token (FSST) 至該 Campaign 的 address，Campaign 會回傳消費者所購得的 FSST_19FXSV 至消費者傳送 FSST 的帳戶。
+
+ - Using multipart/form-data
+
+   > operations 裡放入 GraphQL query 以及 GraphQL variables
+
+   - operations detail
+
+    ```json
+    {
+        "query": "mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }",
+        "variables": {
+            "input": {
+                "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+                "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+                "value": "2000000000000000000000",
+                "por": "DISABLE"
+            }
+        }
+    }
+    ```
+
+     - `id` 為所欲傳送的 Smart Token 之 ID。可於 `getSmartTokenBalance` 中取得
+
+     - `to` 販售 FSST_19FXSV 的 Campaign 的 address
+
+     - `value` 欲傳送的數量，若 FSST_19FXSV 價格為 `2000` FSST，則`value = 2000000000000000000000`
+
+    > multipart/form-data 之總結為
+    ```
+    operations: {"query":"mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}}}
+    ```
+
+  - Using cURL
+    
+    ```sh
+    curl --request POST \
+         --url https://test.fstk.io/api \
+         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
+         --cookie locale=en \
+         --form 'operations={"query":"mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}}}'
+    ```
+
+  - Response
+
+    ```json
+    {
+      "data": {
+        "erc20Transfer": {
+          "transaction": {
+            "nonce": "0x5",
+            "gasPrice": "0x3b9aca00",
+            "gas": "0xf2c2",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
+            "value": "0x0",
+            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
+            "chainId": 42
+          },
+          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+        }
+      }
+    }
+    ```
+
+## Check the progress of the Campaign
+
+> 您可以從 `getAllCampaignInfo` API 中，取得所有 Campaign 的 `cap` 及 `sold`，以了解您的 Campaign 銷售進度 (請參考 [API_Reference/Campaign/getAllCampaignInfo](../API_Reference/getAllCampaignInfo.md))
+
+## Finalize the Campaign
+### Prerequisite
+
+> 創建 Smart Voucher Campaign 後，可分為三個階段：開始販售前、販售期間、販售結束後，在此三個階段結束 Campaign 分別有不同的結果
+
+1. 開始販售前 (now < `startTime`)：issuer 取消販售，並取回未賣出的 Smart Voucher。
+2. 販售期間 (`startTime` < now < `endTime`)：若未售完，issuer 無法取消及取回剩餘的 Smart Voucher 及所賺得的 Smart Token；若在販售期間售完，issuer 則可提前取回所賺得的 Smart Token
+3. 販售結束後 (`endTime` < now)：issuer 可取回未賣出的 Smart Voucher 及所賺得的 Smart Token
+
+<!-- different result when finalize in different state  -->
+### Encode the Transaction (finalizing campaign)
+  
+  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+  > 以下繼續以 FST Sport Shop 作為範例：
+
+    FST Sport Shop 所販售的 FSST_19FXSV 於販售期間熱銷一空，FST Sport Shop 欲將所賺得的 FSST 從 Campaign 販賣機中領出，可使用 `finalizeSmartVoucherCampaign` API 結束本次販售。
+   
+   - Using multipart/form-data
+
+   > operations 裡放入 GraphQL query 以及 GraphQL variables
+
+   - operations detail
+
+    ```json
+    {
+        "query": "mutation CloseCampaign($input: CloseCampaignInput!) {  closeCampaign(input: $input) {  transaction  hash  submitToken  }  }",
+        "variables": {
+            "input": {
+                "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+                "por": "DISABLE"
+            }
+        }
+    }
+    ```
+     - `id` 為欲關閉的 Campaign ID。可於 `getAllCampaignInfo` 中取得
+
+
+    > multipart/form-data 之總結為
+    ```
+    operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {  closeCampaign(input: $input) {  transaction  hash  submitToken  }  }","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}}}
+    ```
+
+  - Using cURL
+    
+    ```sh
+    [curl --request POST \
+         --url https://dev.fstk.io/api \
+         --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjMxNDA1LCJleHAiOjE1NTI3MTc4MDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.O7_DG_z-sMdWjkzsxXvJKPjY9N5QQccvp9sG24E8nJkxCIQNTEMyJ1R7sZvKltPhz3L-UEyHtHzXft7920pxpw' \
+         --header 'content-type: application/json' \
+         --cookie locale=en \
+         --data '{"query":"mutation CloseCampaign(input: CloseCampaignInput!) {\n  closeCampaign(input: input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}},"operationName":"CloseCampaign"}')
+    ```
+
+  - Response
+
+    ```json
+    {
+      "data": {
+        "erc20Transfer": {
+          "transaction": {
+            "nonce": "0x5",
+            "gasPrice": "0x3b9aca00",
+            "gas": "0xf2c2",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
+            "value": "0x0",
+            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
+            "chainId": 42
+          },
+          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+        }
+      }
+    }
+    ```
