@@ -1,19 +1,20 @@
 # Create an Airdrop Mission
 
-[> Will be released soon !](> 在此章節中，您將學習到如何通過 FsTK API 發布一個智能使用券 (子帳本)
-
-> Smart Voucher (智能使用券) 為開啟母帳本 (Smart Token) 之子應用所需的子帳本，  
-> 也就是說，每個服務或產品，或甚至是身分認證都各可以發布出各自的 Smart Voucher
+> 在此章節中，您將學習如何透過 FsTK API 建立 Airdrop，您可以建立規則卡，擷取出在 FsTK Engine 中所有符合規則的帳戶進行空投。
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode the Transaction (publishing smart voucher)
+ 2. Encode the Transaction (creating airdrop)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
  6. Confirm the Ethereum Transaction
- 7. Confirm the Smart Voucher
+ 7. Confirm the Airdrop mission
+ 8. Check the progress of Airdrop mission
+ 9. Finalize the Airdrop mission
+    1.  Prerequisite
+    2.  Encode the Transaction (finalizing airdrop mission)
 
 ## Prerequisite
 
@@ -42,13 +43,18 @@
 
  6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
 
- 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (最少 600 FST Service Gas)
+ 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (最少 90 FST Service Gas)
 
  8. 已經成為 Issuer (Token 發行者)，請至 `get me` 中的 `token` 確認
 
-## Encode the Transaction (publishing smart voucher)
+## Encode the Transaction
+### Create Airdrop Locate
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+ > 以下繼續以 FST Sport Shop 作為範例：
+   
+    FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FFST 將額外獲得 1 FFST 作為回饋，擁有 22 FFST 將額外獲得 2 FFST，擁有 35 FFST 將額外獲得 3 FFST，依此類推。
 
  - Using multipart/form-data
 
@@ -56,21 +62,20 @@
 
    - operations detail
 
-    **locate airdrop target**
      ```json
      {
-       "query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id         airdropItem {         ... on Token {          id          name          decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {          locateRule {                type         item {                  ... on Token {                    decimals           }            ... on Voucher {         decimals         }        }        }         item {         ... on Token {            decimals        }        ... on Voucher {          decimals        }          }          amount         }            totalAddresses         totalAirdropAmount       }       }      }     }",
+       "query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id         airdropItem {         ... on Token {          id          name          decimals            }          ... on Voucher {          id          name           decimals           }          }          totalAddresses          totalAirdropAmount          summary {            rule {          locateRule {                type         item {                  ... on Token {                    decimals           }            ... on Voucher {         decimals         }        }        }         item {         ... on Token {            decimals        }        ... on Voucher {          decimals        }          }          amount         }            totalAddresses         totalAirdropAmount       }       }      }     }",
        "variables": {
          "input":{  
           "rules":[
             {  
               "rule":{
                 "type":"EVERY",
-                "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+                "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
                 "amount":"10000000000000000000"
               },
-              "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
-              "amount":"100000000000000000"
+              "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+              "amount":"1000000000000000000"
             }
           ]
          }
@@ -78,28 +83,112 @@
      }
      ```
 
-     - `rules` 為本次活動的所有空投規則，可有多個，每個空投規則之間無關聯。
+     - `rules` 為本次活動的所有空投規則，可有多個規則，每個空投規則之間無關聯。
 
        - `rule` 空投規則
 
-         - `type` 有 `EVERY` 及 `AT_LEAST` 兩種，EVERY means every condition will be counted for giveaway item calculation. e.g. If qualification is set to be 'every' 1 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 10 FVoucher through this airdrop event. AT_LEAST means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. e.g. If qualification is set to be 'at least' 5 FST can receive 1 FVoucher, a funder who owns 10 FST can receive 1 FVoucher through this airdrop event.
+         - `type` 有 `EVERY` 及 `AT_LEAST` 兩種。`EVERY` 代表「每...可得...」，例如：每 10 Smart Token 可得 1 Smart Voucher，則有一消費者有 25 Smart Token，該消費者可得 2 Smart Voucher。 `AT_LEAST` 代表「至少...可得...」，例如：至少擁有 10 Smart Token 可獲得 1 Smart Voucher，則有一消費者擁有 25 Smart Token，該消費者可得 1 Smart Voucher。
 
-         - `itemId` 所訂定之規則的資產ID
+         - `itemId` 所訂定之規則的資產 ID
 
-         - `amount` 所訂定之規則的資產數量。The format is Decimaled Number.
+         - `amount` 所訂定之規則的資產數量。格式為 Decimaled Number
      
-       - `itemId` 符合規則所能獲得的資產之ID
+       - `itemId` 符合規則所能獲得的資產之 ID
 
-       - `amount` 符合規則所能獲得的資產之數量。The format is Decimaled Number.
+       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimaled Number
 
-    **create airdrop mission**
+   > multipart/form-data 之總結為
+
+   ```
+   operations: {"query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id          airdropItem {            ... on Token {              id              name              decimals            }            ... on Voucher {              id              name              decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {              locateRule {                type                item {                  ... on Token {                    decimals                  }                  ... on Voucher {                    decimals                  }                }              }              item {                ... on Token {                  decimals                }                ... on Voucher {                  decimals                }              }              amount            }            totalAddresses            totalAirdropAmount                      }        }      }    }","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"10000000000000000000"},"itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"100000000000000000"}]}}}
+   ```
+
+ - Using cURL
+
+    ```sh
+    curl --request POST \
+         --url https://dev.fstk.io/api \
+         --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
+         --header 'content-type: application/json' \
+         --cookie locale=en \
+         --data '{"query":"mutation createAirdropLocate(input: createAirdropLocateInput!) {\n  createAirdropLocate(input: input) {\n    airdropLocate {\n      seqno: id\n      airdropItem {\n        ... on Token {\n          id\n          name\n          decimals\n        }\n        ... on Voucher {\n          id\n          name\n          decimals\n        }\n      }\n      totalAddresses\n      totalAirdropAmount\n      summary {\n        rule {\n          locateRule {\n            type\n            item {\n              ... on Token {\n                decimals\n              }\n              ... on Voucher {\n                decimals\n              }\n            }\n          }\n          item {\n            ... on Token {\n              decimals\n            }\n            ... on Voucher {\n              decimals\n            }\n          }\n          amount\n        }\n        totalAddresses\n        totalAirdropAmount\n      }\n    }\n  }\n}\n","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","amount":"10000000000000000000"},"itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","amount":"1000000000000000000"}]}},"operationName":"createAirdropLocate"}'\
+    ```
+
+ - Response
+
+    ```json
+    {
+      "data": {
+        "createAirdropLocate": {
+          "airdropLocate": {
+            "seqno": "QWlyZHJvcExvY2F0ZToxNA==",
+            "airdropItem": {
+              "id": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+              "name": "FST Sport Shop Token",
+              "decimals": "18"
+            },
+            "totalAddresses": "0",
+            "totalAirdropAmount": "0",
+            "summary": [
+              {
+                "rule": {
+                  "locateRule": {
+                    "type": "EVERY",
+                    "item": {
+                      "decimals": "18"
+                    }
+                  },
+                  "item": {
+                    "decimals": "18"
+                  },
+                  "amount": "1000000000000000000"
+                },
+                "totalAddresses": "0",
+                "totalAirdropAmount": "0"
+              }
+            ]
+          }
+        }
+      }
+    }
+    ```
+
+    > 建立規則卡無需花費 FST Service Gas
+
+    > 此 API 若執行成功，表示您所建立的規則已經被記錄於 FST Network 的資料庫中，您可重複使用此 Locate 來進行 Airdrop。**請務必記錄您自訂的規則之 `seqno`，目前 FST Network 暫不提供查詢此值。**
+
+    > 而假如收到類似  
+    ```json   
+    { 
+      "data": {
+        "createAirdropLocate": null
+      },
+      "errors": [....]
+    }
+    ```  
+    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+
+### Create Airdrop Mission
+
+ > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+ > 下方以 FST Sport Shop 作為範例：
+
+    FST Sport Shop 的週年慶即將來臨，預備進行每年週年慶的大撒幣活動，本次活動預算為 100,000 FSST。
+
+ - Using multipart/form-data
+
+   > operations 裡放入 GraphQL query 以及 GraphQL variables
+
+   - operations detail
+
     ```json
      {
-       "query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }",
+       "query":"mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        transaction        submitToken      hash      }    }",
        "variables":{  
         "input":{  
-          "listId":"QWlyZHJvcExvY2F0ZToxMDg=",
-          "itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/",
+          "listId":"QWlyZHJvcExvY2F0ZToxNA==",
+          "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
           "budget":"100000000000000000000000",
           "invokeTime":"1569888000000",
           "por":"DISABLE"
@@ -108,34 +197,29 @@
     }
     ```
 
-   > form-data 之總結為
+     - `listId` 於上一步驟您所獲得的 `seqno` 值，也就是您所要使用的規則卡 ID
 
-  **locate airdrop target**
-   ```
-   operations: {"query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id          airdropItem {            ... on Token {              id              name              decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {              locateRule {                type                item {                  ... on Token {                    decimals                  }                  ... on Voucher {                    decimals                  }                }              }              item {                ... on Token {                  decimals                }                ... on Voucher {                  decimals                }              }              amount            }            totalAddresses            totalAirdropAmount                      }        }      }    }","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"10000000000000000000"},"itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"100000000000000000"}]}}}
-   ```
+     - `itemId` 您所要空投的 Smart Token/Voucher ID
 
-  **create airdrop mission**
+     - `budget` 您所要空投的預算，若空投執行時，預算不足，則會空投失敗
+
+     - `invokeTime` 開始空投的時間
+
+
+   > multipart/form-data 之總結為
+
     ```
-   operations: {"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxMDg=","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}
-   ```
+    operations: {"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        transaction        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxNA==","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}
+    ```
 
  - Using cURL
-    **locate airdrop target**
+
     ```sh
     curl --request POST \
          --url https://test.fstk.io/api \
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
          --cookie locale=en \
-         --form 'operations={"query": "mutation createAirdropLocate($input: createAirdropLocateInput!) {      createAirdropLocate(input: $input) {        airdropLocate {          seqno: id          airdropItem {            ... on Token {              id              name              decimals            }          }          totalAddresses          totalAirdropAmount          summary {            rule {              locateRule {                type                item {                  ... on Token {                    decimals                  }                  ... on Voucher {                    decimals                  }                }              }              item {                ... on Token {            decimals             }           ... on Voucher {                  decimals                }              }              amount            }            totalAddresses            totalAirdropAmount                      }        }      }    }","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"10000000000000000000"},"itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","amount":"100000000000000000"}]}}}' \
-    ```
-    **create airdrop mission**
-    ```sh
-    curl --request POST \
-         --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
-         --cookie locale=en \
-         --form 'operations={"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        pendingTransactions,        transaction,        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxMDg=","itemId":"VG9rZW46woDDssO6wrLCuxERw6jCp3zCqypmwp7CjsO/","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}' \
+         --form 'operations={"query":"    mutation createAirdropMission($input: CreateAirdropMissionInput!) {      createAirdropMission(input: $input) {        transaction        submitToken      hash      }    }","variables":{"input":{  "listId":"QWlyZHJvcExvY2F0ZToxNA==","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","budget":"100000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}}}' \
     ```
 
  - Response
@@ -143,26 +227,28 @@
     ```json
     {
       "data": {
-        "publishVoucher": {
-          "hash": "0x23401ea4495b56555440e95a3faf1c07209753896bc305f05806b8d8b3fe2e5b",
+        "createAirdropMission": {
           "transaction": {
-            "nonce": "0x10f",
+            "nonce": "0x5",
             "gasPrice": "0x3b9aca00",
-            "gas": "0x480eb3",
-            "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
+            "gas": "0x3bcdd",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
             "value": "0x0",
-            "data": "0x4000aea0000000000000000000000000d6aebbbd0af65107a8d3dfe362f322bf4c8e1bcf0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002a4459ee93a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000004d20000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000005e0b707f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c25821bf51fafd2d16801a2837d87af840446129000000000000000000000000000000000000000000000006aaf7c8516d0c00000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000065445535431310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b535449435f54455354313100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000632f697066732f7a4275724b384865537174365a656f634d50726363435654366d4357447152595535615137785453377a787645574841354746764e4752656f7564336263444675475755354c39716932533672417061526d6650314a68416333736633000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "data": "0x4000aea0000000000000000000000000c01926f281f51ace3291a8dd680b968888f13b4000000000000000000000000000000000000000000000152d02c7e14af680000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000064117d113c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005d92970000000000000000000000000000000000000000000000000000000000",
             "chainId": 42
           },
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6InB1Ymxpc2hWb3VjaGVyIiwidHgiOiIrUU5zZ2dFUGhEdWF5Z0NEU0E2emxBRGk5REtaOVJSWGsxTXpydmJKVnJJMCtrZUJnTGtEUkVBQXJxQUFBQUFBQUFBQUFBQUFBQURXcnJ1OUN2WlJCNmpUMytOaTh5Sy9USTRiendBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUNwRVdlNlRvQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQndBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVRTQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFnQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFYZ3R3ZndBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBd2xnaHYxSDYvUzBXZ0Jvb045aDYrRUJFWVNrQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQWFxOThoUmJRd0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUVBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJsUkZVMVF4TVFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBdFRWRWxEWDFSRlUxUXhNUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmpMMmx3Wm5NdmVrSjFja3M0U0dWVGNYUTJXbVZ2WTAxUWNtTmpRMVpVTm0xRFYwUnhVbGxWTldGUk4zaFVVemQ2ZUhaRlYwaEJOVWRHZGs1SFVtVnZkV1F6WW1ORVJuVkhWMVUxVERseGFUSlRObkpCY0dGU2JXWlFNVXBvUVdNemMyWXpBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBS29DQSIsImluZm8iOnsidG9rZW5JZCI6IsKiXHUwMDEwOcOWXHUwMDFlw6NcdTAwMTHDqcKeXHUwMDFhXHUwMDBmSirDgMK1XHUwMDAzIiwibmFtZSI6eyJlbiI6IlRFU1QxMSJ9LCJzeW1ib2wiOiJTVElDX1RFU1QxMSIsInRvdGFsU3VwcGx5IjoiMTIzNCIsIm1ldGFkYXRhIjoiQWJVZmVCQXFlVkJ4RTY2Z0E5VG1uRHBqQzVIQ2dFS0ZRWk9BazN0UHpJMUJoTUZRTFZDZHdQc252R3BKUTdMNmVsUkRDSlFvRVROR3hIT1Via04wbWhNNFhIcEciLCJsaXF1aWQiOnRydWUsImFwcHJvdmVDaGVja2luZyI6ZmFsc2UsImV4cGlyeSI6MTU3NzgwNzk5OTAwMCwiY29uc3VtYWJsZSI6ZmFsc2UsInByaWNlIjp7Im51bWVyYXRvciI6IjEyMzAwMDAwMDAwMDAwMDAwMDAwMCIsImRlbm9taW5hdG9yIjoiMSJ9LCJ2ZW5kaWJsZSI6dHJ1ZSwiZGVzY3JpcHRpb24iOnsiZW4iOiJmb3IgdGhlIHRlc3QifX0sImlhdCI6MTU1MDU2MjQ5NywiZXhwIjoxNTUwNTYzMDk3LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.lPsuWvPyTNcZaa_kXrLzlDKb50j7LOOtSKuvjsXWH8Bfg2YmGNEXaLclFIeBBySXIXfScTrCinbtdd7C9Y4fnQ"
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY3JlYXRlQWlyZHJvcE1pc3Npb24iLCJ0eCI6IitRRXFCWVE3bXNvQWd3TzgzWlFWWGVvSVN0RlEyQTVXdDNSdDFWQS96VjM2ZDRDNUFRUkFBSzZnQUFBQUFBQUFBQUFBQUFBQXdCa204b0gxR3M0eWthamRhQXVXaUlqeE8wQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRlMwQ3grRks5b0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUdRUmZSRThBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJka3BjQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJsaXN0VHlwZSI6IkFpcmRyb3BMb2NhdGUiLCJsaXN0SWQiOiIxNCIsImVzY3Jvd2JveEFkZHJlc3MiOiIweGMwMTkyNkYyODFmNTFhY0UzMjkxQThERDY4MGI5Njg4ODhmMTNiNDAiLCJ1c2VyQWRkcmVzcyI6IjB4YjAyMzZmOWE2YTFjZDhjZjE3MjUxYTEzMDY1MWUwYmU4ZmIwMGUyNyIsIml0ZW1JZCI6IsOLw5xswopcdTAwMWEuXHUwMDExw6nCujvDh2tDwqAgw6ciLCJpdGVtVHlwZSI6IlRva2VuIiwiaXRlbUFkZHJlc3MiOiIweDE1NWRlYTA4NGFkMTUwZDgwZTU2Yjc3NDZkZDU1MDNmY2Q1ZGZhNzciLCJidWRnZXQiOiIxNTJkMDJjN2UxNGFmNjgwMDAwMCIsImludm9rZVRpbWUiOjE1Njk4ODgwMDAwMDB9LCJpYXQiOjE1NTI2NDMzNDcsImV4cCI6MTU1MjY0Mzk0NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.sNiKKRzd3dlhiwUtWGtKMwljp9SK3t45jv4SfNmYrnK0E4cwO3cQEkAG44tzDInwUHYsy5IRC9b2r1UCCnKcwA",
+          "hash": "0xb5793d750f840d76a8de0800a3a913dd59da56d05f51f0f15c41bc0cd554eab1"
         }
-      },
+      }
     }
     ```
 
-    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，欲查詢可透過 `Smart Voucher 發行量 * 有效天數 * 0.00003 FST Service Gas` 的方式計算，未達 600 則算為 600 FST Service Gas
+    > Create Airdrop Mission 需消耗 90 FST Service Gas，若取消 Airdrop 則不退回 FST Service Gas。
+
+    > issuer 需花費 0.3 FST Service Gas / per funder。前 300 人可由 Create Airdrop Mission 時所支付的 90 FST Service Gas 抵掉，一次空投超過 300 人，每多一人收取 0.3 FST Service Gas。
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下將簽署後的結果送出時將需要
+    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，也請保留 `submitToken`，將在下一步送出簽署結果時使用
 
     > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
 
@@ -170,12 +256,13 @@
     ```json   
     { 
       "data": {
-        "publishVoucher": null
+        "createAirdropMission": null
       },
       "errors": [....]
     }
     ```  
     > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+
 
 ## Decrypt the Ethereum Key JSON
 
@@ -500,7 +587,185 @@
 
     > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
 
-## Confirm the Smart Voucher
+## Confirm the Airdrop mission
 
- > 請查看 `get me` 中的 `token.vouchers` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
-)
+ > 可從 `getAirdropMissionInfo` 中取得您所有 Airdrop 的資訊 (詳情請參考 [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md))
+
+       
+## Check the progress of Airdrop mission
+> 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+ - Using multipart/form-data
+
+   > operations 裡放入 GraphQL query 以及 GraphQL variables
+
+   - operations detail
+
+     ```json
+     {
+       "query": "query{       airdropHistory{         edges{           node{             id             method{               listType               listId               targets             }           item{             ... on Token{               id               name             }              ... on Voucher{               id          name             }           }           budget           status           totalAirdropAmount           totalAddresses           isClaimed           usedBudget           createTime           invokeTime           }         }       }     }"
+     }
+     ```
+
+   > multipart/form-data 之總結為
+
+   ```
+   operations: {"query": "query{       airdropHistory{         edges{           node{             id             method{               listType               listId               targets             }           item{             ... on Token{               id               name             }              ... on Voucher{               id          name             }           }           budget           status           totalAirdropAmount           totalAddresses           isClaimed           usedBudget           createTime           invokeTime           }         }       }     }"}
+   ```
+
+ - Using cURL
+
+    ```sh
+    curl --request POST \
+        --url https://dev.fstk.io/api \
+        --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
+        --header 'content-type: application/json' \
+        --cookie locale=en \
+        --data '{"query":"{\n  airdropHistory {\n    edges {\n      node {\n        id\n        method {\n          listType\n          listId\n          targets\n        }\n        item {\n          ... on Token {\n            id\n            name\n          }\n          ... on Voucher {\n            id\n            name\n          }\n        }\n        budget\n        status\n        totalAirdropAmount\n        totalAddresses\n        isClaimed\n        usedBudget\n        createTime\n        invokeTime\n      }\n    }\n  }\n}\n"}'
+    ```
+
+ - Response
+
+    ```json
+    {
+      "data": {
+        "airdropHistory": {
+          "edges": [
+            {
+              "node": {
+                "id": "QWlyZHJvcE1pc3Npb246Mw==",
+                "method": {
+                  "listType": "AirdropLocate",
+                  "listId": "1",
+                  "targets": {
+                    "filters": [
+                      {
+                        "giveItem": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                        "ruleItem": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                        "ruletype": "EVERY",
+                        "giveAmount": "1000000000000000000",
+                        "ruleAmount": "10000000000000000000"
+                      }
+                    ]
+                  }
+                },
+                "item": {
+                  "id": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                  "name": "FST Sport Shop Token"
+                },
+                "budget": "100000000000000000000000",
+                "status": "PENDING",
+                "totalAirdropAmount": "3000000000000000000",
+                "totalAddresses": "3",
+                "isClaimed": false,
+                "usedBudget": "3000000000000000000",
+                "createTime": "1545405455",
+                "invokeTime": "1545405483"
+              }
+            }
+          ]
+        }
+      }
+    }
+    ```
+
+## Finalize the Airdrop mission
+### Prerequisite
+
+  > 建立 Airdrop 後可分成不同時期，可參考下圖時間軸：
+
+         可取消期                 鎖定期(1 hour)            空投期(1 hour)              釋放期
+  ------------------------|------------------------|------------------------|------------------------>
+                      鎖定時間點               空投執行時間點               空投結束時間點
+
+鎖定時間點：為您創建 Airdrop 時，所設定之執行時間點的前一小時
+空投執行時間點：為您創建 Airdrop 時，所設定之執行時間。僅此時間參數您可自行設定。
+空投結束時間點：為您創建 Airdrop 時，所設定之執行時間點的後一小時
+
+可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
+鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。
+空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
+釋放期：可取回預算之時期。
+
+
+### Encode the Transaction
+ > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+
+ > 以下繼續以 FST Sport Shop 作為範例：
+   
+    空投結束後，FST Sport Shop 於此次空頭有剩餘預算，需進行
+
+ - Using multipart/form-data
+
+   > operations 裡放入 GraphQL query 以及 GraphQL variables
+
+   - operations detail
+
+     ```json
+     {
+       "query": "mutation claimAirdropMission($input: claimAirdropMissionInput!) {        claimAirdropMission(input: $input){          transaction          submitToken      hash        }      }",
+       "variables": {
+         "input":{  
+          "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+          "por":"DISABLE"
+         }
+       }
+     }
+     ```
+
+     - `missionId` 為您欲關閉之 Airdrop 之 ID
+
+   > multipart/form-data 之總結為
+
+   ```
+   operations: {"query": "mutation claimAirdropMission($input: claimAirdropMissionInput!) {        claimAirdropMission(input: $input){          transaction          submitToken      hash        }      }","variables":{"input":{"missionId":"QWlyZHJvcE1pc3Npb246OTE=","por":"DISABLE"}}}
+   ```
+
+ - Using cURL
+
+    ```sh
+    curl --request POST \
+        --url https://dev.fstk.io/api \
+        --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
+        --header 'content-type: application/json' \
+        --cookie locale=en \
+        --data '{"query":"mutation claimAirdropMission($input: claimAirdropMissionInput!) {\n  claimAirdropMission(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"missionId":"QWlyZHJvcE1pc3Npb246","por":"DISABLE"}},"operationName":"claimAirdropMission"}'
+    ```
+
+ - Response
+
+    ```json
+    {
+      "data":{
+        "claimAirdropMission":{
+          "transaction":{
+            "nonce":"0xef",
+            "gasPrice":"0x3b9aca00",
+            "gas":"0xdb02",
+            "to":"0xc3a86fB0204dCB008372774960400B65Fec3a6b2",
+            "value":"0x0",
+            "data":"0x4677866f000000000000000000000000000000000000000000000000000000000000005b",
+            "chainId":42
+            },
+          "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ",
+          "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69"
+        }
+      }
+    }
+    ```
+
+
+    > 關閉 Airdrop 無需花費 FST Service Gas
+
+    > 此 API 若執行成功，請接續上方三個步驟： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`
+
+    > 而假如收到類似  
+    ```json   
+    { 
+      "data": {
+        "createAirdropLocate": null
+      },
+      "errors": [....]
+    }
+    ```  
+    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
