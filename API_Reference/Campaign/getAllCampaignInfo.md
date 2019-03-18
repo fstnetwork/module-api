@@ -163,8 +163,6 @@ Get all of your campaigns' information.
   - **`id`** \<String!>
     - Your user ID of FsTK Engine. ID is a global identifier.
   - **`campaigns`** \<CampaignConnection>
-     - **`totalCount`** \<Int!>
-        - Total amount of the vouchers.
     - **`pageInfo`** \<PageInfo>
       - _Please refer to [document of GraphQL](https://graphql.org/learn/pagination/)_
     - **`edges`** \<[CampaignEdge]>
@@ -205,7 +203,7 @@ Get all of your campaigns' information.
           - **`description`** \<String!>
             - The campaign stage description.
           - **`sold`** \<String>
-            - Amount of Smart Token/Voucher have sold.
+            - Amount of Smart Token/Voucher have sold. The format is Decimaled Number.
         - **`transactionHash`** \<String!>
           - Transaction hash of the campaign.
         - **`createdTime`** \<String!>
