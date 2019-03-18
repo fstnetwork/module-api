@@ -696,7 +696,7 @@
 
  > 以下繼續以 FST Sport Shop 作為範例：
    
-    空投結束後，FST Sport Shop 於此次空頭有剩餘預算，需進行
+    空投結束後，FST Sport Shop 欲進行清算帳務作業，此次空頭尚有剩餘預算，需關閉空投才可領回剩餘預算。
 
  - Using multipart/form-data
 
