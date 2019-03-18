@@ -59,42 +59,46 @@
    
     聖誕節即將來臨，FST Sport Shop 為了讓常客能得到更多的優惠，將推出一款聖誕節特賣福袋 Smart Voucher (FSST_19FXSV)，消費者可使用所持有的 FST Sport Shop Token 購買此聖誕活動所推出的 FSST_19FXSV，此 FSST_19FXSV 將限量發行 1000 張，售價為此 FSST_19FXSV 的定價。而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。
 
- - Using multipart/form-data
-
-   > operations 裡放入 GraphQL query 以及 GraphQL variables
-
-
+ - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
    - operations detail
-
-    **create a Smart Voucher Campaign**
-    ```json
-    {
-        "query": "mutation CreateCampaign($input: CreateCampaignInput!) {    createCampaign(input: $input) {     transaction     submitToken        hash        }       }",
-        "variables": {
-            "input":{
-                "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-                "name":"2019 Christmas Voucher Sale.",
-                "description":"This is the 2019 Christmas Voucher Sale.",
-                "stages":[
-                    {
-                        "name":"2019 Christmas Voucher Sale.",
-                        "startTime":"1569888000000",
-                        "endTime":"1575072000000",
-                        "priceMultiplier":{
-                            "numerator":"1",
-                            "denominator":"1"
-                        },
-                        "cap":"1000",
-                        "isPrivate":false,
-                        "description":"This is the 2019 Christmas Voucher Sale."
-                    }
-                ],
-                "por":"DISABLE"
-            }
-        }
+    ```graphql
+    mutation CreateCampaign($input: CreateCampaignInput!) {
+      createCampaign(input: $input) {
+        transaction
+        submitToken
+        hash
+      }
     }
     ```
+
+    Variables:
+
+    ```json
+    {
+      "input": {
+        "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+        "name":"2019 Christmas Voucher Sale.",
+        "description":"This is the 2019 Christmas Voucher Sale.",
+        "stages":[
+          {
+            "name":"2019 Christmas Voucher Sale.",
+            "startTime":"1569888000000",
+            "endTime":"1575072000000",
+            "priceMultiplier":{
+              "numerator":"1",
+              "denominator":"1"
+            },
+            "cap":"1000",
+            "isPrivate":false,
+            "description":"This is the 2019 Christmas Voucher Sale."
+           }
+        ],
+        "por":"DISABLE"
+      }
+    }
+    ```
+
      - `id` 為所欲販賣之 Smart Token/Voucher 於 FsTK 系統所記錄之 ID。可於 `get me` 中的 `token` 取得
 
      - `name` 此 Campaign 的名稱，至少 1 字元，至多 20 字元
@@ -109,36 +113,28 @@
     
        - `endTime` 此 Stage 的結束時間，需為 Unix Timestamp in Milliseconds 格式
 
-       - `priceMultiplier` 此 Stage 中欲販售 Smart Token/Voucher 的價格之乘數，若
+       - `priceMultiplier` 此 Stage 中欲販售 Smart Token/Voucher 的價格之乘數，也就是說假如此 Ｃampaign 想要打九折，則乘數為 9/10。假如要維持原價則為 1/1
   
-         - `numerator`
+         - `numerator` 乘數之分子
 
-         - `denominator`
+         - `denominator` 乘數之分母
   
-       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，為 Decimaled Number
+       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，格式為 Decimaled Number。如欲販售 Smart Token 則要乘上 10^18，反之 Smart Voucher 維持原本的數量 (因 Voucher 不可分割，故 decimal = 0，10^0 為 1)
 
-       - `isPrivate` 此 Stage 是否為私密販售
+       - `isPrivate` 此 Stage 是否為私密販售，需要特殊簽章者才得以購買
   
        -  `description` 此 Stage 的描述或說明
 
-
-
-   > multipart/form-data 之總結為
-   
-   ```
-   operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {     closeCampaign(input: $input) {      transaction     hash     submitToken        }      }","variables":{"input":{"id":"VG9rZW46bMKMwrskajYRphHDqMKLEXPDrMO5w7iJ4Y8=","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}
-   ```
-   
 
  - Using cURL
 
     ```sh
     curl --request POST \
-        --url https://dev.fstk.io/api \
-        --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
-        --header 'content-type: application/json' \
-        --cookie locale=en \
-        --data '{"query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n  createCampaign(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}}}'
+          --url https://dev.fstk.io/api \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n  createCampaign(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}},"operationName":"CreateCampaign"}'
     ```
 
  - Response
@@ -513,29 +509,35 @@
 
   > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
-  > 使用者購買 Smart Voucher 時，issuer 需支付 0.15 FST Service Gas / per Smart Voucher 作為手續費
+  > 使用者購買 Smart Voucher 時，issuer 需支付 0.15 FST Service Gas per Smart Voucher 作為手續費
   
   > 以下繼續以 FST Sport Shop 作為範例：
 
     FST Sport Shop 開始透過 Campaign 販售 FSST_19FXSV 後，消費者可透過傳送 Smart Token (FSST) 至該 Campaign 的 address，Campaign 會回傳消費者所購得的 FSST_19FXSV 至消費者傳送 FSST 的帳戶。
 
- - Using multipart/form-data
-
-   > operations 裡放入 GraphQL query 以及 GraphQL variables
+ - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
    - operations detail
+    ```graphql
+    mutation transferSmartToken($input: ERC20TransferInput!) {
+      erc20Transfer(input: $input) {
+        transaction
+        hash
+        submitToken
+      }
+    }
+    ```
+
+    Variables:
 
     ```json
     {
-        "query": "mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }",
-        "variables": {
-            "input": {
-                "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
-                "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
-                "value": "2000000000000000000000",
-                "por": "DISABLE"
-            }
-        }
+      "input": {
+        "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+        "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+        "value": "2000000000000000000000",
+        "por": "DISABLE"
+      }
     }
     ```
 
@@ -543,21 +545,18 @@
 
      - `to` 販售 FSST_19FXSV 的 Campaign 的 address
 
-     - `value` 欲傳送的數量，若 FSST_19FXSV 價格為 `2000` FSST，則`value = 2000000000000000000000`
+     - `value` 欲傳送的數量，若 FSST_19FXSV 價格為 `2000` FSST，並且想要購買 1 個 FSST_19FXSV，則 FSST 之 `value = 2000000000000000000000`
 
-    > multipart/form-data 之總結為
-    ```
-    operations: {"query":"mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}}}
-    ```
 
   - Using cURL
     
     ```sh
     curl --request POST \
-         --url https://test.fstk.io/api \
-         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
-         --cookie locale=en \
-         --form 'operations={"query":"mutation transferSmartToken ($input: ERC20TransferInput!) {      erc20Transfer(input:$input) {      transaction     hash    submitToken     }    }","variables":{"input":{"id":"VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}}}'
+          --url https://dev.fstk.io/api \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation transferSmartToken($input: ERC20TransferInput!) {\n  erc20Transfer(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}},"operationName":"transferSmartToken"}'
     ```
 
   - Response
@@ -589,7 +588,7 @@
 ## Finalize the Campaign
 ### Prerequisite
 
-> 創建 Smart Voucher Campaign 後，可分為三個階段：開始販售前、販售期間、販售結束後，在此三個階段結束 Campaign 分別有不同的結果
+> 創建 Smart Voucher Campaign 後，可分為三個階段：開始販售前、販售期間、販售結束後，在此三個階段進行結束 Campaign 動作分別有不同的結果
 
 1. 開始販售前 (now < `startTime`)：issuer 取消販售，並取回未賣出的 Smart Voucher。
 2. 販售期間 (`startTime` < now < `endTime`)：若未售完，issuer 無法取消及取回剩餘的 Smart Voucher 及所賺得的 Smart Token；若在販售期間售完，issuer 則可提前取回所賺得的 Smart Token
@@ -604,40 +603,41 @@
 
     FST Sport Shop 所販售的 FSST_19FXSV 於販售期間熱銷一空，FST Sport Shop 欲將所賺得的 FSST 從 Campaign 販賣機中領出，可使用 `finalizeSmartVoucherCampaign` API 結束本次販售。
    
-   - Using multipart/form-data
-
-   > operations 裡放入 GraphQL query 以及 GraphQL variables
+  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
    - operations detail
+    ```graphql
+    mutation CloseCampaign($input: CloseCampaignInput!) {
+      closeCampaign(input: $input) {
+        transaction
+        hash
+        submitToken
+      }
+    }
+    ```
+
+    Variables:
 
     ```json
     {
-        "query": "mutation CloseCampaign($input: CloseCampaignInput!) {  closeCampaign(input: $input) {  transaction  hash  submitToken  }  }",
-        "variables": {
-            "input": {
-                "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-                "por": "DISABLE"
-            }
-        }
+      "input": {
+        "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+        "por": "DISABLE"
+      }
     }
     ```
+
      - `id` 為欲關閉的 Campaign ID。可於 `getAllCampaignInfo` 中取得
-
-
-    > multipart/form-data 之總結為
-    ```
-    operations: {"query":"mutation CloseCampaign($input: CloseCampaignInput!) {  closeCampaign(input: $input) {  transaction  hash  submitToken  }  }","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}}}
-    ```
 
   - Using cURL
     
     ```sh
-    [curl --request POST \
-         --url https://dev.fstk.io/api \
-         --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjMxNDA1LCJleHAiOjE1NTI3MTc4MDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.O7_DG_z-sMdWjkzsxXvJKPjY9N5QQccvp9sG24E8nJkxCIQNTEMyJ1R7sZvKltPhz3L-UEyHtHzXft7920pxpw' \
-         --header 'content-type: application/json' \
-         --cookie locale=en \
-         --data '{"query":"mutation CloseCampaign(input: CloseCampaignInput!) {\n  closeCampaign(input: input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}},"operationName":"CloseCampaign"}')
+    curl --request POST \
+          --url https://dev.fstk.io/api \
+          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjMxNDA1LCJleHAiOjE1NTI3MTc4MDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.O7_DG_z-sMdWjkzsxXvJKPjY9N5QQccvp9sG24E8nJkxCIQNTEMyJ1R7sZvKltPhz3L-UEyHtHzXft7920pxpw' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation CloseCampaign($input: CloseCampaignInput!) {\n  closeCampaign(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}},"operationName":"CloseCampaign"}'
     ```
 
   - Response
@@ -661,3 +661,18 @@
       }
     }
     ```
+
+    > 關閉 Campaign 無需花費 FST Service Gas
+
+    > 此 API 若執行成功，請接續上方三個步驟： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`
+
+    > 而假如收到類似  
+    ```json   
+    { 
+      "data": {
+        "createAirdropLocate": null
+      },
+      "errors": [....]
+    }
+    ```  
+    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題

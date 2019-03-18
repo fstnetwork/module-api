@@ -50,6 +50,10 @@
 
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
 
+> 下方以 FST Sport Shop 作為範例：
+
+  聖誕節即將來臨，FST Sport Shop 為了讓常客能得到更多的優惠，將推出一款聖誕節特賣福袋 Smart Voucher (FSST_19FXSV)，消費者可使用所持有的 FST Sport Shop Token 購買此聖誕活動所推出的 FSST_19FXSV，此 FSST_19FXSV 將限量發行 1000 張。
+
  - Using multipart/form-data
 
    > operations 裡放入 GraphQL query 以及 GraphQL variables

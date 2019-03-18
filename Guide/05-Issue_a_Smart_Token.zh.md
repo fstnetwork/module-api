@@ -87,7 +87,7 @@
 
      - `price` 為一個物件，表示一個 Ether 是多少 Smart Token (也就是與 Ether 之間的單價比)，也是 Smart Token 的初始設定價，Smart Token 只能以 Ether 購買
      
-       - `numerator` 通常設為 `"1"` 即可，但事實上也可以設定成 `numerator = "2"` 以及 `denominator = "345"`，來表示 3 個 Ether 價值 345 Smart Token，也就是數字系統上會精確地以分數進行運算
+       - `numerator` 通常設為 `"1"` 即可，但事實上也可以設定成 `numerator = "2"` 以及 `denominator = "345"`，來表示 2 個 Ether 價值 345 Smart Token，也就是數字系統上會精確地以分數進行運算
 
        - `denominator` 為代表一個 Ether 是多少 Smart Token，例如 1 Ether 可買得 123 Smart Token，則 `denominator = "123"`，`numerator = 1`
 
@@ -116,7 +116,7 @@
 
     ```sh
     curl --request POST \
-        --url https://dev.fstk.io/api \
+        --url https://test.fstk.io/api \
         --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLCmcKVPsOswosmXHUwMDExw6jCjlpLwoNcdTAwMTMtwrhGIiwiaWF0IjoxNTUyNDY5NDgxLCJleHAiOjE1NTI1NTU4ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.DBb1_vGP4ueHjxMbCGu9M8DZmIhaaNiqi-GjtYBOa0ApG_GZ36QWLUjDF1TIJ6BoZojOZuYADA1XPyfNNhchIQ' \
         --cookie locale=en \
         --form 'operations={"query":"mutation IssueToken($input: IssueTokenInput!) {    issueToken(input: $input) {     transaction     hash    submitToken     }    }","variables":{"input":{"name":"FST Sport Shop Token","symbol":"FSST","totalSupply":"1000000000000000000000000000","price":{"numerator":"1","denominator":"4500"},"description":"This is the FST Sport Shop Token.","website":"fst.sport.com","logo":null,"proofOfContract":null,"por":"DISABLE"}}}' \
