@@ -35,7 +35,6 @@ You are able to fetch all your airdrop history via this API.
           usedBudget
           createTime
           invokeTime
-          executeTime
         }
       }
     }
@@ -71,7 +70,7 @@ You are able to fetch all your airdrop history via this API.
 - Body
   ``` 
   {  
-    "query":"query{       airdropHistory{         edges{           node{             id             method{               listType               listId               targets             }           item{             ... on Token{               id               name             }              ... on Voucher{               id          name             }           }           budget           status           totalAirdropAmount           totalAddresses           isClaimed           usedBudget           createTime           invokeTime           executeTime           }         }       }     }"
+    "query":"query{       airdropHistory{         edges{           node{             id             method{               listType               listId               targets             }           item{             ... on Token{               id               name             }              ... on Voucher{               id          name             }           }           budget           status           totalAirdropAmount           totalAddresses           isClaimed           usedBudget           createTime           invokeTime           }         }       }     }"
   }
   ```
 
@@ -113,8 +112,7 @@ You are able to fetch all your airdrop history via this API.
             "isClaimed": false,
             "usedBudget": "0",
             "createTime": "1545405455",
-            "invokeTime": "1545405483",
-            "executeTime": "1545405540"
+            "invokeTime": "1545405483"
           }
         },
         {
@@ -146,8 +144,7 @@ You are able to fetch all your airdrop history via this API.
             "isClaimed": true,
             "usedBudget": "1000000000000000000",
             "createTime": "1545894652",
-            "invokeTime": "1545894681",
-            "executeTime": "1545894732"
+            "invokeTime": "1545894681"
           }
         }
       ]
@@ -198,5 +195,3 @@ You are able to fetch all your airdrop history via this API.
     - The airdrop created time. The format is Unix Timestamp.
   - **`invokeTime`** \<String!>
     - The airdrop invoked time. The format is Unix Timestamp.
-  - **`executeTime`** \<String>
-    - The airdrop executed time. The format is Unix Timestamp

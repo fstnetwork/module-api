@@ -7,9 +7,8 @@ You are able to claim the remaining budget, get the asset you sold, and close th
 
 - Query String
   ```
-  mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {
+  mutation claimAirdropMission($input: claimAirdropMissionInput!) {
     claimAirdropMission(input: $input) {
-      pendingTransactions
       transaction
       submitToken
       hash
@@ -55,7 +54,7 @@ You are able to claim the remaining budget, get the asset you sold, and close th
 - Body
   ```
   {
-    "query":"      mutation claimAirdropMission($input: ClaimAirdropMissionInput!) {        claimAirdropMission(input: $input){          pendingTransactions          transaction          submitToken      hash        }      }    ",
+    "query":"      mutation claimAirdropMission($input: claimAirdropMissionInput!) {        claimAirdropMission(input: $input){          transaction          submitToken      hash        }      }    ",
     "variables":{
         "input":{
           "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
@@ -73,7 +72,6 @@ You are able to claim the remaining budget, get the asset you sold, and close th
 {
   "data":{
     "claimAirdropMission":{
-      "pendingTransactions":"0",
       "transaction":{
         "nonce":"0xef",
         "gasPrice":"0x3b9aca00",
