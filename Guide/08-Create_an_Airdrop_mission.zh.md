@@ -1,6 +1,6 @@
 # Create an Airdrop Mission
 
-> 在此章節中，您將學習如何透過 FsTK API 建立 Airdrop，您可以建立規則卡，擷取出在 FsTK Engine 中所有符合規則的帳戶進行空投。
+> 在此章節中，您將學習如何透過 FsTK API 建立 Airdrop mission，您可以建立規則卡，擷取出在 FsTK Engine 及區塊鏈中所有符合規則的帳戶進行空投。
 
 ## Table of Contents
 
@@ -54,7 +54,7 @@
 
  > 以下繼續以 FST Sport Shop 作為範例：
    
-    FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FFST 將額外獲得 1 FFST 作為回饋，擁有 22 FFST 將額外獲得 2 FFST，擁有 35 FFST 將額外獲得 3 FFST，依此類推。
+    FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FFST 將額外獲得 1 FFST 作為回饋。亦即擁有 22 FFST 將額外獲得 2 FFST，擁有 35 FFST 將額外獲得 3 FFST，依此類推。
 
   - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
@@ -135,20 +135,22 @@
 
          - `type` 有 `EVERY` 及 `AT_LEAST` 兩種。`EVERY` 代表「每...可得...」，例如：每 10 Smart Token 可得 1 Smart Voucher，則有一消費者有 25 Smart Token，該消費者可得 2 Smart Voucher。 `AT_LEAST` 代表「至少...可得...」，例如：至少擁有 10 Smart Token 可獲得 1 Smart Voucher，則有一消費者擁有 25 Smart Token，該消費者可得 1 Smart Voucher。
 
-         - `itemId` 所訂定之規則的資產之 ID
+         - `itemId` 所訂定之搜尋條件規則的資產之 ID
 
-         - `amount` 所訂定之規則的資產數量。格式為 Decimaled Number
+         - `amount` 所訂定之搜尋條件規則的資產數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
      
        - `itemId` 符合規則所能獲得的資產之 ID
 
-       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimaled Number
+       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
+
+  > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 decimaled number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。
 
 
  - Using cURL
 
     ```sh
     curl --request POST \
-          --url https://dev.fstk.io/api \
+          --url https://test.fstk.io/api \
           --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
           --header 'content-type: application/json' \
           --cookie locale=en \
@@ -168,8 +170,8 @@
               "name": "FST Sport Shop Token",
               "decimals": "18"
             },
-            "totalAddresses": "0",
-            "totalAirdropAmount": "0",
+            "totalAddresses": "500",
+            "totalAirdropAmount": "100000000000000000000",
             "summary": [
               {
                 "rule": {
@@ -184,8 +186,8 @@
                   },
                   "amount": "1000000000000000000"
                 },
-                "totalAddresses": "0",
-                "totalAirdropAmount": "0"
+                "totalAddresses": "500",
+                "totalAirdropAmount": "100000000000000000000"
               }
             ]
           }
@@ -215,7 +217,7 @@
 
  > 下方以 FST Sport Shop 作為範例：
 
-    FST Sport Shop 的週年慶即將來臨，預備進行每年週年慶的大撒幣活動，本次活動預算為 100,000 FSST。
+    FST Sport Shop 的週年慶即將來臨，預備進行每年週年慶的大撒幣活動，本次活動預算為 200,000 FSST。
 
  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
@@ -237,7 +239,7 @@
       "input": {
         "listId":"QWlyZHJvcExvY2F0ZToxNA==",
         "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-        "budget":"100000000000000000000000",
+        "budget":"200000000000000000000000",
         "invokeTime":"1569888000000",
         "por":"DISABLE"
       }
@@ -250,14 +252,14 @@
 
      - `budget` 您所要空投的預算，若空投執行時，預算不足，則會空投失敗
 
-     - `invokeTime` 開始空投的時間
+     - `invokeTime` 開始空投的時間，單位為 Unix time millisecond (毫秒)，例如 UTC+8 之 2019/12/31 為 `"1577807999000"`，請注意 Unix time 沒有時區，記得對應您所在的時區進行調整
 
 
  - Using cURL
 
     ```sh
     curl --request POST \
-          --url https://dev.fstk.io/api \
+          --url https://test.fstk.io/api \
           --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
           --header 'content-type: application/json' \
           --cookie locale=en \
@@ -288,7 +290,7 @@
 
     > Create Airdrop Mission 需消耗 90 FST Service Gas，若取消 Airdrop 則不退回 FST Service Gas。
 
-    > issuer 需花費 0.3 FST Service Gas / per funder。前 300 人可由 Create Airdrop Mission 時所支付的 90 FST Service Gas 抵掉，一次空投超過 300 人，每多一人收取 0.3 FST Service Gas。
+    > issuer 需花費 0.3 FST Service Gas per airdrop receiver。前 300 人可由 Create Airdrop Mission 時所支付的 90 FST Service Gas 抵銷，一次空投超過 300 人，每多一人收取 0.3 FST Service Gas。
   
     > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，也請保留 `submitToken`，將在下一步送出簽署結果時使用
 
@@ -680,7 +682,7 @@
 
     ```sh
     curl --request POST \
-          --url https://dev.fstk.io/api \
+          --url https://test.fstk.io/api \
           --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
           --header 'content-type: application/json' \
           --cookie locale=en \
@@ -737,22 +739,22 @@
 
   > 建立 Airdrop 後可分成不同時期，可參考下圖時間軸：
 
-
+  ```
          可取消期             鎖定期(1 hour)        空投期(1 hour)         釋放期
   
   ------------------------|------------------------|------------------------|------------------------>
   
                     鎖定時間點             空投執行時間點             空投結束時間點
 
-鎖定時間點：為您創建 Airdrop 時，所設定之執行時間點的前一小時
-空投執行時間點：為您創建 Airdrop 時，所設定之執行時間。僅此時間參數您可自行設定。
-空投結束時間點：為您創建 Airdrop 時，所設定之執行時間點的後一小時
-
-可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
-鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。
-空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
-釋放期：可取回預算之時期。
-
+  鎖定時間點：為您創建 Airdrop 時，所設定之執行時間點的前一小時
+  空投執行時間點：為您創建 Airdrop 時，所設定之執行時間。僅此時間參數您可自行設定。
+  空投結束時間點：為您創建 Airdrop 時，所設定之執行時間點的後一小時
+  
+  可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
+  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。
+  空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
+  釋放期：可取回預算之時期。
+  ```
 
 ### Encode the Transaction
  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
@@ -793,7 +795,7 @@
 
     ```sh
     curl --request POST \
-          --url https://dev.fstk.io/api \
+          --url https://test.fstk.io/api \
           --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
           --header 'content-type: application/json' \
           --cookie locale=en \
@@ -831,9 +833,10 @@
     ```json   
     { 
       "data": {
-        "createAirdropLocate": null
+        "claimAirdropMission": null
       },
       "errors": [....]
     }
     ```  
     > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+  
