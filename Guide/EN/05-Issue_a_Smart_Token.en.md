@@ -1,8 +1,8 @@
 # Issue a Smart Token
 
-> 在此章節中，您將學習到如何通過 FsTK API 發行一個智能代幣
+> In this chapter, you will understand how to issue Smart Token via FsTK API.
 
-> Smart Token (智能通證) 用於區塊鏈空間的數字系統與數位身份的母帳本
+> Smart Token is the ERC-1376 Token as the main ledger for digital system and digital identity on Blockchain.
 
 ## Table of Contents
 
@@ -16,42 +16,43 @@
 
 ## Prerequisite
 
- 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > 請注意此兩個平台之帳戶資料沒有互通
+ 1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
+    >  Notice account data are NOT shared across both platform
 
-    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
-    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
+    - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
+    - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
- 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
-    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
+ 2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
 
-    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
-    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
+    - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
+    - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
+    - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
+    - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. 請準備好您的 API 測試工具
-    - [Insomnia](https://insomnia.rest) (推薦)
+ 3. Please prepare your API testing tools
+    - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 
- 4. 已知如何取得 Access Web Token (JWT)
-    > 詳情請參考 Quick start [第一篇章](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+ 4. Understand how to retrieve Access Web Token (JWT)
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md)
 
- 5. 已完成 Quick start 之學習
+ 5. Complete Quick start
 
- 6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+ 6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
 ## Encode the Transaction (issuing smart token)
 
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > 下方以 FST Sport Shop 作為範例：
+ > Hereinafter let's take FST Sport Shop as the issuing token.
 
-    FST Sport Shop 欲發行代幣作為使用者消費的紅利回饋，共發行十億個代幣，代幣名稱為 FST Sport Shop Token，代幣簡稱為 FSST。
+    FST Sport Shop would like to issue token as the cash back after customers purchase its products.
+    Token name is `FST Sport Shop Token` (abbr. `FSST`) with total supply 100 million token.
 
  - Using multipart/form-data
 
-   > operations 裡放入 GraphQL query 以及 GraphQL variables
+   > Assign `operations` with GraphQL query and GraphQL variables
 
    - operations detail
 
@@ -77,31 +78,31 @@
      }
      ```
 
-     - `name` 為發行之 Smart Token 的名稱，最少需 3 個字元，最多為 20 個字元
+     - `name` is the name of issuing Smart Token, from 3 to 20 characters.
 
-     - `symbol` 為新發布之 Smart Token 的符號，最少需 2 個字元，最多為 6 字元，且皆須大寫
+     - `symbol` is the symbol of issuing Smart Token, from 2 to 6 capital characters.
 
-     - `totalSupply` 為此 Smart Token 總發布量，此數字為 Decimaled number，例如：發行 1234 個 Smart Token，`totalSupply = "1234000000000000000000"`
+     - `totalSupply` is the total supply of Smart Token as Decimal Number, e.g. issuing 1234 Smart Token means `totalSupply = "1234000000000000000000"`.
 
-     - `price` 為一個物件，表示一個 Ether 是多少 Smart Token (也就是與 Ether 之間的單價比)，也是 Smart Token 的初始設定價，Smart Token 只能以 Ether 購買
+     - `price` is an object showing how much Ether a Smart Token is equivalent to (i.e. the exchange ratio between Token & Voucher), also the initial price of Smart Token. Token can only be exchanged by Ether. Token.
      
-       - `numerator` 通常設為 `"1"` 即可，但事實上也可以設定成 `numerator = "2"` 以及 `denominator = "345"`，來表示 2 個 Ether 價值 345 Smart Token，也就是數字系統上會精確地以分數進行運算
+       - `numerator` is `"1"` in general. In special case, say `numerator = "2"` and `denominator = "345"`, this means 2 Ether is worth 345 Smart Token, so that pricing will be calculated in terms of fraction.
 
-       - `denominator` 為代表一個 Ether 是多少 Smart Token，例如 1 Ether 可買得 123 Smart Token，則 `denominator = "123"`，`numerator = 1`
+       - `denominator` is showing that how much Ether a Smart Token is worth, e.g. 123 Smart Token is worth 1 Ether, then `denominator = "123"` & `numerator = 1`.
 
-     - `description` 此 Smart Token 之相關描述
+     - `description` is the description of Smart Token.
   
-     - `website` 為此 Smart Token 相關網站
+     - `website` is the website related to Smart Token.
 
-     - `logo` 為此 Smart Token 的 Logo，此欄位在 operations 裡面將不放置，會放置在檔案區，故為 `null`
+     - `logo` is the logo picture of Smart Token. Logo is not required in operations, instead in form-data as another entry, is `null` here.
 
-     - `proofOfContract` 此欄位在 operations 裡面將不放置，會放置在檔案區，故為 `null`
+     - `proofOfContract` is not required in operations, instead in form-data as another entry, is `null` here.
 
-   > logo 為 image 檔案，用來作為此 Smart Token 的 logo
+   > logo is in image format belonging belonging to Smart Token.
 
-   > proofOfContract 裡為 pdf 檔案，用於向客戶說明此 Smart Token 相關的合約及權益，並會存放在 IPFS 進行保護
+   > proofOfContract is in pdf format to describe related legal agreements or rights of Smart Token, then stored and protected in IPFS.
 
-   > multipart/form-data 之總結為
+   > the summary of multipart/form-data is:
 
    ```
    operations: {"query":"mutation IssueToken($input: IssueTokenInput!) {    issueToken(input: $input) {     transaction     hash    submitToken     }    }","variables":{"input":{"name":"FST Sport Shop Token","symbol":"FSST","totalSupply":"1000000000000000000000000000","price":{"numerator":"1","denominator":"4500"},"description":"This is the FST Sport Shop Token.","website":"fst.sport.com","logo":null,"proofOfContract":null,"por":"DISABLE"}}}
@@ -145,13 +146,13 @@
     }
     ```
 
-    > Issue token 需花費 1 FIL 作為發行代幣費用
+    > Issue token requires 1 FIL as issuing service charge.
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，也請保留 `submitToken`，將在下一步送出簽署結果時使用
+    > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
+    > Please remember that  response will vary after each call, please use the latest response for next steps.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -160,15 +161,16 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
 
 ## Decrypt the Ethereum Key JSON
 
- > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的
+ > Please notice the difference between `password` and `passphrase` in FsTK system. `password` is required to sign in Tokeneden;  `passphrase` is required to decrypt Ethereum key JSON and sign the transaction. 
 
- > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
+ > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
- > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
+ > To start with, use `get me` to fetch `ethereumKey` like the following:
 
  ```json
  {
@@ -194,15 +196,15 @@
  }
  ```
 
- > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開
+ > This is current user's Ethereum key JSON, which includes encrypted private key (by passphrase). This can be safely stored but remain private unless necessary.
  
- > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
+ > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **也請注意，如果遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase**
 
  - Using JavaScript (Node.js)
 
-    > 安裝 [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
+    > Install [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
 
     ```sh
     npm i --save "https://github.com/fstnetwork/eth-key-lib-js"
@@ -238,9 +240,9 @@
     console.log(walletObj) // walletObj.privateKeyBuffer is the private key for signing
     ```
 
-    > 此語法為 ES6 之 module import，假如您的 node.js 不支援此語法，請參考 [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) 及以下範例
+    > This is the module import of ES6. If your node.js does not support it, please refer to [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) and the followings:
 
-    > 最小可用之 `webpack.config.js`
+    > Minimal `webpack.config.js`
 
     ```javascript
     const path = require("path");
@@ -262,7 +264,7 @@
     };
     ```
 
-    > 最小可用之 `package.json`
+    > Minimal `package.json`
 
     ```json
     {
@@ -281,7 +283,7 @@
     }
     ```
 
-    > 建置命令 (請將程式進入點放置在 `index.js`)
+    > Install command line (please let `index.js` be the program entry point)
 
     ```sh
     npm i && npm start
@@ -289,30 +291,30 @@
     # yarn && yarn start
     ```
 
-    > 如您在 windows 平台上開發，請參照 [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows)
+    > If working on windows, please refer to [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows).
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `WalletUtils` 中的 `loadCredentials` 方法，必須使用此多載  
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > 也就是說，因為 web3j 只提供從 `File` 載入，請注意檔案系統的空間，或者也可以使用 in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 也請參考 [Nethereum 的簡易範例](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
    ```
 
-   > 從 `Account` 取得私鑰請使用 `Account.PrivateKey`
+   > Please use `Account.PrivateKey` to fetch private key from `Account`.
 
 ## Sign the Ethereum Transaction
 
@@ -338,29 +340,29 @@
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `TransactionEncoder` 中的 `signMessage` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
    ```
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#signing-transactions)
+   > Please refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#signing-transactions)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 請注意 `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > 也請參考 `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
 
-## Broadcast the Ethereum Transaction
-
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ ## Broadcast the Ethereum Transaction
+ 
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     mutation submitSignedTransaction($input: SubmitTransactionInput!) {
@@ -381,9 +383,9 @@
     }
     ```
 
-    > `data` 為上面以當前使用者的私鑰簽署 `transaction` 物件過後的產物，也就是 `signedTransaction`，為 hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string
 
-    > `submitToken` 為 Encode Ethereum Transaction 小章節中得到的 `submitToken`
+    > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 
  - Using cURL
 
@@ -408,11 +410,11 @@
     }
     ```
 
-    > 此 `transactionHash` 為下一步作為確認有沒有交易驗證通過之交易代號
+    > `transactionHash` can be used to check whether transaction is confirmed in the next steps.
 
 ## Confirm the Ethereum Transaction
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     query getTransactionReceipt($txHash: String!) {
@@ -428,9 +430,9 @@
     }
     ```
 
-    > `txHash` 為想要確認之交易代號
+    > `txHash` is the transaction hash.
     
-    > 請注意不同鏈上的交易代號可能會重疊，但代表不同的交易
+    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on different chain. 
 
  - Using cURL
 
@@ -481,10 +483,10 @@
     }
     ```
 
-    > 請看 `confirmations` 中的 `remain` 成為 `0` 時，表示交易已經驗證完成
+    > When `remain` in `confirmations`  becomes `0`, the transaction is confirmed.
 
-    > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
+    > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
 ## Confirm the Smart Token
 
- > 請查看 `get me` 中的 `token` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
+ > Please refer to `token` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md))
