@@ -1,25 +1,20 @@
-# Create a Campaign
+# Create an Airdrop Mission
 
-> In ths chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
-
-> Campaign is the vending machine of Smart Token/Voucher. You can set up the type of selling Smart Token/Voucher, activated selling period, selling amount and selling price in this campaign. This allows customers to automatically receive Smart Token/Voucher after purchase.
-<!-- 感覺整篇是 Create_a_Voucher_Campaign -->
+> In this chapter, you will understand how to set up Airdrop mission via FsTK APi. You can set up Airdrop Locate rule, extract corresponding address on FsTK Engine and airdrop desired assets.
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode the Transaction (creating smart voucher campaign)
+ 2. Encode the Transaction (creating airdrop)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
  6. Confirm the Ethereum Transaction
- 7. Confirm the Campaign
- 8. Transfer SMart Token to the Campaign to obtain Smart Voucher
-    1. Encode the Transaction (transferring smart token to voucher campaign)
- 9.  Check the progress of the Campaign
- 10. Finalize the Campaign
-     1.  Prerequisite
-     2.  Encode the Transaction (finalizing campaign)
+ 7. Confirm the Airdrop mission
+ 8. Check the progress of Airdrop mission
+ 9. Finalize the Airdrop mission
+    1.  Prerequisite
+    2.  Encode the Transaction (finalizing airdrop mission)
 
 ## Prerequisite
 
@@ -48,25 +43,190 @@
 
  6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
- 7. Confirm sufficient FST Service Gas for module service fee (at least 500 FST Service Gas), FST Service Gas will not be refunded after cancellation.
+ 7. Confirm sufficient FST Service Gas for module service fee (at least 90 FST Service Gas), FST Service Gas will not be refunded after cancellation.
 
  8. Become Issuer (Token Issuer), please confirm `token` in `get me`.
 
-## Encode the Transaction (create smart voucher campaign)
+## Encode the Transaction (create airdrop locate)
 
  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
  > Hereinafter let's take FST Sport Shop as the example.
-
-    As Christmas is coming, in order to promote seasonal sales, FST Sport Shop is going to release a special lucky bag with Smart Voucher (FSST_19FXSV). Customers can spend FST Sport Shop Token and receive FSST_19FXSV (which can be further distributed and exchanged for lucky bag). FSST_19FXSV has a fixed total supply of 1,000 with original pricing (set-up when publishing FSST_19FXSV). 
-    <!-- 而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。 -->
+   
+    <!-- FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FSST 將額外獲得 1 FSST 作為回饋。亦即擁有 22 FSST 將額外獲得 2 FSST，擁有 35 FSST 將額外獲得 3 FSST，依此類推。 -->
+    FST Sport Shop is going to give away benefits based on customers FSST holding amount. Every 10 FSST will grant customer 1 FSST as rewards. 
 
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
-    mutation CreateCampaign($input: CreateCampaignInput!) {
-      createCampaign(input: $input) {
+    mutation createAirdropLocate($input: createAirdropLocateInput!) {
+      createAirdropLocate(input: $input) {
+        airdropLocate {
+          seqno: id
+          airdropItem {
+            ... on Token {
+              id
+              name
+              decimals
+            }
+            ... on Voucher {
+              id
+              name
+              decimals
+            }
+          }
+          totalAddresses
+          totalAirdropAmount
+          summary {
+            rule {
+              locateRule {
+                type
+                item {
+                  ... on Token {
+                    decimals
+                  }
+                  ... on Voucher {
+                    decimals
+                  }
+                }
+              }
+              item {
+                ... on Token {
+                  decimals
+                }
+                ... on Voucher {
+                  decimals
+                }
+              }
+              amount
+            }
+            totalAddresses
+            totalAirdropAmount
+          }
+        }
+      }
+    }
+    ```
+
+    Variables:
+
+    ```json
+    {
+      "input": {
+        "rules":[
+          {  
+            "rule":{
+              "type":"EVERY",
+              "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+              "amount":"10000000000000000000"
+            },
+            "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+            "amount":"1000000000000000000"
+          }
+        ]
+      }
+    }
+    ```
+
+     - `rules` are Airdrop Locate rules that each rule acts independently.
+
+       - `rule` is an individual airdrop locate rule.
+
+         - `type` contains 2 types `EVERY` and `AT_LEAST`. `EVERY` means every condition will be counted for giveaway item calculation. For example, 'every 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 2 Smart Voucher. `AT_LEAST` means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. For example, 'at least 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 1 Smart Voucher.
+
+         - `itemId` is the ID of located Smart Token/Voucher.
+
+         - `amount` is the located amount of located Smart Token/Voucher in Decimal Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+     
+       - `itemId` is the ID of giveaway Smart Token/Voucher.
+
+       - `amount` is the giveaway amount of Smart Token/Voucher in Decimal Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+
+  <!-- > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimal number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。 -->
+  > Please pay attention to the Decimal number based on difference of located item & giveaway item. For example, locating Smart Token to give away Smart Token requires decimals of both `rules.n.rule.itemId` and `rules.n.itemId` to be 18. Over-giveaway could occur if given any of the incorrect amount.
+
+
+ - Using cURL
+
+    ```sh
+    curl --request POST \
+          --url https://test.fstk.io/api \
+          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation createAirdropLocate($input: createAirdropLocateInput!) {\n  createAirdropLocate(input: $input) {\n    airdropLocate {\n      seqno: id\n      airdropItem {\n        ... on Token {\n          id\n          name\n          decimals\n        }\n        ... on Voucher {\n          id\n          name\n          decimals\n        }\n      }\n      totalAddresses\n      totalAirdropAmount\n      summary {\n        rule {\n          locateRule {\n            type\n            item {\n              ... on Token {\n                decimals\n              }\n              ... on Voucher {\n                decimals\n              }\n            }\n          }\n          item {\n            ... on Token {\n              decimals\n            }\n            ... on Voucher {\n              decimals\n            }\n          }\n          amount\n        }\n        totalAddresses\n        totalAirdropAmount\n      }\n    }\n  }\n}\n","variables":{"input":{"rules":[{"rule":{"type":"EVERY","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","amount":"10000000000000000000"},"itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","amount":"1000000000000000000"}]}},"operationName":"createAirdropLocate"}'
+    ```
+
+ - Response
+
+    ```json
+    {
+      "data": {
+        "createAirdropLocate": {
+          "airdropLocate": {
+            "seqno": "QWlyZHJvcExvY2F0ZToxNA==",
+            "airdropItem": {
+              "id": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+              "name": "FST Sport Shop Token",
+              "decimals": "18"
+            },
+            "totalAddresses": "500",
+            "totalAirdropAmount": "100000000000000000000",
+            "summary": [
+              {
+                "rule": {
+                  "locateRule": {
+                    "type": "EVERY",
+                    "item": {
+                      "decimals": "18"
+                    }
+                  },
+                  "item": {
+                    "decimals": "18"
+                  },
+                  "amount": "1000000000000000000"
+                },
+                "totalAddresses": "500",
+                "totalAirdropAmount": "100000000000000000000"
+              }
+            ]
+          }
+        }
+      }
+    }
+    ```
+
+    > Setting up Airdrop Locate will not consume FST Service Gas.
+
+    > If API succeeds, then your Airdrop Locate rule (here referenced as `seqno`) is also stored in systems of FST Network. You may use the reference to start Airdrop in the future. **Please take down your Airdrop Locate rule `seqno` and FST Network does not provide this value**
+
+    > e.g. Response like 
+    ```json   
+    { 
+      "data": {
+        "createAirdropLocate": null
+      },
+      "errors": [....]
+    }
+    ```  
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
+
+### Create Airdrop Mission
+
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
+
+ > Hereinafter we take FST Sport Shop as the example.
+
+    FST Sport Shop's annual sale is approaching, an Airdrop to customers is under preparation with budget of 200,000 FSST.
+
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
+
+   - operations detail
+    ```graphql
+    mutation createAirdropMission($input: CreateAirdropMissionInput!) {
+      createAirdropMission(input: $input) {
         transaction
         submitToken
         hash
@@ -79,53 +239,22 @@
     ```json
     {
       "input": {
-        "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-        "name":"2019 Christmas Voucher Sale.",
-        "description":"This is the 2019 Christmas Voucher Sale.",
-        "stages":[
-          {
-            "name":"2019 Christmas Voucher Sale.",
-            "startTime":"1569888000000",
-            "endTime":"1575072000000",
-            "priceMultiplier":{
-              "numerator":"1",
-              "denominator":"1"
-            },
-            "cap":"1000",
-            "isPrivate":false,
-            "description":"This is the 2019 Christmas Voucher Sale."
-           }
-        ],
+        "listId":"QWlyZHJvcExvY2F0ZToxNA==",
+        "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+        "budget":"200000000000000000000000",
+        "invokeTime":"1569888000000",
         "por":"DISABLE"
       }
     }
     ```
 
-     - `id` is the registered ID on FsTK system of selling Smart Token/Voucher, which can be retrieved from `token` in `get me`.
+     - `listId` is the `seqno` from previous step, i.e. the Airdrop Locate rule ID
 
-     - `name` is the name of Campaign, between 1 character to 20 characters.
-  
-     - `description` is the description of Campaign.
+     - `itemId` is the ID of giveaway Smart Token/Voucher during this Airdrop.
 
-     - `stages` are Campaign stages. Currently Campaign only allows 1 stage.
-  
-       - `name` is the name of Stage, between 1 character to 20 characters.
+     - `budget` is the budget of Airdrop. Insufficient budget will cause failure of Airdrop.
 
-       - `startTime` is the activated selling time of Stage, in Unix Timestamp in Milliseconds.
-    
-       - `endTime` is the ending time of Stage, in Unix Timestamp in Milliseconds.
-
-       - `priceMultiplier` is the price multiplier (discount/markup) of Smart Token/Voucher at this Stage, e.g., a 10% off means 9/10; no discount means 1/1.
-  
-         - `numerator` is the numerator of price multiplier.
-
-         - `denominator` is the denominator of price multiplier.
-  
-       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimal Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
-
-       - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
-  
-     - `description` is the description of Stage.
+     - `invokeTime` is the Airdrop time in Unix time millisecond, e.g. UTC+8 2019/12/31 means `"1577807999000"`. Please notice that Unix time has no time zone, please adjust it according to your local time.
 
 
  - Using cURL
@@ -133,10 +262,10 @@
     ```sh
     curl --request POST \
           --url https://test.fstk.io/api \
-          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
           --header 'content-type: application/json' \
           --cookie locale=en \
-          --data '{"query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n  createCampaign(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}},"operationName":"CreateCampaign"}'
+          --data '{"query":"mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n  createAirdropMission(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"listId":"QWlyZHJvcExvY2F0ZToxNA==","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","budget":"200000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}},"operationName":"createAirdropMission"}'
     ```
 
  - Response
@@ -144,24 +273,26 @@
     ```json
     {
       "data": {
-        "createCampaign": {
+        "createAirdropMission": {
           "transaction": {
             "nonce": "0x5",
             "gasPrice": "0x3b9aca00",
-            "gas": "0x165b83",
+            "gas": "0x3bcdd",
             "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
             "value": "0x0",
-            "data": "0x4000aea00000000000000000000000003a6ca60e8f13492e64e6ff1a536a77f9786c049d00000000000000000000000000000000000000000000000000000000000003e8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001246f40b1c90000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000082e82d99a274625c3ec061393b6c43a932d0a274000000000000000000000000000000000000000000000000000000005d929700000000000000000000000000000000000000000000000000000000005de1b10000000000000000000000000000000000000000000000000000000000000003e800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "data": "0x4000aea0000000000000000000000000c01926f281f51ace3291a8dd680b968888f13b4000000000000000000000000000000000000000000000152d02c7e14af680000000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000064117d113c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005d92970000000000000000000000000000000000000000000000000000000000",
             "chainId": 42
           },
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY3JlYXRlVG9rZW5DYW1wYWlnbiIsInR4IjoiK1FIcUJZUTdtc29BZ3haYmc1UVZYZW9JU3RGUTJBNVd0M1J0MVZBL3pWMzZkNEM1QWNSQUFLNmdBQUFBQUFBQUFBQUFBQUFBT215bURvOFRTUzVrNXY4YVUycDMrWGhzQkowQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUQ2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBU1J2UUxISkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSUxvTFptaWRHSmNQc0JoT1R0c1E2a3kwS0owQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUYyU2x3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFYZUd4QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUG9BQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJ0b2tlbklkIjoiw4vDnGzCilx1MDAxYS5cdTAwMTHDqcK6O8OHa0PCoCDDpyIsIm5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJzdGFnZXMiOlt7Im5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJpc1ByaXZhdGUiOmZhbHNlLCJzdGFydFRpbWUiOiIxNTY5ODg4MDAwMDAwIiwiZW5kVGltZSI6IjE1NzUwNzIwMDAwMDAiLCJjYXAiOiIxMDAwIiwicHJpY2VNdWx0aXBsaWVyIjp7Im51bWVyYXRvciI6IjEiLCJkZW5vbWluYXRvciI6IjEifX1dfSwiaWF0IjoxNTUyNTUwNDQyLCJleHAiOjE1NTI1NTEwNDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.q4trW2Xi1lWus2Liip-Uqe9oWj5yLc-bKFOFypU0gc5Bz1Hzy7Etk7IA_AmaPxdMBAvdoqz9FQSFL5aIkavXtg",
-          "hash": "0x61ae5ed106e85eead3a328cb6e287310e5e93ed939d1fade70c37e126dad9576"
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY3JlYXRlQWlyZHJvcE1pc3Npb24iLCJ0eCI6IitRRXFCWVE3bXNvQWd3TzgzWlFWWGVvSVN0RlEyQTVXdDNSdDFWQS96VjM2ZDRDNUFRUkFBSzZnQUFBQUFBQUFBQUFBQUFBQXdCa204b0gxR3M0eWthamRhQXVXaUlqeE8wQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBRlMwQ3grRks5b0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUdRUmZSRThBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUJka3BjQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJsaXN0VHlwZSI6IkFpcmRyb3BMb2NhdGUiLCJsaXN0SWQiOiIxNCIsImVzY3Jvd2JveEFkZHJlc3MiOiIweGMwMTkyNkYyODFmNTFhY0UzMjkxQThERDY4MGI5Njg4ODhmMTNiNDAiLCJ1c2VyQWRkcmVzcyI6IjB4YjAyMzZmOWE2YTFjZDhjZjE3MjUxYTEzMDY1MWUwYmU4ZmIwMGUyNyIsIml0ZW1JZCI6IsOLw5xswopcdTAwMWEuXHUwMDExw6nCujvDh2tDwqAgw6ciLCJpdGVtVHlwZSI6IlRva2VuIiwiaXRlbUFkZHJlc3MiOiIweDE1NWRlYTA4NGFkMTUwZDgwZTU2Yjc3NDZkZDU1MDNmY2Q1ZGZhNzciLCJidWRnZXQiOiIxNTJkMDJjN2UxNGFmNjgwMDAwMCIsImludm9rZVRpbWUiOjE1Njk4ODgwMDAwMDB9LCJpYXQiOjE1NTI2NDMzNDcsImV4cCI6MTU1MjY0Mzk0NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.sNiKKRzd3dlhiwUtWGtKMwljp9SK3t45jv4SfNmYrnK0E4cwO3cQEkAG44tzDInwUHYsy5IRC9b2r1UCCnKcwA",
+          "hash": "0xb5793d750f840d76a8de0800a3a913dd59da56d05f51f0f15c41bc0cd554eab1"
         }
       }
     }
     ```
 
-    > At the moment, API does not respond the value of consuming FST Service Gas. `create a campaign` will consume 500 FST Service Gas.
+    > Create Airdrop Mission will consume 90 FST Service Gas. Cancelling an Airdrop will not refund FST Service Gas.
+
+    > Issuer will consume 0.3 FST Service Gas per airdrop receiver with 90 FST Service Gas as minimum. To airdrop over 300 receivers, each will charge 0.3 FST Service Gas per person.
   
     > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
@@ -171,7 +302,7 @@
     ```json   
     { 
       "data": {
-        "createCampaign": null
+        "createAirdropMission": null
       },
       "errors": [....]
     }
@@ -186,7 +317,7 @@
  > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
  > To start with, use `get me` to fetch `ethereumKey` like the following:
- 
+
  ```json
  {
    "id": "64031d31-53a4-11e8-b00a-2b7a29c9f6b9",
@@ -502,118 +633,151 @@
 
     > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
-## Confirm the Campaign
+## Confirm the Airdrop mission
 
- > Please refer to `token.vouchers` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md))
-
-## Transfer Smart Token to the Campaign to obtain Smart Voucher
-### Encode the Transaction (transferring smart token to voucher campaign)
-
-  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
-
-  > Voucher Issuer will consume 0.15 FST Service Gas after customer purchases each Smart Voucher.
-  
-  > Hereinafter let's take FST Sport Shop as the example.
-
-    After FST Sport Shop sets up Campaign of FSST_19FXSV, customers can transfer 消費者可透過傳送 Smart Token (FSST) to Campaign address, the Campaign smart contract will automatically transfer FSST_19FXSV to the customer address corresponding voucher pricing.
+ > Please refer to `getAirdropMissionInfo` to retrieve Airdrop info (More details in [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md))
+       
+## Check the progress of Airdrop mission
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
  - Using [GraphQL](https://graphql.org/learn/) (Recommended Insomnia)
 
    - operations detail
     ```graphql
-    mutation transferSmartToken($input: ERC20TransferInput!) {
-      erc20Transfer(input: $input) {
-        transaction
-        hash
-        submitToken
-      }
-    }
-    ```
-
-    Variables:
-
-    ```json
     {
-      "input": {
-        "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
-        "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
-        "value": "2000000000000000000000",
-        "por": "DISABLE"
-      }
-    }
-    ```
-
-     - `id` is the registered ID on FsTK system of Smart Token, which can be retrieved from `getSmartTokenBalance`.
-
-     - `to` is the Campaign smart contract address of FSST_19FXSV.
-
-     - `value` is the transferring amount. If the price of FSST_19FXSV is `2000` FSST, to purchase 1 FSST_19FXSV requires `value = 2000000000000000000000`.
-
-
-  - Using cURL
-    
-    ```sh
-    curl --request POST \
-          --url https://test.fstk.io/api \
-          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
-          --header 'content-type: application/json' \
-          --cookie locale=en \
-          --data '{"query":"mutation transferSmartToken($input: ERC20TransferInput!) {\n  erc20Transfer(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}},"operationName":"transferSmartToken"}'
-    ```
-
-  - Response
-
-    ```json
-    {
-      "data": {
-        "erc20Transfer": {
-          "transaction": {
-            "nonce": "0x5",
-            "gasPrice": "0x3b9aca00",
-            "gas": "0xf2c2",
-            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
-            "value": "0x0",
-            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
-            "chainId": 42
-          },
-          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+      airdropHistory {
+        edges {
+          node {
+            id
+            method {
+              listType
+              listId
+              targets
+            }
+            item {
+              ... on Token {
+                id
+                name
+              }
+              ... on Voucher {
+                id
+                name
+              }
+            }
+            budget
+            status
+            totalAirdropAmount
+            totalAddresses
+            isClaimed
+            usedBudget
+            createTime
+            invokeTime
+            executeTime
+          }
         }
       }
     }
     ```
 
-## Check the progress of the Campaign
+ - Using cURL
 
-> Information of Campaign, e.g. `cap` and `sold`, can be retrieved from `getAllCampaignInfo` API and shows the sales progress of current Campaign. (Please refer to [API_Reference/Campaign/getAllCampaignInfo](../API_Reference/getAllCampaignInfo.md))
+    ```sh
+    curl --request POST \
+          --url https://test.fstk.io/api \
+          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"{\n  airdropHistory {\n    edges {\n      node {\n        id\n        method {\n          listType\n          listId\n          targets\n        }\n        item {\n          ... on Token {\n            id\n            name\n          }\n          ... on Voucher {\n            id\n            name\n          }\n        }\n        budget\n        status\n        totalAirdropAmount\n        totalAddresses\n        isClaimed\n        usedBudget\n        createTime\n        invokeTime\n        executeTime\n      }\n    }\n  }\n}\n"}'
+    ```
 
-## Finalize the Campaign
+ - Response
+
+    ```json
+    {
+      "data": {
+        "airdropHistory": {
+          "edges": [
+            {
+              "node": {
+                "id": "QWlyZHJvcE1pc3Npb246Mw==",
+                "method": {
+                  "listType": "AirdropLocate",
+                  "listId": "1",
+                  "targets": {
+                    "filters": [
+                      {
+                        "giveItem": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                        "ruleItem": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                        "ruletype": "EVERY",
+                        "giveAmount": "1000000000000000000",
+                        "ruleAmount": "10000000000000000000"
+                      }
+                    ]
+                  }
+                },
+                "item": {
+                  "id": "VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                  "name": "FST Sport Shop Token"
+                },
+                "budget": "100000000000000000000000",
+                "status": "PENDING",
+                "totalAirdropAmount": "3000000000000000000",
+                "totalAddresses": "3",
+                "isClaimed": false,
+                "usedBudget": "3000000000000000000",
+                "createTime": "1545405455",
+                "invokeTime": "1545405483"
+              }
+            }
+          ]
+        }
+      }
+    }
+    ```
+
+## Finalize the Airdrop mission
 ### Prerequisite
 
-> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
+  > An airdrop mission has several phases as below.
 
-1. Pre sales (now < `startTime`): Campaign is cancelled by the issuer and returns the unsold Smart Voucher.
-2. Launch Period (`startTime` < now < `endTime`): If Smart Voucher is sold out during Launch, issuer can claim back the Smart Token before `endTime`, otherwise issuer cannot cancel the Campaign or claim back remaining Smart Voucher and earned Smart Token.
-3. Post sales (`endTime` < now)：issuer can claim back unsold Smart Voucher and earned Smart Token.
-
-<!-- different result when finalize in different state  -->
-### Encode the Transaction (finalizing campaign)
+  ```
+         Pending                 Locked(1 hr)           Activated (1 hr)          Distributed
   
+  ------------------------|------------------------|------------------------|------------------------>
+  
+                    Locked Time             Airdrop Activation        Airdrop Ending
+
+  Locked Time: an hour BEFORE set-up time of Airdrop. 
+  Airdrop Activation: set-up time of Airdrop which can be configured.
+  Airdrop Ending: an hour AFTER set-up time of Airdrop.
+  
+  <!-- 可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
+  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。 (看不太懂 1. 什麼資產? 2. 無法使用是指? 3. 誰的資產? (issuer or smart contract?))
+  空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
+  釋放期：可取回預算之時期。 -->
+  Pending: time when issuer can cancel the Airdrop and FST Service Gas will not be returned.
+  Locked: 1-hour period when issuer cannot cancel Airdrop and budget of Smart Token/Voucher will be locked.
+  Activated: 1-hour period when Airdrop starts and issuer can claim back the remaining budget as soon as Airdrop is complete; issuer will not be able to claim back budget when Airdrop fails (e.g. insufficient budget) until 1 hour later.
+  Distributed: time when Airdrop is completed and (remaining) budget could be claimed back.
+  ```
+
+### Encode the Transaction
  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
   > Hereinafter we take FST Sport Shop as the example.
-
-    FST Sport Shop's FSST_19FXSV is sold out during launch period. FST Sport Shop would like to receive FSST from Campaign vending machine, and `finalizeSmartVoucherCampaign` API can finalize the cmapaign.
    
-  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
+    FST Sport Shop would like to clear up the Airdrop mission and claim back the remaining Smart Token/Voucher, which requires finalizing the Airdrop.
+
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
-    mutation CloseCampaign($input: CloseCampaignInput!) {
-      closeCampaign(input: $input) {
+    mutation claimAirdropMission($input: claimAirdropMissionInput!) {
+      claimAirdropMission(input: $input) {
+        pendingTransactions
         transaction
-        hash
         submitToken
+        hash
       }
     }
     ```
@@ -623,48 +787,49 @@
     ```json
     {
       "input": {
-        "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-        "por": "DISABLE"
+        "missionId":"QWlyZHJvcE1pc3Npb246OTE=",
+        "por":"DISABLE"
       }
     }
     ```
 
-     - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
+     - `missionId` is the ID of finalizing Airdrop.
 
-  - Using cURL
-    
+
+ - Using cURL
+
     ```sh
     curl --request POST \
           --url https://test.fstk.io/api \
-          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjMxNDA1LCJleHAiOjE1NTI3MTc4MDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.O7_DG_z-sMdWjkzsxXvJKPjY9N5QQccvp9sG24E8nJkxCIQNTEMyJ1R7sZvKltPhz3L-UEyHtHzXft7920pxpw' \
+          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyODc5OTAwLCJleHAiOjE1NTI5NjYzMDAsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.fUqX8JI99T1s5dMQINm-npd4ZeJxJfSj-DRr02h6L3Fk69wBgX2ttOxiLffIuLbh9E3qXUZ6k9fEpQjIJZpLrw' \
           --header 'content-type: application/json' \
           --cookie locale=en \
-          --data '{"query":"mutation CloseCampaign($input: CloseCampaignInput!) {\n  closeCampaign(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}},"operationName":"CloseCampaign"}'
+          --data '{"query":"mutation claimAirdropMission($input: claimAirdropMissionInput!) {\n  claimAirdropMission(input: $input) {\n    pendingTransactions\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"missionId":"QWlyZHJvcE1pc3Npb246","por":"DISABLE"}},"operationName":"claimAirdropMission"}'
     ```
 
-  - Response
+ - Response
 
     ```json
     {
-      "data": {
-        "erc20Transfer": {
-          "transaction": {
-            "nonce": "0x5",
-            "gasPrice": "0x3b9aca00",
-            "gas": "0xf2c2",
-            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
-            "value": "0x0",
-            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
-            "chainId": 42
-          },
-          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+      "data":{
+        "claimAirdropMission":{
+          "transaction":{
+            "nonce":"0xef",
+            "gasPrice":"0x3b9aca00",
+            "gas":"0xdb02",
+            "to":"0xc3a86fB0204dCB008372774960400B65Fec3a6b2",
+            "value":"0x0",
+            "data":"0x4677866f000000000000000000000000000000000000000000000000000000000000005b",
+            "chainId":42
+            },
+          "submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDr1xiw73Ch8KDSFx1MDAxMcOowo5awrvCqsOAXHUwMDAywrwmIiwiYWN0aW9uIjoic3RvcEFpcmRyb3BNaXNzaW9uIiwiZGF0YSI6IlJuZUdid0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCYiIsImluZm8iOnsibWlzc2lvbklkIjoiOTEifSwiaWF0IjoxNTQzODIwMTI3LCJleHAiOjE1NDM4MjA3MjcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.zyHfjPlcIzvwIbF77C4moV-kvojhlls1Hkzda23iE9eN89d2d1ONQgcZIOkcMuGIHXr1a5TulkC7C5S_t54vzQ",
+          "hash":"0xab3fa519a3aefedbgryja3287eceae3c8f779cc43ee82b01d40fa1aeb5ad9f69"
         }
       }
     }
     ```
 
-    > Finalizing Campaign will not consume FST Service Gas.
+    > Finalizing Airdrop will not consume FST Service Gas.
 
     > Is API succeeds, please follow 3 previous steps： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`.
 
@@ -672,7 +837,7 @@
     ```json   
     { 
       "data": {
-        "createAirdropLocate": null
+        "claimAirdropMission": null
       },
       "errors": [....]
     }

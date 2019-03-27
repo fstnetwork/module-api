@@ -118,7 +118,7 @@
   
     > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > Please remember that  response will vary after each call, please use the latest response for next steps.
+    > Please remember that response will vary after each call, please use the latest response for next steps.
 
     > e.g. Response like 
     ```json   
