@@ -1,8 +1,9 @@
 # Create a Campaign
 
-> 在此章節中，您將學習到如何通過 FsTK API 建立 Smart Voucher Campaign 及讓消費者快速購入 Smart Voucher
+> In ths chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
 
-> Campaign 為販售 Smart Token/Voucher 的販賣機，您可以設定欲販售之 Smart Token/Voucher、販售期間、販售量、以及本次販售期間的價格，讓消費者透過此管道購買 Smart Token/Voucher。
+> Campaign is the vending machine of Smart Token/Voucher. You can set up the type of selling Smart Token/Voucher, activated selling period, selling amount and selling price in this campaign. This allows customers to automatically receive Smart Token/Voucher after purchase.
+<!-- 感覺整篇是 Create_a_Voucher_Campaign -->
 
 ## Table of Contents
 
@@ -22,44 +23,45 @@
 
 ## Prerequisite
 
- 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > 請注意此兩個平台之帳戶資料沒有互通
+ 1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
+    >  Notice account data are NOT shared across both platform 
 
-    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
-    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
+    - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
+    - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
- 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
-    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
+ 2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
 
-    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
-    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
+    - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
+    - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
+    - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
+    - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. 請準備好您的 API 測試工具
-    - [Insomnia](https://insomnia.rest) (推薦)
+ 3. Please prepare your API testing tools
+    - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 
- 4. 已知如何取得 Access Web Token (JWT)
-    > 詳情請參考 Quick start [第一篇章](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+ 4. Understand how to retrieve Access Web Token (JWT)
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md)
 
- 5. 已完成 Quick start 之學習
+ 5. Complete Quick start
 
- 6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+ 6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
- 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (建立 campaign 需 500 FST Service Gas)，建立後若取消則不退回 FST Service Gas
+ 7. Confirm sufficient FST Service Gas for module service fee (at least 500 FST Service Gas), FST Service Gas will not be refunded after cancellation.
 
- 8. 已經成為 Issuer (Token 發行者)，請至 `get me` 中的 `token` 確認
+ 8. Become Issuer (Token Issuer), please confirm `token` in `get me`.
 
-## Encode the Transaction (create Smart Token campaign)
+## Encode the Transaction (create smart voucher campaign)
 
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > 以下繼續以 FST Sport Shop 作為範例
-   
-    聖誕節即將來臨，FST Sport Shop 為了讓常客能得到更多的優惠，將推出一款聖誕節特賣福袋 Smart Voucher (FSST_19FXSV)，消費者可使用所持有的 FST Sport Shop Token 購買此聖誕活動所推出的 FSST_19FXSV，此 FSST_19FXSV 將限量發行 1000 張，售價為此 FSST_19FXSV 的定價。而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。
+ > Hereinafter let's take FST Sport Shop as the example.
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+    As Christmas is coming, in order to promote seasonal sales, FST Sport Shop is going to release a special lucky bag with Smart Voucher (FSST_19FXSV). Customers can spend FST Sport Shop Token and receive FSST_19FXSV (which can be further distributed and exchanged for lucky bag). FSST_19FXSV has a fixed total supply of 1,000 with original pricing (set-up when publishing FSST_19FXSV). 
+    <!-- 而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。 -->
+
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
@@ -99,31 +101,31 @@
     }
     ```
 
-     - `id` 為所欲販賣之 Smart Token/Voucher 於 FsTK 系統所記錄之 ID。可於 `get me` 中的 `token` 取得
+     - `id` is the registered ID on FsTK system of selling Smart Token/Voucher, which can be retrieved from `token` in `get me`.
 
-     - `name` 此 Campaign 的名稱，至少 1 字元，至多 20 字元
+     - `name` is the name of Campaign, between 1 character to 20 characters.
   
-     - `description` 此 Campaign 的描述或說明
+     - `description` is the description of Campaign.
 
-     - `stages` 此 Campaign 的階段，目前一個 Campaign 僅有一個 stage
+     - `stages` are Campaign stages. Currently Campaign only allows 1 stage.
   
-       - `name` 此 Stage 的名稱，至少 1 字元，至多 20 字元
+       - `name` is the name of Stage, between 1 character to 20 characters.
 
-       - `startTime` 此 Stage 的開始時間，需為 Unix Timestamp in Milliseconds 格式
+       - `startTime` is the activated selling time of Stage, in Unix Timestamp in Milliseconds.
     
-       - `endTime` 此 Stage 的結束時間，需為 Unix Timestamp in Milliseconds 格式
+       - `endTime` is the ending time of Stage, in Unix Timestamp in Milliseconds.
 
-       - `priceMultiplier` 此 Stage 中欲販售 Smart Token/Voucher 的價格之乘數，也就是說假如此 Ｃampaign 想要打九折，則乘數為 9/10。假如要維持原價則為 1/1
+       - `priceMultiplier` is the price multiplier (discount/markup) of Smart Token/Voucher at this Stage, e.g., a 10% off means 9/10; no discount means 1/1.
   
-         - `numerator` 乘數之分子
+         - `numerator` is the numerator of price multiplier.
 
-         - `denominator` 乘數之分母
+         - `denominator` is the denominator of price multiplier.
   
-       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，格式為 Decimal Number。如欲販售 Smart Token 則要乘上 10^18，反之 Smart Voucher 維持原本的數量 (因 Voucher 不可分割，故 decimal = 0，10^0 為 1)
+       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimal Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
 
-       - `isPrivate` 此 Stage 是否為私密販售，需要特殊簽章者才得以購買
+       - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
   
-       -  `description` 此 Stage 的描述或說明
+     - `description` is the description of Stage.
 
 
  - Using cURL
@@ -159,13 +161,13 @@
     }
     ```
 
-    > 目前此 API 尚未支援回傳所需 FST Service Gas 量，create a campaign 需要花費 500 FST Service Gas
+    > At the moment, API does not respond the value of consuming FST Service Gas. `create a campaign` will consume 500 FST Service Gas.
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，`submitToken` 也請保留，等一下送出簽署後的結果時需用到
+    > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
+    > Please remember that  response will vary after each call, please use the latest response for next steps.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -174,16 +176,17 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
 
 ## Decrypt the Ethereum Key JSON
 
- > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的
+ > Please notice the difference between `password` and `passphrase` in FsTK system. `password` is required to sign in Tokeneden;  `passphrase` is required to decrypt Ethereum key JSON and sign the transaction. 
 
- > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
+ > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
- > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
-
+ > To start with, use `get me` to fetch `ethereumKey` like the following:
+ 
  ```json
  {
    "id": "64031d31-53a4-11e8-b00a-2b7a29c9f6b9",
@@ -208,15 +211,15 @@
  }
  ```
 
- > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開
+ > This is current user's Ethereum key JSON, which includes encrypted private key (by passphrase). This can be safely stored but remain private unless necessary.
  
- > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
+ > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **也請注意，如果遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase**
 
  - Using JavaScript (Node.js)
 
-    > 安裝 [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
+    > Install [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
 
     ```sh
     npm i --save "https://github.com/fstnetwork/eth-key-lib-js"
@@ -252,9 +255,9 @@
     console.log(walletObj) // walletObj.privateKeyBuffer is the private key for signing
     ```
 
-    > 此語法為 ES6 之 module import，假如您的 node.js 不支援此語法，請參考 [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) 及以下範例
+    > This is the module import of ES6. If your node.js does not support it, please refer to [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) and the followings:
 
-    > 最小可用之 `webpack.config.js`
+    > Minimal `webpack.config.js`
 
     ```javascript
     const path = require("path");
@@ -276,7 +279,7 @@
     };
     ```
 
-    > 最小可用之 `package.json`
+    > Minimal `package.json`
 
     ```json
     {
@@ -295,7 +298,7 @@
     }
     ```
 
-    > 建置命令 (請將程式進入點放置在 `index.js`)
+    > Install command line (please let `index.js` be the program entry point)
 
     ```sh
     npm i && npm start
@@ -303,30 +306,30 @@
     # yarn && yarn start
     ```
 
-    > 如您在 windows 平台上開發，請參照 [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows)
+    > If working on windows, please refer to [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows).
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `WalletUtils` 中的 `loadCredentials` 方法，必須使用此多載  
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > 也就是說，因為 web3j 只提供從 `File` 載入，請注意檔案系統的空間，或者也可以使用 in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 也請參考 [Nethereum 的簡易範例](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
    ```
 
-   > 從 `Account` 取得私鑰請使用 `Account.PrivateKey`
+   > Please use `Account.PrivateKey` to fetch private key from `Account`.
 
 ## Sign the Ethereum Transaction
 
@@ -352,29 +355,29 @@
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `TransactionEncoder` 中的 `signMessage` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Web3j](https://web3j.io)  
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
    ```
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#signing-transactions)
+   > Please refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#signing-transactions)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 請注意 `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Nethereum](https://nethereum.com)  
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > 也請參考 `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
 
-## Broadcast the Ethereum Transaction
-
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ ## Broadcast the Ethereum Transaction
+ 
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     mutation submitSignedTransaction(input: SubmitTransactionInput!) {
@@ -395,9 +398,9 @@
     }
     ```
 
-    > `data` 為上面以當前使用者的私鑰簽署 `transaction` 物件過後的產物，也就是 `signedTransaction`，為 hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string
 
-    > `submitToken` 為 Encode Ethereum Transaction 小章節中得到的 `submitToken`
+    > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 
  - Using cURL
 
@@ -422,15 +425,15 @@
     }
     ```
 
-    > 此 `transactionHash` 為下一步拿來確認有沒有交易驗證通過之交易代號
+    > `transactionHash` can be used to check whether transaction is confirmed in the next steps.
 
 ## Confirm the Ethereum Transaction
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
-    query getTransactionReceipt(txHash: String!) {
-      getTransactionReceipt(txHash: txHash)
+    query getTransactionReceipt($txHash: String!) {
+      getTransactionReceipt(txHash: $txHash)
     }
     ```
 
@@ -442,9 +445,9 @@
     }
     ```
 
-    > `txHash` 為想要確認之交易代號
+    > `txHash` is the transaction hash.
     
-    > 請注意不同鏈上的交易代號可能會重疊，但代表不同的交易
+    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on different chain. 
 
  - Using cURL
 
@@ -454,7 +457,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"query getTransactionReceipt(txHash: String!) {  getTransactionReceipt(txHash: txHash)}","variables":{"txHash":"0x963339460f699b5d02dfd841c21992353cd441917964506ebeae06efe85f400b"},"operationName":"getTransactionReceipt"}'
+         --data '{"query":"query getTransactionReceipt($txHash: String!) {  getTransactionReceipt(txHash: $txHash)}","variables":{"txHash":"0x963339460f699b5d02dfd841c21992353cd441917964506ebeae06efe85f400b"},"operationName":"getTransactionReceipt"}'
     ```
 
  - Response
@@ -495,27 +498,26 @@
     }
     ```
 
-    > 請看 `confirmations` 中的 `remain` 成為 `0` 時，表示交易已經驗證完成
+    > When `remain` in `confirmations`  becomes `0`, the transaction is confirmed.
 
-    > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
+    > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
 ## Confirm the Campaign
 
- > 請查看 `get me` 中的 `campaigns` (詳情請參考 Quick start [第二篇章](../Quick_Start/02-Get_account_information.zh.md))
-)
+ > Please refer to `token.vouchers` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md))
 
 ## Transfer Smart Token to the Campaign to obtain Smart Voucher
 ### Encode the Transaction (transferring smart token to voucher campaign)
 
-  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
-  > 使用者購買 Smart Voucher 時，issuer 需支付 0.15 FST Service Gas per Smart Voucher 作為手續費
+  > Voucher Issuer will consume 0.15 FST Service Gas after customer purchases each Smart Voucher.
   
-  > 以下繼續以 FST Sport Shop 作為範例：
+  > Hereinafter let's take FST Sport Shop as the example.
 
-    FST Sport Shop 開始透過 Campaign 販售 FSST_19FXSV 後，消費者可透過傳送 Smart Token (FSST) 至該 Campaign 的 address，Campaign 會回傳消費者所購得的 FSST_19FXSV 至消費者傳送 FSST 的帳戶。
+    After FST Sport Shop sets up Campaign of FSST_19FXSV, customers can transfer 消費者可透過傳送 Smart Token (FSST) to Campaign address, the Campaign smart contract will automatically transfer FSST_19FXSV to the customer address corresponding voucher pricing.
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Recommended Insomnia)
 
    - operations detail
     ```graphql
@@ -541,11 +543,11 @@
     }
     ```
 
-     - `id` 為所欲傳送的 Smart Token 之 ID。可於 `getSmartTokenBalance` 中取得
+     - `id` is the registered ID on FsTK system of Smart Token, which can be retrieved from `getSmartTokenBalance`.
 
-     - `to` 販售 FSST_19FXSV 的 Campaign 的 address
+     - `to` is the Campaign smart contract address of FSST_19FXSV.
 
-     - `value` 欲傳送的數量，若 FSST_19FXSV 價格為 `2000` FSST，並且想要購買 1 個 FSST_19FXSV，則 FSST 之 `value = 2000000000000000000000`
+     - `value` is the transferring amount. If the price of FSST_19FXSV is `2000` FSST, to purchase 1 FSST_19FXSV requires `value = 2000000000000000000000`.
 
 
   - Using cURL
@@ -583,27 +585,27 @@
 
 ## Check the progress of the Campaign
 
-> 您可以從 `getAllCampaignInfo` API 中，取得所有 Campaign 的 `cap` 及 `sold`，以了解您的 Campaign 銷售進度 (請參考 [API_Reference/Campaign/getAllCampaignInfo](../API_Reference/getAllCampaignInfo.md))
+> Information of Campaign, e.g. `cap` and `sold`, can be retrieved from `getAllCampaignInfo` API and shows the sales progress of current Campaign. (Please refer to [API_Reference/Campaign/getAllCampaignInfo](../API_Reference/getAllCampaignInfo.md))
 
 ## Finalize the Campaign
 ### Prerequisite
 
-> 創建 Smart Voucher Campaign 後，可分為三個階段：開始販售前、販售期間、販售結束後，在此三個階段進行結束 Campaign 動作分別有不同的結果
+> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
 
-1. 開始販售前 (now < `startTime`)：issuer 取消販售，並取回未賣出的 Smart Voucher。
-2. 販售期間 (`startTime` < now < `endTime`)：若未售完，issuer 無法取消及取回剩餘的 Smart Voucher 及所賺得的 Smart Token；若在販售期間售完，issuer 則可提前取回所賺得的 Smart Token
-3. 販售結束後 (`endTime` < now)：issuer 可取回未賣出的 Smart Voucher 及所賺得的 Smart Token
+1. Pre sales (now < `startTime`): Campaign is cancelled by the issuer and returns the unsold Smart Voucher.
+2. Launch Period (`startTime` < now < `endTime`): If Smart Voucher is sold out during Launch, issuer can claim back the Smart Token before `endTime`, otherwise issuer cannot cancel the Campaign or claim back remaining Smart Voucher and earned Smart Token.
+3. Post sales (`endTime` < now)：issuer can claim back unsold Smart Voucher and earned Smart Token.
 
 <!-- different result when finalize in different state  -->
 ### Encode the Transaction (finalizing campaign)
   
-  > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
-  > 以下繼續以 FST Sport Shop 作為範例：
+  > Hereinafter we take FST Sport Shop as the example.
 
-    FST Sport Shop 所販售的 FSST_19FXSV 於販售期間熱銷一空，FST Sport Shop 欲將所賺得的 FSST 從 Campaign 販賣機中領出，可使用 `finalizeSmartVoucherCampaign` API 結束本次販售。
+    FST Sport Shop's FSST_19FXSV is sold out during launch period. FST Sport Shop would like to receive FSST from Campaign vending machine, and `finalizeSmartVoucherCampaign` API can finalize the cmapaign.
    
-  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
@@ -627,7 +629,7 @@
     }
     ```
 
-     - `id` 為欲關閉的 Campaign ID。可於 `getAllCampaignInfo` 中取得
+     - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
 
   - Using cURL
     
@@ -662,11 +664,11 @@
     }
     ```
 
-    > 關閉 Campaign 無需花費 FST Service Gas
+    > Finalizing Campaign will not consume FST Service Gas
 
-    > 此 API 若執行成功，請接續上方三個步驟： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`
+    > Is API succeeds, please follow 3 previous steps： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -675,4 +677,6 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
+s
