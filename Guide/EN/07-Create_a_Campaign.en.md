@@ -1,23 +1,30 @@
-# Issue a Smart Token
+# Create a Campaign
 
-> In this chapter, you will understand how to issue Smart Token via FsTK API.
+> In ths chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
 
-> Smart Token is the ERC-1376 Token as the main ledger for digital system and digital identity on Blockchain.
+> Campaign is the vending machine of Smart Token/Voucher. You can set up the type of selling Smart Token/Voucher, activated selling period, selling amount and selling price in this campaign. This allows customers to automatically receive Smart Token/Voucher after purchase.
+<!-- 感覺整篇是 Create_a_Voucher_Campaign -->
 
 ## Table of Contents
 
  1. Prerequisite
- 2. Encode the Transaction (issuing smart token)
+ 2. Encode the Transaction (creating smart voucher campaign)
  3. Decrypt the Ethereum Key JSON
  4. Sign the Ethereum Transaction
  5. Broadcast the Ethereum Transaction
  6. Confirm the Ethereum Transaction
- 7. Confirm the Smart Token
+ 7. Confirm the Campaign
+ 8. Transfer SMart Token to the Campaign to obtain Smart Voucher
+    1. Encode the Transaction (transferring smart token to voucher campaign)
+ 9.  Check the progress of the Campaign
+ 10. Finalize the Campaign
+     1.  Prerequisite
+     2.  Encode the Transaction (finalizing campaign)
 
 ## Prerequisite
 
  1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
-    >  Notice account data are NOT shared across both platform.
+    >  Notice account data are NOT shared across both platform. 
 
     - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
     - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
@@ -41,87 +48,95 @@
 
  6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
-## Encode the Transaction (issuing smart token)
+ 7. Confirm sufficient FST Service Gas for module service fee (at least 500 FST Service Gas), FST Service Gas will not be refunded after cancellation.
+
+ 8. Become Issuer (Token Issuer), please confirm `token` in `get me`.
+
+## Encode the Transaction (create smart voucher campaign)
 
  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > Hereinafter let's take FST Sport Shop as the issuing token.
+ > Hereinafter let's take FST Sport Shop as the example.
 
-    FST Sport Shop would like to issue token as the cash back after customers purchase its products.
-    Token name is `FST Sport Shop Token` (abbr. `FSST`) with total supply 100 million token.
+    As Christmas is coming, in order to promote seasonal sales, FST Sport Shop is going to release a special lucky bag with Smart Voucher (FSST_19FXSV). Customers can spend FST Sport Shop Token and receive FSST_19FXSV (which can be further distributed and exchanged for lucky bag). FSST_19FXSV has a fixed total supply of 1,000 with original pricing (set-up when publishing FSST_19FXSV). 
+    <!-- 而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。 -->
 
- - Using multipart/form-data
-
-   > Assign `operations` with GraphQL query and GraphQL variables.
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
+    ```graphql
+    mutation CreateCampaign($input: CreateCampaignInput!) {
+      createCampaign(input: $input) {
+        transaction
+        submitToken
+        hash
+      }
+    }
+    ```
 
-     ```json
-     {
-       "query": "mutation IssueToken($input: IssueTokenInput!) {    issueToken(input: $input) {     transaction     hash    submitToken     }    }",
-       "variables": {
-         "input": {
-            "name":"FST Sport Shop Token",
-            "symbol":"FSST",
-            "totalSupply":"1000000000000000000000000000",
-            "price": {
-                "numerator":"1",
-                "denominator":"4500"
+    Variables:
+
+    ```json
+    {
+      "input": {
+        "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+        "name":"2019 Christmas Voucher Sale.",
+        "description":"This is the 2019 Christmas Voucher Sale.",
+        "stages":[
+          {
+            "name":"2019 Christmas Voucher Sale.",
+            "startTime":"1569888000000",
+            "endTime":"1575072000000",
+            "priceMultiplier":{
+              "numerator":"1",
+              "denominator":"1"
             },
-            "description":"This is the FST Sport Shop Token.",
-            "website":"fst.sport.com",
-            "logo":null,
-            "proofOfContract":null,
-            "por": "DISABLE"
-         }
-       }
-     }
-     ```
+            "cap":"1000",
+            "isPrivate":false,
+            "description":"This is the 2019 Christmas Voucher Sale."
+           }
+        ],
+        "por":"DISABLE"
+      }
+    }
+    ```
 
-     - `name` is the name of issuing Smart Token, from 3 to 20 characters.
+     - `id` is the registered ID on FsTK system of selling Smart Token/Voucher, which can be retrieved from `token` in `get me`.
 
-     - `symbol` is the symbol of issuing Smart Token, from 2 to 6 capital characters.
-
-     - `totalSupply` is the total supply of Smart Token as Decimaled Number, e.g. issuing 1234 Smart Token means `totalSupply = "1234000000000000000000"`.
-
-     - `price` is an object showing how much Ether a Smart Token is equivalent to (i.e. the exchange ratio between Token & Voucher), also the initial price of Smart Token. Token can only be exchanged by Ether. Token.
-     
-       - `numerator` is `"1"` in general. In special case, say `numerator = "2"` and `denominator = "345"`, this means 2 Ether is worth 345 Smart Token, so that pricing will be calculated in terms of fraction.
-
-       - `denominator` is showing that how much Ether a Smart Token is worth, e.g. 123 Smart Token is worth 1 Ether, then `denominator = "123"` & `numerator = 1`.
-
-     - `description` is the description of Smart Token.
+     - `name` is the name of Campaign, between 1 character to 20 characters.
   
-     - `website` is the website related to Smart Token.
+     - `description` is the description of Campaign.
 
-     - `logo` is the logo picture of Smart Token. Logo is not required in operations, instead in form-data as another entry, is `null` here.
+     - `stages` are Campaign stages. Currently Campaign only allows 1 stage.
+  
+       - `name` is the name of Stage, between 1 character to 20 characters.
 
-     - `proofOfContract` is not required in operations, instead in form-data as another entry, is `null` here.
+       - `startTime` is the activated selling time of Stage, in Unix Timestamp in Milliseconds.
+    
+       - `endTime` is the ending time of Stage, in Unix Timestamp in Milliseconds.
 
-   > logo is in image format belonging belonging to Smart Token.
+       - `priceMultiplier` is the price multiplier (discount/markup) of Smart Token/Voucher at this Stage, e.g., a 10% off means 9/10; no discount means 1/1.
+  
+         - `numerator` is the numerator of price multiplier.
 
-   > proofOfContract is in pdf format to describe related legal agreements or rights of Smart Token, then stored and protected in IPFS.
+         - `denominator` is the denominator of price multiplier.
+  
+       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimaled Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
 
-   > the summary of multipart/form-data is:
+       - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
+  
+     - `description` is the description of Stage.
 
-   ```
-   operations: {"query":"mutation IssueToken($input: IssueTokenInput!) {    issueToken(input: $input) {     transaction     hash    submitToken     }    }","variables":{"input":{"name":"FST Sport Shop Token","symbol":"FSST","totalSupply":"1000000000000000000000000000","price":{"numerator":"1","denominator":"4500"},"description":"This is the FST Sport Shop Token.","website":"fst.sport.com","logo":null,"proofOfContract":null,"por":"DISABLE"}}}
-   map: {"logo":["variables.input.logo"],"proofOfContract":["variables.input.proofOfContract"]}
-   logo: (binary)
-   proofOfContract: (binary)
-   ```
 
  - Using cURL
 
     ```sh
     curl --request POST \
-        --url https://test.fstk.io/api \
-        --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLCmcKVPsOswosmXHUwMDExw6jCjlpLwoNcdTAwMTMtwrhGIiwiaWF0IjoxNTUyNDY5NDgxLCJleHAiOjE1NTI1NTU4ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.DBb1_vGP4ueHjxMbCGu9M8DZmIhaaNiqi-GjtYBOa0ApG_GZ36QWLUjDF1TIJ6BoZojOZuYADA1XPyfNNhchIQ' \
-        --cookie locale=en \
-        --form 'operations={"query":"mutation IssueToken($input: IssueTokenInput!) {    issueToken(input: $input) {     transaction     hash    submitToken     }    }","variables":{"input":{"name":"FST Sport Shop Token","symbol":"FSST","totalSupply":"1000000000000000000000000000","price":{"numerator":"1","denominator":"4500"},"description":"This is the FST Sport Shop Token.","website":"fst.sport.com","logo":null,"proofOfContract":null,"por":"DISABLE"}}}' \
-        --form 'map={"logo":["variables.input.logo"],"proofOfContract":["variables.input.proofOfContract"]}' \
-        --form logo='@/path/to/the/image'
-        --form proofOfContract='@/path/to/the/pdf'
+          --url https://test.fstk.io/api \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation CreateCampaign($input: CreateCampaignInput!) {\n  createCampaign(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","name":"2019 Christmas Voucher Sale.","description":"This is the 2019 Christmas Voucher Sale.","stages":[{"name":"2019 Christmas Voucher Sale.","startTime":"1569888000000","endTime":"1575072000000","priceMultiplier":{"numerator":"1","denominator":"1"},"cap":"1000","isPrivate":false,"description":"This is the 2019 Christmas Voucher Sale."}],"por":"DISABLE"}},"operationName":"CreateCampaign"}'
     ```
 
  - Response
@@ -129,24 +144,24 @@
     ```json
     {
       "data": {
-        "issueToken": {
+        "createCampaign": {
           "transaction": {
-            "nonce": "0x32",
+            "nonce": "0x5",
             "gasPrice": "0x3b9aca00",
-            "gas": "0x595dc5",
-            "to": "0x7aeCC9c7dC65d15aEbF1e2cF7eb0fBBf38F49414",
+            "gas": "0x165b83",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
             "value": "0x0",
-            "data": "0x4000aea00000000000000000000000003705ef5d9c36509faa0d4ebc7e7e09dbda0ba08e0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002448d62333600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000012000000000000000000000000000000000000000000000000000000000000001600000000000000000000000000000000000000000033b2e3c9fd0803ce800000000000000000000000000000000000000000000000000000000000000000001a000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000001194000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000144653542053706f72742053686f7020546f6b656e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000004465353540000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000632f697066732f7a4275724b376745337141536570734d356b6e67773731503446544d433832466f42673350397571355a74696e67594e4d35597a4b596a745763376462755846534361525341687776445247694c4c7831787937507a684c6967347147000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "data": "0x4000aea00000000000000000000000003a6ca60e8f13492e64e6ff1a536a77f9786c049d00000000000000000000000000000000000000000000000000000000000003e8000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000001246f40b1c90000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000082e82d99a274625c3ec061393b6c43a932d0a274000000000000000000000000000000000000000000000000000000005d929700000000000000000000000000000000000000000000000000000000005de1b10000000000000000000000000000000000000000000000000000000000000003e800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
             "chainId": 42
           },
-          "hash": "0x4788abb3f836ab93b27995bc2173a1d67200250c330c546f727d536e11c41612",
-          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLCmcKVPsOswosmXHUwMDExw6jCjlpLwoNcdTAwMTMtwrhGIiwiYWN0aW9uIjoiaXNzdWVUb2tlbiIsInR4IjoiK1FNS01vUTdtc29BZzFsZHhaUjY3TW5IM0dYUld1dng0czkrc1B1L09QU1VGSUM1QXVSQUFLNmdBQUFBQUFBQUFBQUFBQUFBTndYdlhadzJVSitxRFU2OGZuNEoyOW9Mb0k0QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBa1NOWWpNMkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUVnQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFXQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQU03TGp5ZjBJQTg2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBR2dBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQVJsQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQlJHVTFRZ1UzQnZjblFnVTJodmNDQlViMnRsYmdBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFFUmxOVFZBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBWXk5cGNHWnpMM3BDZFhKTE4yZEZNM0ZCVTJWd2MwMDFhMjVuZHpjeFVEUkdWRTFET0RKR2IwSm5NMUE1ZFhFMVduUnBibWRaVGswMVdYcExXV3AwVjJNM1pHSjFXRVpUUTJGU1UwRm9kM1pFVWtkcFRFeDRNWGg1TjFCNmFFeHBaelJ4UndBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJpc3N1ZXJJZCI6IsKZwpU-w6zCiyZcdTAwMTHDqMKOWkvCg1x1MDAxMy3CuEYiLCJuYW1lIjp7ImVuIjoiRlNUIFNwb3J0IFNob3AgVG9rZW4ifSwic3ltYm9sIjoiRlNTVCIsImRlY2ltYWxzIjoxOCwidG90YWxTdXBwbHkiOiIxMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwibWV0YWRhdGEiOiJBYlVmZUJBTDdiQnhlcXFoWGg4MTJGMlh6S0ZTQys3NFJkdXBPejNZdC9Vdk5EZzZIYU1XS2MwYnlPYThzRXAwQnpUUzY0bHRFY3RLeUNORlBkcHRYWDdJaWJ0aiIsImxpcXVpZCI6dHJ1ZSwiYXBwcm92ZUNoZWNraW5nIjpmYWxzZSwicHJpY2UiOnsibnVtZXJhdG9yIjoiMSIsImRlbm9taW5hdG9yIjoiNDUwMCJ9LCJ2ZW5kaWJsZSI6dHJ1ZSwid2Vic2l0ZSI6ImZzdC5zcG9ydC5jb20iLCJkZXNjcmlwdGlvbiI6eyJlbiI6IlRoaXMgaXMgdGhlIEZTVCBTcG9ydCBTaG9wIFRva2VuLiJ9fSwiaWF0IjoxNTUyNDY5NzE3LCJleHAiOjE1NTI0NzAzMTcsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.bqXSb-kOd8x6E5KlbLUzC6Jnxy8aSSRffYul4mx4Xbcgz3OJmh2vcN3swWUw7Tzl1xEztfa1sbSTj5CKW-xw6w"
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiY3JlYXRlVG9rZW5DYW1wYWlnbiIsInR4IjoiK1FIcUJZUTdtc29BZ3haYmc1UVZYZW9JU3RGUTJBNVd0M1J0MVZBL3pWMzZkNEM1QWNSQUFLNmdBQUFBQUFBQUFBQUFBQUFBT215bURvOFRTUzVrNXY4YVUycDMrWGhzQkowQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUQ2QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFCZ0FBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBU1J2UUxISkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBSUxvTFptaWRHSmNQc0JoT1R0c1E2a3kwS0owQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUYyU2x3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFYZUd4QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUG9BQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFFQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBUUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFDcUFnQT09IiwiaW5mbyI6eyJ0b2tlbklkIjoiw4vDnGzCilx1MDAxYS5cdTAwMTHDqcK6O8OHa0PCoCDDpyIsIm5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJzdGFnZXMiOlt7Im5hbWUiOnsiZW4iOiIyMDE5IENocmlzdG1hcyBWb3VjaGVyIFNhbGUuIn0sImRlc2NyaXB0aW9uIjp7ImVuIjoiVGhpcyBpcyB0aGUgMjAxOSBDaHJpc3RtYXMgVm91Y2hlciBTYWxlLiJ9LCJpc1ByaXZhdGUiOmZhbHNlLCJzdGFydFRpbWUiOiIxNTY5ODg4MDAwMDAwIiwiZW5kVGltZSI6IjE1NzUwNzIwMDAwMDAiLCJjYXAiOiIxMDAwIiwicHJpY2VNdWx0aXBsaWVyIjp7Im51bWVyYXRvciI6IjEiLCJkZW5vbWluYXRvciI6IjEifX1dfSwiaWF0IjoxNTUyNTUwNDQyLCJleHAiOjE1NTI1NTEwNDIsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTpzdWJtaXRfdG9rZW4ifQ.q4trW2Xi1lWus2Liip-Uqe9oWj5yLc-bKFOFypU0gc5Bz1Hzy7Etk7IA_AmaPxdMBAvdoqz9FQSFL5aIkavXtg",
+          "hash": "0x61ae5ed106e85eead3a328cb6e287310e5e93ed939d1fade70c37e126dad9576"
         }
       }
     }
     ```
 
-    > Issue token requires 1 FIL as issuing service charge.
+    > At the moment, API does not respond the value of consuming FST Service Gas. `create a campaign` will consume 500 FST Service Gas.
   
     > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
@@ -156,7 +171,7 @@
     ```json   
     { 
       "data": {
-        "issueToken": null
+        "createCampaign": null
       },
       "errors": [....]
     }
@@ -171,7 +186,7 @@
  > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
  > To start with, use `get me` to fetch `ethereumKey` like the following:
-
+ 
  ```json
  {
    "id": "64031d31-53a4-11e8-b00a-2b7a29c9f6b9",
@@ -326,10 +341,10 @@
     const privateKeyBuffer = walletObj.privateKeyBuffer
 
     const signedTransaction = SignTransaction(privateKeyBuffer, {
-      "nonce": "0x32",
+      "nonce": "0x10f",
       "gasPrice": "0x3b9aca00",
-      "gas": "0x595dc5",
-      "to": "0x7aeCC9c7dC65d15aEbF1e2cF7eb0fBBf38F49414",
+      "gas": "0x480eb3",
+      "to": "0x00E2F43299f51457935333AeF6C956b234Fa4781",
       "value": "0x0",
       "data": "0x4000aea0000000000000000000000000d6aebbbd0af65107a8d3dfe362f322bf4c8e1bcf0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000002a4459ee93a00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000018000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000004d20000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000005e0b707f0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c25821bf51fafd2d16801a2837d87af840446129000000000000000000000000000000000000000000000006aaf7c8516d0c00000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000065445535431310000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000b535449435f54455354313100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000632f697066732f7a4275724b384865537174365a656f634d50726363435654366d4357447152595535615137785453377a787645574841354746764e4752656f7564336263444675475755354c39716932533672417061526d6650314a68416333736633000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
       "chainId": 42
@@ -364,8 +379,8 @@
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
-    mutation submitSignedTransaction($input: SubmitTransactionInput!) {
-      submitTransaction(input: $input) {
+    mutation submitSignedTransaction(input: SubmitTransactionInput!) {
+      submitTransaction(input: input) {
         transactionHash
       }
     }
@@ -394,7 +409,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"mutation submitSignedTransaction($input: SubmitTransactionInput!) {  submitTransaction(input: $input) {    transactionHash  }}","variables":{"input":{"data":"0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082","submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTA0NzgyNzcsImV4cCI6MTU1MDQ3ODg3NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.Qv8mA7mqsQ5RBkMcXvJ2qZOed14Vx-DJPQc3k-U1beb1mFx3Ok-MlZoYivOC-Z1IP0YmS3NJTfrJpOUxOUuVaw"}},"operationName":"submitSignedTransaction"}'
+         --data '{"query":"mutation submitSignedTransaction(input: SubmitTransactionInput!) {  submitTransaction(input: input) {    transactionHash  }}","variables":{"input":{"data":"0xf8aa82010d843b9aca0082f30f9400e2f43299f51457935333aef6c956b234fa478180b844a9059cbb0000000000000000000000000f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f00000000000000000000000000000000000000000000000001b69b4bacd05f1578a0b8a0eee843ab7a58f0d36ba94829c4ab0422b7f26f5e114ff1f662892fdc07e1a028dd5b5b6b0c1e39fa094a971d2614661ff18942b7db72be779b25ae0c2f0082","submitToken":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImFjdGlvbiI6ImVyYzIwVHJhbnNmZXIiLCJ0eCI6IitHcUNBUTJFTzVyS0FJTHpENVFBNHZReW1mVVVWNU5UTTY3MnlWYXlOUHBIZ1lDNFJLa0ZuTHNBQUFBQUFBQUFBQUFBQUFBUER3OFBEdzhQRHc4UER3OFBEdzhQRHc4UER3QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHMm0wdXMwRjhWS29DQSIsImluZm8iOnt9LCJpYXQiOjE1NTA0NzgyNzcsImV4cCI6MTU1MDQ3ODg3NywiYXVkIjoidXJuOmZzdGs6ZW5naW5lIiwiaXNzIjoidXJuOmZzdGs6ZW5naW5lIiwic3ViIjoidXJuOmZzdGs6ZW5naW5lOnN1Ym1pdF90b2tlbiJ9.Qv8mA7mqsQ5RBkMcXvJ2qZOed14Vx-DJPQc3k-U1beb1mFx3Ok-MlZoYivOC-Z1IP0YmS3NJTfrJpOUxOUuVaw"}},"operationName":"submitSignedTransaction"}'
     ```
 
  - Response
@@ -486,6 +501,180 @@
 
     > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
-## Confirm the Smart Token
+## Confirm the Campaign
 
- > Please refer to `token` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md)).
+ > Please refer to `token.vouchers` in `get me` (More details in Quick start [Chapter 2](../../Quick_Start/EN/02-Get_account_information.en.md)).
+
+## Transfer Smart Token to the Campaign to obtain Smart Voucher
+### Encode the Transaction (transferring smart token to voucher campaign)
+
+  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
+
+  > Voucher Issuer will consume 0.15 FST Service Gas after customer purchases each Smart Voucher.
+  
+  > Hereinafter let's take FST Sport Shop as the example.
+
+    After FST Sport Shop sets up Campaign of FSST_19FXSV, customers can transfer Smart Token (FSST) to Campaign address, the Campaign smart contract will automatically transfer FSST_19FXSV to the customer address corresponding voucher pricing.
+
+ - Using [GraphQL](https://graphql.org/learn/) (Recommended Insomnia)
+
+   - operations detail
+    ```graphql
+    mutation transferSmartToken($input: ERC20TransferInput!) {
+      erc20Transfer(input: $input) {
+        transaction
+        hash
+        submitToken
+      }
+    }
+    ```
+
+    Variables:
+
+    ```json
+    {
+      "input": {
+        "id": "VG9rZW46wrRGCwoaw68Rw6nCujsXbMKew7Bzwqc=",
+        "to": "0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d",
+        "value": "2000000000000000000000",
+        "por": "DISABLE"
+      }
+    }
+    ```
+
+     - `id` is the registered ID on FsTK system of Smart Token, which can be retrieved from `getSmartTokenBalance`.
+
+     - `to` is the Campaign smart contract address of FSST_19FXSV.
+
+     - `value` is the transferring amount. If the price of FSST_19FXSV is `2000` FSST, to purchase 1 FSST_19FXSV requires `value = 2000000000000000000000`.
+
+
+  - Using cURL
+    
+    ```sh
+    curl --request POST \
+          --url https://test.fstk.io/api \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNTUwMzgxLCJleHAiOjE1NTI2MzY3ODEsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.VRgydp39uLU1jNyF7bPj9yrTLJxAsoZf3xdWh7s45HCLz8HCjpWCHxJWzQg3hZbuaNptOPV2waRaHYaiEMosEQ' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation transferSmartToken($input: ERC20TransferInput!) {\n  erc20Transfer(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","to":"0x4cf40da49f9d82819161C5DB86fcB496dEfeb35d","value":"2000000000000000000000","por":"DISABLE"}},"operationName":"transferSmartToken"}'
+    ```
+
+  - Response
+
+    ```json
+    {
+      "data": {
+        "erc20Transfer": {
+          "transaction": {
+            "nonce": "0x5",
+            "gasPrice": "0x3b9aca00",
+            "gas": "0xf2c2",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
+            "value": "0x0",
+            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
+            "chainId": 42
+          },
+          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+        }
+      }
+    }
+    ```
+
+## Check the progress of the Campaign
+
+> Information of Campaign, e.g. `cap` and `sold`, can be retrieved from `getAllCampaignInfo` API and shows the sales progress of current Campaign. (Please refer to [API_Reference/Campaign/getAllCampaignInfo](../API_Reference/getAllCampaignInfo.md)).
+
+## Finalize the Campaign
+### Prerequisite
+
+> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
+
+1. Pre sales (now < `startTime`): Campaign is cancelled by the issuer and returns the unsold Smart Voucher.
+2. Launch Period (`startTime` < now < `endTime`): If Smart Voucher is sold out during Launch, issuer can claim back the Smart Token before `endTime`, otherwise issuer cannot cancel the Campaign or claim back remaining Smart Voucher and earned Smart Token.
+3. Post sales (`endTime` < now)：issuer can claim back unsold Smart Voucher and earned Smart Token.
+
+<!-- different result when finalize in different state  -->
+### Encode the Transaction (finalizing campaign)
+  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
+
+  > Hereinafter we take FST Sport Shop as the example.
+
+    FST Sport Shop's FSST_19FXSV is sold out during launch period. FST Sport Shop would like to receive FSST from Campaign vending machine, and `finalizeSmartVoucherCampaign` API can finalize the campaign.
+   
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
+
+   - operations detail
+    ```graphql
+    mutation CloseCampaign($input: CloseCampaignInput!) {
+      closeCampaign(input: $input) {
+        transaction
+        hash
+        submitToken
+      }
+    }
+    ```
+
+    Variables:
+
+    ```json
+    {
+      "input": {
+        "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+        "por": "DISABLE"
+      }
+    }
+    ```
+
+     - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
+
+  - Using cURL
+    
+    ```sh
+    curl --request POST \
+          --url https://test.fstk.io/api \
+          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjMxNDA1LCJleHAiOjE1NTI3MTc4MDUsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.O7_DG_z-sMdWjkzsxXvJKPjY9N5QQccvp9sG24E8nJkxCIQNTEMyJ1R7sZvKltPhz3L-UEyHtHzXft7920pxpw' \
+          --header 'content-type: application/json' \
+          --cookie locale=en \
+          --data '{"query":"mutation CloseCampaign($input: CloseCampaignInput!) {\n  closeCampaign(input: $input) {\n    transaction\n    hash\n    submitToken\n  }\n}\n","variables":{"input":{"id":"VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC","por":"DISABLE"}},"operationName":"CloseCampaign"}'
+    ```
+
+  - Response
+
+    ```json
+    {
+      "data": {
+        "erc20Transfer": {
+          "transaction": {
+            "nonce": "0x5",
+            "gasPrice": "0x3b9aca00",
+            "gas": "0xf2c2",
+            "to": "0x155dea084AD150D80E56B7746dD5503fCd5dfA77",
+            "value": "0x0",
+            "data": "0xa9059cbb0000000000000000000000004cf40da49f9d82819161c5db86fcb496defeb35d00000000000000000000000000000000000000000000006c6b935b8bbd400000",
+            "chainId": 42
+          },
+          "hash": "0x821d1ddcaa61b164c74d6b21b6a07717637c890611cac7ebc577ec8952ddd40a",
+          "submitToken": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJtb2RlIjowLCJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiYWN0aW9uIjoiZXJjMjBUcmFuc2ZlciIsInR4IjoiK0dnRmhEdWF5Z0NDOHNLVUZWM3FDRXJSVU5nT1ZyZDBiZFZRUDgxZCtuZUF1RVNwQlp5N0FBQUFBQUFBQUFBQUFBQUFUUFFOcEorZGdvR1JZY1hiaHZ5MGx0NytzMTBBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFHeHJrMXVMdlVBQUFDcUFnQT09IiwiaW5mbyI6e30sImlhdCI6MTU1MjYyMDgzMSwiZXhwIjoxNTUyNjIxNDMxLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6c3VibWl0X3Rva2VuIn0.GcyvdesjTAT3b1kw-tFYqXrFfr9SIIRlx3iTGm-PVpmWDkgXlZdyU90A956WhcmPoEIkscKq1_ykoNO0OPo4mw"
+        }
+      }
+    }
+    ```
+
+    > Finalizing Campaign will not consume FST Service Gas.
+
+    > Is API succeeds, please follow 3 previous steps： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`.
+
+    > e.g. Response like 
+    ```json   
+    { 
+      "data": {
+        "createAirdropLocate": null
+      },
+      "errors": [....]
+    }
+    ```  
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..

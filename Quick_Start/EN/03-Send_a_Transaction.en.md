@@ -91,7 +91,7 @@
   
     > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > Please remember that  response will vary after each call, please use the latest response for next steps.
+    > Please remember that response will vary after each call, please use the latest response for next steps.
 
     > e.g. Response like 
     ```json   
@@ -141,7 +141,7 @@
  
  > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase.**
 
  - Using JavaScript (Node.js)
 
@@ -224,7 +224,7 @@
     }
     ```
 
-    > Install command line (please let `index.js` be the program entry point)
+    > Install command line (please let `index.js` be the program entry point).
 
     ```sh
     npm i && npm start
@@ -236,20 +236,20 @@
 
  - Using Java
 
-   > Please refer to [Web3j](https://web3j.io)  
+   > Please refer to [Web3j](https://web3j.io).
    > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java.
 
-   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files).
 
  - Using C#
 
-   > Please refer to [Nethereum](https://nethereum.com)  
-   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account).
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
@@ -281,8 +281,8 @@
 
  - Using Java
 
-   > Please refer to [Web3j](https://web3j.io)  
-   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
+   > Please refer to [Web3j](https://web3j.io).
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
@@ -292,14 +292,14 @@
 
  - Using C#
 
-   > Please refer to [Nethereum](https://nethereum.com)  
-   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`.
 
  ## Broadcast the Ethereum Transaction
  
@@ -324,7 +324,7 @@
     }
     ```
 
-    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string.
 
     > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 

@@ -1,6 +1,6 @@
 # Create an Airdrop Mission
 
-> 在此章節中，您將學習如何透過 FsTK API 建立 Airdrop mission，您可以建立規則卡，擷取出在 FsTK Engine 及區塊鏈中所有符合規則的帳戶進行空投。
+> In this chapter, you will understand how to set up Airdrop mission via FsTK APi. You can set up Airdrop Locate rule, extract corresponding address on FsTK Engine and airdrop desired assets.
 
 ## Table of Contents
 
@@ -18,45 +18,45 @@
 
 ## Prerequisite
 
- 1. 請先於 `https://test.fstk.io` 或 `https://engine.fstk.io` 註冊帳號，並確認開通成功
-    > 請注意此兩個平台之帳戶資料沒有互通
+ 1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
+    >  Notice account data are NOT shared across both platform. 
 
-    - `test.fstk.io` 是在 [**Kovan Testnet**](https://kovan.etherscan.io) 建立的 Tokeneden 平台，是作為較快速的開發與測試與 Demo 所用  
-    - `engine.fstk.io` 則在 [**Mainnet**](https://etherscan.io)，是於以太坊主公開鏈建立的 Tokeneden 平台
+    - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
+    - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
- 2. 請檢查您的帳號中的 `ETH`、`FST`、`FIL`，及 `FST Service Gas` 餘額
-    > 請記得，於 `test.fstk.io` 之資產皆在 **Kovan Testnet**，而於 `engine.fstk.io` 之資產皆在 **Mainnet**
+ 2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**.
 
-    - `ETH` 為 `Ether`，於 `test.fstk.io` 會少量發放至新帳戶  
-    - `FST` 為 `Funder Smart Token`，為 [FST Network](https://fst.network) 中的基礎 Utility Token，於 `test.fstk.io` 會發放至新帳戶  
-    - `FIL` 為 `FundersToken Initialisation License`，為可發行 Token 之授權證明，於 `test.fstk.io` 會發放 `1 FIL` 至新帳戶  
-    - `FST Service Gas` 為當身為 `Token 發行者 (Issuer)` ，使用 FsTK 模組時所需要的燃料，在網頁右上角個人資訊裡面可以看到餘額
+    - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
+    - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
+    - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
+    - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. 請準備好您的 API 測試工具
-    - [Insomnia](https://insomnia.rest) (推薦)
+ 3. Please prepare your API testing tools.
+    - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 
- 4. 已知如何取得 Access Web Token (JWT)
-    > 詳情請參考 Quick start [第一篇章](../Quick_Start/01-Connect_to_FsTK_Engine_API.zh.md)
+ 4. Understand how to retrieve Access Web Token (JWT).
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md).
 
- 5. 已完成 Quick start 之學習
+ 5. Complete Quick start.
 
- 6. 確認帳戶有足夠的 Ether 來付出燃料費用 (eth gas fee)
+ 6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
- 7. 確認帳戶有足夠的 FST Service Gas 來付出服務手續費 (最少 90 FST Service Gas)
+ 7. Confirm sufficient FST Service Gas for module service fee (at least 90 FST Service Gas), FST Service Gas will not be refunded after cancellation.
 
- 8. 已經成為 Issuer (Token 發行者)，請至 `get me` 中的 `token` 確認
+ 8. Become Issuer (Token Issuer), please confirm `token` in `get me`.
 
-## Encode the Transaction
-### Create Airdrop Locate
+## Encode the Transaction (create airdrop locate)
 
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > 以下繼續以 FST Sport Shop 作為範例：
+ > Hereinafter let's take FST Sport Shop as the example.
    
-    FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FFST 將額外獲得 1 FFST 作為回饋。亦即擁有 22 FFST 將額外獲得 2 FFST，擁有 35 FFST 將額外獲得 3 FFST，依此類推。
+    <!-- FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FSST 將額外獲得 1 FSST 作為回饋。亦即擁有 22 FSST 將額外獲得 2 FSST，擁有 35 FSST 將額外獲得 3 FSST，依此類推。 -->
+    FST Sport Shop is going to give away benefits based on customers FSST holding amount. Every 10 FSST will grant customer 1 FSST as rewards. 
 
-  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
@@ -129,21 +129,22 @@
     }
     ```
 
-     - `rules` 為本次活動的所有空投規則，可有多個規則，每個空投規則之間無關聯。
+     - `rules` are Airdrop Locate rules that each rule acts independently.
 
-       - `rule` 空投規則
+       - `rule` is an individual airdrop locate rule.
 
-         - `type` 有 `EVERY` 及 `AT_LEAST` 兩種。`EVERY` 代表「每...可得...」，例如：每 10 Smart Token 可得 1 Smart Voucher，則有一消費者有 25 Smart Token，該消費者可得 2 Smart Voucher。 `AT_LEAST` 代表「至少...可得...」，例如：至少擁有 10 Smart Token 可獲得 1 Smart Voucher，則有一消費者擁有 25 Smart Token，該消費者可得 1 Smart Voucher。
+         - `type` contains 2 types `EVERY` and `AT_LEAST`. `EVERY` means every condition will be counted for giveaway item calculation. For example, 'every 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 2 Smart Voucher. `AT_LEAST` means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. For example, 'at least 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 1 Smart Voucher.
 
-         - `itemId` 所訂定之搜尋條件規則的資產之 ID
+         - `itemId` is the ID of located Smart Token/Voucher.
 
-         - `amount` 所訂定之搜尋條件規則的資產數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
+         - `amount` is the located amount of located Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
      
-       - `itemId` 符合規則所能獲得的資產之 ID
+       - `itemId` is the ID of giveaway Smart Token/Voucher.
 
-       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
+       - `amount` is the giveaway amount of Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
 
-  > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimaled Number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。
+  <!-- > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimaled Number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。 -->
+  > Please pay attention to the Decimaled Number based on difference of located item & giveaway item. For example, locating Smart Token to give away Smart Token requires decimals of both `rules.n.rule.itemId` and `rules.n.itemId` to be 18. Over-giveaway could occur if given any of the incorrect amount.
 
 
  - Using cURL
@@ -196,11 +197,11 @@
     }
     ```
 
-    > 建立規則卡無需花費 FST Service Gas
+    > Setting up Airdrop Locate will not consume FST Service Gas.
 
-    > 此 API 若執行成功，表示您所建立的規則已經被記錄於 FST Network 的資料庫中，您可重複使用此 Locate 來進行 Airdrop。**請務必記錄您自訂的規則之 `seqno`，目前 FST Network 暫不提供查詢此值。**
+    > If API succeeds, then your Airdrop Locate rule (here referenced as `seqno`) is also stored in systems of FST Network. You may use the reference to start Airdrop in the future. **Please take down your Airdrop Locate rule `seqno` and FST Network does not provide this value**.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -209,17 +210,18 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
 
 ### Create Airdrop Mission
 
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > 下方以 FST Sport Shop 作為範例：
+ > Hereinafter we take FST Sport Shop as the example.
 
-    FST Sport Shop 的週年慶即將來臨，預備進行每年週年慶的大撒幣活動，本次活動預算為 200,000 FSST。
+    FST Sport Shop's annual sale is approaching, an Airdrop to customers is under preparation with budget of 200,000 FSST.
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
@@ -246,13 +248,13 @@
     }
     ```
 
-     - `listId` 於上一步驟您所獲得的 `seqno` 值，也就是您所要使用的規則卡 ID
+     - `listId` is the `seqno` from previous step, i.e. the Airdrop Locate rule ID.
 
-     - `itemId` 您所要空投的 Smart Token/Voucher ID
+     - `itemId` is the ID of giveaway Smart Token/Voucher during this Airdrop.
 
-     - `budget` 您所要空投的預算，若空投執行時，預算不足，則會空投失敗
+     - `budget` is the budget of Airdrop. Insufficient budget will cause failure of Airdrop.
 
-     - `invokeTime` 開始空投的時間，單位為 Unix time millisecond (毫秒)，例如 UTC+8 之 2019/12/31 為 `"1577807999000"`，請注意 Unix time 沒有時區，記得對應您所在的時區進行調整
+     - `invokeTime` is the Airdrop time in Unix time millisecond, e.g. UTC+8 2019/12/31 means `"1577807999000"`. Please notice that Unix time has no time zone, please adjust it according to your local time.
 
 
  - Using cURL
@@ -260,7 +262,7 @@
     ```sh
     curl --request POST \
           --url https://test.fstk.io/api \
-          --header 'authorization: bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
+          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiJkwrJKw5hcdTAwMWEqXHUwMDExw6nCujvCqyRfw65wXHUwMDAzIiwiaWF0IjoxNTUyNjM1NzYzLCJleHAiOjE1NTI3MjIxNjMsImF1ZCI6InVybjpmc3RrOmVuZ2luZSIsImlzcyI6InVybjpmc3RrOmVuZ2luZSIsInN1YiI6InVybjpmc3RrOmVuZ2luZTphY2Nlc3NfdG9rZW4ifQ.d55YCLhl-_xPEk-N9WAisx8S4vLHe0p3iE8KEzg0YGbwGaqozaT85pNJbJ9EwfZiEflm9NVOjzn4lX_qT1fjOQ' \
           --header 'content-type: application/json' \
           --cookie locale=en \
           --data '{"query":"mutation createAirdropMission($input: CreateAirdropMissionInput!) {\n  createAirdropMission(input: $input) {\n    transaction\n    submitToken\n    hash\n  }\n}\n","variables":{"input":{"listId":"QWlyZHJvcExvY2F0ZToxNA==","itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn","budget":"200000000000000000000000","invokeTime":"1569888000000","por":"DISABLE"}},"operationName":"createAirdropMission"}'
@@ -288,15 +290,15 @@
     }
     ```
 
-    > Create Airdrop Mission 需消耗 90 FST Service Gas，若取消 Airdrop 則不退回 FST Service Gas。
+    > Create Airdrop Mission will consume 90 FST Service Gas. Cancelling an Airdrop will not refund FST Service Gas.
 
-    > issuer 需花費 0.3 FST Service Gas per airdrop receiver。前 300 人可由 Create Airdrop Mission 時所支付的 90 FST Service Gas 抵銷，一次空投超過 300 人，每多一人收取 0.3 FST Service Gas。
+    > Issuer will consume 0.3 FST Service Gas per airdrop receiver with 90 FST Service Gas as minimum. To airdrop over 300 receivers, each will charge 0.3 FST Service Gas per person.
   
-    > 此 response 中的 `transaction` 物件將為接下來拿來簽署的 payload，也請保留 `submitToken`，將在下一步送出簽署結果時使用
+    > In response's `transaction`, object will be used to sign payload, `submitToken` is also required for broadcasting signed transaction.
 
-    > 也請記得，此 response 會隨著不同時間呼叫而有所不同，請使用當前最新的呼叫作為接下來步驟所需要用到的資料
+    > Please remember that response will vary after each call, please use the latest response for next steps.
 
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -305,16 +307,16 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
-
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..
 
 ## Decrypt the Ethereum Key JSON
 
- > 請注意 `password` 與 `passphrase` 在 FsTK 的差別，`password` 代表登入平台用的帳戶密碼，而 `passphrase` 為用來解密 Ethereum key json 用的，也就是拿來簽署交易的時候用的
+ > Please notice the difference between `password` and `passphrase` in FsTK system. `password` is required to sign in Tokeneden;  `passphrase` is required to decrypt Ethereum key JSON and sign the transaction. 
 
- > 因多個不同的函式庫的用詞皆不同，有些會將 `passphrase` 寫成 `password`，請避免搞混
+ > Word usage may be different in other libraries, i.e. `passphrase` means `password`.
 
- > 首先，從 `get me` 中取得 `ethereumKey` 欄位的資料，如:
+ > To start with, use `get me` to fetch `ethereumKey` like the following:
 
  ```json
  {
@@ -340,15 +342,15 @@
  }
  ```
 
- > 此為當前使用者之 Ethereum key json，其中包含被加密過後的私鑰 (以 passphrase 加密)，也就是說還算是可以安全地直接儲存，但也儘量不要公開
+ > This is current user's Ethereum key JSON, which includes encrypted private key (by passphrase). This can be safely stored but remain private unless necessary.
  
- > 擁有私鑰等於擁有此 Ethereum Account 的所有控制權，請嚴格保密地儲存 Ethereum key json 與 passphrase
+ > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **也請注意，如果遺失了此 Ethereum key json 的 passphrase，則無任何恢復出私鑰的手段，因為 FsTK 不儲存使用者的 Ethereum key json passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase.**
 
  - Using JavaScript (Node.js)
 
-    > 安裝 [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
+    > Install [eth-key-lib](https://github.com/fstnetwork/eth-key-lib-js)
 
     ```sh
     npm i --save "https://github.com/fstnetwork/eth-key-lib-js"
@@ -384,9 +386,9 @@
     console.log(walletObj) // walletObj.privateKeyBuffer is the private key for signing
     ```
 
-    > 此語法為 ES6 之 module import，假如您的 node.js 不支援此語法，請參考 [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) 及以下範例
+    > This is the module import of ES6. If your node.js does not support it, please refer to [Webpack](https://webpack.js.org/configuration/target) (`target = "node"`) and the followings:
 
-    > 最小可用之 `webpack.config.js`
+    > Minimal `webpack.config.js`
 
     ```javascript
     const path = require("path");
@@ -408,7 +410,7 @@
     };
     ```
 
-    > 最小可用之 `package.json`
+    > Minimal `package.json`
 
     ```json
     {
@@ -427,7 +429,7 @@
     }
     ```
 
-    > 建置命令 (請將程式進入點放置在 `index.js`)
+    > Install command line (please let `index.js` be the program entry point).
 
     ```sh
     npm i && npm start
@@ -435,30 +437,30 @@
     # yarn && yarn start
     ```
 
-    > 如您在 windows 平台上開發，請參照 [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows)
+    > If working on windows, please refer to [node-gyp on windows](https://github.com/nodejs/node-gyp#on-windows).
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `WalletUtils` 中的 `loadCredentials` 方法，必須使用此多載  
+   > Please refer to [Web3j](https://web3j.io).
+   > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > 也就是說，因為 web3j 只提供從 `File` 載入，請注意檔案系統的空間，或者也可以使用 in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java.
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files).
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 也請參考 [Nethereum 的簡易範例](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account).
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
    ```
 
-   > 從 `Account` 取得私鑰請使用 `Account.PrivateKey`
+   > Please use `Account.PrivateKey` to fetch private key from `Account`.
 
 ## Sign the Ethereum Transaction
 
@@ -484,29 +486,29 @@
 
  - Using Java
 
-   > 請參考 [Web3j](https://web3j.io)  
-   > 請注意 `TransactionEncoder` 中的 `signMessage` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Web3j](https://web3j.io).
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
    ```
 
-   > 也請參考 [Web3j 的簡易範例](https://docs.web3j.io/transactions.html#signing-transactions)
+   > Please refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#signing-transactions)
 
  - Using C#
 
-   > 請參考 [Nethereum](https://nethereum.com)  
-   > 請注意 `TransactionSigner` 中的 `SignTransaction` 方法，必須使用此多載，因為要簽署到 `chainId`
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > 也請參考 `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`.
 
-## Broadcast the Ethereum Transaction
-
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ ## Broadcast the Ethereum Transaction
+ 
+  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
     mutation submitSignedTransaction(input: SubmitTransactionInput!) {
@@ -527,9 +529,9 @@
     }
     ```
 
-    > `data` 為上面以當前使用者的私鑰簽署 `transaction` 物件過後的產物，也就是 `signedTransaction`，為 hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string.
 
-    > `submitToken` 為 Encode Ethereum Transaction 小章節中得到的 `submitToken`
+    > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 
  - Using cURL
 
@@ -554,15 +556,15 @@
     }
     ```
 
-    > 此 `transactionHash` 為下一步拿來確認有沒有交易驗證通過之交易代號
+    > `transactionHash` can be used to check whether transaction is confirmed in the next steps.
 
 ## Confirm the Ethereum Transaction
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
     ```graphql
-    query getTransactionReceipt(txHash: String!) {
-      getTransactionReceipt(txHash: txHash)
+    query getTransactionReceipt($txHash: String!) {
+      getTransactionReceipt(txHash: $txHash)
     }
     ```
 
@@ -574,9 +576,9 @@
     }
     ```
 
-    > `txHash` 為想要確認之交易代號
+    > `txHash` is the transaction hash.
     
-    > 請注意不同鏈上的交易代號可能會重疊，但代表不同的交易
+    > Notice that transaction hash is unique on chain, but it may repeat when representing different transactions on different chain. 
 
  - Using cURL
 
@@ -586,7 +588,7 @@
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDQ2MTM4OCwiZXhwIjoxNTUwNTQ3Nzg4LCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.ssflLmh8waTKjtOJ9R4kNwmPUHQozKC7xzsiiZRPW4cfLiP88QnK2R5qN2M32wr4h7mPHSEFf7Ov3koDC866hQ' \
          --header 'content-type: application/json' \
          --cookie locale=en \
-         --data '{"query":"query getTransactionReceipt(txHash: String!) {  getTransactionReceipt(txHash: txHash)}","variables":{"txHash":"0x963339460f699b5d02dfd841c21992353cd441917964506ebeae06efe85f400b"},"operationName":"getTransactionReceipt"}'
+         --data '{"query":"query getTransactionReceipt($txHash: String!) {  getTransactionReceipt(txHash: $txHash)}","variables":{"txHash":"0x963339460f699b5d02dfd841c21992353cd441917964506ebeae06efe85f400b"},"operationName":"getTransactionReceipt"}'
     ```
 
  - Response
@@ -627,19 +629,18 @@
     }
     ```
 
-    > 請看 `confirmations` 中的 `remain` 成為 `0` 時，表示交易已經驗證完成
+    > When `remain` in `confirmations`  becomes `0`, the transaction is confirmed.
 
-    > 延伸補充，驗證完成不一定等於交易成功，因為在區塊鏈上，交易失敗也是一種共識結果，故請善用 [Infura](https://infura.io) 搭配 [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) 來取得 `status` 是否為成功
+    > Notice that a confirmed transaction may not succeed. As on Blockchain, failed transaction is also a consensus. Please use [Infura](https://infura.io) with [ETH-JSON-RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_gettransactionreceipt) to fetch `status` (success/failure of transaction).
 
 ## Confirm the Airdrop mission
 
- > 可從 `getAirdropMissionInfo` 中取得您所有 Airdrop 的資訊 (詳情請參考 [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md))
-
+ > Please refer to `getAirdropMissionInfo` to retrieve Airdrop info (More details in [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md)).
        
 ## Check the progress of Airdrop mission
-> 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
-  - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Recommended Insomnia)
 
    - operations detail
     ```graphql
@@ -737,33 +738,37 @@
 ## Finalize the Airdrop mission
 ### Prerequisite
 
-  > 建立 Airdrop 後可分成不同時期，可參考下圖時間軸：
+  > An airdrop mission has several phases as below.
 
   ```
-         可取消期             鎖定期(1 hour)        空投期(1 hour)         釋放期
+         Pending                 Locked(1 hr)           Activated (1 hr)          Distributed
   
   ------------------------|------------------------|------------------------|------------------------>
   
-                    鎖定時間點             空投執行時間點             空投結束時間點
+                    Locked Time             Airdrop Activation        Airdrop Ending
 
-  鎖定時間點：為您創建 Airdrop 時，所設定之執行時間點的前一小時
-  空投執行時間點：為您創建 Airdrop 時，所設定之執行時間。僅此時間參數您可自行設定。
-  空投結束時間點：為您創建 Airdrop 時，所設定之執行時間點的後一小時
+  Locked Time: an hour BEFORE set-up time of Airdrop. 
+  Airdrop Activation: set-up time of Airdrop which can be configured.
+  Airdrop Ending: an hour AFTER set-up time of Airdrop.
   
-  可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
-  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。
+  <!-- 可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
+  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且 box 資產會被鎖定無法使用。
   空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
-  釋放期：可取回預算之時期。
+  釋放期：可取回預算之時期。 -->
+  Pending: time when issuer can cancel the Airdrop and FST Service Gas will not be returned.
+  Locked: 1-hour period when issuer cannot cancel Airdrop and budget of Smart Token/Voucher will be locked.
+  Activated: 1-hour period when Airdrop starts and issuer can claim back the remaining budget as soon as Airdrop is complete; issuer will not be able to claim back budget when Airdrop fails (e.g. insufficient budget) until 1 hour later.
+  Distributed: time when Airdrop is complete and (remaining) budget could be claimed back.
   ```
 
 ### Encode the Transaction
- > 請記得無論是哪一種呼叫手法，都記得要在 http request header 指定 `authorization`  
+ > In any of following API calls, please remember to assign access token to `authorization` in http request header.
 
- > 以下繼續以 FST Sport Shop 作為範例：
+  > Hereinafter we take FST Sport Shop as the example.
    
-    空投結束後，FST Sport Shop 欲進行清算帳務作業，此次空頭尚有剩餘預算，需關閉空投才可領回剩餘預算。
+    FST Sport Shop would like to clear up the Airdrop mission and claim back the remaining Smart Token/Voucher, which requires finalizing the Airdrop.
 
- - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
+ - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
     ```graphql
@@ -788,7 +793,7 @@
     }
     ```
 
-     - `missionId` 為您欲關閉之 Airdrop 之 ID
+     - `missionId` is the ID of finalizing Airdrop.
 
 
  - Using cURL
@@ -824,12 +829,11 @@
     }
     ```
 
+    > Finalizing Airdrop will not consume FST Service Gas.
 
-    > 關閉 Airdrop 無需花費 FST Service Gas
+    > Is API succeeds, please follow 3 previous steps： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`.
 
-    > 此 API 若執行成功，請接續上方三個步驟： `3. Decrypt the Ethereum Key JSON`, `4. Sign the Ethereum Transaction`, `5. Broadcast the Ethereum Transaction`
-
-    > 而假如收到類似  
+    > e.g. Response like 
     ```json   
     { 
       "data": {
@@ -838,5 +842,5 @@
       "errors": [....]
     }
     ```  
-    > 則表示此交易將會失敗，我們建議直接省略接下來的步驟，並請檢查交易相關所需資源是否足夠或有無問題
-  
+    > means the transaction will fail. We suggest to skip the following steps and check related resources of Transaction are correct first.
+    > e.g. ETH balance, FST Service Gas balance, Token balance, Voucher balance, ... etc..

@@ -105,7 +105,7 @@
   
      - `description` 此 Campaign 的描述或說明
 
-     - `stages` 此 Camapaign 的階段，目前一個 Campaign 僅有一個 stage
+     - `stages` 此 Campaign 的階段，目前一個 Campaign 僅有一個 stage
   
        - `name` 此 Stage 的名稱，至少 1 字元，至多 20 字元
 
@@ -491,7 +491,7 @@
             "remain": 0
           }
         }
-      },
+      }
     }
     ```
 
