@@ -11,20 +11,20 @@
 ## Prerequisite
 
  1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
-    >  Notice account data are NOT shared across both platform 
+    >  Notice account data are NOT shared across both platform. 
 
     - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
     - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
  2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
-    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**.
 
     - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
     - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
     - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
     - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. Please prepare your API testing tools
+ 3. Please prepare your API testing tools.
     - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 

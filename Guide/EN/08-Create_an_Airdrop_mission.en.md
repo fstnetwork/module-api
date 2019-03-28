@@ -19,27 +19,27 @@
 ## Prerequisite
 
  1. Please sign up an account on `https://test.fstk.io` or `https://engine.fstk.io`.
-    >  Notice account data are NOT shared across both platform 
+    >  Notice account data are NOT shared across both platform. 
 
     - `test.fstk.io` is Tokeneden built on [**Kovan Testnet**](https://kovan.etherscan.io) for agile software development, testing & demo.  
     - `engine.fstk.io` is official Tokeneden built on Ethereum [**Mainnet**](https://etherscan.io).
 
  2. Please take a look at your asset balances of `ETH`、`FST`、`FIL` and `FST Service Gas`.
-    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**
+    > Please remember that assets on `test.fstk.io` belongs to **Kovan Testnet**; assets on `engine.fstk.io` belongs to **Mainnet**.
 
     - `ETH` is `Ether`, a small amount will be given to new accounts on `test.fstk.io`. 
     - `FST` is `Funder Smart Token`, a fundamental Utility Token within [FST Network](https://fst.network) and will be given to new accounts on `test.fstk.io`.
     - `FIL` is `FundersToken Initialisation License` as Token Issuance License, 1 FIL will be given to new accounts on `test.fstk.io`.
     - `FST Service Gas` is the FsTK module usage fee for `Token Issuer`, balance is shown at User Profile on the top right corner.
 
- 3. Please prepare your API testing tools
+ 3. Please prepare your API testing tools.
     - [Insomnia](https://insomnia.rest) (recommended)
     - [Postman](https://www.getpostman.com)
 
- 4. Understand how to retrieve Access Web Token (JWT)
-    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md)
+ 4. Understand how to retrieve Access Web Token (JWT).
+    > Please refer to Quick start [Chapter 1](../../Quick_Start/EN/01-Connect_to_FsTK_Engine_API.en.md).
 
- 5. Complete Quick start
+ 5. Complete Quick start.
 
  6. Confirm sufficient Ether (ETH) for ETH gas fee.
 
@@ -199,7 +199,7 @@
 
     > Setting up Airdrop Locate will not consume FST Service Gas.
 
-    > If API succeeds, then your Airdrop Locate rule (here referenced as `seqno`) is also stored in systems of FST Network. You may use the reference to start Airdrop in the future. **Please take down your Airdrop Locate rule `seqno` and FST Network does not provide this value**
+    > If API succeeds, then your Airdrop Locate rule (here referenced as `seqno`) is also stored in systems of FST Network. You may use the reference to start Airdrop in the future. **Please take down your Airdrop Locate rule `seqno` and FST Network does not provide this value**.
 
     > e.g. Response like 
     ```json   
@@ -248,7 +248,7 @@
     }
     ```
 
-     - `listId` is the `seqno` from previous step, i.e. the Airdrop Locate rule ID
+     - `listId` is the `seqno` from previous step, i.e. the Airdrop Locate rule ID.
 
      - `itemId` is the ID of giveaway Smart Token/Voucher during this Airdrop.
 
@@ -346,7 +346,7 @@
  
  > Owning private key means owning the Ethereum Account. Please securely store Ethereum key JSON and passphrase.
 
- > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase**
+ > **WARNING: If the passphrase of Ethereum key JSON is lost, the private key is lost and FsTK does not have users' Ethereum key JSON passphrase.**
 
  - Using JavaScript (Node.js)
 
@@ -429,7 +429,7 @@
     }
     ```
 
-    > Install command line (please let `index.js` be the program entry point)
+    > Install command line (please let `index.js` be the program entry point).
 
     ```sh
     npm i && npm start
@@ -441,20 +441,20 @@
 
  - Using Java
 
-   > Please refer to [Web3j](https://web3j.io)  
+   > Please refer to [Web3j](https://web3j.io).
    > Notice that `loadCredentials` in `WalletUtils` method with this overload:
 
    ```Java
    public static Credentials loadCredentials(String password, File source)
    ```
-   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java
+   > In another way, as web3j only provides `File` import, please pay attention to OS storage or use in-memory-fs in Java.
 
-   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files)
+   > Please to refer to [Web3j sample codes](https://docs.web3j.io/transactions.html#creating-and-working-with-wallet-files).
 
  - Using C#
 
-   > Please refer to [Nethereum](https://nethereum.com)  
-   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account)
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to [Nethereum sample codes](https://nethereum.readthedocs.io/en/latest/accounts/#working-with-an-account).
 
    ```csharp
    Nethereum.Web3.Accounts.Account.LoadFromKeyStore(keyStoreEncryptedJson, passphrase)
@@ -486,8 +486,8 @@
 
  - Using Java
 
-   > Please refer to [Web3j](https://web3j.io)  
-   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process
+   > Please refer to [Web3j](https://web3j.io).
+   > Notice that `signMessage` in `TransactionEncoder`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```java
    public static byte[] signMessage(RawTransaction rawTransaction, byte chainId, Credentials credentials)
@@ -497,14 +497,14 @@
 
  - Using C#
 
-   > Please refer to [Nethereum](https://nethereum.com)  
-   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process
+   > Please refer to [Nethereum](https://nethereum.com). 
+   > Please refer to `SignTransaction` in `TransactionSigner`, and please use the overload below since the `chainId` must be included in the signature process.
 
    ```csharp
    public string SignTransaction(byte[] privateKey, BigInteger chainId, string to, BigInteger amount, BigInteger nonce, BigInteger gasPrice, BigInteger gasLimit, string data)
    ```
 
-   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`
+   > Please refer to the section `Nethereum.Web3.Accounts.AccountSignerTransactionManager.SignTransaction`.
 
  ## Broadcast the Ethereum Transaction
  
@@ -529,7 +529,7 @@
     }
     ```
 
-    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string
+    > `data` is the object from signing `transaction` with current user's private key. In another word, `signedTransaction` is the hex string.
 
     > `submitToken` is `submitToken` from Encode Ethereum Transaction. 
 
@@ -625,7 +625,7 @@
             "remain": 0
           }
         }
-      },
+      }
     }
     ```
 
@@ -635,7 +635,7 @@
 
 ## Confirm the Airdrop mission
 
- > Please refer to `getAirdropMissionInfo` to retrieve Airdrop info (More details in [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md))
+ > Please refer to `getAirdropMissionInfo` to retrieve Airdrop info (More details in [API_Reference/Airdrop/getAirdropMissionInfo](../API_Reference/Airdrop/getAirdropMissionInfo.md)).
        
 ## Check the progress of Airdrop mission
  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
@@ -752,13 +752,13 @@
   Airdrop Ending: an hour AFTER set-up time of Airdrop.
   
   <!-- 可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
-  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且資產會被鎖定無法使用。 (看不太懂 1. 什麼資產? 2. 無法使用是指? 3. 誰的資產? (issuer or smart contract?))
+  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且 box 資產會被鎖定無法使用。
   空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
   釋放期：可取回預算之時期。 -->
   Pending: time when issuer can cancel the Airdrop and FST Service Gas will not be returned.
   Locked: 1-hour period when issuer cannot cancel Airdrop and budget of Smart Token/Voucher will be locked.
   Activated: 1-hour period when Airdrop starts and issuer can claim back the remaining budget as soon as Airdrop is complete; issuer will not be able to claim back budget when Airdrop fails (e.g. insufficient budget) until 1 hour later.
-  Distributed: time when Airdrop is completed and (remaining) budget could be claimed back.
+  Distributed: time when Airdrop is complete and (remaining) budget could be claimed back.
   ```
 
 ### Encode the Transaction
