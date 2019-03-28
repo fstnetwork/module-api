@@ -121,7 +121,7 @@
 
          - `denominator` is the denominator of price multiplier.
   
-       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimal Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
+       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimaled Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
 
        - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
   

@@ -137,14 +137,14 @@
 
          - `itemId` is the ID of located Smart Token/Voucher.
 
-         - `amount` is the located amount of located Smart Token/Voucher in Decimal Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+         - `amount` is the located amount of located Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
      
        - `itemId` is the ID of giveaway Smart Token/Voucher.
 
-       - `amount` is the giveaway amount of Smart Token/Voucher in Decimal Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+       - `amount` is the giveaway amount of Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
 
-  <!-- > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimal number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。 -->
-  > Please pay attention to the Decimal number based on difference of located item & giveaway item. For example, locating Smart Token to give away Smart Token requires decimals of both `rules.n.rule.itemId` and `rules.n.itemId` to be 18. Over-giveaway could occur if given any of the incorrect amount.
+  <!-- > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimaled Number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。 -->
+  > Please pay attention to the Decimaled Number based on difference of located item & giveaway item. For example, locating Smart Token to give away Smart Token requires decimals of both `rules.n.rule.itemId` and `rules.n.itemId` to be 18. Over-giveaway could occur if given any of the incorrect amount.
 
 
  - Using cURL

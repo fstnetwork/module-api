@@ -82,7 +82,7 @@
 
      - `symbol` is the symbol of issuing Smart Token, from 2 to 6 capital characters.
 
-     - `totalSupply` is the total supply of Smart Token as Decimal Number, e.g. issuing 1234 Smart Token means `totalSupply = "1234000000000000000000"`.
+     - `totalSupply` is the total supply of Smart Token as Decimaled Number, e.g. issuing 1234 Smart Token means `totalSupply = "1234000000000000000000"`.
 
      - `price` is an object showing how much Ether a Smart Token is equivalent to (i.e. the exchange ratio between Token & Voucher), also the initial price of Smart Token. Token can only be exchanged by Ether. Token.
      

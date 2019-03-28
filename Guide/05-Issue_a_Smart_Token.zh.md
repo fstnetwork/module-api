@@ -81,7 +81,7 @@
 
      - `symbol` 為新發布之 Smart Token 的符號，最少需 2 個字元，最多為 6 字元，且皆須大寫
 
-     - `totalSupply` 為此 Smart Token 總發布量，此數字為 Decimal number，例如：發行 1234 個 Smart Token，`totalSupply = "1234000000000000000000"`
+     - `totalSupply` 為此 Smart Token 總發布量，此數字為 Decimaled Number，例如：發行 1234 個 Smart Token，`totalSupply = "1234000000000000000000"`
 
      - `price` 為一個物件，表示一個 Ether 是多少 Smart Token (也就是與 Ether 之間的單價比)，也是 Smart Token 的初始設定價，Smart Token 只能以 Ether 購買
      
