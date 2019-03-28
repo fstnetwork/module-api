@@ -137,13 +137,13 @@
 
          - `itemId` 所訂定之搜尋條件規則的資產之 ID
 
-         - `amount` 所訂定之搜尋條件規則的資產數量。格式為 Decimal Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
+         - `amount` 所訂定之搜尋條件規則的資產數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
      
        - `itemId` 符合規則所能獲得的資產之 ID
 
-       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimal Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
+       - `amount` 符合規則所能獲得的資產之數量。格式為 Decimaled Number，請注意 Smart Token 之 decimal 為 18， Smart Voucher 之 decimal 為 0
 
-  > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimal number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。
+  > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimaled Number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。
 
 
  - Using cURL

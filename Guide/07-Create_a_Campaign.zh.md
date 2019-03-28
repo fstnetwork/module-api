@@ -119,7 +119,7 @@
 
          - `denominator` 乘數之分母
   
-       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，格式為 Decimal Number。如欲販售 Smart Token 則要乘上 10^18，反之 Smart Voucher 維持原本的數量 (因 Voucher 不可分割，故 decimal = 0，10^0 為 1)
+       - `cap` 此 Stage 中，欲販售的 Smart Token/Voucher 總數量，格式為 Decimaled Number。如欲販售 Smart Token 則要乘上 10^18，反之 Smart Voucher 維持原本的數量 (因 Voucher 不可分割，故 decimal = 0，10^0 為 1)
 
        - `isPrivate` 此 Stage 是否為私密販售，需要特殊簽章者才得以購買
   
