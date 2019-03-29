@@ -53,12 +53,11 @@
 
  > Hereinafter let's take FST Sport Shop as the example.
    
-    <!-- FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FSST 將額外獲得 1 FSST 作為回饋。亦即擁有 22 FSST 將額外獲得 2 FSST，擁有 35 FSST 將額外獲得 3 FSST，依此類推。 -->
+  <!-- FST Sport Shop 開幕滿一週年慶祝，為回饋消費者，在每年週年慶期間，將依照消費者所擁有之 FSST 數量進行回饋，消費者每擁有 10 FSST 將額外獲得 1 FSST 作為回饋。亦即擁有 22 FSST 將額外獲得 2 FSST，擁有 35 FSST 將額外獲得 3 FSST，依此類推。 -->
     FST Sport Shop is going to give away benefits based on customers FSST holding amount. Every 10 FSST will grant customer 1 FSST as rewards. 
 
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
-
-   - operations detail
+    - operations detail
     ```graphql
     mutation createAirdropLocate($input: createAirdropLocateInput!) {
       createAirdropLocate(input: $input) {
@@ -110,7 +109,6 @@
     ```
 
     Variables:
-
     ```json
     {
       "input": {
