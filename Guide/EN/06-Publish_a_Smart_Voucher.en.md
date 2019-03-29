@@ -64,19 +64,19 @@
 
      ```json
      {
-       "query": "mutation publishVoucher($input: PublishVoucherInput!) {\n          publishVoucher(input: $input) {\n            hash\n         transaction\n  metadata\n             submitToken\n          }\n        }",
+       "query": "mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash         transaction             submitToken          }        }",
        "variables": {
          "input": {
-           "name": "TEST11",
-           "symbol": "ABC_TEST11",
+           "name": "FSST 2019 Xmas Surpirse Voucher",
+           "symbol": "FSST_19FXSV",
            "consumable": false,
-           "totalSupply": "1234",
+           "totalSupply": "1000",
            "price": {
              "numerator": "2000000000000000000000",
              "denominator": "1"
            },
            "expiry": "1577807999000",
-           "description": "for the test",
+           "description": "The voucher for 2019 Christmas Sales!",
            "proofOfContract": null,
            "por": "DISABLE"
          }
