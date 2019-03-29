@@ -58,7 +58,7 @@
 
   - Using [GraphQL](https://graphql.org/learn/) (請善用 Insomnia 進行測試)
 
-   - operations detail
+    - operations detail
     ```graphql
     mutation createAirdropLocate($input: createAirdropLocateInput!) {
       createAirdropLocate(input: $input) {
