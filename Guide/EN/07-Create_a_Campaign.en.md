@@ -588,7 +588,7 @@
 ## Finalize the Campaign
 ### Prerequisite
 
-> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
+> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
 
 1. Pre sales (now < `startTime`): Campaign is cancelled by the issuer and returns the unsold Smart Voucher.
 2. Launch Period (`startTime` < now < `endTime`): If Smart Voucher is sold out during Launch, issuer can claim back the Smart Token before `endTime`, otherwise issuer cannot cancel the Campaign or claim back remaining Smart Voucher and earned Smart Token.
@@ -605,29 +605,29 @@
    
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
-   - operations detail
-    ```graphql
-    mutation CloseCampaign($input: CloseCampaignInput!) {
-      closeCampaign(input: $input) {
-        transaction
-        hash
-        submitToken
+    - operations detail
+      ```graphql
+      mutation CloseCampaign($input: CloseCampaignInput!) {
+        closeCampaign(input: $input) {
+          transaction
+          hash
+          submitToken
+        }
       }
-    }
-    ```
+      ```
 
-    Variables:
+      Variables:
 
-    ```json
-    {
-      "input": {
-        "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-        "por": "DISABLE"
+      ```json
+      {
+        "input": {
+          "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+          "por": "DISABLE"
+        }
       }
-    }
-    ```
+      ```
 
-     - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
+       - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
 
   - Using cURL
     
