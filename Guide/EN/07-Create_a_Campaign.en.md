@@ -1,6 +1,6 @@
 # Create a Campaign
 
-> In ths chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
+> In this chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
 
 > Campaign is the vending machine of Smart Token/Voucher. You can set up the type of selling Smart Token/Voucher, activated selling period, selling amount and selling price in this campaign. This allows customers to automatically receive Smart Token/Voucher after purchase.
 <!-- 感覺整篇是 Create_a_Voucher_Campaign -->
