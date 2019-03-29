@@ -748,11 +748,8 @@
   Locked Time: an hour BEFORE set-up time of Airdrop. 
   Airdrop Activation: set-up time of Airdrop which can be configured.
   Airdrop Ending: an hour AFTER set-up time of Airdrop.
-  
-  <!-- 可取消期：在此期間 issuer 可隨時取消該次空投，取消不退回 FST Service Gas。
-  鎖定期：為開始空投前一小時，issuer 在此期間便無法取消空頭，且 box 資產會被鎖定無法使用。
-  空投期：開始空投，若提前空投結束且成功，issuer 可立即取回剩餘預算，若總預算不足則空投失敗。若空坄失敗，issuer 需於一小時後才可取回全部預算。
-  釋放期：可取回預算之時期。 -->
+
+
   Pending: time when issuer can cancel the Airdrop and FST Service Gas will not be returned.
   Locked: 1-hour period when issuer cannot cancel Airdrop and budget of Smart Token/Voucher will be locked.
   Activated: 1-hour period when Airdrop starts and issuer can claim back the remaining budget as soon as Airdrop is complete; issuer will not be able to claim back budget when Airdrop fails (e.g. insufficient budget) until 1 hour later.
