@@ -58,29 +58,38 @@
 
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
     - operations detail
-    ```graphql
-    mutation createAirdropLocate($input: createAirdropLocateInput!) {
-      createAirdropLocate(input: $input) {
-        airdropLocate {
-          seqno: id
-          airdropItem {
-            ... on Token {
-              id
-              name
-              decimals
+      ```graphql
+      mutation createAirdropLocate($input: createAirdropLocateInput!) {
+        createAirdropLocate(input: $input) {
+          airdropLocate {
+            seqno: id
+            airdropItem {
+              ... on Token {
+                id
+                name
+                decimals
+              }
+              ... on Voucher {
+                id
+                name
+                decimals
+              }
             }
-            ... on Voucher {
-              id
-              name
-              decimals
-            }
-          }
-          totalAddresses
-          totalAirdropAmount
-          summary {
-            rule {
-              locateRule {
-                type
+            totalAddresses
+            totalAirdropAmount
+            summary {
+              rule {
+                locateRule {
+                  type
+                  item {
+                    ... on Token {
+                      decimals
+                    }
+                    ... on Voucher {
+                      decimals
+                    }
+                  }
+                }
                 item {
                   ... on Token {
                     decimals
@@ -89,57 +98,48 @@
                     decimals
                   }
                 }
+                amount
               }
-              item {
-                ... on Token {
-                  decimals
-                }
-                ... on Voucher {
-                  decimals
-                }
-              }
-              amount
+              totalAddresses
+              totalAirdropAmount
             }
-            totalAddresses
-            totalAirdropAmount
           }
         }
       }
-    }
-    ```
+      ```
 
-    Variables:
-    ```json
-    {
-      "input": {
-        "rules":[
-          {  
-            "rule":{
-              "type":"EVERY",
+      Variables:
+      ```json
+      {
+        "input": {
+          "rules":[
+            {  
+              "rule":{
+                "type":"EVERY",
+                "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+                "amount":"10000000000000000000"
+              },
               "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-              "amount":"10000000000000000000"
-            },
-            "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-            "amount":"1000000000000000000"
-          }
-        ]
+              "amount":"1000000000000000000"
+            }
+          ]
+        }
       }
-    }
-    ```
+      ```
 
-     - `rules` are Airdrop Locate rules that each rule acts independently.
+       - `rules` are Airdrop Locate rules that each rule acts independently.
 
-       - `rule` is an individual airdrop locate rule.
+         - `rule` is an individual airdrop locate rule.
 
-         - `type` contains 2 types `EVERY` and `AT_LEAST`. `EVERY` means every condition will be counted for giveaway item calculation. For example, 'every 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 2 Smart Voucher. `AT_LEAST` means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. For example, 'at least 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 1 Smart Voucher.
+           - `type` contains 2 types `EVERY` and `AT_LEAST`. `EVERY` means every condition will be counted for giveaway item calculation. For example, 'every 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 2 Smart Voucher. `AT_LEAST` means only the condition is greater than or equal to (>=) the qualification will be counted for giveaway item calculation. For example, 'at least 10 Smart Token can receive 1 Smart Voucher' means that a customer with 25 Smart Token can receive 1 Smart Voucher.
 
-         - `itemId` is the ID of located Smart Token/Voucher.
+           - `itemId` is the ID of located Smart Token/Voucher.
 
-         - `amount` is the located amount of located Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
-     
-       - `itemId` is the ID of giveaway Smart Token/Voucher.
+           - `amount` is the located amount of located Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+       
+         - `itemId` is the ID of giveaway Smart Token/Voucher.
 
-       - `amount` is the giveaway amount of Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
+         - `amount` is the giveaway amount of Smart Token/Voucher in Decimaled Number. Please notice that Smart Token's decimal is 18 and Smart Voucher's decimal is 0.
 
   <!-- > 補充說明，因搜尋條件所用到的資產，與所能獲得的資產之組合相當自由，請務必注意 Decimaled Number 誤判造成的問題，例如欲搜尋擁有 Smart Token 之帳戶進行空投 Smart Token，`rules.n.rule.itemId` 及 `rules.n.itemId` 因注意都為 decimal = 18 之狀態。如任一給予錯誤的值，可能會造成空頭超量的問題。 -->
   > Please pay attention to the Decimaled Number based on difference of located item & giveaway item. For example, locating Smart Token to give away Smart Token requires decimals of both `rules.n.rule.itemId` and `rules.n.itemId` to be 18. Over-giveaway could occur if given any of the incorrect amount.
@@ -222,29 +222,29 @@
  - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
    - operations detail
-    ```graphql
-    mutation createAirdropMission($input: CreateAirdropMissionInput!) {
-      createAirdropMission(input: $input) {
-        transaction
-        submitToken
-        hash
+      ```graphql
+      mutation createAirdropMission($input: CreateAirdropMissionInput!) {
+        createAirdropMission(input: $input) {
+          transaction
+          submitToken
+          hash
+        }
       }
-    }
-    ```
+      ```
 
-    Variables:
+      Variables:
 
-    ```json
-    {
-      "input": {
-        "listId":"QWlyZHJvcExvY2F0ZToxNA==",
-        "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-        "budget":"200000000000000000000000",
-        "invokeTime":"1569888000000",
-        "por":"DISABLE"
+      ```json
+      {
+        "input": {
+          "listId":"QWlyZHJvcExvY2F0ZToxNA==",
+          "itemId":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+          "budget":"200000000000000000000000",
+          "invokeTime":"1569888000000",
+          "por":"DISABLE"
+        }
       }
-    }
-    ```
+      ```
 
      - `listId` is the `seqno` from previous step, i.e. the Airdrop Locate rule ID.
 
