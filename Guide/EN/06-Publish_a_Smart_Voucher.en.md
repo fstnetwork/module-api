@@ -49,6 +49,12 @@
 ## Encode the Transaction (publishing smart voucher)
 
  > In any of following API calls, please remember to assign access token to `authorization` in http request header.
+  
+ > Hereinafter let's take FST Sport Shop as the example.
+ 
+   ```
+   As Christmas is coming, in order to promote seasonal sales, FST Sport Shop is going to release a special lucky bag with Smart Voucher (FSST_19FXSV). Customers can spend FST Sport Shop Token and receive FSST_19FXSV (which can be further distributed and exchanged for lucky bag). FSST_19FXSV has a fixed total supply of 1,000 with original pricing (set-up when publishing FSST_19FXSV).
+   ```
 
  - Using multipart/form-data
 
@@ -58,19 +64,19 @@
 
      ```json
      {
-       "query": "mutation publishVoucher($input: PublishVoucherInput!) {\n          publishVoucher(input: $input) {\n            hash\n         transaction\n  metadata\n             submitToken\n          }\n        }",
+       "query": "mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash         transaction             submitToken          }        }",
        "variables": {
          "input": {
-           "name": "TEST11",
-           "symbol": "ABC_TEST11",
+           "name": "FSST 2019 Xmas Surpirse Voucher",
+           "symbol": "FSST_19FXSV",
            "consumable": false,
-           "totalSupply": "1234",
+           "totalSupply": "1000",
            "price": {
-             "numerator": "123000000000000000000",
+             "numerator": "2000000000000000000000",
              "denominator": "1"
            },
            "expiry": "1577807999000",
-           "description": "for the test",
+           "description": "The voucher for 2019 Christmas Sales!",
            "proofOfContract": null,
            "por": "DISABLE"
          }
@@ -103,7 +109,7 @@
    > the summary of multipart/form-data is:
 
    ```
-   operations: {"query":"mutation publishVoucher($input: PublishVoucherInput!) {\n          publishVoucher(input: $input) {\n            hash\n            transaction\n  metadata\n            submitToken\n          }\n        }","variables":{"input":{"name":"TEST11","symbol":"ABC_TEST11","consumable":false,"totalSupply":"1234","price":{"numerator":"123000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"for the test","proofOfContract":null,"por":"DISABLE"}}}
+   operations: {"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"2000000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}
    map: {"proofOfContract":["variables.input.proofOfContract"]}
    proofOfContract: (binary)
    ```
@@ -117,7 +123,7 @@
          --url https://test.fstk.io/api \
          --header 'authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCIsImtpZCI6ImZzdGstZW5naW5lIn0.eyJ1aWQiOiLDpsKIc8KdXHUwMDEzw6JcdTAwMTHDqMKCwqBje0x0w6nCsCIsImlhdCI6MTU1MDU1ODk4MywiZXhwIjoxNTUwNjQ1MzgzLCJhdWQiOiJ1cm46ZnN0azplbmdpbmUiLCJpc3MiOiJ1cm46ZnN0azplbmdpbmUiLCJzdWIiOiJ1cm46ZnN0azplbmdpbmU6YWNjZXNzX3Rva2VuIn0.XuC2T5SXsIQ4pC-iDn5mNKN1SuFXfPBtuT0_PIgroV1VC_QU6YADK5GQRLnfLtm7NqWIsi-qP2fhUn_GZJoU5A' \
          --cookie locale=en \
-         --form 'operations={"query":"mutation publishVoucher($input: PublishVoucherInput!) {\n          publishVoucher(input: $input) {\n            hash\n            transaction\n  metadata\n            submitToken\n          }\n        }","variables":{"input":{"name":"TEST11","symbol":"STIC_TEST11","consumable":false,"totalSupply":"1234","price":{"numerator":"123000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"for the test","proofOfContract":null,"por":"DISABLE"}}}' \
+         --form 'operations={"query":"mutation publishVoucher($input: PublishVoucherInput!) {          publishVoucher(input: $input) {            hash            transaction            submitToken          }        }","variables":{"input":{"name":"FSST Xmas Sales","symbol":"FSST_19FXSV","consumable":false,"totalSupply":"1000","price":{"numerator":"2000000000000000000000","denominator":"1"},"expiry":"1577807999000","description":"The voucher for 2019 Christmas Sales!","proofOfContract":null,"por":"DISABLE"}}}' \
          --form 'map={"proofOfContract":["variables.input.proofOfContract"]}' \
          --form proofOfContract='@/path/to/the/pdf'
     ```
