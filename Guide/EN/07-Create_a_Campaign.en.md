@@ -1,6 +1,6 @@
 # Create a Campaign
 
-> In ths chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
+> In this chapter, you will understand how to create Smart Voucher Campaign via FsTK API and effectively distribute Smart Voucher.
 
 > Campaign is the vending machine of Smart Token/Voucher. You can set up the type of selling Smart Token/Voucher, activated selling period, selling amount and selling price in this campaign. This allows customers to automatically receive Smart Token/Voucher after purchase.
 <!-- 感覺整篇是 Create_a_Voucher_Campaign -->
@@ -62,70 +62,69 @@
     <!-- 而福袋中物品價值高於原本的定價，藉此商家可以出清未賣出的產品，亦能讓消費者以便宜的價格購得商品。 -->
 
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
-
-   - operations detail
-    ```graphql
-    mutation CreateCampaign($input: CreateCampaignInput!) {
-      createCampaign(input: $input) {
-        transaction
-        submitToken
-        hash
+    - operations detail
+      ```graphql
+      mutation CreateCampaign($input: CreateCampaignInput!) {
+        createCampaign(input: $input) {
+          transaction
+          submitToken
+          hash
+        }
       }
-    }
-    ```
+      ```
 
-    Variables:
+      Variables:
 
-    ```json
-    {
-      "input": {
-        "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
-        "name":"2019 Christmas Voucher Sale.",
-        "description":"This is the 2019 Christmas Voucher Sale.",
-        "stages":[
-          {
-            "name":"2019 Christmas Voucher Sale.",
-            "startTime":"1569888000000",
-            "endTime":"1575072000000",
-            "priceMultiplier":{
-              "numerator":"1",
-              "denominator":"1"
-            },
-            "cap":"1000",
-            "isPrivate":false,
-            "description":"This is the 2019 Christmas Voucher Sale."
-           }
-        ],
-        "por":"DISABLE"
+      ```json
+      {
+        "input": {
+          "id":"VG9rZW46w4vDnGzCihouEcOpwro7w4drQ8KgIMOn",
+          "name":"2019 Christmas Voucher Sale.",
+          "description":"This is the 2019 Christmas Voucher Sale.",
+          "stages":[
+            {
+              "name":"2019 Christmas Voucher Sale.",
+              "startTime":"1569888000000",
+              "endTime":"1575072000000",
+              "priceMultiplier":{
+                "numerator":"1",
+                "denominator":"1"
+              },
+              "cap":"1000",
+              "isPrivate":false,
+              "description":"This is the 2019 Christmas Voucher Sale."
+            }
+          ],
+          "por":"DISABLE"
+        }
       }
-    }
-    ```
+      ```
 
-     - `id` is the registered ID on FsTK system of selling Smart Token/Voucher, which can be retrieved from `token` in `get me`.
+      - `id` is the registered ID on FsTK system of selling Smart Token/Voucher, which can be retrieved from `token` in `get me`.
 
-     - `name` is the name of Campaign, between 1 character to 20 characters.
-  
-     - `description` is the description of Campaign.
-
-     - `stages` are Campaign stages. Currently Campaign only allows 1 stage.
-  
-       - `name` is the name of Stage, between 1 character to 20 characters.
-
-       - `startTime` is the activated selling time of Stage, in Unix Timestamp in Milliseconds.
+      - `name` is the name of Campaign, between 1 character to 20 characters.
     
-       - `endTime` is the ending time of Stage, in Unix Timestamp in Milliseconds.
+      - `description` is the description of Campaign.
 
-       - `priceMultiplier` is the price multiplier (discount/markup) of Smart Token/Voucher at this Stage, e.g., a 10% off means 9/10; no discount means 1/1.
-  
-         - `numerator` is the numerator of price multiplier.
+      - `stages` are Campaign stages. Currently Campaign only allows 1 stage.
+    
+        - `name` is the name of Stage, between 1 character to 20 characters.
 
-         - `denominator` is the denominator of price multiplier.
-  
-       - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimaled Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
+        - `startTime` is the activated selling time of Stage, in Unix Timestamp in Milliseconds.
+      
+        - `endTime` is the ending time of Stage, in Unix Timestamp in Milliseconds.
 
-       - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
-  
-     - `description` is the description of Stage.
+        - `priceMultiplier` is the price multiplier (discount/markup) of Smart Token/Voucher at this Stage, e.g., a 10% off means 9/10; no discount means 1/1.
+    
+          - `numerator` is the numerator of price multiplier.
+
+          - `denominator` is the denominator of price multiplier.
+    
+        - `cap` is the maximal selling amount of Smart Token/Voucher at this Stage in Decimaled Number. If selling Smart Voucher, this is the selling amount, otherwise selling Smart token, this requires a multiplier of 10^18. As Voucher is an integer with decimal = 0, 10^0 = 1.
+
+        - `isPrivate` means whether this Stage is limited to customer identity (having special signature).
+    
+      - `description` is the description of Stage.
 
 
  - Using cURL
@@ -589,7 +588,7 @@
 ## Finalize the Campaign
 ### Prerequisite
 
-> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
+> There are 3 phases of Smart Voucher Campaign: pre sales, launch period and post sales. When finalizing the sales, there are different outcomes in each phase.
 
 1. Pre sales (now < `startTime`): Campaign is cancelled by the issuer and returns the unsold Smart Voucher.
 2. Launch Period (`startTime` < now < `endTime`): If Smart Voucher is sold out during Launch, issuer can claim back the Smart Token before `endTime`, otherwise issuer cannot cancel the Campaign or claim back remaining Smart Voucher and earned Smart Token.
@@ -606,29 +605,29 @@
    
   - Using [GraphQL](https://graphql.org/learn/) (Insomnia recommended)
 
-   - operations detail
-    ```graphql
-    mutation CloseCampaign($input: CloseCampaignInput!) {
-      closeCampaign(input: $input) {
-        transaction
-        hash
-        submitToken
+    - operations detail
+      ```graphql
+      mutation CloseCampaign($input: CloseCampaignInput!) {
+        closeCampaign(input: $input) {
+          transaction
+          hash
+          submitToken
+        }
       }
-    }
-    ```
+      ```
 
-    Variables:
+      Variables:
 
-    ```json
-    {
-      "input": {
-        "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
-        "por": "DISABLE"
+      ```json
+      {
+        "input": {
+          "id": "VG9rZW5DYW1wYWlnbjp/wqQLViLDhxHDqcK6O2/CjVgZw4ZC",
+          "por": "DISABLE"
+        }
       }
-    }
-    ```
+      ```
 
-     - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
+       - `id` is the ID of finalizing Campaign, which can be retrieved from `getAllCampaignInfo`.
 
   - Using cURL
     
