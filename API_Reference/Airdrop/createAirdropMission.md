@@ -1,5 +1,6 @@
 
 # Create Airdrop
+You are able to create airdrop mission via this API.
 
 ## GraphQL API
 
