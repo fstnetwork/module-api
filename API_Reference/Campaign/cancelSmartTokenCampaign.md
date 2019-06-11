@@ -1,5 +1,6 @@
 
 # Cancel Smart Token Campaign
+You are able to cancel the smart token campaign and retrieve the budget via this API.
 
 ## GraphQL API
 
