@@ -1,5 +1,6 @@
 
 # Cancel Smart Voucher Campaign
+You are able to cancel the smart voucher campaign and retrieve the budget via this API.
 
 ## GraphQL API
 
