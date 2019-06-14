@@ -1,5 +1,6 @@
 
 # Create Smart Token Campaign
+You are able to create smart token campaign via this API.
 
 ## GraphQL API
 
