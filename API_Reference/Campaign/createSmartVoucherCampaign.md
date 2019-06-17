@@ -1,5 +1,6 @@
 
 # Create Smart Voucher Campaign
+You are able to create smart voucher campaign via this API.
 
 ## GraphQL API
 
