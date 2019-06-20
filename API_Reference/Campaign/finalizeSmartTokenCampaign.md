@@ -1,5 +1,6 @@
 
 # Finalize Smart Token Campaign
+You are able to claim back unsold Smart Token and earned Ether via this API.
 
 ## GraphQL API
 
