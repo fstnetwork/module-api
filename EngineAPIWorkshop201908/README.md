@@ -28,7 +28,7 @@ This folders contains five categorise of FST Engine APIs.
 
 ## Issuer
 - Query `READ`
-  - token
+  - token [WIP]
     - voucherList
     - holders
     - Transfers
@@ -40,7 +40,7 @@ This folders contains five categorise of FST Engine APIs.
   - [createUser](/EngineAPIWorkshop201908/Master/createUser.md)
   - [createUserV2](/EngineAPIWorkshop201908/Master/createUserV2.md)
   - [issueToken](/EngineAPIWorkshop201908/Issuer/issueToken.md)
-  - publishFungibleVoucher
+  - publishFungibleVoucher [WIP]
   - publishNonFungibleVoucher
 
 - Mutation `TRANSACT`
@@ -78,14 +78,16 @@ This folders contains five categorise of FST Engine APIs.
   - [erc721TokenList](/EngineAPIWorkshop201908/Explorer/erc721TokenList.md)
   - [erc721TokenBasic](/EngineAPIWorkshop201908/Explorer/erc721TokenBasic.md)
   - [erc721Transfers](/EngineAPIWorkshop201908/Explorer/erc721Transfers.md)
-  - erc721TokenURI [WIP]
+  - erc721TokenURI
   - [smartTokenList](/EngineAPIWorkshop201908/Explorer/smartTokenList.md)
   - smartTokenBasic [WIP]
   - smartTokenTransfer [WIP]
   - issueTokenList
   - smartVoucherList [WIP]
-  - smartVoucherBasic [WIP]
-  - smartVoucherTransfer [WIP]
+  - [smartVoucherErc20Basic](/EngineAPIWorkshop201908/Explorer/smartVoucherErc20Basic.md)
+  - [smartVoucherErc721Basic](/EngineAPIWorkshop201908/Explorer/smartVoucherErc721Basic.md)
+  - smartVoucherErc20Transfer [WIP]
+  - smartVoucherErc721Transfer
   - [consumeGas](/EngineAPIWorkshop201908/Explorer/consumeGas.md)
   - [consumeGasByAddress](/EngineAPIWorkshop201908/Explorer/consumeGasByAddress.md)
   - [purchaseGas](/EngineAPIWorkshop201908/Explorer/purchaseGas.md)

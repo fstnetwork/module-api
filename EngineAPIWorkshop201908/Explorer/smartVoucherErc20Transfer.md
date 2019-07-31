@@ -1,5 +1,5 @@
 
-# Erc721 TokenURI Detail
+# Erc20 smart voucher transfer detail
 
 ## GraphQL API
 
