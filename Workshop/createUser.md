@@ -23,10 +23,10 @@
   ```
 
 - **role**
-  - 0 = Master (could not be created by APIs)
+  - 0 = Master (can not be created by APIs)
   - 1 = Issuer
   - 2 = End User
 
 - **permission**
-  - Only Master could create role = 1
-  - Master and Issuer could create role = 2
+  - Only Master can create role = 1
+  - Master and Issuer can create role = 2

@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query getUser {
+  query getAllUser {
     getAllUser(first:5){
       pageInfo{
         endCursor
@@ -29,4 +29,4 @@
 
 
 - **permission**
-  - Only Master and Issuer could use
+  - Only Master and Issuer can use

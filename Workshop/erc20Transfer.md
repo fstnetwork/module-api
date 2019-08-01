@@ -8,7 +8,7 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 
 - Mutation Example
   ```javascript
-  mutation erc20 {
+  mutation erc20Transfer {
     erc20Transfer (input: {
       contract: "0xe93e7a04a4b5273dee710f7263a4ca69b96424d3",
       to: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
@@ -23,14 +23,14 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 
 
 ## Step
-- 請確認該帳戶是否有足夠的 token 餘額可做 transfer
+- Please make sure that your account has available balance can be transferred
 
   - id: Pluie
   - pwd: 12345678
   - address: 0xda29d213b887dd1c9196423f5c34eb82d5132b74
 
 
-#### 看 Account 是否有 token 餘額
+#### Erc20 balance
 - API: query [account](/Workshop/Explorer/account.md)
 ```javascript
 ...
@@ -49,10 +49,10 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 ```
 - UI: http://explorer.dev.fstk.io/address/0x223f5789fac8eef297ac1c43680876a42ac7cb19
 
-- 或是看 Erc20 token holders ([erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md)) 來做 transfer
+- or Erc20 token holders ([erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md))
 
 
-#### transfer Erc20: [erc20Transfers](/Workshop/Explorer/erc20Transfers.md)
+#### Transfer Erc20: [erc20Transfers](/Workshop/Explorer/erc20Transfers.md)
 
 - #### req
 
@@ -173,7 +173,7 @@ ethereumTx.sign(Buffer.from(privateKeyString, "hex"));
 console.log(ethereumTx.serialize().toString('hex'));
 ```
 
-#### submitTx
+- #### submitTx
 ```javascript
   mutation submit {
     submitTransaction(
@@ -187,7 +187,7 @@ console.log(ethereumTx.serialize().toString('hex'));
   }
 ```
 
-#### successfully submit transaction
+- #### successfully submit transaction
 
 UI check：http://explorer.dev.fstk.io/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784654c564e80f9028cf8
 

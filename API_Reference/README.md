@@ -1,5 +1,5 @@
 # API Reference
-This folders contains five categorise of FST Network APIs.
+This directory contains the below aspects of FST Network APIs.
 
 ## Airdrop
 - cancelAirdropMission
