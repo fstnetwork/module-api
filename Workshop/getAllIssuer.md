@@ -29,4 +29,4 @@
 
 
 - **permission**
-  - Only Master could test
+  - Only Master could use

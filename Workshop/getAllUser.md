@@ -29,4 +29,4 @@
 
 
 - **permission**
-  - Only Master and Issuer could test
+  - Only Master and Issuer could use

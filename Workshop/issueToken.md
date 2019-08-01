@@ -23,7 +23,7 @@
 
 
   - **permission**
-    - Only Issuer could test
+    - Only Issuer could use
 
 
 ## Step
@@ -49,7 +49,7 @@
     - fillGas 給 issuer
       - signTx
       - submitTx
-    - issueToken 
+    - issueToken
       - signTx
       - submitTx
 

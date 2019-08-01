@@ -23,7 +23,7 @@
   ```
 
 - **role**
-  - 0 = Master (could be created by APIs)
+  - 0 = Master (could not be created by APIs)
   - 1 = Issuer
   - 2 = End User
 

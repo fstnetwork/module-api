@@ -1,7 +1,7 @@
 # Workshop
 This folders contains five categorise of FST Engine APIs.
 
-![permission](/Workshop/permission.png)
+![permission](/Workshop/images/permission.png)
 
 ## Auth
 - Mutation
@@ -30,10 +30,11 @@ This folders contains five categorise of FST Engine APIs.
 
 ## Issuer
 - Query `READ`
-  - token [WIP]
-    - voucherList
+  - erc20/erc721 token [WIP] vvvvvv
+    - info
     - holders
     - Transfers
+    - Transactions
   - [getAllUser](/Workshop/getAllUser.md)
   - [ethereumKey](/Workshop/ethereumKey.md)
   - [tokenExpireTime](/Workshop/tokenExpireTime.md)
@@ -42,7 +43,7 @@ This folders contains five categorise of FST Engine APIs.
   - [createUser](/Workshop/createUser.md)
   - [createUserV2](/Workshop/createUserV2.md)
   - [issueToken](/Workshop/issueToken.md)
-  - publishFungibleVoucher [WIP]
+  - publishFungibleVoucher [WIP] vvvvvvvvvv
   - publishNonFungibleVoucher
 
 - Mutation `TRANSACT`
@@ -82,14 +83,24 @@ This folders contains five categorise of FST Engine APIs.
   - [erc721Transfers](/Workshop/Explorer/erc721Transfers.md)
   - erc721TokenURI
   - [smartTokenList](/Workshop/Explorer/smartTokenList.md)
-  - smartTokenBasic [WIP]
-  - smartTokenTransfer [WIP]
+  - smartToken [WIP] vvvvvvvv
+    - info
+      - voucherList
+    - holders
+    - Transfers
+    - Transactions
   - issueTokenList
   - smartVoucherList [WIP]
   - [smartVoucherErc20Basic](/Workshop/Explorer/smartVoucherErc20Basic.md)
+    - info
+    - holders
+    - Transfers
+    - Transactions
   - [smartVoucherErc721Basic](/Workshop/Explorer/smartVoucherErc721Basic.md)
-  - smartVoucherErc20Transfer [WIP]
-  - smartVoucherErc721Transfer
+    - info
+    - holders
+    - Transfers
+    - Transactions
   - [consumeGas](/Workshop/Explorer/consumeGas.md)
   - [consumeGasByAddress](/Workshop/Explorer/consumeGasByAddress.md)
   - [purchaseGas](/Workshop/Explorer/purchaseGas.md)
