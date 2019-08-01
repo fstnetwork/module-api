@@ -29,4 +29,4 @@
 
 
 - **permission**
-  - Only Master and Issuer could use
+  - Only Master and Issuer can use

@@ -20,5 +20,5 @@
 
 
 - **permission**
-  - Only Master could use
-  - Master would be consumed ETH gasprice
+  - Only Master can use
+  - Master will be consumed ETH gasprice

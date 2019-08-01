@@ -18,4 +18,4 @@
 
 
 - **permission**
-  - Only Master could use
+  - Only Master can use

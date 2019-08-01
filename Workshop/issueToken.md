@@ -23,14 +23,14 @@
 
 
   - **permission**
-    - Only Issuer could use
+    - Only Issuer can use
 
 
 ## Step
 
 - Method0.
   - Auth: Master
-    (Would give ethValue, mintIL and transferMasterToken when creating issuer)
+    (Will give ethValue, mintIL and transferMasterToken when creating issuer)
     - createUserV2, role = 1
   - Auth: Issuer
     - fillGas to issuer

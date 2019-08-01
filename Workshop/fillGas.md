@@ -19,5 +19,5 @@
 
 
 - **permission**
-  - Anyone could be estimate
+  - Anyone can estimate
 

@@ -20,7 +20,7 @@
 
 ## Step
 
-- Anyone could call sendEther, even without any ETH
+- Anyone can call sendEther, even without any ETH
 
 #### Estimated
 

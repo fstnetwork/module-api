@@ -23,7 +23,7 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 
 
 ## Step
-- Please make sure that your account has available balance could be transferred
+- Please make sure that your account has available balance can be transferred
 
   - id: Pluie
   - pwd: 12345678
