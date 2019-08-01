@@ -118,8 +118,8 @@ upload keystore(JSON) below
 ```
 
 
-#### signTx
-  - change signExample.js details
+- #### signTx
+  - please refer to the details in `./example/signExample.js`
 
 ```javascript
 
