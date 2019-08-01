@@ -91,7 +91,7 @@ mutation sendEther {
 }
 ```
 
-- #### get private key from keystore
+#### get private key from keystore
 tool: https://www.myetherwallet.com
 upload keystore(JSON) below
 ```javascript
@@ -118,7 +118,7 @@ upload keystore(JSON) below
 ```
 
 
-- #### signTx
+#### signTx
   - change signExample.js details
 
 ```javascript
@@ -142,7 +142,7 @@ ethereumTx.sign(Buffer.from(privateKeyString, "hex"));
 console.log(ethereumTx.serialize().toString('hex'));
 ```
 
-- #### submitTx
+#### submitTx
 ```javascript
   mutation submit {
     submitTransaction(
