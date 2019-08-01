@@ -8,7 +8,7 @@
   mutation issueToken {
     issueToken(input: {
       tokenID: "9453",
-      name: "louise test"
+      name: "test"
       symbol: "LT"
       supply: "25000000000000000000000000"
       vendible: true

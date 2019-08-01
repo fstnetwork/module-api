@@ -8,8 +8,8 @@
   mutation mintIL {
     mintIL(input: {
       to: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
-      tokenID: "556"
-      tokenUri: "556"
+      tokenID: "9453"
+      tokenUri: "9453"
     }){
       transaction
       submitToken
