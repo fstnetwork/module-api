@@ -1,5 +1,7 @@
-# EngineAPIWorkshop201908
+# Workshop
 This folders contains five categorise of FST Engine APIs.
+
+![permission](/Workshop/permission.png)
 
 ## Auth
 - Mutation

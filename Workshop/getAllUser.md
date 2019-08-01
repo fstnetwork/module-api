@@ -26,3 +26,7 @@
     }
   }
   ```
+
+
+- **permission**
+  - Only Master and Issuer could test
