@@ -5,7 +5,7 @@
 
 - Mutation Example
   ```javascript
-  mutation submit {
+  mutation submitTransaction {
     submitTransaction(
       input: {
         signedTx: "..."
@@ -16,3 +16,5 @@
     }
   }
   ```
+
+#### more detail =>  [erc20Transfer](/Workshop/erc20Transfer.md)

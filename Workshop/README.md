@@ -1,11 +1,11 @@
 # Workshop
-This folders contains five categorise of FST Engine APIs.
+This directory contains 5 aspects of FST Engine APIs.
 
 ![permission](/Workshop/images/permission.png)
 
 ## Auth
 - Mutation
-  - [signIn](/Workshop/Auth/signIn.md)
+  - [signIn](/Workshop/signIn.md)
 
 ## Master
 - Query `READ`

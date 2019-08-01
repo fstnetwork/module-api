@@ -30,10 +30,10 @@
 
 - Method0.
   - Auth: Master
-    (創 issuer 的時候就直接給錢錢: mintIL, transferMasterToken)
+    (Would give ethValue, mintIL and transferMasterToken when creating issuer)
     - createUserV2, role = 1
   - Auth: Issuer
-    - fillGas 給 issuer
+    - fillGas to issuer
       - signTx
       - submitTx
     - issueToken
@@ -43,10 +43,10 @@
 
 - Method1.
   - Auth: Master
-    - mintIL 給 issuer
-    - transferMasterToken  給 issuer
+    - mintIL to issuer
+    - transferMasterToken  to issuer
   - Auth: Issuer
-    - fillGas 給 issuer
+    - fillGas to issuer
       - signTx
       - submitTx
     - issueToken
@@ -56,9 +56,9 @@
 
 - Method2.
   - Auth: Master
-    - mintIL 給 issuer
-    - transferMasterToken  給 master
-    - fillGas 給 issuer
+    - mintIL to issuer
+    - transferMasterToken to master
+    - fillGas to issuer
       - signTx
       - submitTx
   - Auth: Issuer

@@ -21,4 +21,4 @@
 
 - **permission**
   - Only Master could use
-  - Master Address 要有 Ether
+  - Master would be consumed ETH gasprice

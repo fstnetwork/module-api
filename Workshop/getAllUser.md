@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query getUser {
+  query getAllUser {
     getAllUser(first:5){
       pageInfo{
         endCursor
