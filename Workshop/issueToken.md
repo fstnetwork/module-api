@@ -7,9 +7,9 @@
   ```javascript
   mutation issueToken {
     issueToken(input: {
-      tokenID: "556",
-      name: "bosin test"
-      symbol: "BST"
+      tokenID: "9453",
+      name: "louise test"
+      symbol: "LT"
       supply: "25000000000000000000000000"
       vendible: true
       numerator: 1,
@@ -17,6 +17,7 @@
     }){
       transaction
       submitToken
+    	ethereumKey
     }
   }
   ```
@@ -41,10 +42,10 @@
       - submitTx
 
 
-- Method1.
+- Method1. (TEST)
   - Auth: Master
     - mintIL to issuer
-    - transferMasterToken  to issuer
+    - transferMasterToken to issuer
   - Auth: Issuer
     - fillGas to issuer
       - signTx

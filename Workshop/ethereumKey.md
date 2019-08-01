@@ -16,4 +16,4 @@
 
 
 - **permission**
-  - Anyone can be use
+  - Anyone can use
