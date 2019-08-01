@@ -1,4 +1,4 @@
-import { Transaction as EthereumTx } from "ethereumjs-tx";
+const { Transaction } = require("ethereumjs-tx");
 
 const transaction = {
   nonce: "...",
@@ -9,12 +9,17 @@ const transaction = {
   data: "...",
   chainId: "..."
 }
-const privateKey = '...'
+
+const privateKeyString = '...';
+const privateKey = (Buffer.from(privateKeyString, "hex"));
 
 function signTransaction(transaction, privateKey) {
-  const ethereumTx = new EthereumTx(transaction, {
+  const ethereumTx = new Transaction(transaction, {
     chain: Number(transaction.chainId)
   });
   ethereumTx.sign(privateKey);
   return ethereumTx.serialize().toString('hex');
 }
+
+signTransaction(transaction, privateKey);
+

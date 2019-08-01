@@ -30,7 +30,12 @@ This folders contains five categorise of FST Engine APIs.
 
 ## Issuer
 - Query `READ`
-  - erc20/erc721 token [WIP] vvvvvv
+  - [erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md)
+    - info
+    - holders
+    - Transfers
+    - Transactions
+  - [erc721TokenBasic](/Workshop/Explorer/erc721TokenBasic.md)
     - info
     - holders
     - Transfers
