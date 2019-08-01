@@ -6,6 +6,3 @@ How to utilise FsTK modules from functional perspective.
 
 ## API Reference
 The complete details of FsTK API.
-
-## Workshop
-The FST Engine API documentation workshop
