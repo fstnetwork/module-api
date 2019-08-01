@@ -13,6 +13,7 @@
     }){
       transaction
       submitToken
+      ethereumKey
     }
   }
   ```

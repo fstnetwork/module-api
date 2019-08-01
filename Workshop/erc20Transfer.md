@@ -151,7 +151,7 @@ upload keystore(JSON) below
 
 
 - #### signTx
-  - change signExample.js details
+  - please refer to the details in `./example/signExample.js`
 
 ```javascript
 const transaction = {

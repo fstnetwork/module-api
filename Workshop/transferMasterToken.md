@@ -7,11 +7,12 @@
   ```javascript
   mutation transferMasterToken {
     transferMasterToken(input: {
-      issuer: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
+      issuer: "0x001f74990fb6700262363e56cc8c917566d7c56a"
       value: "100000000000000000000" # 100
     }){
       transaction
       submitToken
+      ethereumKey
     }
   }
   ```

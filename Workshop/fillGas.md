@@ -7,11 +7,12 @@
   ```javascript
   mutation fillGas{
     fillGas(input: {
-      receiver: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
+      receiver: "0x001f74990fb6700262363e56cc8c917566d7c56a"
       value: "1000000000000000000"
     }){
       transaction
       submitToken
+      ethereumKey
     }
   }
   ```
@@ -21,3 +22,4 @@
 - **permission**
   - Anyone can estimate
 
+1:1

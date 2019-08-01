@@ -1,29 +1,6 @@
 
 # Account
 
-## sub Query
-  - erc20TokenBalance
-    - pageInfo
-    - edges
-      - node
-    - totalCount
-  - erc20Transfers
-    - pageInfo
-    - edges
-      - node
-    - totalCount
-  - erc721TokenBalance
-    - pageInfo
-    - node
-    - totalCount
-  - erc721Transfers
-    - pageInfo
-    - node
-    - totalCount
-  - transactions
-    - pageInfo
-    - node
-    - totalCount
 
 ## GraphQL API
 
@@ -31,6 +8,7 @@
   ```javascript
   query account {
     account(address: "0x5c3cE06F77A54187a7758938Ee0D59582Ebd47CE"){
+      etherBalance
       erc20Transfers(first:5){
         pageInfo{
           endCursor
