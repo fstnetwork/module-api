@@ -17,7 +17,7 @@
     }){
       transaction
       submitToken
-    	ethereumKey
+      ethereumKey
     }
   }
   ```
