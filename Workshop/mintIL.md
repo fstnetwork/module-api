@@ -16,3 +16,9 @@
     }
   }
   ```
+
+
+
+- **permission**
+  - Only Master could use
+  - Master Address 要有 Ether

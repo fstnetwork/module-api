@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query SmartVoucher20 {
+  query SmartVoucherErc20Basic {
     SmartVoucher20(contract: "0x5bb38e2165d65a036df842a5286ef04278f1533f") {
       info {
         contract
