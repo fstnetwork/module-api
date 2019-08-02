@@ -26,7 +26,6 @@
   - **permission**
     - Only Issuer can use
 
-
 ## Step
 
 - Method0.

@@ -3,6 +3,35 @@ This directory contains 5 aspects of FST Engine APIs.
 
 ![permission](/Workshop/images/permission.png)
 
+## Glossaries
+
+- Accountable Data Network
+  - An unique network mechanism that insures the consistency, insertion order and existence of any data
+- Address
+  - An entry on Accountable Data Network, each address can actually belong to one private key, but it is cryptographically difficult to be reverse-attacked, since the address is the hash of the public key, and there are 16^40 addresses available
+- Contract / Smart Contract
+  - A set of program modules deployed on accountable data network with their business-logics and storages are computed/executed exactly under their pre-configurations and constraints. A Smart Contract has its own address
+- Ledger
+  - A kind of Smart Contract that stores the Accountable Data and verifies the authentication/authorisation of any operation on it
+- ERC-20
+  - An interface for basic ledger operations and storage
+- ERC-721
+  - An interface for basic non-fungible ledger operations and storage
+- ERC-1376
+  - An interface for advanced ledger operations and storage with optimisations and high-extensibility, compatible to ERC-20
+- Token / Smart Token / Fungible Token
+  - An ERC-1376 implementation with fungible, 18-decimals ledger.
+- Voucher / Smart Voucher / Fungible Voucher
+  - An ERC-1376 implementation with fungible, 0-decimal ledger. Each Voucher
+- EthereumKey / Wallet File / Key File / Key Storage
+  - A JSON that contains encrypted ECDSA private key, the passphrase hashing is used with Scrypt/PBKDF2
+- Gas / Fuel
+  - A protocol-level and service-level gas that protects the entire Data Network from the DDOS attack, since any instruction on a Data Network must consume gas. In FST PPB/Engine, the protocol-gas is called Ether, and the service-gas is Master Service Gas
+- Transaction
+  - A data set contains digital-signature, timestamping, target address, gas amount and the bytecode to the Smart Contract
+- Transfer
+  - A balance change or data transferring in a ledger, it contains from (originator), to (receiver) and the value (data amount)
+
 ## Auth
 - Mutation
   - [signIn](/Workshop/signIn.md)
@@ -48,7 +77,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [createUser](/Workshop/createUser.md)
   - [createUserV2](/Workshop/createUserV2.md)
   - [issueToken](/Workshop/issueToken.md)
-  - publishFungibleVoucher [WIP] vvvvvvvvvv
+  - publishFungibleVoucher [WIP](/Workshop/publishFungibleVoucher.md)
   - publishNonFungibleVoucher
 
 - Mutation `TRANSACT`

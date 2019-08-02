@@ -22,4 +22,3 @@
 
 - **permission**
   - Only Master can use
-  - Master will be consumed ETH gasprice
