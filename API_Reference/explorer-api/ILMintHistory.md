@@ -13,7 +13,7 @@
 ## getAllGasConsumeHistory
 ### GraphQL Query
   ``` js
-  
+  test
   ```
 
 ### Response
