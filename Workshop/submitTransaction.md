@@ -17,4 +17,6 @@
   }
   ```
 
+- expiryTime is 10 mins
+
 #### more detail =>  [erc20Transfer](/Workshop/erc20Transfer.md)
