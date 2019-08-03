@@ -9,12 +9,12 @@
     publishFungibleVoucher(input: {
       name: "SB Voucher"
       symbol: "SB"
-      supply: "94539453"
+      supply: "1000"
       vendible: true
       numerator: "2000000000000000000000"
       denominator: "1"
       isConsumable: true
-      expiry: "1596844800000"
+      expiry: "1596844800"
     }){
       transaction
       submitToken

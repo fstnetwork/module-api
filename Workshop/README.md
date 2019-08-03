@@ -34,118 +34,124 @@ This directory contains 5 aspects of FST Engine APIs.
 
 ## Auth
 - Mutation
-  - [signIn](/Workshop/signIn.md)
+  - [signIn](/Workshop/signin/signIn.md)
+- Query `READ` (require authentication)
+  - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
 
 ## Master
+require authentication
 - Query `READ`
-  - [getAllUser](/Workshop/getAllUser.md)
-  - [getAllIssuer](/Workshop/getAllIssuer.md)
-  - [ethereumKey](/Workshop/ethereumKey.md)
-  - [tokenExpireTime](/Workshop/tokenExpireTime.md)
+  - [getAllUser](/Workshop/engine/getAllUser.md)
+  - [getAllIssuer](/Workshop/engine/getAllIssuer.md)
+  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
 
 - Mutation `CREATE`
-  - [createUser](/Workshop/createUser.md)
-  - [createUserV2](/Workshop/createUserV2.md)
+  - [createUser](/Workshop/engine/createUser.md)
+  - [createUserV2](/Workshop/engine/createUserV2.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/fillGas.md)
-  - [mintIL](/Workshop/mintIL.md)
-  - [sendEther](/Workshop/sendEther.md)
-  - [erc20Transfer](/Workshop/erc20Transfer.md)
-  - [erc721Transfer](/Workshop/erc721Transfer.md)
-  - [transferMasterToken](/Workshop/transferMasterToken.md)
-  - [submitTransaction](/Workshop/submitTransaction.md)
+  - [fillGas](/Workshop/engine/fillGas.md)
+  - [mintIL](/Workshop/engine/mintIL.md)
+  - [sendEther](/Workshop/engine/sendEther.md)
+  - [erc20Transfer](/Workshop/engine/erc20Transfer.md)
+  - [erc721Transfer](/Workshop/engine/erc721Transfer.md)
+  - [transferMasterToken](/Workshop/engine/transferMasterToken.md)
+  - [submitTransaction](/Workshop/engine/submitTransaction.md)
 
 
 ## Issuer
+require authentication
 - Query `READ`
-  - [erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md)
+  - [erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [erc721TokenBasic](/Workshop/Explorer/erc721TokenBasic.md)
+  - [erc721TokenBasic](/Workshop/explorer/erc721TokenBasic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [getAllUser](/Workshop/getAllUser.md)
-  - [ethereumKey](/Workshop/ethereumKey.md)
-  - [tokenExpireTime](/Workshop/tokenExpireTime.md)
+  - [getAllUser](/Workshop/engine/getAllUser.md)
+  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
 
 - Mutation `CREATE`
-  - [createUser](/Workshop/createUser.md)
-  - [createUserV2](/Workshop/createUserV2.md)
-  - [issueToken](/Workshop/issueToken.md)
-  - publishFungibleVoucher [WIP](/Workshop/publishFungibleVoucher.md)
+  - [createUser](/Workshop/engine/createUser.md)
+  - [createUserV2](/Workshop/engine/createUserV2.md)
+  - [issueToken](/Workshop/engine/issueToken.md)
+  - [publishFungibleVoucher](/Workshop/engine/publishFungibleVoucher.md)
   - publishNonFungibleVoucher
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/fillGas.md)
-  - [sendEther](/Workshop/sendEther.md)
-  - [erc20Transfer](/Workshop/erc20Transfer.md)
-  - [erc721Transfer](/Workshop/erc721Transfer.md)
+  - [fillGas](/Workshop/engine/fillGas.md)
+  - [sendEther](/Workshop/engine/sendEther.md)
+  - [erc20Transfer](/Workshop/engine/erc20Transfer.md)
+  - [erc721Transfer](/Workshop/engine/erc721Transfer.md)
   - mintErc721
-  - [submitTransaction](/Workshop/submitTransaction.md)
+  - [submitTransaction](/Workshop/engine/submitTransaction.md)
 
 
 ## User
+require authentication
 - Query `READ`
-  - [ethereumKey](/Workshop/ethereumKey.md)
-  - [tokenExpireTime](/Workshop/tokenExpireTime.md)
+  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/fillGas.md)
-  - [sendEther](/Workshop/sendEther.md)
-  - [erc20Transfer](/Workshop/erc20Transfer.md)
-  - [erc721Transfer](/Workshop/erc721Transfer.md)
-  - [submitTransaction](/Workshop/submitTransaction.md)
+  - [fillGas](/Workshop/engine/fillGas.md)
+  - [sendEther](/Workshop/engine/sendEther.md)
+  - [erc20Transfer](/Workshop/engine/erc20Transfer.md)
+  - [erc721Transfer](/Workshop/engine/erc721Transfer.md)
+  - [submitTransaction](/Workshop/engine/submitTransaction.md)
 
 
 ## Explorer
+not require authentication
 - Query `READ`
-  - [block](/Workshop/Explorer/block.md)
-  - [blocks](/Workshop/Explorer/blocks.md)
-  - [transaction](/Workshop/Explorer/transaction.md)
-  - [transactions](/Workshop/Explorer/transactions.md)
-  - [account](/Workshop/Explorer/account.md)
-  - [erc20TokenList](/Workshop/Explorer/erc20TokenList.md)
-  - [erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md)
-  - [erc20Transfers](/Workshop/Explorer/erc20Transfers.md)
-  - [erc721TokenList](/Workshop/Explorer/erc721TokenList.md)
-  - [erc721TokenBasic](/Workshop/Explorer/erc721TokenBasic.md)
-  - [erc721Transfers](/Workshop/Explorer/erc721Transfers.md)
+  - [block](/Workshop/explorer/block.md)
+  - [blocks](/Workshop/explorer/blocks.md)
+  - [transaction](/Workshop/explorer/transaction.md)
+  - [transactions](/Workshop/explorer/transactions.md)
+  - [account](/Workshop/explorer/account.md)
+  - [erc20TokenList](/Workshop/explorer/erc20TokenList.md)
+  - [erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md)
+  - [erc20Transfers](/Workshop/explorer/erc20Transfers.md)
+  - [erc721TokenList](/Workshop/explorer/erc721TokenList.md)
+  - [erc721TokenBasic](/Workshop/explorer/erc721TokenBasic.md)
+  - [erc721Transfers](/Workshop/explorer/erc721Transfers.md)
   - erc721TokenURI
-  - [smartTokenList](/Workshop/Explorer/smartTokenList.md)
-  - smartToken [WIP] vvvvvvvv
+  - [smartTokenList](/Workshop/explorer/smartTokenList.md)
+  - smartTokenBasic [WIP](/Workshop/explorer/smartTokenBasic.md)
     - info
-      - voucherList
+      - voucherList (?
     - holders
     - Transfers
     - Transactions
   - issueTokenList
   - smartVoucherList [WIP]
-  - [smartVoucherErc20Basic](/Workshop/Explorer/smartVoucherErc20Basic.md)
+  - [smartVoucherErc20Basic](/Workshop/explorer/smartVoucherErc20Basic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [smartVoucherErc721Basic](/Workshop/Explorer/smartVoucherErc721Basic.md)
+  - [smartVoucherErc721Basic](/Workshop/explorer/smartVoucherErc721Basic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [consumeGas](/Workshop/Explorer/consumeGas.md)
-  - [consumeGasByAddress](/Workshop/Explorer/consumeGasByAddress.md)
-  - [purchaseGas](/Workshop/Explorer/purchaseGas.md)
-  - [purchaseGasByAddress](/Workshop/Explorer/purchaseGasByAddress.md)
-  - [mintILList](/Workshop/Explorer/mintILList.md)
-  - [IssueTokenAll](/Workshop/Explorer/IssueTokenAll.md)
-  - [IssueTokenByIssuer](/Workshop/Explorer/IssueTokenByIssuer.md)
-  - [IssueTokenByTransaction](/Workshop/Explorer/IssueTokenByTransaction.md)
-  - [PublishFungibleVoucherAll](/Workshop/Explorer/PublishFungibleVoucherAll.md)
-  - [PublishFungibleVoucherByPublisher](/Workshop/Explorer/PublishFungibleVoucherByPublisher.md)
-  - [PublishFungibleVoucherByTransaction](/Workshop/Explorer/PublishFungibleVoucherByTransaction.md)
+  - [consumeGas](/Workshop/explorer/consumeGas.md)
+  - [consumeGasByAddress](/Workshop/explorer/consumeGasByAddress.md)
+  - [purchaseGas](/Workshop/explorer/purchaseGas.md)
+  - [purchaseGasByAddress](/Workshop/explorer/purchaseGasByAddress.md)
+  - [mintILList](/Workshop/explorer/mintILList.md)
+  - [IssueTokenAll](/Workshop/explorer/IssueTokenAll.md)
+  - [IssueTokenByIssuer](/Workshop/explorer/IssueTokenByIssuer.md)
+  - [IssueTokenByTransaction](/Workshop/explorer/IssueTokenByTransaction.md)
+  - [PublishFungibleVoucherAll](/Workshop/explorer/PublishFungibleVoucherAll.md)
+  - [PublishFungibleVoucherByPublisher](/Workshop/explorer/PublishFungibleVoucherByPublisher.md)
+  - [PublishFungibleVoucherByTransaction](/Workshop/explorer/PublishFungibleVoucherByTransaction.md)
   - PublishNonfungibleVoucherAll
   - PublishNonfungibleVoucherByPublisher
   - PublishNonfungibleVoucherByTransaction
