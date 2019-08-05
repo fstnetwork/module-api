@@ -8,7 +8,7 @@
   mutation fillGas{
     fillGas(input: {
       receiver: "0x001f74990fb6700262363e56cc8c917566d7c56a"
-      value: "1000000000000000000"
+      value: "100000000000000000000"
     }){
       transaction
       submitToken
