@@ -3,9 +3,6 @@
 
 ## GraphQL API
 
-explorer: token address
-http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
-
 - Mutation Example
   ```javascript
   mutation erc20Transfer {
@@ -22,7 +19,6 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
   ```
 
 
-## Step
 - Please make sure that your account has available balance can be transferred
 
   - id: Pluie
@@ -31,7 +27,7 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 
 
 #### Erc20 balance
-- API: query [account](/Workshop/Explorer/account.md)
+- API: query [account](/Workshop/explorer/account.md)
 ```javascript
 ...
 {
@@ -47,12 +43,12 @@ http://explorer.dev.fstk.io/token/0xe93e7a04a4b5273dee710f7263a4ca69b96424d3
 }
 ...
 ```
-- UI: http://explorer.dev.fstk.io/address/0x223f5789fac8eef297ac1c43680876a42ac7cb19
+- explorer UI
 
-- or Erc20 token holders ([erc20TokenBasic](/Workshop/Explorer/erc20TokenBasic.md))
+- or Erc20 token holders ([erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md))
 
 
-#### Transfer Erc20: [erc20Transfers](/Workshop/Explorer/erc20Transfers.md)
+#### Transfer Erc20: [erc20Transfer](/Workshop/engine/erc20Transfer.md)
 
 - #### req
 
@@ -189,7 +185,7 @@ console.log(ethereumTx.serialize().toString('hex'));
 
 - #### successfully submit transaction
 
-UI check：http://explorer.dev.fstk.io/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784654c564e80f9028cf8
+Explorer UI check：{domain}/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784654c564e80f9028cf8
 
 ```javascript
 {
@@ -213,3 +209,13 @@ UI check：http://explorer.dev.fstk.io/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9
   }
 }
 ```
+
+
+#### After publishFungibleVoucher
+- Auth: Issuer
+  - publishFungibleVoucher
+    - signTx
+    - submitTx
+  - erc20Transfer to issuer or enduser
+    - signTx
+    - submitTx

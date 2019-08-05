@@ -158,8 +158,7 @@ console.log(ethereumTx.serialize().toString('hex'));
 
 
 - #### successfully submit transaction
-
-UI check：http://explorer.dev.fstk.io/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784654c564e80f9028cf8
+Explorer UI check：{domain}/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784654c564e80f9028cf8
 
 ```javascript
 {

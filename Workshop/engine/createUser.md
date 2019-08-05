@@ -30,3 +30,4 @@
 - **permission**
   - Only Master can create role = 1
   - Master and Issuer can create role = 2
+  - Unique param: id
