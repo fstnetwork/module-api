@@ -6,16 +6,16 @@
 - Query Example
   ```javascript
   query SmartTokenBasic {
-    SmartToken(contract: "0x50585ba341da2dda160a5679bdd69193cd20aca0"){
-			info {
+    SmartToken(contract: "0xec51bbfb1c77459e73aacbf217b17a9775068d57") {
+      info {
         contract
         transaction
         name
         symbol
-        totalSupply
         metadata
         website
         description
+        totalSupply
         transferability
         mintability
         consumability
@@ -23,14 +23,42 @@
         approvability
         age
         standard
+        type: __typename
         vouchers {
           pageInfo {
             endCursor
             hasNextPage
           }
           totalCount
+          edges {
+            node {
+              contract
+              transaction
+              name
+              symbol
+              metadata
+              website
+              description
+              totalSupply
+              transferability
+              mintability
+              consumability
+              delegatability
+              approvability
+              age
+              standard
+              ... on SmartVoucher20InfoField {
+                type: __typename
+                secureApproval
+                decimals
+                expiry
+              }
+              ... on SmartVoucher721InfoField {
+                type: __typename
+              }
+            }
+          }
         }
-        type: __typename
       }
       holders {
         pageInfo {
@@ -63,12 +91,14 @@
               contract
               name
               symbol
+              decimals
               totalSupply
               standard
               type: __typename
             }
             from
             to
+            value
             transaction
             transactionIndex
             transactionLogIndex
