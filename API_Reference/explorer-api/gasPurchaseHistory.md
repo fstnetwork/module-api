@@ -12,33 +12,33 @@
 
 ## getAllGasPurchaseHistory
 ### GraphQL Query
-  ``` js
-  query purchaseGas {
-    engine {
-      purchaseGas(first: 2) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        edges {
-          node {
-            id
-            block
-            transactionHash
-            transactionLogIndex
-            contract
-            from
-            receiver
-            amount
-            age
-          }
-          cursor
-        }
-        totalCount
+``` js
+query purchaseGas {
+  engine {
+    purchaseGas(first: 2) {
+      pageInfo {
+        hasNextPage
+        endCursor
       }
+      edges {
+        node {
+          id
+          block
+          transactionHash
+          transactionLogIndex
+          contract
+          from
+          receiver
+          amount
+          age
+        }
+        cursor
+      }
+      totalCount
     }
   }
-  ```
+}
+```
 
 ### Response
 ```json

@@ -12,41 +12,41 @@
 
 ## getAllGasConsumeHistory
 ### GraphQL Query
-  ``` js
-  query consumeGas {
-    engine {
-      consumeGas(first: 2) {
-        pageInfo {
-          hasNextPage
-          endCursor
-        }
-        edges {
-          node {
-            id
-            block
-            transactionHash
-            transactionLogIndex
-            contract
-            corporation
-            initiator
-            key
-            price {
-              denominator
-              numerator
-            }
-            amount {
-              denominator
-              numerator
-            }
-            age
-          }
-          cursor
-        }
-        totalCount
+``` js
+query consumeGas {
+  engine {
+    consumeGas(first: 2) {
+      pageInfo {
+        hasNextPage
+        endCursor
       }
+      edges {
+        node {
+          id
+          block
+          transactionHash
+          transactionLogIndex
+          contract
+          corporation
+          initiator
+          key
+          price {
+            denominator
+            numerator
+          }
+          amount {
+            denominator
+            numerator
+          }
+          age
+        }
+        cursor
+      }
+      totalCount
     }
   }
-  ```
+}
+```
 
 ### Response
 ```json
