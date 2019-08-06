@@ -27,9 +27,6 @@
 
 - **permission**
   - Only Issuer can use
-  - Balance
-    - 1 ETH
-    - 1000 Service Gas
 
 
 ## Step

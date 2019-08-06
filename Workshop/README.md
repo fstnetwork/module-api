@@ -133,14 +133,14 @@ not require authentication
   - [erc721Transfers](/Workshop/explorer/erc721Transfers.md)
   - erc721TokenURI
   - [smartTokenList](/Workshop/explorer/smartTokenList.md)
-  - smartTokenBasic [WIP](/Workshop/explorer/smartTokenBasic.md)
+  - [smartTokenBasic](/Workshop/explorer/smartTokenBasic.md)
     - info
-      - voucherList (?
+      - voucherList
     - holders
     - Transfers
     - Transactions
   - issueTokenList
-  - smartVoucherList [WIP]
+  - [smartVoucherList](/Workshop/explorer/smartVoucherList.md)
   - [smartVoucherErc20Basic](/Workshop/explorer/smartVoucherErc20Basic.md)
     - info
     - holders

@@ -10,7 +10,7 @@
       tokenID: "9453",
       name: "test"
       symbol: "LT"
-      supply: "25000000000000000000000000"
+      supply: "25000000000000000000000"
       vendible: true
       numerator: 1,
       denominator: 1
@@ -25,7 +25,7 @@
 
   - **permission**
     - Only Issuer can use
-    - Issue oonly one time
+    - Issue use one-off
     - tokenID is as same as mintIL tokenId
 
 ## Step
