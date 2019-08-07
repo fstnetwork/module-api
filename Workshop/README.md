@@ -45,11 +45,11 @@ This directory contains 5 aspects of FST Engine APIs.
 ## Auth
 - Mutation
   - [signIn](/Workshop/signin/signIn.md)
-- Query `READ` (require authentication)
+- Query `READ` (Authentication Required)
   - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
 
 ## Master
-require authentication
+(Authentication Required)
 - Query `READ`
   - [getAllUser](/Workshop/engine/getAllUser.md)
   - [getAllIssuer](/Workshop/engine/getAllIssuer.md)
@@ -71,7 +71,7 @@ require authentication
 
 
 ## Issuer
-require authentication
+(Authentication Required)
 - Query `READ`
   - [erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md)
     - info
@@ -104,7 +104,7 @@ require authentication
 
 
 ## User
-require authentication
+(Authentication Required)
 - Query `READ`
   - [ethereumKey](/Workshop/engine/ethereumKey.md)
   - [tokenExpireTime](/Workshop/engine/tokenExpireTime.md)
@@ -118,7 +118,7 @@ require authentication
 
 
 ## Explorer
-not require authentication
+(Authentication NOT Required)
 - Query `READ`
   - [block](/Workshop/explorer/block.md)
   - [blocks](/Workshop/explorer/blocks.md)
