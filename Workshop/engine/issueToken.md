@@ -10,10 +10,10 @@
       tokenID: "9453",
       name: "test"
       symbol: "LT"
-      supply: "25000000000000000000000"
+      supply: "25000000000000000000000" # It's a decimal Number
       vendible: true
       numerator: 1,
-      denominator: 1
+      denominator: 345
     }){
       transaction
       submitToken
@@ -21,12 +21,14 @@
     }
   }
   ```
+- This part of `numerator = 1` and `denominator = 345`, this means 1 Ether is worth 345 Smart Token, so that the ratio between Ether and the Token will be calculated and represented in terms of fraction.
 
 
-  - **permission**
-    - Only Issuer can use
-    - Issue use one-off
-    - tokenID is as same as mintIL tokenId
+- **permission**
+  - Only Issuer can use
+  - Issue use one-off
+  - `tokenID` is as same as mintIL `tokenId`
+
 
 ## Step
 
