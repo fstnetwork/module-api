@@ -52,7 +52,7 @@
 ## Tx Example
 
 1. Auth: Master
-  - create Issuer: [createUserV2](/Workshop/engine/createUserV2.md)
+  - create Issuer: [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
   - req
 ```javascript
   mutation createUserV2 {
@@ -125,7 +125,7 @@
 ```
 
 2. Auth: Issuer
-  - Issue token => call [smartTokenBasic](/Workshop/explorer/smartTokenBasic.md) to query
+  - Issue token => call [getSmartTokenList](/Workshop/explorer/getSmartTokenList.md) to query
   - req
 ```javascript
   mutation issueToken {
