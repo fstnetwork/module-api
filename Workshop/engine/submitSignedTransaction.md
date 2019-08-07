@@ -1,5 +1,5 @@
 
-# Create a role
+# Submit signed transaction
 
 ## GraphQL API
 
@@ -18,5 +18,3 @@
   ```
 
 - expiryTime is 10 mins
-
-#### more detail =>  [erc20Transfer](/Workshop/engine/erc20Transfer.md)

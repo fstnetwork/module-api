@@ -27,7 +27,7 @@
 
 
 #### Erc20 token balance
-- API: query [account](/Workshop/explorer/account.md)
+- API: query [getAccountInfo](/Workshop/explorer/getAccountInfo.md)
 ```javascript
 ...
 {
@@ -45,7 +45,7 @@
 ```
 - explorer UI
 
-- or Erc20 token holders ([erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md))
+- or Erc20 token holders ([getERC20TokenBasicInfo](/Workshop/explorer/getERC20TokenBasicInfo.md))
 
 
 #### Transfer Erc20 Token

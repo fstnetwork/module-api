@@ -1,5 +1,5 @@
 
-# Create a role
+# Create an issuer
 
 ## GraphQL API
 

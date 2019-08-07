@@ -1,5 +1,5 @@
 
-# Erc20 smart voucher transfer detail
+# Publish NonFungible Voucher All
 
 ## GraphQL API
 
