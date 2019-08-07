@@ -26,7 +26,7 @@
   - address: 0xda29d213b887dd1c9196423f5c34eb82d5132b74
 
 
-#### Erc20 balance
+#### Erc20 token balance
 - API: query [account](/Workshop/explorer/account.md)
 ```javascript
 ...
@@ -48,7 +48,7 @@
 - or Erc20 token holders ([erc20TokenBasic](/Workshop/explorer/erc20TokenBasic.md))
 
 
-#### Transfer Erc20: [erc20Transfer](/Workshop/engine/erc20Transfer.md)
+#### Transfer Erc20 Token
 
 - #### req
 
@@ -219,3 +219,19 @@ Explorer UI check：{domain}/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784
   - erc20Transfer to issuer or enduser
     - signTx
     - submitTx
+
+
+#### Transfer Erc20 Voucher
+  ```javascript
+  mutation erc20Transfer {
+    erc20Transfer (input: {
+      contract: "0xff21850b2548b9dea8fb7a22866ece03b1be0b4e",
+      to: "0x964e274de05ad33c1e240e7f02576a68daf40fb2"
+      value: "1"
+    }){
+      transaction
+      submitToken
+      ethereumKey
+    }
+  }
+  ```
