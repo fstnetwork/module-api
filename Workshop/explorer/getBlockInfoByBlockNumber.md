@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query block {
+  query getBlockInfoByBlockNumber {
     block(blockNumber: "1000000") {
       blockHash
       block

@@ -1,14 +1,12 @@
 
-# Publish Fungible Voucher By Transaction
+# Publish Fungible Voucher By Publisher
 
 ## GraphQL API
 
 - Query Example
   ```javascript
-  query PublishFungibleVoucherByTransaction {
-    transaction(
-      transaction: "0x9b7d82aa70e7945720b28d209d846c2e845fede6cddf4d24360ef0ea56a48a6f"
-    ) {
+  query getFungibleSmartVoucherByPublisher {
+    account(address: "0x3be8698c3de5c88991162de44f33c9dd3f52ed13") {
       publishFungibleVoucher {
         pageInfo {
           endCursor

@@ -52,7 +52,7 @@
 ## Tx Example
 
 1. Auth: Master
-  - create Issuer: [getERC20TokenBasicInfo](/Workshop/engine/getERC20TokenBasicInfo.md)
+  - create Issuer: [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
   - req
 ```javascript
   mutation createUserV2 {

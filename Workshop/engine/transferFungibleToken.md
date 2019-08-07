@@ -45,7 +45,7 @@
 ```
 - explorer UI
 
-- or Erc20 token holders ([getERC20TokenBasicInfo](/Workshop/explorer/getERC20TokenBasicInfo.md))
+- or Erc20 token holders ([getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md))
 
 
 #### Transfer Erc20 Token

@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query mintILByAddress {
+  query getILMintHistoryByAddress {
     engine{
       mintILByAddress(address: "0xfe788a397088898783871f20fbbbcc9e84bf34bf"){
         pageInfo{

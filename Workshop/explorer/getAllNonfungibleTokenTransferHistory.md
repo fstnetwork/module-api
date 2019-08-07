@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query erc721Transfers {
+  query getAllNonfungibleTokenTransferHistory {
     erc721Transfers(first: 5) {
       pageInfo {
         endCursor

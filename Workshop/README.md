@@ -64,8 +64,8 @@ This directory contains 5 aspects of FST Engine APIs.
   - [fillGas](/Workshop/engine/fillGas.md)
   - [mintIL](/Workshop/engine/mintIL.md)
   - [transferETH](/Workshop/engine/transferETH.md)
-  - [transferERC20Token](/Workshop/engine/transferERC20Token.md)
-  - [transferERC721Token](/Workshop/engine/transferERC721Token.md)
+  - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [transferMasterToken](/Workshop/engine/transferMasterToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
@@ -73,12 +73,12 @@ This directory contains 5 aspects of FST Engine APIs.
 ## Issuer
 (Authentication Required)
 - Query `READ`
-  - [getERC20TokenBasicInfo](/Workshop/explorer/getERC20TokenBasicInfo.md)
+  - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [getERC721TokenBasic](/Workshop/explorer/getERC721TokenBasic.md)
+  - [getNonfungibleTokenBasic](/Workshop/explorer/getNonfungibleTokenBasic.md)
     - info
     - holders
     - Transfers
@@ -97,9 +97,9 @@ This directory contains 5 aspects of FST Engine APIs.
 - Mutation `TRANSACT`
   - [fillGas](/Workshop/engine/fillGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
-  - [transferERC20Token](/Workshop/engine/transferERC20Token.md)
-  - [transferERC721Token](/Workshop/engine/transferERC721Token.md)
-  - mintErc721
+  - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
+  - mintNonfungibleVoucher
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
 
@@ -112,8 +112,8 @@ This directory contains 5 aspects of FST Engine APIs.
 - Mutation `TRANSACT`
   - [fillGas](/Workshop/engine/fillGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
-  - [transferERC20Token](/Workshop/engine/transferERC20Token.md)
-  - [transferERC721Token](/Workshop/engine/transferERC721Token.md)
+  - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
 
@@ -125,13 +125,13 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getTransactionInfoByHash](/Workshop/explorer/getTransactionInfoByHash.md)
   - [getATransactionsInfo](/Workshop/explorer/getATransactionsInfo.md)
   - [getAccountInfo](/Workshop/explorer/getAccountInfo.md)
-  - [getERC20TokenList](/Workshop/explorer/getERC20TokenList.md)
-  - [getERC20TokenBasicInfo](/Workshop/explorer/getERC20TokenBasicInfo.md)
-  - [getAllERC20TokenTransferHistory](/Workshop/explorer/getAllERC20TokenTransferHistory.md)
-  - [getERC721TokenList](/Workshop/explorer/getERC721TokenList.md)
-  - [getERC721TokenBasic](/Workshop/explorer/getERC721TokenBasic.md)
-  - [getAllERC721TokenTransferHistory](/Workshop/explorer/getAllERC721TokenTransferHistory.md)
-  - erc721TokenURI
+  - [getFungibleTokenList](/Workshop/explorer/getFungibleTokenList.md)
+  - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
+  - [getAllFungibleTokenTransferHistory](/Workshop/explorer/getAllFungibleTokenTransferHistory.md)
+  - [getNonfungibleTokenList](/Workshop/explorer/getNonfungibleTokenList.md)
+  - [getNonfungibleTokenBasic](/Workshop/explorer/getNonfungibleTokenBasic.md)
+  - [getAllNonfungibleTokenTransferHistory](/Workshop/explorer/getAllNonfungibleTokenTransferHistory.md)
+  - getNonfungibleTokenURI
   - [getSmartTokenList](/Workshop/explorer/getSmartTokenList.md)
   - [getSmartTokenInfoByAddress](/Workshop/explorer/getSmartTokenInfoByAddress.md)
     - info
@@ -141,12 +141,12 @@ This directory contains 5 aspects of FST Engine APIs.
     - Transactions
   - issueTokenList
   - [getSmartVoucherList](/Workshop/explorer/getSmartVoucherList.md)
-  - [getSmartVoucher1376Basic](/Workshop/explorer/getSmartVoucher1376Basic.md)
+  - [getFungibleSmartVoucherBasic](/Workshop/explorer/getFungibleSmartVoucherBasic.md)
     - info
     - holders
     - Transfers
     - Transactions
-  - [getSmartVoucher721Basic](/Workshop/explorer/getSmartVoucher721Basic.md)
+  - [getNonfungibleSmartVoucherBasic](/Workshop/explorer/getNonfungibleSmartVoucherBasic.md)
     - info
     - holders
     - Transfers
@@ -160,10 +160,10 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getTokenIssuenceHistory](/Workshop/explorer/getTokenIssuenceHistory.md)
   - [getTokenIssuenceHistoryByAddress](/Workshop/explorer/getTokenIssuenceHistoryByAddress.md)
   - [getTokenIssuenceHistoryByTransaction](/Workshop/explorer/getTokenIssuenceHistoryByTransaction.md)
-  - [getAllSmartVoucher20](/Workshop/explorer/getAllSmartVoucher20.md)
-  - [getSmartVoucher20ByPublisher](/Workshop/explorer/getSmartVoucher20ByPublisher.md)
-  - [getSmartVoucher20ByTransaction](/Workshop/explorer/getSmartVoucher20ByTransaction.md)
-  - [getAllSmartVoucher721](/Workshop/explorer/getAllSmartVoucher721.md)
-  - [getSmartVoucher721ByPublisher](/Workshop/explorer/getSmartVoucher721ByPublisher.md)
-  - [getSmartVoucher721ByTransaction](/Workshop/explorer/getSmartVoucher721ByTransaction.md)
+  - [getAllFungibleSmartVoucher](/Workshop/explorer/getAllFungibleSmartVoucher.md)
+  - [getFungibleSmartVoucherByPublisher](/Workshop/explorer/getFungibleSmartVoucherByPublisher.md)
+  - [getFungibleSmartVoucherByTransaction](/Workshop/explorer/getFungibleSmartVoucherByTransaction.md)
+  - [getAllNonfungibleSmartVoucher](/Workshop/explorer/getAllNonfungibleSmartVoucher.md)
+  - [getNonfungibleSmartVoucherByPublisher](/Workshop/explorer/getNonfungibleSmartVoucherByPublisher.md)
+  - [getNonfungibleSmartVoucherByTransaction](/Workshop/explorer/getNonfungibleSmartVoucherByTransaction.md)
 

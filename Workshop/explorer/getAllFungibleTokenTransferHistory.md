@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query erc20Transfers {
+  query getAllFungibleTokenTransferHistory {
     erc20Transfers(first: 5) {
       pageInfo {
         endCursor

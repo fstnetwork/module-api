@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query consumeGas {
+  query getGasConsumeHistory {
     engine {
       consumeGas(first: 5) {
         pageInfo {

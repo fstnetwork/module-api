@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query mint {
+  query getILMintHistory {
     engine{
       mintIL(first: 5){
         pageInfo{

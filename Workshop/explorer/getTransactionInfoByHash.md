@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query transaction {
+  query getTransactionInfoByHash {
     transaction(
       transaction: "0x12ff31b7344787cec983e0c00921bda0a29a4a525f2d8e97885fa76f3f146a42"
     ) {

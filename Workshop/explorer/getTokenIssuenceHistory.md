@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query IssueTokenAll {
+  query getTokenIssuenceHistory {
     issueTokens {
       pageInfo {
         endCursor

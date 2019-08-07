@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query transactions {
+  query getATransactionsInfo {
     transactions(first: 5) {
       pageInfo {
         endCursor

@@ -5,7 +5,7 @@
 
 - Mutation Example
   ```javascript
-  mutation createUserV2 {
+  mutation createUserAndTransferAsset {
     createUserV2(
       input: {
         id: "issuer_abc" # unique

@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query purchaseGasByAddress {
+  query getGasPurchaseHistoryByAddress {
     engine {
       purchaseGasByAddress(
         address: "0xf9d1f584748ab74cb23905d46a3e9bb0fa805b9d"

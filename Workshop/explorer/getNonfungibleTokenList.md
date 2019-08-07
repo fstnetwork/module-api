@@ -1,12 +1,12 @@
 
-# Erc20 Token Basic detail
+# Erc721 Token List
 
 ## GraphQL API
 
 - Query Example
   ```javascript
-  query erc20TokenList {
-    erc20TokenList(first: 5) {
+  query getNonfungibleTokenList {
+    erc721TokenList(first: 5) {
       pageInfo {
         endCursor
         hasNextPage

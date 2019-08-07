@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query SmartTokenBasic {
+  query getSmartTokenInfoByAddress {
     SmartToken(contract: "0xec51bbfb1c77459e73aacbf217b17a9775068d57") {
       info {
         contract

@@ -5,7 +5,7 @@
 
 - Mutation Example
   ```javascript
-  mutation erc721Transfer {
+  mutation transferNonfungibleToken {
     erc721Transfer (input: {
       contract: "0x0000000000000000000000000000000000009805",
       to: "0x9ea175288fe328e2cc447bc406b26580caf4c703"

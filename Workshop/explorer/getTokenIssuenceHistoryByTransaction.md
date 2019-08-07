@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query IssueTokenByTransaction {
+  query getTokenIssuenceHistoryByTransaction {
     transaction(
       transaction: "0x2dc861824059ed164e95b8304a68090c0d0672e5ade8c211d4d5f7664d6dd9b7"
     ) {

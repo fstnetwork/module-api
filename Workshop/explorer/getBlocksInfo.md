@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query blocks {
+  query getBlocksInfo {
     blocks(first: 5) {
       pageInfo {
         endCursor

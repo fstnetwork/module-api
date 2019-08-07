@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query SmartTokenList {
+  query getSmartTokenList {
     SmartTokenList {
       type: __typename
       pageInfo {

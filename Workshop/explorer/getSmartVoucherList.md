@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query SmartVoucherList {
+  query getSmartVoucherList {
     SmartVoucherList {
       pageInfo {
         endCursor

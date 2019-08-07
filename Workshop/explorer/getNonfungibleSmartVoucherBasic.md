@@ -1,18 +1,17 @@
 
-# Erc20 smart voucher basic detail
+# Erc721 smart voucher basic detail
 
 ## GraphQL API
 
 - Query Example
   ```javascript
-  query SmartVoucherErc20Basic {
-    SmartVoucher20(contract: "0x5bb38e2165d65a036df842a5286ef04278f1533f") {
+  query getNonfungibleSmartVoucherBasic {
+    SmartVoucher721(contract: "0x5ffb6669cef6f8b61ee3a61395fe43416b875e9c") {
       info {
         contract
         transaction
         name
         symbol
-        decimals
         totalSupply
         metadata
         website
@@ -22,8 +21,6 @@
         consumability
         delegatability
         approvability
-        secureApproval
-        expiry
         age
         standard
         type: __typename
@@ -59,14 +56,13 @@
               contract
               name
               symbol
-              decimals
               totalSupply
               standard
               type: __typename
             }
             from
             to
-            value
+            tokenId
             transaction
             transactionIndex
             transactionLogIndex
@@ -112,5 +108,6 @@
       }
     }
   }
+
 
   ```

@@ -1,16 +1,24 @@
 
-# Erc721 Token Basic Details
+# Erc20 Token Basic
+
+## sub Query
+  - info
+  - holders
+  - transfers
+  - transactions
+
 
 ## GraphQL API
 
 - Query Example
   ```javascript
-  query erc721TokenBasic {
-    erc721TokenBasic(contract: "0xd57265a096c0b1de7e92db8f59072083048477d9") {
+  query getFungibleTokenBasic {
+    erc20TokenBasic(contract: "0x87e1a234a979ff839e636f077a680a2ca0342143") {
       info {
         contract
         name
         symbol
+        decimals
         totalSupply
       }
       holders(first: 5) {
@@ -36,10 +44,11 @@
             transaction
             from
             to
-            tokenId
+            value
             age
             contract {
               symbol
+              decimals
               contract
             }
           }

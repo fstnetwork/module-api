@@ -5,7 +5,7 @@
 
 - Mutation Example
   ```javascript
-  mutation submitTransaction {
+  mutation submitSignedTransaction {
     submitTransaction(
       input: {
         signedTx: "..."
