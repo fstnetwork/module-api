@@ -1,5 +1,5 @@
 
-# Erc721 Token Basic Details
+# Get Nonfungible Smart Token by address
 
 ## GraphQL API
 

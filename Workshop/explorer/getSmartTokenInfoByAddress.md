@@ -1,5 +1,5 @@
 
-# Get smart token basic details
+# Get smart token info by contract address
 
 ## GraphQL API
 

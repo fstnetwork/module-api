@@ -1,5 +1,5 @@
 
-# Get smart token list details
+# Get smart token list 
 
 ## GraphQL API
 

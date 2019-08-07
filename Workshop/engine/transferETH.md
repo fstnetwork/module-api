@@ -1,5 +1,5 @@
 
-# Send ether
+# Transfer ether
 
 ## GraphQL API
 

@@ -1,5 +1,5 @@
 
-# Transaction
+# Get transaction info
 
 ## GraphQL API
 

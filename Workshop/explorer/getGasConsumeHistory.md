@@ -1,5 +1,5 @@
 
-# consume gas list
+# Get consume gas list
 
 ## GraphQL API
 

@@ -1,5 +1,5 @@
 
-# Erc721 TokenURI Detail
+# Get Nonfungible TokenURI Detail
 
 ## GraphQL API
 

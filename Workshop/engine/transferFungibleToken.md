@@ -1,5 +1,5 @@
 
-# Transfer erc20
+# Transfer transfer Fungible Token and Fungible Voucher
 
 ## GraphQL API
 

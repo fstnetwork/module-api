@@ -1,5 +1,5 @@
 
-# consume gas by address
+# Get consume gas by address
 
 ## GraphQL API
 

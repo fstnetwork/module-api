@@ -1,5 +1,5 @@
 
-# get mint IL history by address
+# Get mint IL history by address
 
 ## GraphQL API
 

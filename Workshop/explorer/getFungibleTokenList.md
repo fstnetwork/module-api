@@ -1,5 +1,5 @@
 
-# Erc20 Token Basic detail
+# Get Fungible Token List
 
 ## GraphQL API
 

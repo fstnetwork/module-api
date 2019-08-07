@@ -1,5 +1,5 @@
 
-# Erc721 Transfer Details
+# Get all Nonfungible Token transfer history
 
 ## GraphQL API
 

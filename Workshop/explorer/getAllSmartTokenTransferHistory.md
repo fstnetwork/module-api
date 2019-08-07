@@ -1,5 +1,5 @@
 
-# Get smart token transfer details
+# Get all smart token transfer history
 
 ## GraphQL API
 

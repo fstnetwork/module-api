@@ -1,5 +1,5 @@
 
-# Issue Token by Issuer Account
+# Get issue Token info by issuer
 
 ## GraphQL API
 

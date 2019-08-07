@@ -1,5 +1,5 @@
 
-# purchase gas list
+# Get purchase gas list
 
 ## GraphQL API
 

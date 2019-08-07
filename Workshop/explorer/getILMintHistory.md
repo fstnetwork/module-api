@@ -1,5 +1,5 @@
 
-# mint IL list
+# Get mint IL list
 
 ## GraphQL API
 

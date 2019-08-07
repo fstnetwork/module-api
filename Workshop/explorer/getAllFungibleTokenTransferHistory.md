@@ -1,5 +1,5 @@
 
-# Erc20 Transfer Details
+# Get all Fungible Token transfer history
 
 ## GraphQL API
 

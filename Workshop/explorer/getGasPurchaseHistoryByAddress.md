@@ -1,5 +1,5 @@
 
-# purchase gas by address
+# Get purchase gas by address
 
 ## GraphQL API
 

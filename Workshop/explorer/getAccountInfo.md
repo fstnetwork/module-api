@@ -1,5 +1,5 @@
 
-# Account
+# Get account info
 
 
 ## GraphQL API

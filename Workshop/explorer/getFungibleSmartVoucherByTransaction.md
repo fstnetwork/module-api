@@ -1,5 +1,5 @@
 
-# Publish Fungible Voucher By Transaction
+# Get Fungible Smart Voucher By Transaction
 
 ## GraphQL API
 

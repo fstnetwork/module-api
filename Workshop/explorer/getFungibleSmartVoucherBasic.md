@@ -1,5 +1,5 @@
 
-# Erc20 smart voucher basic detail
+# Get Fungible Smart Voucher info
 
 ## GraphQL API
 

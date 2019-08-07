@@ -1,5 +1,5 @@
 
-# Erc721 Token List
+# Get Nonfungible Smart Token list
 
 ## GraphQL API
 

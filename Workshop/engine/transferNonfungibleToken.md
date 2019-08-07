@@ -1,5 +1,5 @@
 
-# Transfer erc721
+# Transfer Nonfungible Token and Nonfungible Voucher
 
 ## GraphQL API
 

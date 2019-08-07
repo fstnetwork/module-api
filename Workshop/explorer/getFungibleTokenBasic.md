@@ -1,12 +1,5 @@
 
-# Erc20 Token Basic
-
-## sub Query
-  - info
-  - holders
-  - transfers
-  - transactions
-
+# Get Fungible Token by contract address
 
 ## GraphQL API
 

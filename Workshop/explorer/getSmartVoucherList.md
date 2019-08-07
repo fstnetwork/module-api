@@ -1,5 +1,5 @@
 
-# SmartVoucher20List and SmartVoucher721List
+# Get smart voucher info
 
 ## GraphQL API
 

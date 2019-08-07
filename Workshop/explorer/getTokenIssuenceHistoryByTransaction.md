@@ -1,5 +1,5 @@
 
-# Issue Token by Transaction
+# Get issue Token by Transaction
 
 ## GraphQL API
 

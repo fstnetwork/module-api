@@ -1,5 +1,5 @@
 
-# Publish Fungible Voucher All
+# Get all Fungible Voucher
 
 ## GraphQL API
 

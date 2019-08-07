@@ -1,5 +1,5 @@
 
-# Erc721 smart voucher basic detail
+# Get Nonfungible Smart Voucher info
 
 ## GraphQL API
 

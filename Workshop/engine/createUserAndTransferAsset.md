@@ -1,5 +1,5 @@
 
-# Create an issuer
+# Create an issuer and transfer Asset
 
 ## GraphQL API
 

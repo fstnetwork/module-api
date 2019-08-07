@@ -1,5 +1,5 @@
 
-# Publish Fungible Voucher By Publisher
+# Get Fungible Smart Voucher By Publisher
 
 ## GraphQL API
 

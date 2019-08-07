@@ -1,5 +1,5 @@
 
-# Publish NonFungible Voucher All
+# Get all Nonfungible Voucher
 
 ## GraphQL API
 
