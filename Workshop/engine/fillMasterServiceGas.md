@@ -20,6 +20,6 @@
 
 
 - **permission**
-  - Anyone can estimate
+  - Master, Issuer and End User have permission to use this API.
 
-## 1 transferMasterToken = 1 fillGas
+- **1 Master Token = 1 Master Service Gas**

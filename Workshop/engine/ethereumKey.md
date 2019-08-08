@@ -16,4 +16,4 @@
 
 
 - **permission**
-  - Anyone can use
+  - Master, Issuer and End User have permission to use this API.

@@ -25,9 +25,9 @@
 
 
 - **permission**
-  - Only Issuer can use
-  - Issue use one-off
-  - `tokenID` is as same as mintIL `tokenId`
+  - Only Issuer has permission to use this API.
+  - Issue token is a one-off action for Issuer.
+  - `tokenID` is your IL Id.
 
 
 ## Step

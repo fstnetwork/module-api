@@ -28,12 +28,11 @@
   }
   ```
 
-- **role**
-  - 0 = Master (can not be created by APIs)
-  - 1 = Issuer
-  - 2 = End User
-
 - **permission**
-  - Only Master can create role = 1
-  - Master and Issuer can create role = 2
-  - Unique param: id, tokenId
+  - `role`
+    - 0: Master (Master CANNOT be created by API.)
+    - 1: Issuer
+    - 2: End User
+  - Only **Master** can create Issuer
+  - **Master** and **Issuer** can create End User
+  - Unique param: `id`, `tokenId`
