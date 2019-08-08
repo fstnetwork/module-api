@@ -1,0 +1,9 @@
+# User Management
+- Endpoint
+  - For development: `http://api.dev.fstk.io/api`
+  - Customer: *`CUSTOMER_URL`*
+- Method: `POST`
+- Header:
+  - accept: `application/json`
+  - content-type: `application/json`
+- API Query
