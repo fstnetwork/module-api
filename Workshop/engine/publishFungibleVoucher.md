@@ -26,7 +26,7 @@
 
 
 - **permission**
-  - Only Issuer can use
+  - Only Issuer has permission to use this API.
 
 
 ## Step
