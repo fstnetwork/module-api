@@ -9,7 +9,7 @@
     publishFungibleVoucher(input: {
       name: "SB Voucher"
       symbol: "SB"
-      supply: "1000" # Issue 1,000 voucher
+      supply: "1000" # Publish 1,000 voucher
       vendible: true
       numerator: "2000000000000000000"
       denominator: "1"
