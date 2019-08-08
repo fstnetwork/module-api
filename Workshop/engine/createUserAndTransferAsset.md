@@ -30,16 +30,19 @@
 
 
 
-- **permission**
+
+- Parameter
+  - `id` and `tokenId` is a global identifier
   - `role`
     - 0: Master (Master CANNOT be created by API.)
     - 1: Issuer
     - 2: End User
-  - `password` is required to sign
+  - `password` is required for sign in
   - `userPassphrase` is for Issuer to decrypt Ethereum key JSON and sign the transaction
   - `masterPassphrase` is Master's passphrase
   - `tokenId` is required to identify a particular token
   - `tokenUri` is Metadata JSON Schema
-  - Only **Master** can create Issuer
-  - **Master** and **Issuer** can create End User
-  - Unique param: `id`, `tokenId`
+
+- Permission
+  - Only Master can create Issuer
+  - Master and Issuer can create End User

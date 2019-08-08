@@ -20,7 +20,9 @@
 
 
 
-- **permission**
+- Parameter
   - `tokenID` is required to identify a particular token
   - `tokenUri` is Metadata JSON Schema
-  - Only Master has permission to use this API.
+
+- Permission
+  - Only Master has permission to use this API

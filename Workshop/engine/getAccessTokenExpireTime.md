@@ -9,7 +9,3 @@
     tokenExpireTime
   }
   ```
-
-
-- {domain}/signin or {domain}/api
-  - Authentication Required

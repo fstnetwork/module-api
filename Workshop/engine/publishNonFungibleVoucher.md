@@ -19,7 +19,5 @@
 
   ```
 
-
-
-- **permission**
-  - Only Issuer has permission to use this API.
+- Permission
+  - Only Issuer has permission to use this API
