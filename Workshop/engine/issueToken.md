@@ -57,7 +57,7 @@
   - create Issuer: [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
   - req
 ```javascript
-  mutation createUserV2 {
+  mutation createUserAndTransferAsset {
     createUserV2(
       input: {
         id: "issuer_0802_test_1" # unique

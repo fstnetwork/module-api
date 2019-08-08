@@ -5,7 +5,7 @@
 
 - Query Example
   ```javascript
-  query ethereumKey {
+  query getEthereumKey {
     ethereumKey {
       version
       address

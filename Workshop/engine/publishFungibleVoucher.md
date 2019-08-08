@@ -36,7 +36,7 @@
     - transferMasterToken to issuer
       - signTx
       - submitTx
-    - sendEther to issuer
+    - transferEther to issuer
       - signTx
       - submitTx
   - Auth: Issuer
