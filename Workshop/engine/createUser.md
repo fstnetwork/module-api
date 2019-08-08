@@ -24,14 +24,16 @@
 
 
 
-- **permission**
+- Parameter
+  - `id` is a global identifier
   - `role`
     - 0: Master (Master CANNOT be created by API)
     - 1: Issuer
     - 2: End User
-  - `password` is required to sign
+  - `password` is required for sign in
   - `passphrase` is required to decrypt Ethereum key JSON and sign the transaction
   - `keystore` is an encrypted wallet private key
-  - Only **Master** can create Issuer
-  - **Master** and **Issuer** can create End User
-  - Unique param: `id`
+
+- Permission
+  - Only Master can create Issuer
+  - Master and Issuer can create End User

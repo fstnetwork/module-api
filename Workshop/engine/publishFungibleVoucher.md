@@ -26,23 +26,5 @@
 - The part of `numerator = "2000000000000000000"` (2 * (10^18)) and `denominator = "1"` indicates this 1 fungible Voucher is worth 2 Token (the parent ledger of the Voucher), so that the ratio between this fungible Voucher and the Token will be calculated and represented in terms of fraction.
 
 
-- **permission**
-  - Only Issuer has permission to use this API.
-
-
-## Step
-
-  - Auth: Master
-    - transferMasterToken to issuer
-      - signTx
-      - submitTx
-    - transferEther to issuer
-      - signTx
-      - submitTx
-  - Auth: Issuer
-    - purchaseMasterServiceGas to issuer
-      - signTx
-      - submitTx
-    - publishFungibleVoucher
-      - signTx
-      - submitTx
+- Permission
+  - Only Issuer has permission to use this API

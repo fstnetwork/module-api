@@ -28,9 +28,11 @@
   ```
 
 
-- **permission**
+- Parameter
   - `role`
     - 0: Master (Master CANNOT be created by API.)
     - 1: Issuer
     - 2: End User
-  - Only Master has permission to use this API.
+
+- Permission
+  - Only Master has permission to use this API
