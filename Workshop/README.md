@@ -65,6 +65,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [mintIL](/Workshop/engine/mintIL.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [transferMasterToken](/Workshop/engine/transferMasterToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
@@ -98,6 +99,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [fillMasterServiceGas](/Workshop/engine/fillMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - mintNonfungibleVoucher
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
@@ -113,6 +115,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [fillMasterServiceGas](/Workshop/engine/fillMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
