@@ -61,7 +61,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [fillMasterServiceGas](/Workshop/engine/fillMasterServiceGas.md)
   - [mintIL](/Workshop/engine/mintIL.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
@@ -95,7 +95,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [publishNonFungibleVoucher](/Workshop/engine/publishNonFungibleVoucher.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [fillMasterServiceGas](/Workshop/engine/fillMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -110,7 +110,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [fillMasterServiceGas](/Workshop/engine/fillMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -123,7 +123,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getBlockInfoByBlockNumber](/Workshop/explorer/getBlockInfoByBlockNumber.md)
   - [getBlocksInfo](/Workshop/explorer/getBlocksInfo.md)
   - [getTransactionInfoByHash](/Workshop/explorer/getTransactionInfoByHash.md)
-  - [getATransactionsInfo](/Workshop/explorer/getATransactionsInfo.md)
+  - [getAllTransactionsInfo](/Workshop/explorer/getAllTransactionsInfo.md)
   - [getAccountInfo](/Workshop/explorer/getAccountInfo.md)
   - [getFungibleTokenList](/Workshop/explorer/getFungibleTokenList.md)
   - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
