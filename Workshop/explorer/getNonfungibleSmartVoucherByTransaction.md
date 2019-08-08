@@ -1,5 +1,5 @@
 
-# get Nonfungible Smart Voucher By Transaction
+# get Non-Fungible Smart Voucher By Transaction
 
 ## GraphQL API
 

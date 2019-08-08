@@ -1,5 +1,5 @@
 
-# Get Nonfungible Smart Token by address
+# Get Non-Fungible Smart Token by address
 
 ## GraphQL API
 

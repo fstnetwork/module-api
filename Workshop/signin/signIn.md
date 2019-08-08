@@ -15,9 +15,12 @@
   }
   ```
 
-- Please make the Authorization HTTP Header from the response
+- Annotations for the parameters and attributes
+  - `access_token` is a [JWT](https://jwt.io)
+
+- Please attach the responded `access_token` to the HTTP Header to use FST Engine API
   ```
   {
-    "authorization": "bearer $access_token"
+    "Authorization": "Bearer $access_token"
   }
   ```

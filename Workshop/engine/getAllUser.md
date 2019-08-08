@@ -1,11 +1,11 @@
 
-# Get all Users
+# Get all End-Users
 
 ## GraphQL API
 
 - Query Example
   ```javascript
-  query getAllUser {
+  query getAllEndUser {
     getAllUser(first:5){
       pageInfo{
         endCursor
@@ -14,7 +14,6 @@
       edges{
         node{
           id
-          role
           importedBy
           firstName
           lastName
@@ -27,12 +26,5 @@
   }
   ```
 
-
-- Parameter
-  - `role`
-    - 0: Master (Master CANNOT be created by API.)
-    - 1: Issuer
-    - 2: End User
-
 - Permission
-  - Master and Issuer have permission to use this API
+  - Master and Issuer are permitted to invoke this API

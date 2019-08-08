@@ -1,5 +1,5 @@
 
-# Get all Nonfungible Token transfer history
+# Get all Non-Fungible Token transfer history
 
 ## GraphQL API
 
