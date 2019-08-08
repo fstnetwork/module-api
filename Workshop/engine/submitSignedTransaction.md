@@ -17,4 +17,7 @@
   }
   ```
 
-- Expire time of `submitToken` is 10 minutes.
+- Expire time of `submitToken` is 10 minutes
+- Parameter
+  - `signedTx` is signedTransaction which is the hex string
+  - `submitToken` is from Encode Ethereum Transaction

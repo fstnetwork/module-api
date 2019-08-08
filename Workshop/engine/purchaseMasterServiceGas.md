@@ -17,8 +17,8 @@
   }
   ```
 
+- **1 Master Token = 1 Master Service Gas**
 
 - Permission
   - Master, Issuer and End User have permission to use this API
 
-- **1 Master Token = 1 Master Service Gas**
