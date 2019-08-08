@@ -8,9 +8,9 @@
   mutation issueToken {
     issueToken(input: {
       tokenID: "9453",
-      name: "test"
-      symbol: "LT"
-      supply: "25000000000000000000000" # It's a decimal Number
+      name: "Test Token"
+      symbol: "TT"
+      supply: "25000000000000000000000" # Issue 25,000 token
       vendible: true
       numerator: 1,
       denominator: 345
@@ -133,8 +133,8 @@
   mutation issueToken {
     issueToken(input: {
       tokenID: "8021",
-      name: "test"
-      symbol: "LT" 
+      name: "Test Token"
+      symbol: "TT" 
       supply: "25000000000000000000000000"
       vendible: true
       numerator: 1,

@@ -28,7 +28,7 @@
 ```javascript
 mutation transferEther {
   sendEther (input: {
-    to: "0xc58716b864936b58f1f8188f0a4c83a7cae8afa6" # enduser_louise_add_1
+    to: "0xc58716b864936b58f1f8188f0a4c83a7cae8afa6" 
     value: "1000000000000000" # 0.001 eth
   }){
     transaction
@@ -144,7 +144,7 @@ console.log(ethereumTx.serialize().toString('hex'));
 
 #### submitTx
 ```javascript
-  mutation submit {
+  mutation submitSignedTransaction {
     submitTransaction(
       input: {
         signedTx: "0xf86a80843b9aca0082520894c58716b864936b58f1f8188f0a4c83a7cae8afa687038d7ea4c680008077a0aea795f92efdbff017a95dcabccbde1e10c47038c9e262cad4ec8084eca1e323a047e47c111623450cb2b53f0ed34c85977c3de8b241874a097a058718de265865"

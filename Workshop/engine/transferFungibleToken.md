@@ -1,5 +1,5 @@
 
-# Transfer Fungible Token and Fungible Voucher
+# Transfer fungible Token
 
 ## GraphQL API
 
@@ -25,7 +25,7 @@
   - address: 0xda29d213b887dd1c9196423f5c34eb82d5132b74
 
 
-#### Erc20 token balance
+#### fungible Token balance
 - API: query [getAccountInfo](/Workshop/explorer/getAccountInfo.md)
 ```javascript
 ...
@@ -44,15 +44,14 @@
 ```
 - explorer UI
 
-- or Erc20 token holders ([getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md))
+- or fungible token holders ([getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md))
 
 
-#### Transfer Erc20 Token
 
 - #### req
 
 ```javascript
-  mutation erc20 {
+  mutation transferFungibleToken {
     erc20Transfer (input: {
       contract: "0x223f5789fac8eef297ac1c43680876a42ac7cb19",
       to: "0xc58716b864936b58f1f8188f0a4c83a7cae8afa6" # id = enduser_louise_add_1, pwd = 12345678
@@ -209,28 +208,3 @@ Explorer UI check：{domain}/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784
 }
 ```
 
-
-#### After publishFungibleVoucher
-- Auth: Issuer
-  - publishFungibleVoucher
-    - signTx
-    - submitTx
-  - erc20Transfer to issuer or enduser
-    - signTx
-    - submitTx
-
-
-#### Transfer Erc20 Voucher
-  ```javascript
-  mutation transferFungibleVoucher {
-    erc20Transfer (input: {
-      contract: "0xff21850b2548b9dea8fb7a22866ece03b1be0b4e",
-      to: "0x964e274de05ad33c1e240e7f02576a68daf40fb2"
-      value: "1"
-    }){
-      transaction
-      submitToken
-      ethereumKey
-    }
-  }
-  ```
