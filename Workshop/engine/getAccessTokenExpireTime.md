@@ -12,4 +12,4 @@
 
 
 - {domain}/signin or {domain}/api
-  - require authentication
+  - Authentication Required

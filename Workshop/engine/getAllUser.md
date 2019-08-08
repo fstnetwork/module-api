@@ -29,4 +29,4 @@
 
 
 - **permission**
-  - Only Master and Issuer can use
+  - Master and Issuer have permission to use this API.
