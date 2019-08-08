@@ -9,9 +9,9 @@
     publishFungibleVoucher(input: {
       name: "SB Voucher"
       symbol: "SB"
-      supply: "1000"
+      supply: "1000" # It's a natural number
       vendible: true
-      numerator: "2000000000000000000000"
+      numerator: "2000000000000000000"
       denominator: "1"
       isConsumable: true
       expiry: "1596844800"
@@ -23,6 +23,7 @@
   }
   ```
 
+- The part of `numerator = "2000000000000000000"` (2 * (10^18)) and `denominator = "1"` indicates this 1 fungible Voucher is worth 2 Token (the parent ledger of the Voucher), so that the ratio between this fungible Voucher and the Token will be calculated and represented in terms of fraction.
 
 
 - **permission**
