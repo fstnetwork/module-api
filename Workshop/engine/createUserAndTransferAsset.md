@@ -1,5 +1,5 @@
 
-# Create an issuer and transfer Asset
+# Create an Issuer and transfer asset
 
 ## GraphQL API
 
@@ -8,13 +8,13 @@
   mutation createUserAndTransferAsset {
     createUserV2(
       input: {
-        id: "issuer_abc" # unique
+        id: "issuer_abc"
         password: "12345678"
         userPassphrase: "12345678"
         role: 1
-        etherValue: "2000000000000000" # 0.002 ether
-        masterTokenValue: "1000000000000000000000" # 1000 master token
-        tokenId: "658968545" # unique
+        etherValue: "2000000000000000" # Transfer 0.002 ether
+        masterTokenValue: "1000000000000000000000" # Transfer 1000 Master Token
+        tokenId: "658968545"
         tokenUri: "658968545"
         masterPassphrase: "12345678"
       }
@@ -28,11 +28,18 @@
   }
   ```
 
+
+
 - **permission**
   - `role`
     - 0: Master (Master CANNOT be created by API.)
     - 1: Issuer
     - 2: End User
+  - `password` is required to sign
+  - `userPassphrase` is for Issuer to decrypt Ethereum key JSON and sign the transaction
+  - `masterPassphrase` is Master's passphrase
+  - `tokenId` is required to identify a particular token
+  - `tokenUri` is Metadata JSON Schema
   - Only **Master** can create Issuer
   - **Master** and **Issuer** can create End User
   - Unique param: `id`, `tokenId`

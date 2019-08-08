@@ -27,12 +27,12 @@
 - **permission**
   - Only Issuer has permission to use this API.
   - Issue token is a one-off action for Issuer.
-  - `tokenID` is your IL Id.
+  - `tokenID` is required to identify a particular token.
 
 
-## Step
+<!-- ## Step
 
-- Method0.
+- Method 1
   - Auth: Master
     (Will give ethValue, mintIL and transferMasterToken when creating issuer)
     - createUserAndTransferAsset, role = 1
@@ -42,7 +42,7 @@
       - submitTx
 
 
-- Method1.
+- Method 2
   - Auth: Master
     - mintIL to issuer
   - Auth: Issuer
@@ -222,4 +222,4 @@ mutation submitTransaction {
       transactionHash
     }
   }
-```
+``` -->

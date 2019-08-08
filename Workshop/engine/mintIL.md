@@ -1,5 +1,5 @@
 
-# Mint Initianation License
+# Mint Initialisation License
 
 ## GraphQL API
 
@@ -21,4 +21,6 @@
 
 
 - **permission**
+  - `tokenID` is required to identify a particular token
+  - `tokenUri` is Metadata JSON Schema
   - Only Master has permission to use this API.
