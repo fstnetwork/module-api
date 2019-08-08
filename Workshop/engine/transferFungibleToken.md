@@ -18,5 +18,8 @@
   }
   ```
 
+- Parameter
+  - `contract` is the address of the ledger
+
 - Permission
   - Master, Issuer and End User have permission to use this API
