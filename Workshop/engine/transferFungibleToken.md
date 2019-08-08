@@ -1,11 +1,11 @@
 
-# Transfer transfer Fungible Token and Fungible Voucher
+# Transfer Fungible Token and Fungible Voucher
 
 ## GraphQL API
 
 - Mutation Example
   ```javascript
-  mutation erc20Transfer {
+  mutation transferFungibleToken {
     erc20Transfer (input: {
       contract: "0xe93e7a04a4b5273dee710f7263a4ca69b96424d3",
       to: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
@@ -19,8 +19,7 @@
   ```
 
 
-- Please make sure that your account has available balance can be transferred
-
+- Please make sure that your account has available balance to transfer.
   - id: Pluie
   - pwd: 12345678
   - address: 0xda29d213b887dd1c9196423f5c34eb82d5132b74
@@ -223,7 +222,7 @@ Explorer UI check：{domain}/tx/0x57a4dff2d8127dc12d782953ab93c363c9a9637403a784
 
 #### Transfer Erc20 Voucher
   ```javascript
-  mutation erc20Transfer {
+  mutation transferFungibleVoucher {
     erc20Transfer (input: {
       contract: "0xff21850b2548b9dea8fb7a22866ece03b1be0b4e",
       to: "0x964e274de05ad33c1e240e7f02576a68daf40fb2"

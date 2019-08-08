@@ -17,4 +17,4 @@
   }
   ```
 
-- Expiry time of `submitToken` is 10 minutes.
+- Expire time of `submitToken` is 10 minutes.

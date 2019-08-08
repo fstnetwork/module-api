@@ -40,7 +40,7 @@
       - signTx
       - submitTx
   - Auth: Issuer
-    - fillGas to issuer
+    - purchaseMasterServiceGas to issuer
       - signTx
       - submitTx
     - publishFungibleVoucher

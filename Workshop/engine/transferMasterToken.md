@@ -19,4 +19,4 @@
 
 
 - **permission**
-  - Only Master can use
+  - Only Master has permission to use this API.

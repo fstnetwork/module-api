@@ -35,7 +35,7 @@
 - Method0.
   - Auth: Master
     (Will give ethValue, mintIL and transferMasterToken when creating issuer)
-    - createUserV2, role = 1
+    - createUserAndTransferAsset, role = 1
   - Auth: Issuer
     - issueToken
       - signTx

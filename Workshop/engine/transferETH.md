@@ -20,13 +20,13 @@
 
 ## Step
 
-- Anyone can call sendEther, even without any ETH
+- Anyone can call transferEther, even without any ETH
 
 #### Estimated
 
 - req
 ```javascript
-mutation sendEther {
+mutation transferEther {
   sendEther (input: {
     to: "0xc58716b864936b58f1f8188f0a4c83a7cae8afa6" # enduser_louise_add_1
     value: "1000000000000000" # 0.001 eth
