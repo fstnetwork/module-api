@@ -14,8 +14,8 @@
     }
   }
   ```
-  
-- HTTP Headers 
+
+- Please make the Authorization HTTP Header from the response
   ```
   {
     "authorization": "bearer $access_token"
