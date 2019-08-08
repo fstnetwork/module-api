@@ -7,9 +7,9 @@
   ```javascript
   mutation transferNonfungibleToken {
     erc721Transfer (input: {
-      contract: "0x0000000000000000000000000000000000009805",
-      to: "0x9ea175288fe328e2cc447bc406b26580caf4c703"
-      tokenID: "658968545"
+      contract: "0x0000000000000000000000000000000000009805", # address of the token to be transferred
+      to: "0x9ea175288fe328e2cc447bc406b26580caf4c703" # receiver address 
+      tokenID: "658968545" # non-fungible token id
     }){
       transaction
       submitToken
@@ -17,17 +17,22 @@
     }
   }
   ```
+- Parameter
+  - `contract` is the address of the ledger
+  - `tokenID` is required to identify a particular token
 
-
-#### S1.
+- Permission
+  - Master, Issuer and End User have permission to use this API
+<!-- 
+#### Method 1
 - Auth: Master (TEST)
   - mintIL
 - Auth: Issuer or End User
-  - transfer erc721
-    - signTx
+  - transferNonfungibleToken
+    - sign transaction
     - submitTx
 
-#### S2.
+#### Method 2
 - Auth: Issuer
   - publishNonFungibleVoucher
     - signTx
@@ -38,6 +43,6 @@
 - Auth: Issuer or End User
   - transfer erc721
     - signTx
-    - submitTx
+    - submitTx -->
 
 
