@@ -53,7 +53,7 @@ This directory contains 5 aspects of FST Engine APIs.
 - Query `READ`
   - [getAllUser](/Workshop/engine/getAllUser.md)
   - [getAllIssuer](/Workshop/engine/getAllIssuer.md)
-  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 - Mutation `CREATE`
@@ -61,10 +61,11 @@ This directory contains 5 aspects of FST Engine APIs.
   - [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
   - [mintIL](/Workshop/engine/mintIL.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [transferMasterToken](/Workshop/engine/transferMasterToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
@@ -84,7 +85,7 @@ This directory contains 5 aspects of FST Engine APIs.
     - Transfers
     - Transactions
   - [getAllUser](/Workshop/engine/getAllUser.md)
-  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 - Mutation `CREATE`
@@ -95,9 +96,10 @@ This directory contains 5 aspects of FST Engine APIs.
   - [publishNonFungibleVoucher](/Workshop/engine/publishNonFungibleVoucher.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - mintNonfungibleVoucher
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
@@ -106,13 +108,14 @@ This directory contains 5 aspects of FST Engine APIs.
 ## User
 (Authentication Required)
 - Query `READ`
-  - [ethereumKey](/Workshop/engine/ethereumKey.md)
+  - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 - Mutation `TRANSACT`
-  - [fillGas](/Workshop/engine/fillGas.md)
+  - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
   - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
+  - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
@@ -123,7 +126,7 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getBlockInfoByBlockNumber](/Workshop/explorer/getBlockInfoByBlockNumber.md)
   - [getBlocksInfo](/Workshop/explorer/getBlocksInfo.md)
   - [getTransactionInfoByHash](/Workshop/explorer/getTransactionInfoByHash.md)
-  - [getATransactionsInfo](/Workshop/explorer/getATransactionsInfo.md)
+  - [getAllTransactionsInfo](/Workshop/explorer/getAllTransactionsInfo.md)
   - [getAccountInfo](/Workshop/explorer/getAccountInfo.md)
   - [getFungibleTokenList](/Workshop/explorer/getFungibleTokenList.md)
   - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
