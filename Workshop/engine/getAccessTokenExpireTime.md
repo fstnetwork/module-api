@@ -1,5 +1,5 @@
 
-# Get the expire time
+# Get the expire time of the `access_token` (JWT)
 
 ## GraphQL API
 

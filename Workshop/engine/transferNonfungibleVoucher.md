@@ -1,14 +1,14 @@
-# Transfer Non-Fungible Token
+# Transfer Non-Fungible Voucher
 
 ## GraphQL API
 
 - Mutation Example
   ```javascript
-  mutation transferNonfungibleToken {
+  mutation transferNonfungibleVoucher {
     erc721Transfer (input: {
       contract: "0x0000000000000000000000000000000000009805" # The address of the ledger
       to: "0x9ea175288fe328e2cc447bc406b26580caf4c703" # The address of the receiver
-      tokenID: "658968545" # The unique ID of the non-fungible Token to be transferred
+      tokenID: "658968545" # The unique ID of the non-fungible Voucher to be transferred
     }){
       transaction
       submitToken

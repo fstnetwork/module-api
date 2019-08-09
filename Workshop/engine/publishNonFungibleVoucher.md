@@ -1,4 +1,4 @@
-# Publish NonFungible Voucher
+# Publish Non-Fungible Voucher
 
 ## GraphQL API
 
@@ -6,8 +6,8 @@
   ```javascript
   mutation publishNonFungibleVoucher {
     publishNonFungibleVoucher(input: {
-      name: "Blind NFT",
-      symbol: "BNFT",
+      name: "A NFT",
+      symbol: "ANFT",
       consumable: true,
       vendible: true
     }) {
@@ -16,8 +16,11 @@
       ethereumKey
     }
   }
-
   ```
 
+- Annotations for the parameters and attributes
+  - This ledger creation consumes 600 Master Service Gas
+  - The response of this API will contain `data.publishNonFungibleVoucher.transaction` and `data.publishNonFungibleVoucher.submitToken` for signing before submitting transaction
+
 - Permission
-  - Only Issuer has permission to use this API
+  - Only Issuer is permitted to invoke this API

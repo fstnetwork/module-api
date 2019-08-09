@@ -1,5 +1,5 @@
 
-# Get Nonfungible TokenURI Detail
+# Get Non-Fungible TokenURI Detail
 
 ## GraphQL API
 

@@ -1,5 +1,5 @@
 
-# Get Nonfungible Smart Voucher info
+# Get Non-Fungible Smart Voucher info
 
 ## GraphQL API
 

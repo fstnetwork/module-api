@@ -1,5 +1,5 @@
 
-# get Nonfungible Smart Voucher By Publisher
+# get Non-Fungible Smart Voucher By Publisher
 
 ## GraphQL API
 

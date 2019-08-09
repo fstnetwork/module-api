@@ -1,5 +1,4 @@
-
-# Create an Issuer and transfer asset
+# Create an Issuer and transfer essential assets to the Issuser
 
 ## GraphQL API
 
@@ -9,14 +8,14 @@
     createUserV2(
       input: {
         id: "issuer_abc"
-        password: "12345678"
-        userPassphrase: "12345678"
+        password: "A PASSWORD"
+        userPassphrase: "A PASSPHARSE"
         role: 1
-        etherValue: "2000000000000000" # Transfer 0.002 ether
-        masterTokenValue: "1000000000000000000000" # Transfer 1000 Master Token
-        tokenId: "658968545"
-        tokenUri: "658968545"
-        masterPassphrase: "12345678"
+        etherValue: "2000000000000000" # Transfer 0.002 Ether to the Issuer
+        masterTokenValue: "1000000000000000000000" # Transfer 1,000 Master Token to the Issuer
+        masterPassphrase: "A PASSPHARSE"
+        tokenId: "658968545" # Random unique string
+        tokenUri: "98db50f47eea00e8090d" # Random unique string
       }
     ) {
       uid
@@ -28,21 +27,15 @@
   }
   ```
 
-
-
-
-- Parameter
-  - `id` and `tokenId` is a global identifier
+- Annotations for the parameters and attributes
+  - `id` is a global identifier, it must be a unique string
   - `role`
-    - 0: Master (Master CANNOT be created by API.)
-    - 1: Issuer
-    - 2: End User
-  - `password` is required for sign in
-  - `userPassphrase` is for Issuer to decrypt Ethereum key JSON and sign the transaction
-  - `masterPassphrase` is Master's passphrase
-  - `tokenId` is required to identify a particular token
-  - `tokenUri` is Metadata JSON Schema
+    - 1 : Issuer
+  - `password` is required for sign in for this user
+  - `userPassphrase` is the passphrase for encrypting randomly created private key for this user
+  - `masterPassphrase` is Master's EthereumKey passphrase
+  - `tokenId` is a global identifier, it must be a unique string (This will be the unique Id of the newly-minted Ledger Initiation License)
+  - `tokenUri` is a global identifier, it must be a unique string (This will be the Metadata URI of the newly-minted Ledger Initiation License)
 
 - Permission
-  - Only Master can create Issuer
-  - Master and Issuer can create End User
+  - Only Master is permitted to invoke this API

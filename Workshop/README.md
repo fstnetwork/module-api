@@ -1,11 +1,9 @@
 # Workshop
-This directory contains 5 aspects of FST Engine APIs.
-
-![permission](/Workshop/images/permission.png)
+This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## Glossary
 
-- `Accountable Data Network`
+- `FST DataRail` / `Accountable Data Network`
   - An unique network mechanism that insures the consistency, insertion order and existence of any data.
 - `Address`
   - An entry on Accountable Data Network, each address can actually belong to one private key, but it is cryptographically difficult to be reverse-attacked, since the address is the hash of the public key, and there are 16^40 addresses available.
@@ -20,13 +18,13 @@ This directory contains 5 aspects of FST Engine APIs.
 - `ERC-1376`
   - An interface for advanced ledger operations and storage with optimisations and high-extensibility, compatible to ERC-20.
 - `Token / Smart Token / Fungible Token`
-  - An ERC-1376 implementation with fungible, 18-decimals ledger.
+  - An ERC-1376 implementation with fungible, 18-decimals ledger. (1 Token = 1 * (10^18) value stored in Token Ledger)
 - `Voucher / Smart Voucher / Fungible Voucher`
-  - An ERC-1376 implementation with fungible, 0-decimal ledger.
+  - An ERC-1376 implementation with fungible, 0-decimal ledger. (1 Voucher = 1  value stored in Voucher Ledger)
 - `EthereumKey / Wallet File / Key File / Key Storage`
-  - A JSON that contains encrypted ECDSA private key, the passphrase hashing is used with Scrypt/PBKDF2.
+  - A JSON that contains encrypted ECDSA private key (using AES-128 series), the passphrase hashing is used with Scrypt/PBKDF2.
 - `Gas / Fuel`
-  - A protocol-level and service-level gas that protects the entire Data Network from the DDOS attack, since any instruction on a Data Network must consume gas. In FST PPB/Engine, the protocol-gas is called Ether, and the service-gas is Master Service Gas.
+  - A protocol-level and service-level gas that protects the entire Data Network from the DDOS attack, since any instruction on a Data Network must consume gas. In FST DataRail/Engine, the protocol-gas is called Ether, and the service-gas is Master Service Gas.
 - `Transaction`
   - A data set contains digital-signature, timestamping, target address, gas amount and the bytecode to the Smart Contract.
 - `Transfer`
@@ -42,16 +40,35 @@ This directory contains 5 aspects of FST Engine APIs.
 - `End-User`
   - The common user that can use and control its own wallet.
 
+## Permissions and Auth Overview
+
+![permission](/Workshop/images/permission.png)
+
+## Common API Usage (**Important !**)
+
+ - FST Engine API utilises [GraphQL](https://graphql.org) to make complex data-integrations agiler, type-safer and clearer
+   - Please check and try immediately in your FST Engine GraphQL Playground provided by FST Network
+ - Please don't forget to set `Authorization` http header via [Auth](#Auth) before performing the operations that need to be authorised (also in GraphQL Playground)
+ - There are 3 common types of APIs in FST Engine: `READ`, `CREATE` and `TRANSACT`
+   - `READ` indicates that the operation **reads** data from Accountable Data Network (FST DataRail)
+   - `CREATE` indicates that the operation **creates** data (e.g. Smart Contracts, Ledgers) to Accountable Data Network (FST DataRail)
+   - `TRANSACT` indicates that the operation **updates** data to Accountable Data Network (FST DataRail)
+ - The APIs in `CREATE` type and `TRANSACT` type mostly require the **Transaction Signing** process with the API response
+   - Please see more details at [signTransactionExample.md](/Workshop/example/signTransactionExample.md)
+ - As for `READ` API, the pagination in this type of API follows the principle of GraphQL cursor-based pagination 
+   - In short, the `pageInfo.endCursor` in the response for current page will be the `after` in next page API call. And the `first` is equal to the `limit` in common databases usage
+
 ## Auth
-- Mutation
+(Authentication and Authorisation)
+- Mutation `AUTH`
   - [signIn](/Workshop/signin/signIn.md)
 - Query `READ` (Authentication Required)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 ## Master
-(Authentication Required)
+([Auth](#Auth) is required)
 - Query `READ`
-  - [getAllUser](/Workshop/engine/getAllUser.md)
+  - [getAllEndUser](/Workshop/engine/getAllEndUser.md)
   - [getAllIssuer](/Workshop/engine/getAllIssuer.md)
   - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
@@ -63,7 +80,7 @@ This directory contains 5 aspects of FST Engine APIs.
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
   - [mintIL](/Workshop/engine/mintIL.md)
-  - [transferETH](/Workshop/engine/transferETH.md)
+  - [transferEther](/Workshop/engine/transferEther.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -72,7 +89,7 @@ This directory contains 5 aspects of FST Engine APIs.
 
 
 ## Issuer
-(Authentication Required)
+([Auth](#Auth) is required)
 - Query `READ`
   - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
     - info
@@ -84,7 +101,7 @@ This directory contains 5 aspects of FST Engine APIs.
     - holders
     - Transfers
     - Transactions
-  - [getAllUser](/Workshop/engine/getAllUser.md)
+  - [getAllEndUser](/Workshop/engine/getAllEndUser.md)
   - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
@@ -97,7 +114,7 @@ This directory contains 5 aspects of FST Engine APIs.
 
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
-  - [transferETH](/Workshop/engine/transferETH.md)
+  - [transferEther](/Workshop/engine/transferEther.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -106,14 +123,14 @@ This directory contains 5 aspects of FST Engine APIs.
 
 
 ## User
-(Authentication Required)
+([Auth](#Auth) is required)
 - Query `READ`
   - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
 
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
-  - [transferETH](/Workshop/engine/transferETH.md)
+  - [transferEther](/Workshop/engine/transferEther.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -121,7 +138,7 @@ This directory contains 5 aspects of FST Engine APIs.
 
 
 ## Explorer
-(Authentication NOT Required)
+(Auth is NOT required))
 - Query `READ`
   - [getBlockInfoByBlockNumber](/Workshop/explorer/getBlockInfoByBlockNumber.md)
   - [getBlocksInfo](/Workshop/explorer/getBlocksInfo.md)
@@ -155,4 +172,3 @@ This directory contains 5 aspects of FST Engine APIs.
   - [getAllNonfungibleSmartVoucher](/Workshop/explorer/getAllNonfungibleSmartVoucher.md)
   - [getNonfungibleSmartVoucherByPublisher](/Workshop/explorer/getNonfungibleSmartVoucherByPublisher.md)
   - [getNonfungibleSmartVoucherByTransaction](/Workshop/explorer/getNonfungibleSmartVoucherByTransaction.md)
-
