@@ -6,7 +6,7 @@
   ```javascript
   mutation mintIL {
     mintIL(input: {
-      to: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8"
+      to: "0xcb69b95f72d1b1f373d956d95f216492a7ea26c8" # The address of the receiver
       tokenId: "658968545" # Random unique string
       tokenUri: "98db50f47eea00e8090d" # Random unique string
     }){
