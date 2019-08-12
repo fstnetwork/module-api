@@ -19,6 +19,7 @@
           lastName
           email
           phone
+          address
         }
       }
       totalCount
