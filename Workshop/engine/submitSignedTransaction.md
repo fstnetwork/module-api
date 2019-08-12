@@ -8,7 +8,7 @@
     submitTransaction(
       input: {
         signedTx: "..." # A hex string starts with "0x"
-        submitToken: "...." A JWT string contains the info of this transaction
+        submitToken: "...." # A JWT string contains the info of this transaction
       }
     ) {
       transactionHash
