@@ -122,7 +122,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
   - [submitSignedTransaction](/Workshop/engine/submitSignedTransaction.md)
 
 
-## User
+## End-User
 ([Auth](#Auth) is required)
 - Query `READ`
   - [getEthereumKey](/Workshop/engine/getEthereumKey.md)

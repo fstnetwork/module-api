@@ -1,5 +1,5 @@
 
-# Get all Fungible Voucher
+# Get all fungible Voucher
 
 ## GraphQL API
 

@@ -1,5 +1,5 @@
 
-# Get all Fungible Token transfer history
+# Get all fungible Token transfer history
 
 ## GraphQL API
 
