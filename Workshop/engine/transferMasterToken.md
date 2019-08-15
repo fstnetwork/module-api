@@ -18,7 +18,7 @@
 
 - Annotations for the parameters and attributes
   - This API is used mostly for replenishing the Issuer with Master Token, which means the Master authorises the Issuer (as a kind of certificate) and allows the Issuer can purchase Master Service Gas
-  - If Master needs Master Token to operate this `transferMasterToken` API (The Master Token is locked in a Special Multi-Sig Escrow for security), Master can assign its own address into the `issuer` param 
+  - If Master needs to hold Master Token on its own (The Master Token is locked in a Special Multi-Sig Escrow for security), Master can assign its own address into the `issuer` param 
   - The response of this API will contain `data.transferMasterToken.transaction` and `data.transferMasterToken.submitToken` for signing before submitting transaction
 
 - Permission
