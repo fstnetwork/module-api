@@ -80,7 +80,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
   - [mintIL](/Workshop/engine/mintIL.md)
-  - [transferEther](/Workshop/engine/transferEther.md)
+  - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -114,7 +114,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
-  - [transferEther](/Workshop/engine/transferEther.md)
+  - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
@@ -130,7 +130,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 - Mutation `TRANSACT`
   - [purchaseMasterServiceGas](/Workshop/engine/purchaseMasterServiceGas.md)
-  - [transferEther](/Workshop/engine/transferEther.md)
+  - [transferETH](/Workshop/engine/transferETH.md)
   - [transferFungibleToken](/Workshop/engine/transferFungibleToken.md)
   - [transferFungibleVoucher](/Workshop/engine/transferFungibleVoucher.md)
   - [transferNonfungibleToken](/Workshop/engine/transferNonfungibleToken.md)
