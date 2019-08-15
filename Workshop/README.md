@@ -138,7 +138,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 
 ## Explorer
-(Auth is NOT required))
+(Auth is NOT required)
 - Query `READ`
   - [getBlockInfoByBlockNumber](/Workshop/explorer/getBlockInfoByBlockNumber.md)
   - [getBlocksInfo](/Workshop/explorer/getBlocksInfo.md)
