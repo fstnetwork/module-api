@@ -60,6 +60,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## Auth
 (Authentication and Authorisation)
+- End point `/signin`
 - Mutation `AUTH`
   - [signIn](/Workshop/signin/signIn.md)
 - Query `READ` (Authentication Required)
@@ -67,6 +68,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## Master
 ([Auth](#Auth) is required)
+- End point `/api`
 - Query `READ`
   - [getAllEndUser](/Workshop/engine/getAllEndUser.md)
   - [getAllIssuer](/Workshop/engine/getAllIssuer.md)
@@ -90,6 +92,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## Issuer
 ([Auth](#Auth) is required)
+- End point `/api`
 - Query `READ`
   - [getFungibleTokenBasic](/Workshop/explorer/getFungibleTokenBasic.md)
     - info
@@ -124,6 +127,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## End-User
 ([Auth](#Auth) is required)
+- End point `/api`
 - Query `READ`
   - [getEthereumKey](/Workshop/engine/getEthereumKey.md)
   - [getAccessTokenExpireTime](/Workshop/engine/getAccessTokenExpireTime.md)
@@ -139,6 +143,7 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 ## Explorer
 (Auth is NOT required)
+- End point `/explorer`
 - Query `READ`
   - [getBlockInfoByBlockNumber](/Workshop/explorer/getBlockInfoByBlockNumber.md)
   - [getBlocksInfo](/Workshop/explorer/getBlocksInfo.md)
