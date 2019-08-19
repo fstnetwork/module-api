@@ -3,6 +3,7 @@
 
 ## GraphQL API
 
+- End point `/signin`
 - Mutation Example
   ```javascript
   mutation signIn{
