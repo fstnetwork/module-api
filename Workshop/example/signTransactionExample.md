@@ -65,6 +65,8 @@ SUBMIT_TRASACTION({ signedTx, submitToken }).then(resp =>
 
 Java (Please notice the critical part)
 
+> For full working example, please refer to [jvm-example](/Workshop/example/jvm-example/src/main/java/network/fst/example/JavaExample.java)
+
 ```java
 package network.fst.example;
 
