@@ -63,9 +63,9 @@ SUBMIT_TRASACTION({ signedTx, submitToken }).then(resp =>
 );
 ```
 
-Java (Please notice the critical part)
+Java (Please only notice the critical part)
 
-> For full working example, please refer to [jvm-example](/Workshop/example/jvm-example/src/main/java/network/fst/example/JavaExample.java)
+> For full working example, please refer to [jvm-example](/Workshop/example/jvm-example)
 
 ```java
 package network.fst.example;
@@ -116,7 +116,9 @@ public class JavaExample implements Example {
             JsonNode sendEtherResponse = this.apiClient.sendGraphqlRequest(sendEtherRequest, Option.apply(this.bearerToken));
             JsonNode data = sendEtherResponse.path("data").path("sendEther");
 
-            // CRITICAL PART STARTS HERE
+            /////////////////////////////////////
+            // CRITICAL PART STARTS HERE ////////
+            /////////////////////////////////////
 
             log.info("decrypt ethereum key...");
             JsonNode keyJson = data.path("ethereumKey");
@@ -139,7 +141,9 @@ public class JavaExample implements Example {
             long chainId = Numeric.toBigInt(txJson.path("chainId").textValue()).longValueExact();
             byte[] signedTx = TransactionEncoder.signMessage(tx, chainId, credential);
 
-            // CRITICAL PART ENDS HERE
+            /////////////////////////////////////
+            // CRITICAL PART ENDS HERE /
+            /////////////////////////////////////
 
             // please do not forget to attach submitToken from the response of mutation
             log.info("submit transaction...");
