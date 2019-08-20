@@ -1,5 +1,7 @@
 ## Signing Transaction Example code
 
+JavaScript
+
 ```javascript
 // This example demostrates how to sign a Transaction Object responded from FST Engine API
 // Please see more details at https://github.com/fstnetwork/eth-key-lib-js
@@ -59,4 +61,104 @@ SUBMIT_TRASACTION({ signedTx, submitToken }).then(resp =>
   // The hash of the transaction
   console.log(resp.data.submitTransaction.transactionHash)
 );
+```
+
+Java (Please notice the critical part)
+
+```java
+package network.fst.example;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+// web3j library (https://github.com/web3j/web3j)
+import org.web3j.crypto.*;
+import org.web3j.utils.Numeric;
+
+import java.math.BigInteger;
+
+public class JavaExample implements Example {
+    private static final Logger log = LoggerFactory.getLogger(JavaExample.class);
+
+    private String bearerToken;
+    private String address;
+
+    public void runExample() {
+        // send ether to receiver
+        // 1 * 10e-18 ether
+        BigInteger value = new BigInteger("1");
+        String txHash = sendEther("RECEIVER_ADDRESS", value, "MY_PASSPHARSE");
+        System.out.println(
+                "Please verify your transaction result on:\n" +
+                        "https://explorer.[DOMAIN].workshop.fst.network/tx/" + txHash);
+    }
+
+    private String sendEther(String to, BigInteger value, String passphrase) {
+        try {
+            log.info("call sendEther api...");
+            
+            // please do not forget to call mutation api with bearer token
+            GraphQLRequest<Input<SendEther>> sendEtherRequest = GraphQLRequest.apply(
+                    "mutation SendEther($input: EtherTransferInput!) {" +
+                            "  sendEther(input: $input) {" +
+                            "    transaction" +
+                            "    submitToken" +
+                            "    ethereumKey" +
+                            "  }" +
+                            "}",
+                    new Input<>(new SendEther(to, value.toString()))
+            );
+            JsonNode sendEtherResponse = this.apiClient.sendGraphqlRequest(sendEtherRequest, Option.apply(this.bearerToken));
+            JsonNode data = sendEtherResponse.path("data").path("sendEther");
+
+            // CRITICAL PART STARTS HERE
+
+            log.info("decrypt ethereum key...");
+            JsonNode keyJson = data.path("ethereumKey");
+            // DefaultObjectMapper extends com.fasterxml.jackson.databind.ObjectMapper 
+            WalletFile walletFile = DefaultObjectMapper.treeToValue(keyJson, WalletFile.class);
+            Credentials credential = Credentials.create(Wallet.decrypt(passphrase, walletFile));
+
+            log.info("deserialize transaction...");
+            JsonNode txJson = data.path("transaction");
+            RawTransaction tx = RawTransaction.createTransaction(
+                    Numeric.toBigInt(txJson.path("nonce").textValue()),
+                    Numeric.toBigInt(txJson.path("gasPrice").textValue()),
+                    Numeric.toBigInt(txJson.path("gas").textValue()),
+                    txJson.path("to").textValue(),
+                    Numeric.toBigInt(txJson.path("value").textValue()),
+                    txJson.path("data").textValue()
+            );
+
+            log.info("signing transaction...");
+            long chainId = Numeric.toBigInt(txJson.path("chainId").textValue()).longValueExact();
+            byte[] signedTx = TransactionEncoder.signMessage(tx, chainId, credential);
+
+            // CRITICAL PART ENDS HERE
+
+            // please do not forget to attach submitToken from the response of mutation
+            log.info("submit transaction...");
+            String submitToken = data.path("submitToken").asText();
+            GraphQLRequest submitTransactionRequest = GraphQLRequest.apply(
+                    "mutation SubmitTransaction($input: SubmitTransactionInput!) {" +
+                            "  submitTransaction(input: $input) {" +
+                            "    transactionHash" +
+                            "  }" +
+                            "}",
+                    new Input<>(new SubmitTransaction(Numeric.toHexString(signedTx), submitToken))
+            );
+            JsonNode submitTransactionResponse = apiClient.sendGraphqlRequest(submitTransactionRequest, Option.apply(this.bearerToken));
+            return submitTransactionResponse.path("data").path("submitTransaction").path("transactionHash").asText();
+
+        } catch (CipherException e) {
+            throw new RuntimeException("fail to decrypt key", e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("fail to deserialize json", e);
+        }
+    }
+}
+
 ```
