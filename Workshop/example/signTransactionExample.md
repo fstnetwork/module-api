@@ -142,7 +142,7 @@ public class JavaExample implements Example {
             byte[] signedTx = TransactionEncoder.signMessage(tx, chainId, credential);
 
             /////////////////////////////////////
-            // CRITICAL PART ENDS HERE /
+            // CRITICAL PART ENDS HERE //////////
             /////////////////////////////////////
 
             // please do not forget to attach submitToken from the response of mutation
