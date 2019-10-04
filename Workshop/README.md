@@ -110,7 +110,6 @@ This Quick-Start Workshop covers the essentials of FST Engine APIs.
 
 - Mutation `CREATE`
   - [createUser](/Workshop/engine/createUser.md)
-  - [createUserAndTransferAsset](/Workshop/engine/createUserAndTransferAsset.md)
   - [issueToken](/Workshop/engine/issueToken.md)
   - [publishFungibleVoucher](/Workshop/engine/publishFungibleVoucher.md)
   - [publishNonFungibleVoucher](/Workshop/engine/publishNonFungibleVoucher.md)
